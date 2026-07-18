@@ -1,0 +1,33 @@
+@import "../../node_modules/bootstrap/scss/functions";
+@import 'helpers/variables';
+@import "../../node_modules/bootstrap/scss/mixins";
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+@import 'layout/custom';
+@import 'layout/home-footer';
+@import 'pages/home';
+
+/* 愛心跳動動畫 */
+.heart-bounce,
+.cart-bounce {
+  animation: heartBeat 0.4s ease-in-out;
+}
+
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.4); /* 瞬間放大 */
+  }
+  50% {
+    transform: scale(0.9); /* 微幅縮小回彈 */
+  }
+  75% {
+    transform: scale(1.1); /* 再次微幅放大 */
+  }
+  100% {
+    transform: scale(1); /* 恢復原狀 */
+  }
+}

@@ -1,0 +1,26 @@
+.quick-guide {
+  min-height: 142px;
+  display: grid;
+  grid-template-columns: .8fr repeat(3, 1fr);
+  align-items: center;
+  gap: 0;
+  padding: 0 clamp(28px, 5vw, 92px);
+  background: #123653;
+  color: #fff;
+}
+
+.quick-guide > p { margin: 0; color: rgba(255, 255, 255, .72); font-size: 16px; font-weight: 700; letter-spacing: .2em; }
+.quick-guide > div { min-height: 65px; display: grid; grid-template-columns: 42px 1fr; align-content: center; padding-left: 28px; border-left: 1px solid rgba(255,255,255,.22); }
+.quick-guide div > span { grid-row: 1 / 3; color: #fff4bd; font-size: 15px; font-weight: 700; }
+.quick-guide strong { font-size: 18px; letter-spacing: .05em; }
+.quick-guide small { margin-top: 6px; color: rgba(255,255,255,.68); font-size: 15px; }
+
+@media (min-width: 1121px) {
+  .quick-guide { position: relative; z-index: 4; margin-top: -190px; }
+}
+
+@media (max-width: 760px) {
+  .quick-guide { grid-template-columns: 1fr; gap: 0; padding-block: 20px; }
+  .quick-guide > p { padding: 0 0 14px; }
+  .quick-guide > div { min-height: 62px; padding-left: 0; border-left: 0; border-top: 1px solid rgba(255,255,255,.22); }
+}
