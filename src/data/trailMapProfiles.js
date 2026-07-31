@@ -3,11 +3,13 @@ const p = (courses, lifts, layout, options = {}) => ({ courses, lifts, layout, .
 // Each entry represents the scale and broad mountain arrangement of that resort.
 // Detailed named maps can override this profile with a dedicated SVG renderer.
 export const trailMapProfiles = {
+  "かもい岳国際スキー場": p(5, 2, "compact", { zones: 1, summit: 0.52 }),
   "Niseko Tokyu Grand HIRAFU": p(22, 12, "wide", { zones: 3, summit: 0.5 }),
   "Niseko Village": p(27, 9, "vertical", { zones: 3, summit: 0.48 }),
   "Niseko Annupuri": p(13, 6, "fan", { zones: 2, summit: 0.46 }),
   "Niseko Hanazono": p(12, 4, "ridge-right", { zones: 2, summit: 0.38 }),
   "Niseko Moiwa": p(8, 4, "compact", { zones: 2, summit: 0.54 }),
+  "幌立滑雪場": p(4, 1, "steep-left", { zones: 2, summit: 0.53 }),
   "小樽天狗山滑雪場": p(5, 3, "steep-left", { zones: 1, summit: 0.43 }),
   "朝里川溫泉滑雪場": p(9, 5, "fan", { zones: 2, summit: 0.5 }),
   "Snow Cruise Onze": p(8, 2, "wide", { zones: 1, summit: 0.57 }),
@@ -19,7 +21,8 @@ export const trailMapProfiles = {
   "暑寒別岳滑雪場": p(2, 1, "compact", { zones: 1, summit: 0.5 }),
   "Kamui Ski Links": p(25, 6, "wide", { zones: 3, summit: 0.48 }),
   "Santa Present Park": p(6, 3, "santa", { zones: 2, summit: 0.41 }),
-  "伊之澤市民滑雪場": p(1, 1, "single", { zones: 1, summit: 0.5 }),
+  "伊ノ沢市民スキー場": p(1, 1, "single", { zones: 1, summit: 0.5 }),
+  "比布滑雪場": p(9, 3, "wide", { zones: 2, summit: 0.48 }),
   "當麻山滑雪場": p(3, 1, "compact", { zones: 1, summit: 0.47 }),
   "Canmore Ski Village": p(6, 2, "fan", { zones: 2, summit: 0.53 }),
   "旭岳 Ropeway 滑雪路線": p(4, 1, "alpine", { zones: 2, summit: 0.5 }),

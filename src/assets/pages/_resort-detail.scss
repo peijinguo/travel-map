@@ -7,6 +7,7 @@
 }
 
 .resort-detail-hero {
+  position: relative;
   max-width: 1180px;
   display: flex;
   align-items: center;
@@ -19,18 +20,84 @@
   background: #123653;
   color: #fff;
   box-shadow: 0 24px 60px rgba(18, 54, 83, .14);
+  transition: padding .28s ease, border-radius .28s ease, box-shadow .28s ease;
 }
 
-.back-to-map { display: inline-block; margin-bottom: 32px; color: #b8d5e8; font-size: 15px; font-weight: 700; text-decoration: none; }
+.back-to-map { display: inline-block; margin-bottom: 32px; color: #b8d5e8; font-size: 17px; font-weight: 700; text-decoration: none; }
 .back-to-map:hover { color: #fff; }
-.resort-location { margin: 0 0 10px; color: #8fb3c9; font-size: 14px; font-weight: 800; letter-spacing: .12em; }
+.resort-location { margin: 0 0 10px; color: #8fb3c9; font-size: 17px; font-weight: 800; letter-spacing: .12em; }
 .resort-detail-hero h1 { max-width: 820px; margin: 0; font-size: clamp(34px, 4vw, 58px); font-weight: 900; line-height: 1.15; letter-spacing: -.04em; }
 .resort-intro { margin: 18px 0 0; color: #c0d3df; font-size: 17px; }
+.favorite-resort-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 22px;
+  padding: 11px 18px;
+  border: 2px solid #ffd563;
+  border-radius: 999px;
+  background: transparent;
+  color: #fff8dc;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: color .2s ease, background .2s ease, transform .2s ease;
+}
+.favorite-resort-button span { color: #ef7f9a; font-size: 22px; line-height: 1; }
+.favorite-resort-button:hover { background: rgba(255, 213, 99, .14); transform: translateY(-2px); }
+.favorite-resort-button.is-favorite { background: #ffd563; color: #123653; }
+.favorite-resort-button.is-favorite span { color: #e85d82; }
+.favorite-resort-button:focus-visible { outline: 3px solid rgba(255, 255, 255, .65); outline-offset: 4px; }
 .resort-hero-motif { width: 124px; height: 124px; display: grid; flex: 0 0 124px; place-items: center; border-radius: 32px; background: #fff9ed; color: #283033; transform: rotate(3deg); }
 .resort-hero-motif .hand-motif { width: 82px; height: 82px; }
+.compact-resort-hero {
+  position: fixed;
+  z-index: 30;
+  top: 102px;
+  right: clamp(24px, 6vw, 96px);
+  left: clamp(24px, 6vw, 96px);
+  max-width: 1180px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 0 auto;
+  padding: 18px 30px;
+  border-radius: 22px;
+  background: #123653;
+  color: #fff;
+  box-shadow: 0 14px 34px rgba(18, 54, 83, .18);
+  animation: compact-resort-hero-in .28s cubic-bezier(.22, .8, .3, 1) both;
+}
+@keyframes compact-resort-hero-in {
+  from { opacity: 0; transform: translateY(-14px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .compact-resort-hero { animation: none; }
+}
+.compact-resort-hero .resort-location { margin: 0 0 4px; color: #8fb3c9; font-size: 12px; }
+.compact-resort-hero h1 { margin: 0; font-size: clamp(24px, 3vw, 38px); font-weight: 900; line-height: 1.15; letter-spacing: -.04em; }
+.compact-resort-hero .resort-hero-motif { width: 68px; height: 68px; flex-basis: 68px; border-radius: 18px; transform: rotate(3deg) scale(.96); }
+.compact-resort-hero .resort-hero-motif .hand-motif { width: 46px; height: 46px; }
+.resort-detail-hero > div:first-child,
+.resort-detail-hero h1,
+.resort-detail-hero .back-to-map,
+.resort-detail-hero .resort-location,
+.resort-detail-hero .resort-intro,
+.resort-detail-hero .favorite-resort-button,
+.resort-hero-motif { transition: margin .28s ease, font-size .28s ease, line-height .28s ease, width .28s ease, height .28s ease, flex-basis .28s ease, border-radius .28s ease, opacity .2s ease, transform .28s ease; }
+.resort-detail-hero.is-compact { gap: 24px; padding: 18px 30px; border-radius: 22px; box-shadow: 0 14px 34px rgba(18, 54, 83, .18); }
+.resort-detail-hero.is-compact .back-to-map,
+.resort-detail-hero.is-compact .resort-intro,
+.resort-detail-hero.is-compact .favorite-resort-button { display: none; }
+.resort-detail-hero.is-compact .resort-location { margin-bottom: 4px; font-size: 12px; }
+.resort-detail-hero.is-compact h1 { font-size: clamp(24px, 3vw, 38px); }
+.resort-detail-hero.is-compact .resort-hero-motif { width: 68px; height: 68px; flex-basis: 68px; border-radius: 18px; transform: rotate(3deg) scale(.96); }
+.resort-detail-hero.is-compact .resort-hero-motif .hand-motif { width: 46px; height: 46px; }
 
 .resort-info-grid { max-width: 1180px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; margin-inline: auto; align-items: stretch; }
-.trail-card { grid-column: 1 / -1; }
+.trail-card { min-width: 0; grid-column: 1 / -1; }
 .resort-weather-column { min-width: 0; display: grid; grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: stretch; gap: 24px; }
 .resort-info-card, .snow-forecast-card { border: 1px solid #dce8ee; border-radius: 28px; background: #fff; box-shadow: 0 18px 50px rgba(45, 91, 117, .08); }
 .resort-info-card { min-height: 390px; padding: 32px; }
@@ -38,7 +105,181 @@
 .resort-info-card h2, .snow-forecast-card h2 { margin: 0; color: #123653; font-size: 30px; font-weight: 900; }
 
 .trail-sketch { position: relative; height: clamp(360px, 48vw, 610px); margin: 24px 0 17px; overflow: hidden; border-radius: 20px; background: #dff1f7; }
+.trail-sketch:has(.zao-sarukura-map) { width: 100%; min-width: 0; max-width: 100%; height: auto; aspect-ratio: 960 / 560; }
+.official-trail-map { margin: 24px 0 17px; }
+.official-trail-map > a { display: block; overflow: hidden; border: 1px solid #dce8ee; border-radius: 20px; background: #dff1f7; }
+.official-trail-map img { display: block; width: 100%; height: auto; transition: transform .25s ease; }
+.official-trail-map > a:hover img { transform: scale(1.01); }
+.official-trail-map figcaption { margin-top: 10px; text-align: right; }
+.official-trail-map figcaption a { color: #2f6f91; font-size: 14px; font-weight: 800; text-decoration: none; }
+.official-trail-map figcaption a:hover { text-decoration: underline; }
 .cartoon-trail-map { width: 100%; height: 100%; display: block; }
+.kamoi-trail-map { font-family: "DM Sans", "Noto Sans JP", "Noto Sans TC", sans-serif; }
+.kamoi-ridge { fill: none; stroke: #293e46; stroke-width: 6; stroke-linecap: round; }
+.kamoi-forest { fill: url(#kamoi-trees); opacity: .92; }
+.kamoi-slope { fill: url(#kamoi-snow); stroke: #4e6670; stroke-width: 3; }
+.kamoi-course { fill: none; stroke: var(--kamoi-course); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+.kamoi-course-label circle { stroke: #fff; stroke-width: 3; }
+.kamoi-course-label text { fill: #fff; font-size: 14px; font-weight: 900; }
+.kamoi-lift-label rect, .kamoi-lift-route-label rect { fill: rgba(255,255,255,.94); stroke: #496b78; stroke-width: 1.3; }
+.kamoi-lift-label text, .kamoi-lift-route-label text { fill: #31586a; font-size: 9px; font-weight: 900; }
+.kamoi-base path { fill: #b77c50; stroke: #354d59; stroke-width: 2.3; stroke-linejoin: round; }
+.kamoi-base text, .kamoi-note { fill: #3c5c6d; font-size: 9px; font-weight: 800; }
+.kamoi-title rect, .kamoi-legend rect { fill: rgba(255,255,255,.95); stroke: #354d59; stroke-width: 2; }
+.kamoi-title text { fill: #24476a; font-size: 18px; font-weight: 900; letter-spacing: .06em; }
+.kamoi-title .kamoi-title-sub { fill: #678595; font-size: 10px; letter-spacing: .03em; }
+.kamoi-legend text { fill: #36586a; font-size: 11px; font-weight: 900; }
+.kamoi-peak path { fill: #354d59; stroke: #fff; stroke-width: 1.4; }
+.kamoi-peak text { fill: #294e61; font-size: 11px; font-weight: 900; paint-order: stroke; stroke: #fff; stroke-width: 3px; }
+.kamoi-specs > rect { fill: rgba(255,255,255,.95); stroke: #354d59; stroke-width: 2; }
+.kamoi-specs text { fill: #3c5c6d; font-size: 14px; font-weight: 800; text-anchor: middle; }
+.kamoi-specs .kamoi-spec-name { font-size: 15px; font-weight: 900; }
+.kamoi-specs .kamoi-spec-stat { fill: #718b99; font-size: 12px; }
+.lift-route-section { margin-top: 28px; padding-top: 26px; border-top: 1px solid #dce8ee; }
+.lift-route-heading .card-kicker { margin: 0 0 8px; }
+.lift-route-heading h3 { margin: 0; color: #123653; font-size: 30px; font-weight: 900; }
+.lift-route-sketch { height: clamp(240px, 29vw, 340px); margin-top: 16px; overflow: hidden; border: 1px solid #d5e8ee; border-radius: 20px; background: #e8f6fa; }
+.lift-route-map { width: 100%; height: 100%; display: block; font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.lift-route-ridge { fill: #d6e8ec; stroke: #9ab9c3; stroke-width: 2; }
+.lift-route-base { fill: #f8fcfd; stroke: #c5dfe6; stroke-width: 2; }
+.lift-route-line line { stroke: #e96b3d; stroke-width: 4; stroke-dasharray: 9 6; stroke-linecap: round; }
+.lift-route-line > circle:not(.lift-route-station) { fill: #f6c45a; stroke: #334e5d; stroke-width: 1.5; }
+.lift-route-station { fill: #31586b; stroke: #fff; stroke-width: 3; }
+.lift-route-legend rect { fill: rgba(255,255,255,.95); stroke: #94b6c1; stroke-width: 1.5; }
+.lift-route-legend text { fill: #31586b; font-size: 12px; font-weight: 800; }
+.lift-route-legend text:first-of-type { font-size: 14px; letter-spacing: .08em; }
+.lift-route-legend line { stroke: #e96b3d; stroke-width: 4; stroke-dasharray: 9 6; }
+.lift-route-legend circle { fill: #f6c45a; stroke: #334e5d; stroke-width: 1.5; }
+.lift-route-note { fill: #668396; font-size: 12px; font-weight: 700; }
+.kamui-lift-status { margin-top: 16px; overflow: hidden; border: 1px solid #d5e8ee; border-radius: 20px; background: #f8fcfd; }
+.kamui-lift-status-summary { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 18px 20px; border-bottom: 1px solid #dce8ee; background: #eef7fa; }
+.kamui-lift-status-summary > div { display: flex; align-items: center; gap: 12px; }
+.kamui-lift-status-summary strong, .kamui-lift-status-summary small { display: block; }
+.kamui-lift-status-summary strong { color: #123653; font-size: 18px; }
+.kamui-lift-status-summary small { margin-top: 2px; color: #668396; font-size: 11px; font-weight: 800; letter-spacing: .08em; }
+.kamui-lift-status-summary a { flex: 0 0 auto; color: #2f6f91; font-size: 14px; font-weight: 800; text-decoration: none; }
+.kamui-lift-status-summary a:hover { text-decoration: underline; }
+.kamui-status-dot { width: 13px; height: 13px; flex: 0 0 13px; border-radius: 50%; background: #788b96; box-shadow: 0 0 0 5px rgba(120,139,150,.15); }
+.appi-lift-status-map { margin: 0; padding: 18px 20px 15px; border-bottom: 1px solid #dce8ee; background: #fff; }
+.appi-lift-status-map > a { display: block; overflow: hidden; border: 1px solid #d5e8ee; border-radius: 15px; background: #eef7fa; }
+.appi-lift-status-map-canvas { position: relative; display: block; overflow: hidden; aspect-ratio: 1980 / 1080; }
+.appi-lift-status-map-base { display: block; width: 100%; height: auto; transition: transform .25s ease; }
+.appi-course-status-layer, .appi-lift-status-layer { position: absolute; display: block; height: auto; pointer-events: none; transition: transform .25s ease; }
+.appi-course-status-layer { z-index: 1; }
+.appi-lift-status-layer { z-index: 2; }
+.appi-lift-status-map-date { position: absolute; z-index: 3; top: 1.5%; left: 1.5%; padding: .6em .9em; background: rgba(255,255,255,.78); color: #263b48; font-size: clamp(10px, 1.5vw, 19px); font-weight: 900; line-height: 1; pointer-events: none; }
+.appi-lift-status-map > a:hover .appi-lift-status-map-base, .appi-lift-status-map > a:hover .appi-course-status-layer, .appi-lift-status-map > a:hover .appi-lift-status-layer { transform: scale(1.01); }
+.appi-lift-status-map figcaption { margin-top: 9px; text-align: right; }
+.appi-lift-status-map figcaption a { color: #2f6f91; font-size: 13px; font-weight: 800; text-decoration: none; }
+.appi-lift-status-map figcaption a:hover { text-decoration: underline; }
+.zao-live-lift-map { width: 100%; height: clamp(480px, 62vw, 720px); overflow: hidden; border: 1px solid #d5e8ee; border-radius: 15px; background: #e7f1e3; touch-action: none; }
+.zao-live-lift-map .maplibregl-canvas-container, .zao-live-lift-map .maplibregl-canvas { cursor: grab; touch-action: none; }
+.zao-live-lift-map .maplibregl-canvas:active { cursor: grabbing; }
+.zao-lift-status-map figcaption { color: #668396; line-height: 1.55; }
+.kamui-lift-status ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; margin: 0; padding: 0; list-style: none; }
+.kamui-lift-status li { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-width: 0; padding: 16px 20px; border-bottom: 1px solid #e3edf1; }
+.kamui-lift-status li:nth-child(odd) { border-right: 1px solid #e3edf1; }
+.kamui-lift-status li strong, .kamui-lift-status li small { display: block; }
+.kamui-lift-status li strong { color: #123653; font-size: 15px; }
+.kamui-lift-status li small { margin-top: 2px; color: #78909e; font-size: 11px; }
+.kamui-lift-closed { flex: 0 0 auto; padding: 5px 9px; border-radius: 999px; background: #e9eef1; color: #536a77; font-size: 11px; font-weight: 900; letter-spacing: .05em; }
+.kamui-lift-closed.is-open { background: #ffe2df; color: #c82f28; }
+.kamui-status-dot.is-open { background: #e53935; box-shadow: 0 0 0 5px rgba(229,57,53,.15); }
+.kamui-lift-status > p { margin: 0; padding: 13px 20px 15px; color: #668396; font-size: 12px; line-height: 1.6; }
+.hirafu-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.hirafu-back-ridge { fill: #c7e0e8; stroke: #8aadb9; stroke-width: 2; }
+.hirafu-forest, .hirafu-tree-island { fill: url(#hirafu-trees); }
+.hirafu-forest { opacity: .96; }
+.hirafu-tree-island { stroke: #39785b; stroke-width: 1.5; }
+.hirafu-slope { fill: url(#hirafu-snow); stroke: #729ba9; stroke-width: 2.5; }
+.hirafu-course { fill: none; stroke: var(--hirafu-course); stroke-width: 5.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 3 10; }
+.hirafu-lift > line { stroke: #354d59; stroke-width: 4; }
+.hirafu-lift g line, .hirafu-lift g path { fill: none; stroke: #354d59; stroke-width: 2; stroke-linecap: round; }
+.hirafu-lift--gondola rect { fill: #efb84d; stroke: #354d59; stroke-width: 2; }
+.hirafu-live-status-key rect, .hirafu-lift-status-marker rect { fill: rgba(255,255,255,.96); stroke: #486b7b; stroke-width: 1.5; }
+.hirafu-live-status-key circle, .hirafu-lift-status-marker circle { fill: #9db2be; stroke: #fff; stroke-width: 2; }
+.hirafu-live-status-key text { fill: #31586a; font-size: 9px; font-weight: 900; letter-spacing: .04em; }
+.hirafu-lift-status-marker text { fill: #31586a; font-size: 7px; font-weight: 900; letter-spacing: .02em; }
+.hirafu-lift-status-marker:hover circle { fill: #e96b3d; }
+.hirafu-lift-status-marker:hover rect { fill: #fff8df; stroke: #e96b3d; }
+.hirafu-zone-label rect, .hirafu-title rect, .hirafu-info rect { fill: rgba(255,255,255,.95); stroke: #354d59; stroke-width: 2; }
+.hirafu-zone-label.is-hanazono rect { stroke: #d2a92d; }
+.hirafu-zone-label text { fill: #29566a; font-size: 12px; font-weight: 900; }
+.hirafu-label-sub, .hirafu-title .hirafu-title-sub { fill: #718c99; font-size: 9px; }
+.hirafu-lodge path, .hirafu-lodge rect { fill: #9b6d4e; stroke: #354d59; stroke-width: 2.5; stroke-linejoin: round; }
+.hirafu-lodge text { fill: #36586a; font-size: 9px; font-weight: 900; }
+.hirafu-title text { fill: #123653; font-size: 19px; font-weight: 900; letter-spacing: .05em; }
+.hirafu-title .hirafu-title-sub { font-size: 11px; letter-spacing: .03em; }
+.hirafu-info-title { fill: #397e7c; font-size: 12px; font-weight: 900; letter-spacing: .08em; }
+.hirafu-info text:not(.hirafu-info-title) { fill: #486b7b; font-size: 10px; font-weight: 800; }
+.hirafu-official-link rect { fill: rgba(11,53,84,.9); stroke: #fff; stroke-width: 1.5; }
+.hirafu-official-link text { fill: #fff; font-size: 9px; font-weight: 900; letter-spacing: .04em; }
+.hirafu-official-link:hover rect { fill: #ef8a65; }
+.niseko-village-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.niseko-back-ridge { fill: #bdd9e4; stroke: #7eabbc; stroke-width: 2; }
+.niseko-forest, .niseko-village-forest { fill: url(#niseko-village-trees); }
+.niseko-slope { fill: url(#niseko-village-snow); stroke: #789dab; stroke-width: 2.5; }
+.niseko-muted-area { opacity: .22; filter: saturate(.08) grayscale(.3); }
+.niseko-muted-run { fill: none; stroke: #708c99; stroke-width: 5; stroke-linecap: round; stroke-dasharray: 3 10; }
+.niseko-muted-lift line { stroke: #526872; stroke-width: 3; stroke-dasharray: 6 5; }
+.niseko-muted-label rect { fill: rgba(239,246,248,.94); stroke: #708c99; stroke-width: 1.5; }
+.niseko-muted-label text { fill: #45606d; font-size: 10px; font-weight: 900; letter-spacing: .08em; }
+.niseko-muted-label text + text { font-size: 7px; letter-spacing: .12em; }
+.niseko-village-slope { fill: url(#niseko-village-snow); stroke: #315568; stroke-width: 3; }
+.niseko-village-forest { stroke: #397057; stroke-width: 1.2; }
+.niseko-village-boundary { fill: none; stroke: #e8aa3c; stroke-width: 3; stroke-dasharray: 7 5; }
+.niseko-village-run { fill: none; stroke: var(--niseko-run); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 1px 1px rgba(255,255,255,.95)); }
+.niseko-village-lift > line { stroke: #263b45; stroke-width: 3; }
+.niseko-village-lift g line { stroke: #263b45; stroke-width: 1.5; }
+.niseko-village-lift path { fill: #e87835; stroke: #263b45; stroke-width: 1.2; }
+.niseko-village-gondola line { stroke: #263b45; stroke-width: 3; }
+.niseko-village-gondola rect { fill: #e87835; stroke: #263b45; stroke-width: 1.5; }
+.niseko-village-label rect { fill: rgba(255,255,255,.97); stroke: #315568; stroke-width: 2.5; filter: drop-shadow(0 5px 8px rgba(24, 63, 82, .18)); }
+.niseko-village-label text { fill: #123f5c; font-size: 16px; font-weight: 900; letter-spacing: .07em; }
+.niseko-village-label text + text { fill: #668071; font-size: 9px; letter-spacing: .12em; }
+.niseko-village-base path, .niseko-village-base rect { fill: #a96b44; stroke: #354d59; stroke-width: 2.3; stroke-linejoin: round; }
+.niseko-village-base text { fill: #294f61; font-size: 8px; font-weight: 900; }
+.niseko-village-peak path { fill: #e87835; stroke: #354d59; stroke-width: 1.5; }
+.niseko-village-peak text { fill: #244d60; font-size: 9px; font-weight: 900; paint-order: stroke; stroke: #fff; stroke-width: 3px; }
+.niseko-village-title rect, .niseko-village-legend rect { fill: rgba(255,255,255,.95); stroke: #354d59; stroke-width: 2; }
+.niseko-village-title text { fill: #123f5c; font-size: 18px; font-weight: 900; letter-spacing: .06em; }
+.niseko-village-title text + text { fill: #607f8d; font-size: 11px; letter-spacing: .1em; }
+.niseko-village-legend text { fill: #315568; font-size: 10px; font-weight: 900; letter-spacing: .05em; }
+.niseko-village-legend line { stroke-width: 6; stroke-linecap: round; }
+.niseko-village-legend .is-green { stroke: #1c9d65; }
+.niseko-village-legend .is-orange { stroke: #e87835; }
+.niseko-village-legend .is-red { stroke: #d9413d; }
+.niseko-village-note { fill: #597887; font-size: 9px; font-weight: 900; letter-spacing: .06em; }
+.niseko-united-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.niseko-united-ridge { fill: #bedde8; stroke: #7ca9ba; stroke-width: 2; }
+.niseko-united-forest, .niseko-united-tree-island { fill: url(#niseko-united-trees); }
+.niseko-united-zone { fill: url(#niseko-united-snow); stroke: #7199aa; stroke-width: 2.4; }
+.niseko-united-tree-island { stroke: #397057; stroke-width: 1.2; }
+.niseko-united-run { fill: none; stroke: var(--niseko-run); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 1px 1px #fff); }
+.niseko-united-zone-group.is-muted, .niseko-united-run.is-muted, .niseko-united-lift .is-muted { opacity: .27; filter: grayscale(.7); }
+.niseko-united-zone-group.is-focus { filter: drop-shadow(0 6px 8px rgba(27, 72, 92, .12)); }
+.niseko-united-run.is-focus { stroke-width: 7; }
+.niseko-united-lift line { stroke: #303f47; stroke-width: 2.8; stroke-dasharray: 7 4; }
+.niseko-united-zone-label rect, .niseko-united-title rect, .niseko-united-legend rect { fill: rgba(255,255,255,.94); stroke: #365563; stroke-width: 1.8; }
+.niseko-united-zone-label text { fill: #285164; font-size: 9px; font-weight: 900; letter-spacing: .05em; }
+.niseko-united-base { fill: #3d687a; font-size: 9px; font-weight: 900; }
+.niseko-united-peak path { fill: #e87835; stroke: #344f5b; stroke-width: 1.5; }
+.niseko-united-peak text { fill: #234c60; font-size: 9px; font-weight: 900; paint-order: stroke; stroke: #fff; stroke-width: 3px; }
+.niseko-united-title text { fill: #c35b2b; font-size: 18px; font-weight: 900; letter-spacing: .06em; }
+.niseko-united-title text + text { fill: #5e7e8d; font-size: 9px; letter-spacing: .1em; }
+.niseko-united-legend text { fill: #315568; font-size: 10px; font-weight: 900; letter-spacing: .05em; }
+.niseko-united-legend line { stroke-width: 6; stroke-linecap: round; }
+.niseko-united-legend .is-green { stroke: #1c9d65; }.niseko-united-legend .is-red { stroke: #d9413d; }.niseko-united-legend .is-black { stroke: #283b44; }
+.niseko-united-note { fill: #597887; font-size: 8px; font-weight: 900; letter-spacing: .06em; }
+.niseko-official-map-link { display: block; }
+.niseko-official-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.niseko-official-dimmer { fill: rgba(235, 246, 250, .72); }
+.niseko-official-title rect, .niseko-official-focus-label rect { fill: rgba(255,255,255,.95); stroke: #294f63; stroke-width: 2; }
+.niseko-official-title text { fill: #174c6a; font-size: 17px; font-weight: 900; letter-spacing: .06em; }
+.niseko-official-title text + text { fill: #638091; font-size: 8px; letter-spacing: .08em; }
+.niseko-official-focus-label text { fill: #c95c2a; font-size: 10px; font-weight: 900; letter-spacing: .05em; }
+.niseko-official-note { fill: #456b7d; font-size: 8px; font-weight: 900; letter-spacing: .06em; }
+.trail-sketch:has(.niseko-official-trail-map) { height: auto; aspect-ratio: 900 / 640; }
 .trail-skyline { stroke: #8fb0c0; stroke-width: 3; stroke-linejoin: round; }
 .trail-ridge { fill: none; stroke: #bad0da; stroke-width: 3; stroke-linecap: round; }
 .cartoon-course { fill: none; stroke: var(--course-color); stroke-width: var(--course-width); stroke-linecap: round; stroke-dasharray: 2 2; filter: drop-shadow(0 2px 0 rgba(255,255,255,.8)); }
@@ -194,6 +435,31 @@
 .moiwa-legend text { fill: #36586a; font-size: 10.5px; font-weight: 900; }
 .moiwa-guide text { fill: #36586a; font-size: 9.5px; font-weight: 900; }
 .moiwa-guide .moiwa-guide-stat { fill: #718b99; font-size: 8.8px; }
+.niseko-moiwa-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.niseko-moiwa-ridge { fill: #bfdbe5; stroke: #85aab9; stroke-width: 2; }
+.niseko-moiwa-forest { fill: url(#niseko-moiwa-trees); opacity: .96; }
+.niseko-moiwa-ski-area { fill: url(#niseko-moiwa-snow); stroke: #739ba9; stroke-width: 2.4; }
+.niseko-moiwa-ski-area.is-east { fill: rgba(251, 254, 255, .9); }
+.niseko-moiwa-ski-area.is-west { fill: rgba(250, 254, 255, .88); }
+.niseko-moiwa-boundary { fill: none; stroke: #b88f28; stroke-width: 5; stroke-linecap: round; }
+.niseko-moiwa-course { fill: none; stroke: var(--route); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 2px #fff); }
+.niseko-moiwa-course.is-advanced { stroke-width: 7; }
+.niseko-moiwa-label circle { stroke: #fff; stroke-width: 2; }
+.niseko-moiwa-label text { fill: #fff; font-size: 14px; font-weight: 900; }
+.niseko-moiwa-peak path { fill: #354d59; }
+.niseko-moiwa-peak text { fill: #244c60; font-size: 10px; font-weight: 900; paint-order: stroke; stroke: #fff; stroke-width: 3px; }
+.niseko-moiwa-base path { fill: #a96e4d; stroke: #354d59; stroke-width: 2; }
+.niseko-moiwa-base text { fill: #2b5669; font-size: 9px; font-weight: 900; paint-order: stroke; stroke: #fff; stroke-width: 3px; }
+.niseko-moiwa-title rect, .niseko-moiwa-legend rect, .niseko-moiwa-guide rect { fill: rgba(255, 255, 255, .95); stroke: #354d59; stroke-width: 2; }
+.niseko-moiwa-title text { fill: #123653; font-size: 19px; font-weight: 900; letter-spacing: .06em; }
+.niseko-moiwa-title .sub { fill: #6a8796; font-size: 10px; letter-spacing: .03em; }
+.niseko-moiwa-legend text { fill: #36586a; font-size: 9px; font-weight: 900; }
+.niseko-moiwa-legend line { stroke-width: 6; stroke-linecap: round; }
+.niseko-moiwa-legend .beginner { stroke: #34a96a; }
+.niseko-moiwa-legend .intermediate { stroke: #d94142; }
+.niseko-moiwa-legend .advanced { stroke: #25272b; }
+.niseko-moiwa-guide text { fill: #36586a; font-size: 10px; font-weight: 900; }
+.niseko-moiwa-guide .stat { fill: #748d99; font-size: 8px; }
 .bankei-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
 .bankei-back-ridge { fill: #bfd9e3; stroke: #88aab8; stroke-width: 2; }
 .bankei-forest { fill: url(#bankei-trees); stroke: #486f63; stroke-width: 2; }
@@ -479,14 +745,24 @@
 .shokanbetsu-forest { fill: url(#shokanbetsu-trees); opacity: .96; }
 .shokanbetsu-left-slope, .shokanbetsu-right-slope { fill: url(#shokanbetsu-snow); stroke: #739ba9; stroke-width: 2.5; }
 .shokanbetsu-tree-island { fill: url(#shokanbetsu-trees); stroke: #38785a; stroke-width: 1.5; }
+.shokanbetsu-connection-clearing { fill: none; stroke: #f8fcfd; stroke-width: 26; stroke-linecap: round; stroke-linejoin: round; }
+.shokanbetsu-challenge-clearing { fill: none; stroke: #f8fcfd; stroke-width: 20; stroke-linecap: round; stroke-linejoin: round; }
+.shokanbetsu-challenge-lift-forest { stroke-width: 1; }
+.shokanbetsu-challenge-dynamic-forest { stroke-width: 1; }
+.shokanbetsu-left-forest-strip { fill: url(#shokanbetsu-small-trees); stroke: #38785a; }
 .shokanbetsu-course { fill: none; stroke: var(--shokanbetsu-course); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 4 8; }
+.shokanbetsu-connection-course { stroke-width: 5.5; stroke-dasharray: 3 8; }
 .shokanbetsu-route-label rect { fill: rgba(255,255,255,.94); stroke-width: 1.5; }
 .shokanbetsu-route-label line { stroke-width: 4; stroke-linecap: round; stroke-dasharray: 3 4; }
 .shokanbetsu-route-label text { fill: #31556a; font-size: 9px; font-weight: 900; }
 .shokanbetsu-lodge path, .shokanbetsu-lodge rect { fill: #8b674d; stroke: #354d59; stroke-width: 2.5; stroke-linejoin: round; }
 .shokanbetsu-lodge text { fill: #36586a; font-size: 9px; font-weight: 900; }
-.shokanbetsu-parking path { fill: #dbe4e6; stroke: #718b96; stroke-width: 2; }
-.shokanbetsu-parking text { fill: #345565; font-size: 18px; font-weight: 900; }
+.shokanbetsu-parking .parking-ground { fill: #f4f8f9; stroke: #718b96; stroke-width: 2; }
+.shokanbetsu-parking .parking-sign { fill: #e85b45; stroke: #fff; stroke-width: 2; }
+.shokanbetsu-parking .parking-p { fill: #fff; font-size: 22px; font-weight: 900; }
+.shokanbetsu-parking .parking-car path { fill: #fff; stroke: #58717d; stroke-width: 2; stroke-linejoin: round; }
+.shokanbetsu-parking .parking-car circle { fill: #445c68; stroke: #fff; stroke-width: 1.5; }
+.shokanbetsu-parking .parking-label { fill: #345565; font-size: 11px; font-weight: 900; }
 .shokanbetsu-peak path { fill: #354d59; stroke: #fff; stroke-width: 1.5; }
 .shokanbetsu-peak text { fill: #244c60; font-size: 11px; font-weight: 900; paint-order: stroke; stroke: #fff; stroke-width: 3px; }
 .shokanbetsu-title rect, .shokanbetsu-guide > rect { fill: rgba(255,255,255,.95); stroke: #354d59; stroke-width: 2; }
@@ -603,27 +879,60 @@
 }
 .trail-card > p:not(.card-kicker) { color: #668396; font-size: 15px; line-height: 1.7; }
 .current-weather-main { display: grid; grid-template-columns: 65px auto 1fr; align-items: center; gap: 14px; margin: 32px 0 24px; }
-.current-weather-main > span { width: 60px; height: 60px; display: grid; place-items: center; border-radius: 18px; background: #e9f5fb; color: #3181ad; font-size: 24px; font-weight: 900; }
+.current-weather-main > span { width: 60px; height: 60px; display: grid; place-items: center; border-radius: 18px; background: #e9f5fb; color: #3181ad; font-size: 27px; font-weight: 900; }
 .current-weather-main strong { font-size: 58px; line-height: 1; }
-.current-weather-main p { margin: 0; color: #668396; font-size: 18px; font-weight: 700; }
+.current-weather-main p { margin: 0; color: #668396; font-size: 21px; font-weight: 700; }
 .weather-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0 0 28px; }
 .weather-metrics div { padding: 15px; border-radius: 14px; background: #f3f7f8; }
-.weather-metrics dt { color: #8ca2af; font-size: 12px; }
-.weather-metrics dd { margin: 4px 0 0; color: #244f68; font-size: 16px; font-weight: 800; }
-.current-weather-card > small { color: #8aa0ad; font-size: 12px; line-height: 1.5; }
-.weather-message { margin: 32px 0; color: #668396; font-size: 16px; }
+.weather-metrics dt { color: #8ca2af; font-size: 15px; }
+.weather-metrics dd { margin: 4px 0 0; color: #244f68; font-size: 19px; font-weight: 800; }
+.current-weather-card > small { color: #8aa0ad; font-size: 15px; line-height: 1.6; }
+.weather-message { margin: 32px 0; color: #668396; font-size: 19px; }
+.official-moiwa-status { display: flex; align-items: center; gap: 14px; margin: 30px 0 18px; padding: 18px; border: 1px solid #f0d29b; border-radius: 16px; background: #fff9ec; color: #6f5422; }
+.official-moiwa-status > span { display: grid; width: 42px; height: 42px; place-items: center; flex: 0 0 42px; border-radius: 50%; background: #e9b951; color: #fff; font-size: 20px; }
+.official-moiwa-status strong { display: block; font-size: 15px; letter-spacing: .04em; }
+.official-moiwa-status p { margin: 4px 0 0; font-size: 15px; }
+.official-weather-link, .official-forecast a { color: #166a98; font-size: 15px; font-weight: 800; text-decoration: none; }
+.official-weather-link:hover, .official-forecast a:hover { text-decoration: underline; }
 
 .snow-forecast-card { width: 100%; margin: 0; padding: 32px; }
+.official-forecast { display: grid; gap: 14px; margin-top: 24px; }
+.moiwa-forecast-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); overflow: hidden; border: 1px solid #d8e5ea; border-radius: 16px; background: #fbfcfc; }
+.moiwa-forecast-day { display: grid; justify-items: center; gap: 8px; min-height: 205px; padding: 17px 9px 14px; border-right: 1px solid #e0e9ed; color: #305267; text-align: center; }
+.moiwa-forecast-day:last-child { border-right: 0; }
+.moiwa-forecast-day > strong { color: #123653; font-size: 15px; }
+.moiwa-weather-icon { display: grid; width: 42px; height: 42px; place-items: center; border-radius: 12px; background: #eef7fb; font-size: 24px; }
+.moiwa-forecast-day p { margin: 0; font-size: 14px; white-space: nowrap; }
+.moiwa-forecast-day p b { color: #173f54; font-size: 17px; }
+.moiwa-forecast-day p i { color: #77909c; font-style: normal; }
+.moiwa-forecast-day small { color: #728b98; font-size: 12px; }
+.moiwa-forecast-day em { margin-top: auto; padding: 4px 8px; border-radius: 999px; background: #dff2fa; color: #17739b; font-size: 12px; font-style: normal; font-weight: 900; }
+.official-forecast + .weather-source { display: none; }
 .forecast-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; }
-.forecast-heading > small { color: #8ca2af; font-size: 13px; }
+.forecast-heading > small { color: #8ca2af; font-size: 16px; }
 .snowfall-chart { height: 270px; display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; align-items: end; margin-top: 28px; }
 .snowfall-day { height: 100%; display: grid; grid-template-rows: 22px 1fr 28px 22px; gap: 7px; text-align: center; }
-.snowfall-day > span { color: #688497; font-size: 13px; font-weight: 800; }
+.snowfall-day > span { color: #688497; font-size: 16px; font-weight: 800; }
 .snowfall-track { display: flex; align-items: flex-end; justify-content: center; min-height: 120px; padding: 0 8px; border-bottom: 2px solid #dbe7ed; }
 .snowfall-track i { width: min(42px, 75%); min-height: 3px; border-radius: 9px 9px 2px 2px; background: linear-gradient(#7dc8eb, #3181ad); }
-.snowfall-day strong { color: #123653; font-size: 18px; }
-.snowfall-day small { color: #8ca2af; font-size: 12px; }
-.weather-source { margin: 24px 0 0; color: #8ca2af; font-size: 12px; text-align: right; }
+.snowfall-day strong { color: #123653; font-size: 21px; }
+.snowfall-day small { color: #8ca2af; font-size: 15px; }
+.weather-source { margin: 24px 0 0; color: #8ca2af; font-size: 15px; text-align: right; }
+
+.resort-experience-card { grid-column: 1 / -1; padding: 36px; border: 1px solid #dce8ee; border-radius: 28px; background: #fff; box-shadow: 0 18px 50px rgba(45, 91, 117, .08); }
+.experience-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; margin-bottom: 26px; }
+.experience-heading h2 { margin: 0; color: #123653; font-size: 30px; font-weight: 900; }
+.experience-heading > p { max-width: 520px; margin: 0; color: #668396; font-size: 18px; line-height: 1.7; }
+.resort-experience-card form { display: grid; gap: 10px; }
+.resort-experience-card label { color: #315a71; font-size: 17px; font-weight: 800; }
+.resort-experience-card textarea { width: 100%; min-height: 150px; padding: 18px 20px; resize: vertical; border: 1px solid #cddde5; border-radius: 18px; outline: none; background: #f8fbfc; color: #123653; font: inherit; font-size: 17px; line-height: 1.7; transition: border-color .2s, box-shadow .2s, background .2s; }
+.resort-experience-card textarea::placeholder { color: #91a5b0; }
+.resort-experience-card textarea:focus { border-color: #3181ad; background: #fff; box-shadow: 0 0 0 4px rgba(49, 129, 173, .12); }
+.experience-actions { min-height: 44px; display: flex; align-items: center; justify-content: flex-end; gap: 18px; margin-top: 4px; }
+.experience-actions span { color: #4d7c67; font-size: 17px; font-weight: 700; }
+.experience-actions button { padding: 12px 22px; border: 0; border-radius: 999px; background: #e96b3d; color: #fff; font: inherit; font-weight: 800; cursor: pointer; transition: transform .2s, background .2s; }
+.experience-actions button:hover { background: #d9592d; transform: translateY(-1px); }
+.experience-actions button:focus-visible { outline: 3px solid rgba(49, 129, 173, .35); outline-offset: 3px; }
 
 .resort-not-found { min-height: calc(100vh - 88px); display: grid; place-content: center; gap: 18px; text-align: center; }
 .resort-not-found p { color: #123653; font-size: 28px; font-weight: 900; }
@@ -638,7 +947,11 @@
 
 @media (max-width: 620px) {
   .resort-detail-page { padding: 28px 16px 54px; }
-  .resort-detail-hero { align-items: flex-start; padding: 28px 24px; }
+  .resort-detail-hero { top: 8px; align-items: flex-start; padding: 28px 24px; }
+  .compact-resort-hero { top: 80px; right: 16px; left: 16px; padding: 14px 18px; }
+  .compact-resort-hero h1 { font-size: 22px; }
+  .compact-resort-hero .resort-hero-motif { width: 52px; height: 52px; flex-basis: 52px; border-radius: 15px; }
+  .compact-resort-hero .resort-hero-motif .hand-motif { width: 36px; height: 36px; }
   .resort-hero-motif { width: 74px; height: 74px; flex-basis: 74px; border-radius: 20px; }
   .resort-hero-motif .hand-motif { width: 54px; height: 54px; }
   .back-to-map { margin-bottom: 24px; }
@@ -646,7 +959,36 @@
   .resort-info-card, .snow-forecast-card { padding: 24px 20px; }
   .weather-metrics { grid-template-columns: 1fr; }
   .snowfall-chart { gap: 5px; }
+  .moiwa-forecast-grid { overflow-x: auto; }
+  .moiwa-forecast-day { min-width: 104px; }
   .snowfall-track { padding-inline: 2px; }
-  .snowfall-day small { font-size: 10px; }
+  .snowfall-day small { font-size: 12px; }
   .trail-sketch { height: 330px; }
+  .trail-sketch:has(.zao-sarukura-map) { height: 330px; aspect-ratio: auto; overflow-x: auto; overflow-y: hidden; scrollbar-color: #8eb5c2 #e6f1f3; scrollbar-width: thin; }
+  .trail-sketch .zao-sarukura-map { width: auto; min-width: 566px; max-width: none; height: 330px; }
+  .kamui-lift-status-summary { align-items: flex-start; flex-direction: column; }
+  .kamui-lift-status ul { grid-template-columns: 1fr; }
+  .kamui-lift-status li:nth-child(odd) { border-right: 0; }
+  .resort-experience-card { padding: 26px 20px; }
+  .experience-heading { align-items: flex-start; flex-direction: column; gap: 12px; }
+  .experience-actions { align-items: flex-end; flex-direction: column; }
 }
+.horotachi-forest { fill: url(#horotachi-trees); opacity: .96; }
+.horotachi-slope { fill: url(#horotachi-snow); stroke: #729ba9; stroke-width: 2.5; }
+.horotachi-tree-island { fill: url(#horotachi-trees); stroke: #39785b; stroke-width: 1.5; }
+.horotachi-course { fill: none; stroke: var(--course-color); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+.horotachi-chairlift > line { stroke: #e39a36; stroke-width: 4; }
+.horotachi-chairlift g line, .horotachi-chairlift g path { fill: #f4b14b; stroke: #5a4939; stroke-width: 2; stroke-linejoin: round; }
+.horotachi-chairlift circle { fill: #f4b14b; stroke: #5a4939; stroke-width: 2; }
+.horotachi-course-tag text { fill: #fff; font-size: 18px; font-weight: 900; }
+.horotachi-info rect { fill: rgba(255,255,255,.95); stroke: #354d59; stroke-width: 2; }
+.horotachi-title text { font-size: 21px; letter-spacing: .03em; }
+.horotachi-title .tohma-title-sub { font-size: 12.5px; letter-spacing: .02em; }
+.horotachi-info text { fill: #345466; font-weight: 900; }
+.horotachi-info .course-id { fill: #fff; font-size: 12px; }
+.horotachi-info .course-name { font-size: 15px; }
+.horotachi-info .course-info { fill: #5f7b8b; font-size: 10.5px; }
+.horotachi-summit path { fill: #fff; stroke: #354d59; stroke-width: 2; }
+.horotachi-summit text { fill: #354d59; font-size: 10px; font-weight: 900; }
+.horotachi-warning path { fill: #f5cf55; stroke: #9b352f; stroke-width: 2; }
+.horotachi-warning text { fill: #9b352f; font-size: 9px; font-weight: 900; }

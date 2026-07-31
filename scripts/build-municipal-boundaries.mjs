@@ -9,9 +9,12 @@ const output = join(here, "..", "src", "municipalityPaths.js");
 const towns = {
   niseko: ["01395"],
   otaru: ["01203"],
+  utashinai: ["01227"],
   sapporo: ["01101", "01102", "01103", "01104", "01105", "01106", "01107", "01108", "01109", "01110"],
   mashike: ["01481"],
+  horokanai: ["01472"],
   asahikawa: ["01204"],
+  pippu: ["01455"],
   toma: ["01454"],
   higashikawa: ["01458"],
   kamikawa: ["01457"],

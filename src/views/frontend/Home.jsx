@@ -22,8 +22,8 @@ export const snowTowns = [
     motif: "yotei",
     latitude: 42.8048,
     longitude: 140.6874,
-    visualX: -103,
-    visualY: 40,
+    visualX: -154,
+    visualY: 28,
     note: "羊蹄山與粉雪",
     resorts: ["Niseko Tokyu Grand HIRAFU", "Niseko Village", "Niseko Annupuri", "Niseko Hanazono", "Niseko Moiwa"],
   },
@@ -35,10 +35,23 @@ export const snowTowns = [
     motif: "glass",
     latitude: 43.1907,
     longitude: 140.9947,
-    visualX: -111,
-    visualY: 15,
+    visualX: -182,
+    visualY: -49,
     note: "運河與玻璃工藝",
     resorts: ["小樽天狗山滑雪場", "朝里川溫泉滑雪場", "Snow Cruise Onze"],
+  },
+  {
+    id: "utashinai",
+    name: "歌志內市",
+    prefecture: "北海道",
+    kana: "UTASHINAI",
+    motif: "coal",
+    latitude: 43.5167,
+    longitude: 142.0489,
+    visualX: -198,
+    visualY: -79,
+    note: "煤礦記憶與雲海之里",
+    resorts: ["かもい岳国際スキー場"],
   },
   {
     id: "sapporo",
@@ -48,8 +61,8 @@ export const snowTowns = [
     motif: "tvTower",
     latitude: 43.0618,
     longitude: 141.3545,
-    visualX: 90,
-    visualY: 60,
+    visualX: -201,
+    visualY: 6,
     note: "札幌電視塔與雪祭",
     resorts: ["札幌手稻滑雪場", "札幌國際滑雪場", "札幌盤溪滑雪場", "札幌藻岩山滑雪場", "Fu's Snow Area"],
   },
@@ -61,10 +74,23 @@ export const snowTowns = [
     motif: "cherry",
     latitude: 43.8569,
     longitude: 141.5252,
-    visualX: -114,
-    visualY: -45,
+    visualX: -69,
+    visualY: -86,
     note: "櫻桃果園與日本海",
     resorts: ["暑寒別岳滑雪場"],
+  },
+  {
+    id: "horokanai",
+    name: "幌加內町",
+    prefecture: "北海道",
+    kana: "HOROKANAI",
+    motif: "soba",
+    latitude: 44.0046,
+    longitude: 142.1556,
+    visualX: 30,
+    visualY: -98,
+    note: "日本第一的蕎麥之鄉，享受極寒粉雪。",
+    resorts: ["幌立滑雪場"],
   },
   {
     id: "asahikawa",
@@ -74,10 +100,23 @@ export const snowTowns = [
     motif: "penguin",
     latitude: 43.7706,
     longitude: 142.3648,
-    visualX: -20,
-    visualY: -109,
+    visualX: 126,
+    visualY: -9,
     note: "旭山動物園",
-    resorts: ["Kamui Ski Links", "Santa Present Park", "伊之澤市民滑雪場"],
+    resorts: ["Kamui Ski Links", "Santa Present Park", "伊ノ沢市民スキー場"],
+  },
+  {
+    id: "pippu",
+    name: "比布町",
+    prefecture: "北海道",
+    kana: "PIPPU",
+    motif: "strawberry",
+    latitude: 43.8755,
+    longitude: 142.4735,
+    visualX: 224,
+    visualY: -112,
+    note: "草莓之鄉與大雪山連峰景觀",
+    resorts: ["比布滑雪場"],
   },
   {
     id: "toma",
@@ -87,8 +126,8 @@ export const snowTowns = [
     motif: "watermelon",
     latitude: 43.828,
     longitude: 142.5085,
-    visualX: -104,
-    visualY: -8,
+    visualX: 232,
+    visualY: -56,
     note: "田園與田助西瓜",
     resorts: ["當麻山滑雪場"],
   },
@@ -100,8 +139,8 @@ export const snowTowns = [
     motif: "camera",
     latitude: 43.6989,
     longitude: 142.5102,
-    visualX: 160,
-    visualY: 13,
+    visualX: 232,
+    visualY: 28,
     note: "寫真之町與旭岳",
     resorts: ["Canmore Ski Village", "旭岳 Ropeway 滑雪路線"],
   },
@@ -113,8 +152,8 @@ export const snowTowns = [
     motif: "kamikawaRopeway",
     latitude: 43.8471,
     longitude: 142.7704,
-    visualX: 120,
-    visualY: -66,
+    visualX: 157,
+    visualY: -127,
     note: "層雲峽與大雪山",
     resorts: ["大雪山層雲峽黑岳滑雪場", "町營中山滑雪場"],
   },
@@ -126,8 +165,8 @@ export const snowTowns = [
     motif: "lavender",
     latitude: 43.342,
     longitude: 142.3832,
-    visualX: 124,
-    visualY: 45,
+    visualX: 136,
+    visualY: 46,
     note: "薰衣草花田",
     resorts: ["富良野滑雪場"],
   },
@@ -165,8 +204,8 @@ export const snowTowns = [
     motif: "yakeishi",
     latitude: 39.2868,
     longitude: 141.1132,
-    visualX: -175,
-    visualY: 80,
+    visualX: -300,
+    visualY: 120,
     note: "燒石連峰與夏油高原",
     resorts: ["夏油高原滑雪場"],
   },
@@ -204,8 +243,8 @@ export const snowTowns = [
     motif: "koshihikari",
     latitude: 36.8724,
     longitude: 138.253,
-    visualX: -220,
-    visualY: 65,
+    visualX: -360,
+    visualY: 95,
     note: "越光米之鄉",
     resorts: ["ARAI SNOW RESORT", "赤倉觀光 Resort", "赤倉溫泉滑雪場", "池之平溫泉 Alpen Blick", "妙高杉之原滑雪場", "關溫泉滑雪場"],
   },
@@ -250,9 +289,60 @@ export const snowTowns = [
   },
 ];
 
+// Marker art and labels occupy more room than the geographic point beneath
+// them. Resolve the final visual positions once so nearby municipalities stay
+// individually selectable instead of overlapping each other.
+const separateMarkerPositions = (towns, minimumDistance = 102) => {
+  const positions = towns.map((town) => {
+    const location = projectLocation(town.latitude, town.longitude);
+    return {
+      id: town.id,
+      anchorX: location.x,
+      anchorY: location.y,
+      x: location.x + (town.visualX ?? 0),
+      y: location.y + (town.visualY ?? 0),
+    };
+  });
+
+  for (let iteration = 0; iteration < 120; iteration += 1) {
+    let moved = false;
+    for (let first = 0; first < positions.length; first += 1) {
+      for (let second = first + 1; second < positions.length; second += 1) {
+        const a = positions[first];
+        const b = positions[second];
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        const distance = Math.hypot(dx, dy) || 1;
+        if (distance >= minimumDistance) continue;
+
+        const shift = (minimumDistance - distance) / 2;
+        const unitX = dx / distance;
+        const unitY = dy / distance;
+        a.x -= unitX * shift;
+        a.y -= unitY * shift;
+        b.x += unitX * shift;
+        b.y += unitY * shift;
+        moved = true;
+      }
+    }
+    if (!moved) break;
+  }
+
+  return new Map(positions.map((position) => [position.id, {
+    x: position.x - position.anchorX,
+    y: position.y - position.anchorY,
+  }]));
+};
+
+const markerPositions = separateMarkerPositions(snowTowns);
+
 function Home() {
   const [activeId, setActiveId] = useState("hakuba");
   const activeTown = snowTowns.find((town) => town.id === activeId) ?? snowTowns[0];
+  const renderedTowns = [
+    ...snowTowns.filter((town) => town.id !== activeTown.id),
+    activeTown,
+  ];
 
   return (
     <div className="home-page">
@@ -276,14 +366,15 @@ function Home() {
                 )),
               )}
             </g>
-            {snowTowns.map((town) => {
+            {renderedTowns.map((town) => {
               const selected = town.id === activeId;
-              const visualX = town.visualX ?? 0;
-              const visualY = town.visualY ?? 0;
+              const markerPosition = markerPositions.get(town.id);
+              const visualX = markerPosition?.x ?? town.visualX ?? 0;
+              const visualY = markerPosition?.y ?? town.visualY ?? 0;
               const location = projectLocation(town.latitude, town.longitude);
               return (
                 <g
-                  className={`town-marker ${selected ? "is-active" : ""}`}
+                  className={`town-marker town-marker-${town.id} ${selected ? "is-active" : ""}`}
                   key={town.id}
                   role="button"
                   tabIndex="0"

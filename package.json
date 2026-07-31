@@ -4,7 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "sync:zao": "node scripts/sync-zao-lift-status.mjs",
+    "predev": "npm run sync:zao",
     "dev": "vite",
+    "prebuild": "npm run sync:zao",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

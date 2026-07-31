@@ -1,0 +1,25 @@
+.hotel-page {
+  width: min(920px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 56px 0 80px;
+  color: #284d63;
+}
+
+.hotel-list { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
+.hotel-list li { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 22px; border: 1.5px solid #a8c1c9; border-radius: 14px; background: #fff; box-shadow: 4px 5px 0 rgba(40,77,99,.08); }
+.hotel-list li.hotel-list-item-selected { border-color: #e96b3d; box-shadow: 0 0 0 4px rgba(233,107,61,.16), 4px 5px 0 rgba(40,77,99,.08); }
+.hotel-list li > div { display: grid; gap: 6px; min-width: 0; }
+.hotel-list strong { font-size: 24px; }
+.hotel-list span { color: #66808e; font-size: 17px; line-height: 1.5; }
+.hotel-list em { color: #e96b3d; font-size: 17px; font-style: normal; font-weight: 800; }
+.hotel-list a { flex: 0 0 auto; padding: 9px 14px; border: 1px solid #4c8a69; border-radius: 999px; background: #f2faf5; color: #397555; font-size: 18px; font-weight: 900; text-decoration: none; }
+.hotel-list a:hover { background: #dff3e6; }
+.hotel-list small { flex: 0 0 auto; color: #8ba0ac; }
+.hotel-list-actions { display: flex; align-items: center; gap: 10px; }
+.hotel-empty { padding: 30px; border: 1.5px dashed #9aadb8; border-radius: 14px; color: #718a99; text-align: center; }
+
+@media (max-width: 600px) {
+  .hotel-page { width: min(100% - 28px, 920px); padding-top: 36px; }
+  .hotel-list li { align-items: flex-start; flex-direction: column; gap: 14px; }
+  .hotel-list-actions { flex-wrap: wrap; }
+}
