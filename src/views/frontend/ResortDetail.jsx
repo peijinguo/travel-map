@@ -5,6 +5,11 @@ import CartoonTrailMap from "../../component/CartoonTrailMap";
 import LiftRouteMap from "../../component/LiftRouteMap";
 import ZaoLiftStatusMap from "../../component/ZaoLiftStatusMap";
 import { zaoLiftStatuses } from "../../data/zaoLiftStatus";
+import { useAuth } from "../../context/AuthContext";
+import {
+  loadResortNoteCloud,
+  saveResortNoteCloud,
+} from "../../services/firebase";
 import "../../assets/pages/_resort-detail.scss";
 import { snowTowns } from "./Home";
 
@@ -195,17 +200,92 @@ function parseSnowSapporoWeather(html, sourceName) {
 }
 
 function ResortExperienceNote({ resort, storageKey }) {
+  const { user, authReady, isFirebaseConfigured, syncSpaceId } = useAuth();
+  const cloudKey = user && syncSpaceId ? syncSpaceId : null;
   const [experienceNote, setExperienceNote] = useState(
     () => localStorage.getItem(storageKey) ?? "",
   );
   const [noteStatus, setNoteStatus] = useState("");
+  const [cloudLoadedFor, setCloudLoadedFor] = useState(null);
+  const latestNoteRef = useRef(experienceNote);
 
-  const saveExperienceNote = (event) => {
+  useEffect(() => {
+    latestNoteRef.current = experienceNote;
+    localStorage.setItem(storageKey, experienceNote);
+  }, [experienceNote, storageKey]);
+
+  useEffect(() => {
+    let cancelled = false;
+    setCloudLoadedFor(null);
+    if (!cloudKey) return undefined;
+
+    loadResortNoteCloud(cloudKey, storageKey)
+      .then(async (cloudNote) => {
+        if (cancelled) return;
+        if (cloudNote === null) {
+          const localNote = localStorage.getItem(storageKey) ?? "";
+          if (localNote) {
+            await saveResortNoteCloud(cloudKey, storageKey, localNote);
+          }
+        } else if (latestNoteRef.current === experienceNote) {
+          setExperienceNote(cloudNote);
+        }
+        if (!cancelled) {
+          setCloudLoadedFor(cloudKey);
+          setNoteStatus("已同步至雲端");
+        }
+      })
+      .catch((error) => {
+        console.error("無法載入雲端筆記", error);
+        if (!cancelled) setNoteStatus("雲端同步失敗，內容已保存在此裝置");
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [cloudKey, storageKey]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (!cloudKey || cloudLoadedFor !== cloudKey) return undefined;
+
+    setNoteStatus("同步中…");
+    const timer = window.setTimeout(() => {
+      const nextNote = experienceNote.trim();
+      saveResortNoteCloud(cloudKey, storageKey, nextNote)
+        .then(() => setNoteStatus("已同步至雲端"))
+        .catch((error) => {
+          console.error("無法同步雲端筆記", error);
+          setNoteStatus("雲端同步失敗，內容已保存在此裝置");
+        });
+    }, 700);
+
+    return () => window.clearTimeout(timer);
+  }, [experienceNote, cloudKey, storageKey, cloudLoadedFor]);
+
+  useEffect(() => {
+    if (!authReady || cloudKey) return;
+    setNoteStatus(
+      isFirebaseConfigured
+        ? "無法啟用雲端同步，內容會保存在此裝置"
+        : "內容會保存在此裝置",
+    );
+  }, [authReady, cloudKey, isFirebaseConfigured]);
+
+  const saveExperienceNote = async (event) => {
     event.preventDefault();
     const nextNote = experienceNote.trim();
     localStorage.setItem(storageKey, nextNote);
     setExperienceNote(nextNote);
-    setNoteStatus("已儲存");
+    if (!cloudKey) {
+      setNoteStatus("已儲存在此裝置");
+      return;
+    }
+    try {
+      await saveResortNoteCloud(cloudKey, storageKey, nextNote);
+      setNoteStatus("已同步至雲端");
+    } catch {
+      setNoteStatus("已儲存在此裝置，雲端同步失敗");
+    }
   };
 
   return (
@@ -224,7 +304,6 @@ function ResortExperienceNote({ resort, storageKey }) {
           value={experienceNote}
           onChange={(event) => {
             setExperienceNote(event.target.value);
-            setNoteStatus("");
           }}
           placeholder="例如：上午雪況較鬆、最喜歡的雪道、適合的裝備……"
           rows="6"

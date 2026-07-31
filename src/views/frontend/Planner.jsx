@@ -2,6 +2,8 @@ import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom"; // ✨ 補上路由跳轉 Hook
 import { snowTowns } from "./Home";
 import HandDrawnMotif from "../../component/HandDrawnMotif";
+import { useAuth } from "../../context/AuthContext";
+import { loadPlannerCloud, savePlannerCloud } from "../../services/firebase";
 import "../../assets/pages/_planner.scss";
 
 const STORAGE_KEY = "yuki-tabi-planner-days-v2";
@@ -1039,6 +1041,15 @@ function TravelSegment({ segment, from, to }) {
             <div className="planner-route-links">
               <a href={drivingUrl} target="_blank" rel="noreferrer">查看開車路線 ↗</a>
               <a href={transitUrl} target="_blank" rel="noreferrer">查看大眾運輸班次 ↗</a>
+              <a
+                className="is-jartic"
+                href={JARTIC_URL}
+                target="_blank"
+                rel="noreferrer"
+                title="手機會由 JARTIC 自動顯示行動版"
+              >
+                JARTIC 即時交通 ↗
+              </a>
             </div>
           </div>
         )}
@@ -1080,7 +1091,8 @@ function TravelSegment({ segment, from, to }) {
             </section>
           </div>
         )}
-        <div className="planner-road-links">
+        {segment?.status !== "error" && (
+          <div className="planner-road-links">
             <a
               className="is-jartic"
               href={JARTIC_URL}
@@ -1090,7 +1102,8 @@ function TravelSegment({ segment, from, to }) {
             >
               JARTIC 即時交通 ↗
             </a>
-        </div>
+          </div>
+        )}
       </div>
     </li>
   );
@@ -1125,6 +1138,8 @@ function RoadConditionSummary({ stops }) {
 }
 
 function Planner() {
+  const { user, syncSpaceId } = useAuth();
+  const cloudKey = user && syncSpaceId ? syncSpaceId : null;
   const navigate = useNavigate(); // ✨ 補上宣告 navigate
   const [days, setDays] = useState(getInitialDays);
   const [activeDayId, setActiveDayId] = useState(
@@ -1142,6 +1157,45 @@ function Planner() {
   const [locating, setLocating] = useState({});
   const [locationErrors, setLocationErrors] = useState({});
   const [travelSegments, setTravelSegments] = useState({});
+  const [cloudLoadedFor, setCloudLoadedFor] = useState(null);
+  const initialCloudDataRef = useRef({ days, activeDayId });
+
+  useEffect(() => {
+    let cancelled = false;
+    setCloudLoadedFor(null);
+    if (!cloudKey) return () => {
+      cancelled = true;
+    };
+
+    const loadCloudData = async () => {
+      try {
+        const cloud = await loadPlannerCloud(cloudKey);
+        if (cancelled) return;
+        if (Array.isArray(cloud?.days) && cloud.days.length) {
+          const cloudDays = cloud.days.map((day) => ({
+            ...day,
+            date: day.date ?? "",
+          }));
+          setDays(cloudDays);
+          setActiveDayId(
+            cloudDays.some((day) => day.id === cloud.activeDayId)
+              ? cloud.activeDayId
+              : cloudDays[0].id,
+          );
+        } else {
+          await savePlannerCloud(cloudKey, initialCloudDataRef.current);
+        }
+        if (!cancelled) setCloudLoadedFor(cloudKey);
+      } catch (error) {
+        console.error("無法載入雲端行程", error);
+      }
+    };
+
+    loadCloudData();
+    return () => {
+      cancelled = true;
+    };
+  }, [cloudKey]);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(days));
@@ -1150,6 +1204,16 @@ function Planner() {
   useEffect(() => {
     localStorage.setItem(ACTIVE_DAY_STORAGE_KEY, activeDayId);
   }, [activeDayId]);
+
+  useEffect(() => {
+    if (!cloudKey || cloudLoadedFor !== cloudKey) return;
+    const timer = window.setTimeout(() => {
+      savePlannerCloud(cloudKey, { days, activeDayId }).catch((error) => {
+        console.error("無法儲存雲端行程", error);
+      });
+    }, 500);
+    return () => window.clearTimeout(timer);
+  }, [days, activeDayId, cloudKey, cloudLoadedFor]);
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
@@ -1563,8 +1627,11 @@ function Planner() {
             role="tablist"
             aria-label="三天行程表"
           >
-            {days.map((day, dayIndex) => {
-              const active = day.id === activeDayId;
+            {days
+              .filter((day) => day.id === activeDayId)
+              .map((day) => {
+              const dayIndex = days.findIndex((entry) => entry.id === day.id);
+              const active = true;
               return (
                 <section
                   data-day-id={day.id}

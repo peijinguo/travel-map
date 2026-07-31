@@ -1,10 +1,21 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { snowTowns } from "../views/frontend/Home";
+import { useAuth } from "../context/AuthContext";
 
 function Header() {
+  const {
+    user,
+    authReady,
+    isFirebaseConfigured,
+    syncCode,
+    setSyncCode,
+  } = useAuth();
   const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSyncOpen, setIsSyncOpen] = useState(false);
+  const [syncCodeDraft, setSyncCodeDraft] = useState(syncCode);
+  const [syncMessage, setSyncMessage] = useState("");
   const [favorites, setFavorites] = useState([]);
 
   const loadFavorites = useCallback(() => {
@@ -47,7 +58,10 @@ function Header() {
     <header className="topbar">
       <Link className="brand" to="/" aria-label="雪旅地圖首頁">
         <span className="brand-mark brand-mark--image" aria-hidden="true">
-          <img src="/assets/logo-options/logo-b-snow-pin.svg" alt="" />
+          <img
+            src={`${import.meta.env.BASE_URL}assets/logo-options/logo-b-snow-pin.svg`}
+            alt=""
+          />
         </span>
         <span className="brand-copy">
           <strong>雪旅地圖</strong>
@@ -103,7 +117,103 @@ function Header() {
         <span />
         <span />
       </button>
-      <div className="header-favorites">
+      <div className="header-controls">
+        <div className="header-sync">
+          {(!isFirebaseConfigured || authReady) && (
+          <button
+            type="button"
+            className="header-login"
+            aria-expanded={isSyncOpen}
+            aria-controls="sync-code-panel"
+            title={
+              user
+                ? "設定跨裝置同步碼"
+                : isFirebaseConfigured
+                  ? "正在啟用自動同步"
+                  : "目前使用本機儲存"
+            }
+            onClick={() => {
+              setIsFavoritesOpen(false);
+              setSyncMessage("");
+              setSyncCodeDraft(syncCode);
+              setIsSyncOpen((open) => !open);
+            }}
+          >
+            <span aria-hidden="true">↻</span>
+            <strong>
+              {user
+                ? "同步碼"
+                : isFirebaseConfigured
+                  ? "同步中"
+                  : "本機儲存"}
+            </strong>
+          </button>
+          )}
+          {isSyncOpen && (
+            <section
+              className="sync-code-panel"
+              id="sync-code-panel"
+              aria-label="跨裝置同步設定"
+            >
+              <div className="sync-code-heading">
+                <div>
+                  <small>SYNC CODE</small>
+                  <h2>跨裝置同步</h2>
+                </div>
+                <button
+                  type="button"
+                  aria-label="關閉同步設定"
+                  onClick={() => setIsSyncOpen(false)}
+                >
+                  ×
+                </button>
+              </div>
+              <p>在另一台裝置輸入相同同步碼，即可共用行程與筆記。</p>
+              <form
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  if (!setSyncCode(syncCodeDraft)) {
+                    setSyncMessage("同步碼至少需要 8 個英文字母或數字");
+                    return;
+                  }
+                  setSyncMessage("已套用同步碼，正在載入資料…");
+                }}
+              >
+                <div className="sync-code-input-row">
+                  <input
+                    id="sync-code-input"
+                    value={syncCodeDraft}
+                    maxLength="32"
+                    autoComplete="off"
+                    spellCheck="false"
+                    onChange={(event) => {
+                      setSyncCodeDraft(
+                        event.target.value
+                          .toUpperCase()
+                          .replace(/[^A-Z0-9]/g, ""),
+                      );
+                      setSyncMessage("");
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      await navigator.clipboard.writeText(syncCode);
+                      setSyncMessage("同步碼已複製");
+                    }}
+                  >
+                    複製
+                  </button>
+                </div>
+                <button className="sync-code-apply" type="submit">
+                  使用這組同步碼
+                </button>
+                <span role="status" aria-live="polite">{syncMessage}</span>
+              </form>
+            </section>
+          )}
+        </div>
+        <div className="header-favorites">
         <button
           className="header-action"
           type="button"
@@ -113,6 +223,7 @@ function Header() {
           onClick={() => {
             loadFavorites();
             setIsMobileMenuOpen(false);
+            setIsSyncOpen(false);
             setIsFavoritesOpen((open) => !open);
           }}
         >
@@ -161,6 +272,7 @@ function Header() {
             )}
           </section>
         )}
+        </div>
       </div>
     </header>
   );

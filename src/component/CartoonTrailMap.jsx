@@ -6526,7 +6526,7 @@ function GrandHirafuTrailMap({ resort }) {
       ))}
       <image
         className="hirafu-illustrated-base"
-        href="/assets/grand-hirafu-handdrawn-map-v2.png"
+        href={`${import.meta.env.BASE_URL}assets/grand-hirafu-handdrawn-map-v2.png`}
         x="0"
         y="0"
         width="900"
