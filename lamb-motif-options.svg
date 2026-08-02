@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="210" viewBox="0 0 900 210">
+  <rect width="900" height="210" rx="22" fill="#fffdf8"/>
+  <style>
+    .tile{fill:#fff;stroke:#d9e4e9;stroke-width:2}.ink{fill:none;stroke:#704f3c;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.meat{fill:#d87852;stroke:#704f3c;stroke-width:2.5;stroke-linejoin:round}.meat2{fill:#e69669;stroke:#704f3c;stroke-width:2.5}.fat{fill:none;stroke:#ffe3bd;stroke-width:2;stroke-linecap:round}.metal{fill:#687983;stroke:#4c555a;stroke-width:2.5;stroke-linejoin:round}.veg{fill:#8dbb7a;stroke:#547253;stroke-width:2}.steam{fill:none;stroke:#8aa8b7;stroke-width:2.5;stroke-linecap:round}.label{font:700 16px sans-serif;fill:#284d63;text-anchor:middle}.num{font:800 15px sans-serif;fill:#fff;text-anchor:middle;dominant-baseline:middle}.badge{fill:#315e70}
+  </style>
+
+  <g transform="translate(18 15)">
+    <rect class="tile" width="160" height="180" rx="16"/><circle class="badge" cx="22" cy="22" r="14"/><text class="num" x="22" y="22">1</text>
+    <path class="steam" d="M48 45c-7-7 5-9 0-18M80 40c-7-7 5-9 0-18M112 45c-7-7 5-9 0-18"/>
+    <path class="metal" d="M30 118c4-36 20-58 50-58s46 22 50 58zM24 118h112l-8 17H32z"/>
+    <path class="meat" d="M43 92c3-12 14-17 24-12 8 4 7 15-1 20-9 5-26 3-23-8z"/><path class="meat2" d="M81 79c5-10 18-12 27-5 9 7 4 18-7 20-11 2-25-6-20-15z"/>
+    <path class="veg" d="M66 108c4-8 14-9 20-3-5 8-13 9-20 3zM103 102c5-7 14-5 17 2-6 6-13 5-17-2z"/>
+    <text class="label" x="80" y="166">圓頂烤盤</text>
+  </g>
+
+  <g transform="translate(194 15)">
+    <rect class="tile" width="160" height="180" rx="16"/><circle class="badge" cx="22" cy="22" r="14"/><text class="num" x="22" y="22">2</text>
+    <path class="steam" d="M55 42c-6-6 4-8 0-16M83 38c-6-6 4-8 0-16M108 43c-6-6 4-8 0-16"/>
+    <rect class="metal" x="29" y="70" width="102" height="63" rx="8"/><path class="ink" d="M40 70v63M58 70v63M76 70v63M94 70v63M112 70v63M29 84h102M29 103h102M29 121h102"/>
+    <path class="meat" d="M42 77c8-5 21-2 22 7 1 8-9 14-18 9-7-3-10-12-4-16z"/><path class="meat2" d="M82 100c8-7 24-3 24 8 0 10-14 14-23 7-6-5-6-11-1-15z"/>
+    <text class="label" x="80" y="166">炭火烤肉網</text>
+  </g>
+
+  <g transform="translate(370 15)">
+    <rect class="tile" width="160" height="180" rx="16"/><circle class="badge" cx="22" cy="22" r="14"/><text class="num" x="22" y="22">3</text>
+    <path class="meat" d="M37 99c-5-18 8-38 28-39 13-1 23 7 24 18 2 17-11 31-27 34-12 2-22-3-25-13z"/>
+    <path class="fat" d="M46 94c0-13 8-24 20-26 9-2 16 4 16 12 0 11-9 21-20 23-8 2-14-2-16-9z"/>
+    <path class="ink" d="M83 83c14-4 25 5 24 16-1 7-7 11-13 10l-14 23c4 3 3 9-1 11-5 3-11-2-8-7l15-26c-7-5-7-20-3-27zM46 79l18 9M43 92l18 8"/>
+    <text class="label" x="80" y="166">香煎羊排</text>
+  </g>
+
+  <g transform="translate(546 15)">
+    <rect class="tile" width="160" height="180" rx="16"/><circle class="badge" cx="22" cy="22" r="14"/><text class="num" x="22" y="22">4</text>
+    <path class="steam" d="M52 42c-6-6 4-8 0-16M82 39c-6-6 4-8 0-16M111 43c-6-6 4-8 0-16"/>
+    <path class="metal" d="M25 74h110l-10 59H35zM35 133h90M42 133l-7 9M118 133l7 9"/>
+    <path class="meat" d="M39 86c6-8 20-9 27-1 7 9-1 19-12 18-12 0-21-8-15-17z"/><path class="meat2" d="M76 104c6-9 22-10 30-1 7 8 0 19-12 19-13 0-25-8-18-18z"/>
+    <circle class="veg" cx="107" cy="87" r="9"/><path class="ink" d="M101 87h12M107 81v12"/>
+    <text class="label" x="80" y="166">鐵板羊肉</text>
+  </g>
+
+  <g transform="translate(722 15)">
+    <rect class="tile" width="160" height="180" rx="16"/><circle class="badge" cx="22" cy="22" r="14"/><text class="num" x="22" y="22">5</text>
+    <path class="ink" d="M34 125 113 50M42 132l79-75M37 117l12 13M108 48l13 12"/>
+    <path class="meat" d="m51 98 14-13 13 13-14 14zM75 75l14-13 13 13-14 14z"/><path class="meat2" d="m67 105 14-13 13 13-14 14zM91 82l14-13 13 13-14 14z"/>
+    <path class="veg" d="m45 110 10-10 10 10-10 10zM99 59l9-9 10 10-10 9z"/>
+    <path class="steam" d="M58 54c-5-5 3-7 0-13M82 44c-5-5 3-7 0-13"/>
+    <text class="label" x="80" y="166">孜然羊肉串</text>
+  </g>
+</svg>
