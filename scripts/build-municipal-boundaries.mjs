@@ -7,6 +7,8 @@ const source = join(here, "boundary-source");
 const output = join(here, "..", "src", "municipalityPaths.js");
 
 const towns = {
+  nanae: ["01337"],
+  mori: ["01345"],
   niseko: ["01395"],
   otaru: ["01203"],
   utashinai: ["01227"],

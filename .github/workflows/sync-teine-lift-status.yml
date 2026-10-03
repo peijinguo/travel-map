@@ -1,0 +1,62 @@
+name: Sync ski resort live status
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-ski-resort-status
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch official status
+        run: |
+          node scripts/sync-teine-lift-status.mjs
+          node scripts/sync-bankei-status.mjs
+
+      - name: Detect status changes
+        id: changes
+        shell: bash
+        run: |
+          if git diff --quiet -- src/data/teineLiftStatus.js src/data/bankeiStatus.js; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Official status has not changed."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit updated status
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/teineLiftStatus.js src/data/bankeiStatus.js
+          git commit -m "chore: sync ski resort live status"
+          git push
+
+      - name: Build updated website
+        if: steps.changes.outputs.changed == 'true'
+        run: npx vite build
+
+      - name: Publish updated website
+        if: steps.changes.outputs.changed == 'true'
+        run: npx gh-pages -d dist -u "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"

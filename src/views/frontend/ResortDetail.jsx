@@ -5,10 +5,17 @@ import CartoonTrailMap from "../../component/CartoonTrailMap";
 import LiftRouteMap from "../../component/LiftRouteMap";
 import ZaoLiftStatusMap from "../../component/ZaoLiftStatusMap";
 import { zaoLiftStatuses } from "../../data/zaoLiftStatus";
+import { asariLiftStatus } from "../../data/asariLiftStatus";
+import { teineSnowForecast } from "../../data/teineSnowForecast";
+import { teineLiftStatus } from "../../data/teineLiftStatus";
+import { bankeiStatus } from "../../data/bankeiStatus";
+import { kokusaiLiftStatus } from "../../data/kokusaiLiftStatus";
+import { moiwaLiftStatus } from "../../data/moiwaLiftStatus";
 import { useAuth } from "../../context/AuthContext";
 import {
   loadResortNoteCloud,
   saveResortNoteCloud,
+  subscribeResortNoteCloud,
 } from "../../services/firebase";
 import "../../assets/pages/_resort-detail.scss";
 import { snowTowns } from "./Home";
@@ -51,9 +58,12 @@ const weatherSymbol = (code) => {
 const zaoTrailMapUrl =
   "https://zaomountainresort.com/wp-content/uploads/2025/12/ed53c4ff5e3d9f4e6125d52781bc7b50-scaled.jpg";
 const zaoSarukuraWinterUrl = "http://www.zao-sarukura.co.jp/winter.html";
+const zaoSarukuraGelandeUrl = "http://www.zao-sarukura.co.jp/gelande/index.html";
+const zaoSarukuraCourseMapImage = `${import.meta.env.BASE_URL}assets/zao-sarukura-course-map.png`;
 const zaoLiftStatusUrl =
   "https://zaomountainresort.com/ropeway-lift-information/";
 const kamuiTodayUrl = "https://www.kamui-skilinks.com/today/#coursemap";
+const asariLiftStatusUrl = "https://asari-ski.com/slopes/#anchor01";
 const appiTrailMapUrl =
   "https://www.appi.co.jp/snow-mountain-resort/assets/img/course/course_2025-26_all.jpg?1785064646792";
 const appiWeatherUrl = "https://www.appi.co.jp/snow-mountain-resort/";
@@ -67,6 +77,31 @@ const kamuiCourseMapImage =
   `${import.meta.env.BASE_URL}assets/kamui-ski-links-course-map.png`;
 const pippuTrailMapUrl =
   "https://pippu.ski/wp/wp-content/uploads/2026/05/pippu_panfu2024-scaled.jpg";
+const onzeCourseMapImage =
+  `${import.meta.env.BASE_URL}assets/onze-course-map.png`;
+const teineCourseMapUrl =
+  "https://sapporo-teine.com/snow/wp-content/themes/teine-snow/files/course/course_map.pdf";
+const teineCourseMapImage =
+  `${import.meta.env.BASE_URL}assets/teine-course-map.png`;
+const sapporoKokusaiSlopesUrl = "https://www.sapporo-kokusai.jp/slopes/";
+const sapporoKokusaiCourseMapImage =
+  `${import.meta.env.BASE_URL}assets/sapporo-kokusai-course-map.png`;
+const sapporoMoiwaSkiAreaUrl = "https://sapporo-moiwa.jp/skiareainformation/#course-guide";
+const sapporoMoiwaNorthMapImage = `${import.meta.env.BASE_URL}assets/sapporo-moiwa-north-map.jpg`;
+const sapporoMoiwaSouthMapImage = `${import.meta.env.BASE_URL}assets/sapporo-moiwa-south-map.jpg`;
+const sapporoMoiwaCourseGuide = [
+  { id: 1, name: "うさぎ平コース", level: "高級", length: 840, average: 15, maximum: 35 },
+  { id: 2, name: "ダイナミックコース", level: "高級／中級", length: 290, average: 22, maximum: 37 },
+  { id: 3, name: "クリスタルコース", level: "中級", length: 470, average: 16, maximum: 28 },
+  { id: 4, name: "パノラマコース", level: "中級", length: 800, average: 12, maximum: 24 },
+  { id: 5, name: "ファミリーゲレンデ", level: "初級", length: 400, average: 10, maximum: 13 },
+  { id: 6, name: "フレンドリーゲレンデ", level: "初級", length: 300, average: 9, maximum: 12 },
+  { id: 7, name: "連絡路コース", level: "初級", length: 980, average: 7, maximum: 13 },
+  { id: 8, name: "観光道路コース", level: "初級", length: 2620, average: 5, maximum: 7 },
+  { id: 9, name: "からまつコース", level: "高級／中級", length: 800, average: 15, maximum: 38 },
+  { id: 10, name: "林間コース", level: "中級", length: 516, average: 13, maximum: 18 },
+  { id: 11, name: "Fun×Fun SQUARE", level: "初學者", length: null, average: null, maximum: null },
+];
 const kamuiLiftStatuses = [
   { name: "Kamui Gondola", officialName: "カムイゴンドラ", status: "CLOSED" },
   { name: "第 1 號纜車", officialName: "第1リフト", status: "CLOSED" },
@@ -86,6 +121,14 @@ const zaoSarukuraLiftStatuses = [
     officialName: "ZAO猿倉第2ロマンスリフト · 500 m",
     status: "CLOSED",
   },
+];
+const zaoSarukuraCourses = [
+  { id: "A", name: "Aコース", level: "初級", length: 320, average: 15, maximum: null },
+  { id: "C", name: "中央ゲレンデ", level: "初・中級", length: 320, average: 15, maximum: null },
+  { id: "S", name: "鈴が沢コース", level: "初・中級", length: 700, average: 15, maximum: null },
+  { id: "F", name: "振り子沢コース", level: "中級", length: 660, average: 15, maximum: null },
+  { id: "K", name: "かもしかコース", level: "上級", length: 150, average: 5, maximum: null },
+  { id: "CH", name: "チャンピオンコース", level: "上級", length: 500, average: 25, maximum: 37 },
 ];
 const appiLiftStatuses = [
   { name: "安比 Gondola", officialName: "安比ゴンドラ", status: "營運中", hours: "8:00–15:00", isOpen: true },
@@ -176,6 +219,10 @@ const snowSapporoWeatherLabel = (weather) => {
 
 const snowSapporoWeatherSymbol = (weather) => {
   const normalized = weather.toLocaleLowerCase();
+  if (normalized.includes("雪")) return "❄";
+  if (normalized.includes("雨")) return "雨";
+  if (normalized.includes("晴")) return "晴";
+  if (normalized.includes("曇") || normalized.includes("雲")) return "雲";
   if (normalized.includes("snow")) return "❄";
   if (normalized.includes("rain")) return "雨";
   if (normalized.includes("cloud")) return "雲";
@@ -200,7 +247,13 @@ function parseSnowSapporoWeather(html, sourceName) {
 }
 
 function ResortExperienceNote({ resort, storageKey }) {
-  const { user, authReady, isFirebaseConfigured, syncSpaceId } = useAuth();
+  const {
+    user,
+    authReady,
+    isFirebaseConfigured,
+    syncSpaceId,
+    syncVersion,
+  } = useAuth();
   const cloudKey = user && syncSpaceId ? syncSpaceId : null;
   const [experienceNote, setExperienceNote] = useState(
     () => localStorage.getItem(storageKey) ?? "",
@@ -208,6 +261,7 @@ function ResortExperienceNote({ resort, storageKey }) {
   const [noteStatus, setNoteStatus] = useState("");
   const [cloudLoadedFor, setCloudLoadedFor] = useState(null);
   const latestNoteRef = useRef(experienceNote);
+  const noteEditPendingRef = useRef(false);
 
   useEffect(() => {
     latestNoteRef.current = experienceNote;
@@ -243,24 +297,27 @@ function ResortExperienceNote({ resort, storageKey }) {
     return () => {
       cancelled = true;
     };
-  }, [cloudKey, storageKey]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [cloudKey, storageKey, syncVersion]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!cloudKey || cloudLoadedFor !== cloudKey) return undefined;
-
-    setNoteStatus("同步中…");
-    const timer = window.setTimeout(() => {
-      const nextNote = experienceNote.trim();
-      saveResortNoteCloud(cloudKey, storageKey, nextNote)
-        .then(() => setNoteStatus("已同步至雲端"))
-        .catch((error) => {
-          console.error("無法同步雲端筆記", error);
-          setNoteStatus("雲端同步失敗，內容已保存在此裝置");
-        });
-    }, 700);
-
-    return () => window.clearTimeout(timer);
-  }, [experienceNote, cloudKey, storageKey, cloudLoadedFor]);
+    return subscribeResortNoteCloud(
+      cloudKey,
+      storageKey,
+      (cloudNote) => {
+        if (noteEditPendingRef.current) return;
+        if (cloudNote === null) return;
+        setExperienceNote((currentNote) =>
+          currentNote === cloudNote ? currentNote : cloudNote,
+        );
+        setNoteStatus("已同步至雲端");
+      },
+      (error) => {
+        console.error("無法即時接收雲端筆記", error);
+        setNoteStatus("雲端同步失敗，內容已保存在此裝置");
+      },
+    );
+  }, [cloudKey, storageKey, cloudLoadedFor]);
 
   useEffect(() => {
     if (!authReady || cloudKey) return;
@@ -277,11 +334,13 @@ function ResortExperienceNote({ resort, storageKey }) {
     localStorage.setItem(storageKey, nextNote);
     setExperienceNote(nextNote);
     if (!cloudKey) {
+      noteEditPendingRef.current = false;
       setNoteStatus("已儲存在此裝置");
       return;
     }
     try {
       await saveResortNoteCloud(cloudKey, storageKey, nextNote);
+      noteEditPendingRef.current = false;
       setNoteStatus("已同步至雲端");
     } catch {
       setNoteStatus("已儲存在此裝置，雲端同步失敗");
@@ -302,7 +361,11 @@ function ResortExperienceNote({ resort, storageKey }) {
         <textarea
           id="resort-experience-note"
           value={experienceNote}
+          onFocus={() => {
+            noteEditPendingRef.current = true;
+          }}
           onChange={(event) => {
+            noteEditPendingRef.current = true;
             setExperienceNote(event.target.value);
           }}
           placeholder="例如：上午雪況較鬆、最喜歡的雪道、適合的裝備……"
@@ -346,6 +409,419 @@ function KamuiLiftStatus() {
       <p>
         纜車可能因天候或其他因素部分或全面停駛；最新狀態請以官方頁面為準。
       </p>
+    </div>
+  );
+}
+
+const asariLiftNames = {
+  "パープルリフト": "Purple Lift",
+  "グリーンリフト": "Green Lift",
+  "レッドリフト": "Red Lift",
+  "イエローリフト": "Yellow Lift",
+  "わくわくエスカレーター": "Wakuwaku 雪地電扶梯",
+};
+
+function AsariLiftStatus() {
+  const isOpen = (status) => /open|運行|営業/u.test(status) && !/close|closed|停止|休止/u.test(status);
+  const openCount = asariLiftStatus.lifts.filter((lift) => isOpen(lift.officialStatus)).length;
+  const summary = openCount === 0
+    ? "目前全數停止運行"
+    : `${openCount}／${asariLiftStatus.lifts.length} 項正在運行`;
+
+  return (
+    <div className="kamui-lift-status">
+      <div className="kamui-lift-status-summary">
+        <div>
+          <span className="kamui-status-dot" aria-hidden="true" />
+          <div>
+            <strong>{summary}</strong>
+            <small>官方更新 · {asariLiftStatus.updatedAt}（日本時間）</small>
+          </div>
+        </div>
+        <a href={asariLiftStatusUrl} target="_blank" rel="noreferrer">
+          查看官方即時資訊 ↗
+        </a>
+      </div>
+      <ul aria-label="朝里川溫泉滑雪場官方纜車運行狀況">
+        {asariLiftStatus.lifts.map((lift) => {
+          const open = isOpen(lift.officialStatus);
+          return (
+            <li key={lift.officialName}>
+              <div>
+                <strong>{asariLiftNames[lift.officialName] ?? lift.officialName}</strong>
+                <small>{lift.officialName}</small>
+              </div>
+              <span className={`kamui-lift-closed ${open ? "is-open" : ""}`}>
+                {open ? "運行中" : lift.officialStatus === "Close" ? "停止運行" : lift.officialStatus}
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+      <p>資料於網站建置時由朝里川溫泉滑雪場官方頁面同步；實際運行可能因天候臨時調整。</p>
+    </div>
+  );
+}
+
+function MoiwaLiftStatus() {
+  const [activeTab, setActiveTab] = useState("courses");
+  const isCourseTab = activeTab === "courses";
+  const items = isCourseTab ? moiwaLiftStatus.courses : moiwaLiftStatus.lifts;
+  const openCount = items.filter((item) => item.status === (isCourseTab ? "開放" : "運行中")).length;
+  const summary = openCount > 0
+    ? `${openCount}／${items.length} ${isCourseTab ? "項雪道開放" : "座纜車正在運行"}`
+    : isCourseTab ? "目前全數關閉" : "目前全數停止運行";
+
+  return (
+    <div className="kamui-lift-status kokusai-live-lift-status">
+      <div className="kokusai-status-tabs" role="tablist" aria-label="札幌藻岩山雪道與纜車資訊">
+        <button
+          type="button"
+          role="tab"
+          aria-selected={isCourseTab}
+          aria-controls="moiwa-course-panel"
+          className={isCourseTab ? "is-active" : ""}
+          onClick={() => setActiveTab("courses")}
+        >
+          雪道開放資訊
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={!isCourseTab}
+          aria-controls="moiwa-lift-panel"
+          className={!isCourseTab ? "is-active" : ""}
+          onClick={() => setActiveTab("lifts")}
+        >
+          纜車運行狀況
+        </button>
+      </div>
+      <div id={isCourseTab ? "moiwa-course-panel" : "moiwa-lift-panel"} role="tabpanel">
+      <div className="kamui-lift-status-summary">
+        <div>
+          <span className={`kamui-status-dot ${openCount > 0 ? "is-open" : ""}`} aria-hidden="true" />
+          <div>
+            <strong>{summary}</strong>
+            <small>官方更新 · {moiwaLiftStatus.updatedAt}（日本時間）</small>
+          </div>
+        </div>
+        <a href={moiwaLiftStatus.sourceUrl} target="_blank" rel="noreferrer">查看官方即時資訊 ↗</a>
+      </div>
+      <ul aria-label={isCourseTab ? "札幌藻岩山滑雪場官方雪道開放資訊" : "札幌藻岩山滑雪場官方纜車運行狀況"}>
+        {items.map((item) => (
+          <li key={item.officialName}>
+            <div><strong>{item.officialName}</strong></div>
+            <span className={`kamui-lift-closed ${["開放", "運行中"].includes(item.status) ? "is-open" : item.status === "部分開放" ? "is-scheduled" : ""}`}>
+              {item.mark} {item.status}
+            </span>
+          </li>
+        ))}
+      </ul>
+      </div>
+    </div>
+  );
+}
+
+function SapporoKokusaiLiftStatus() {
+  const [activeTab, setActiveTab] = useState("courses");
+  const openCount = kokusaiLiftStatus.lifts.filter((lift) => lift.status === "運行中").length;
+  const statusClass = (status) => status === "運行中" ? "is-open" : status === "運行予定" ? "is-scheduled" : status === "天候調查中" ? "is-checking" : status === "暫停運行" ? "is-paused" : "";
+  const courseStatusClass = (status) => status === "開放中" ? "is-open" : status === "開放予定" ? "is-scheduled" : status === "天候調查中" ? "is-checking" : "";
+
+  return (
+    <div className="kamui-lift-status kokusai-live-lift-status">
+      <div className="kokusai-status-tabs" role="tablist" aria-label="札幌國際雪道與纜車資訊">
+        <button
+          type="button"
+          role="tab"
+          aria-selected={activeTab === "courses"}
+          aria-controls="kokusai-course-panel"
+          className={activeTab === "courses" ? "is-active" : ""}
+          onClick={() => setActiveTab("courses")}
+        >
+          コース情報
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={activeTab === "lifts"}
+          aria-controls="kokusai-lift-panel"
+          className={activeTab === "lifts" ? "is-active" : ""}
+          onClick={() => setActiveTab("lifts")}
+        >
+          リフト運行情報
+        </button>
+      </div>
+      {activeTab === "lifts" ? (
+        <div id="kokusai-lift-panel" role="tabpanel">
+      <div className="kamui-lift-status-summary">
+        <div>
+          <span className={`kamui-status-dot ${openCount > 0 ? "is-open" : ""}`} aria-hidden="true" />
+          <div>
+            <strong>{openCount > 0 ? `${openCount}／${kokusaiLiftStatus.lifts.length} 項正在運行` : "目前全數停止運行"}</strong>
+            <small>最後檢查 · {kokusaiLiftStatus.syncedAt}（日本時間）</small>
+          </div>
+        </div>
+        <a href={kokusaiLiftStatus.sourceUrl} target="_blank" rel="noreferrer">查看官方即時資訊 ↗</a>
+      </div>
+      <div className="kokusai-lift-status-legend" aria-label="纜車狀態圖例">
+        {[["運行中", "is-open"], ["運行予定", "is-scheduled"], ["天候調查／暫停", "is-checking"], ["停止運行", ""]].map(([label, className]) => <span className={className} key={label}>{label}</span>)}
+      </div>
+      <ul aria-label="札幌國際滑雪場官方纜車運行狀況">
+        {kokusaiLiftStatus.lifts.map((lift) => (
+          <li key={lift.id}>
+            <b className="kokusai-lift-number">{lift.id}</b>
+            <div>
+              <strong>{lift.officialName}</strong>
+              <small>{lift.name} · {lift.type} · {lift.distance}</small>
+            </div>
+            <span className={`kamui-lift-closed ${statusClass(lift.status)}`}>{lift.status}</span>
+          </li>
+        ))}
+      </ul>
+        </div>
+      ) : (
+        <div id="kokusai-course-panel" role="tabpanel">
+          <div className="kamui-lift-status-summary">
+            <div>
+              <span className="kamui-status-dot" aria-hidden="true" />
+              <div>
+                <strong>{kokusaiLiftStatus.courses.filter((course) => course.status === "開放中").length}／{kokusaiLiftStatus.courses.length} 條雪道開放</strong>
+                <small>最後檢查 · {kokusaiLiftStatus.syncedAt}（日本時間）</small>
+              </div>
+            </div>
+            <a href={kokusaiLiftStatus.sourceUrl} target="_blank" rel="noreferrer">查看官方即時資訊 ↗</a>
+          </div>
+          <ul className="kokusai-course-status-list" aria-label="札幌國際滑雪場官方雪道開放狀況">
+            {kokusaiLiftStatus.courses.map((course) => (
+              <li key={course.id}>
+                <b className={`kokusai-course-level is-${course.level}`}>{course.level}</b>
+                <div>
+                  <strong>{course.officialName}</strong>
+                  <small>最大 {course.maxSlope} · 平均 {course.averageSlope} · {course.distance}</small>
+                </div>
+                <span className={`kamui-lift-closed ${courseStatusClass(course.status)}`}>{course.status}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function TeineLiftStatus() {
+  const [activeStatusTab, setActiveStatusTab] = useState("lifts");
+  const reportUrl = "https://sapporo-teine.com/snow/gelande-report";
+  const zones = ["Highland Zone", "Olympia Zone"];
+  const liftGeometry = [
+    [284.1, 146.5, 18.9, 261.1, 153.3, 200.7],
+    [293.3, 154.7, 127.2, 296, 210.2, 224.4],
+    [310.7, 151.1, 391.4, 451.1, 350.9, 297.6],
+    [297.8, 343.7, 351.1, 470.3, 325, 406.8],
+    [430.9, 445.6, 164.8, 596.9, 297.8, 521.2],
+    [273.1, 552.9, 239.1, 716.2, 256.1, 634.5],
+    [376.7, 612.5, 280.4, 714.4, 328.6, 663.4],
+    [399.7, 668.5, 274, 727.2, 345.1, 697.8],
+    [433.6, 684.1, 506.1, 793.3, 473, 743.3],
+    [246.5, 725.4, 297.8, 765.7, 269.3, 743.3],
+  ];
+  const courseMarkers = [
+    [95.2, 229.1], [210.2, 255.2], [276.6, 273.2], [373.2, 269.2],
+    [251.3, 331.1], [287.3, 430.8], [365.2, 407.9], [192.2, 549.5],
+    [222, 622.2], [296.6, 624.5], [327.2, 652.7], [354.2, 698.5],
+    [447.9, 767.9], [465.9, 703.6], [513.2, 745.3],
+  ];
+  const statusClasses = {
+    運行中: "is-open",
+    運行予定: "is-scheduled",
+    天候調查中: "is-checking",
+    暫停運行: "is-paused",
+    停止運行: "is-stop",
+  };
+
+  return (
+    <div className="teine-live-status">
+      <div className="teine-status-tabs" role="tablist" aria-label="札幌手稻營運狀況">
+        <button
+          className={activeStatusTab === "lifts" ? "is-active" : ""}
+          type="button"
+          role="tab"
+          aria-selected={activeStatusTab === "lifts"}
+          aria-controls="teine-lift-panel"
+          onClick={() => setActiveStatusTab("lifts")}
+        >
+          纜車運行狀況
+        </button>
+        <button
+          className={activeStatusTab === "courses" ? "is-active" : ""}
+          type="button"
+          role="tab"
+          aria-selected={activeStatusTab === "courses"}
+          aria-controls="teine-course-panel"
+          onClick={() => setActiveStatusTab("courses")}
+        >
+          雪道開放狀況
+        </button>
+      </div>
+      {activeStatusTab === "lifts" ? (
+        <div id="teine-lift-panel" role="tabpanel">
+          <div className="teine-status-legend">
+            {[
+              ["運行中", "is-open"], ["運行予定", "is-scheduled"],
+              ["天候調查中", "is-checking"], ["暫停運行", "is-paused"], ["停止運行", ""],
+            ].map(([label, className]) => <span className={className} key={label}>{label}</span>)}
+          </div>
+          <div className="teine-status-layout">
+            <div className="teine-lift-map">
+              <img src={`${import.meta.env.BASE_URL}assets/teine-lift-status-map.jpg`} alt="札幌手稻 Highland 與 Olympia Zone 纜車運行狀態位置圖" />
+              <svg className="teine-lift-lines" viewBox="0 0 670 870" aria-hidden="true">
+                {liftGeometry.map(([x1, y1, x2, y2, cx, cy], index) => (
+                  <g className={statusClasses[teineLiftStatus.lifts[index].status] ?? "is-stop"} key={teineLiftStatus.lifts[index].id}>
+                    <line x1={x1} y1={y1} x2={x2} y2={y2} />
+                    <circle cx={cx} cy={cy} r="16.5" />
+                    <text x={cx} y={cy}>{index + 1}</text>
+                  </g>
+                ))}
+              </svg>
+            </div>
+            <div className="teine-lift-zones">
+              {zones.map((zone) => (
+                <section key={zone}>
+                  <h4>{zone}</h4>
+                  <ul>
+                    {teineLiftStatus.lifts.filter((lift) => lift.zone === zone).map((lift) => (
+                      <li key={lift.id}>
+                        <b>{lift.id}</b>
+                        <div><strong>{lift.officialName}</strong><small>{lift.detail}</small></div>
+                        <span className={statusClasses[lift.status] ?? ""}>{lift.status}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))}
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div id="teine-course-panel" role="tabpanel">
+          <div className="teine-course-status-legend" aria-label="雪道開放狀態">
+            <span>開放 <i className="is-open"><small>HZ</small>1</i></span>
+            <span>部分開放 <i className="is-partial"><small>HZ</small>1</i></span>
+            <span>關閉 <i className="is-closed" aria-hidden="true">×</i></span>
+          </div>
+          <div className="teine-status-layout">
+            <div className="teine-lift-map">
+              <img src={`${import.meta.env.BASE_URL}assets/teine-course-status-map.jpg`} alt="札幌手稻 Highland 與 Olympia Zone 雪道開放狀況圖" />
+              <div className="teine-course-levels" aria-label="雪道難度">
+                <span className="is-beginner">初級</span>
+                <span className="is-intermediate">中級</span>
+                <span className="is-advanced">高級</span>
+              </div>
+              <svg className="teine-course-status-layer" viewBox="0 0 670 869" aria-hidden="true">
+                {teineLiftStatus.courses.map((course, index) => {
+                  const [cx, cy] = courseMarkers[index];
+                  const markerClass = course.status === "開放" ? "is-open" : course.status === "部分開放" ? "is-partial" : "is-closed";
+                  const [prefix, number] = course.id.split("-");
+                  return (
+                    <g className={markerClass} key={course.id}>
+                      <circle cx={cx} cy={cy} r="18" />
+                      {markerClass === "is-closed" ? (
+                        <>
+                          <line x1={cx - 8.25} y1={cy - 8.25} x2={cx + 8.25} y2={cy + 8.25} />
+                          <line x1={cx - 8.25} y1={cy + 8.25} x2={cx + 8.25} y2={cy - 8.25} />
+                        </>
+                      ) : (
+                        <text x={cx} y={cy}><tspan x={cx} dy="-3">{prefix}</tspan><tspan className="number" x={cx} dy="13">{number}</tspan></text>
+                      )}
+                    </g>
+                  );
+                })}
+              </svg>
+            </div>
+            <div className="teine-lift-zones teine-course-zones">
+              {zones.map((zone) => (
+                <section key={zone}>
+                  <h4>{zone}</h4>
+                  <ul>
+                    {teineLiftStatus.courses.filter((course) => course.zone === zone).map((course) => (
+                      <li className="is-course" key={course.id}>
+                        <b>{course.id}</b>
+                        <div><strong>{course.officialName}</strong></div>
+                        <span className={course.status === "開放" ? "is-open" : course.status === "部分開放" ? "is-partial" : ""}>{course.status}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="teine-status-source">
+        <small>官方更新 · {teineLiftStatus.updatedAt}（日本時間）</small>
+        <a href={reportUrl} target="_blank" rel="noreferrer">查看官方即時資訊 ↗</a>
+      </div>
+    </div>
+  );
+}
+
+function BankeiStatusTabs() {
+  const [activeTab, setActiveTab] = useState("lifts");
+  const isLiftTab = activeTab === "lifts";
+  const items = isLiftTab ? bankeiStatus.lifts : bankeiStatus.courses;
+
+  return (
+    <div className="bankei-live-status">
+      <div className="bankei-status-tabs" role="tablist" aria-label="札幌盤溪營運資訊">
+        <button
+          className={isLiftTab ? "is-active" : ""}
+          type="button"
+          role="tab"
+          aria-selected={isLiftTab}
+          aria-controls="bankei-lift-panel"
+          onClick={() => setActiveTab("lifts")}
+        >
+          纜車運行狀況
+        </button>
+        <button
+          className={!isLiftTab ? "is-active" : ""}
+          type="button"
+          role="tab"
+          aria-selected={!isLiftTab}
+          aria-controls="bankei-course-panel"
+          onClick={() => setActiveTab("courses")}
+        >
+          雪道運行資訊
+        </button>
+      </div>
+      <div
+        className={`bankei-status-panel ${isLiftTab ? "is-lifts" : "is-courses"}`}
+        id={isLiftTab ? "bankei-lift-panel" : "bankei-course-panel"}
+        role="tabpanel"
+      >
+        <div className="bankei-status-summary">
+          <strong>{isLiftTab ? "纜車" : "雪道／設施"}官方狀態</strong>
+          <small>官方更新 · {bankeiStatus.updatedAt}（日本時間）</small>
+        </div>
+        <ul aria-label={isLiftTab ? "札幌盤溪纜車運行狀況" : "札幌盤溪雪道運行資訊"}>
+          {items.map((item) => {
+            const open = item.status === "運行中" || item.status === "開放";
+            return (
+              <li key={item.officialName}>
+                <div>
+                  <strong>{item.officialName}</strong>
+                  {item.hours && <small>{isLiftTab ? "運行時間" : "開放時間"} · {item.hours}</small>}
+                </div>
+                <span className={open ? "is-open" : ""}>{item.status}</span>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+      <div className="bankei-status-source">
+        <a href={bankeiStatus.sourceUrl} target="_blank" rel="noreferrer">查看官方即時資訊 ↗</a>
+      </div>
     </div>
   );
 }
@@ -519,6 +995,11 @@ function ResortDetail() {
   const isZaoSarukura = resort === "藏王猿倉滑雪場";
   const isKamuiSkiLinks = resort === "Kamui Ski Links";
   const isAppiKogen = resort === "安比高原滑雪場";
+  const isAsari = resort === "朝里川溫泉滑雪場";
+  const isTeine = resort === "札幌手稻滑雪場";
+  const isSapporoKokusai = resort === "札幌國際滑雪場";
+  const isBankei = resort === "札幌盤溪滑雪場";
+  const isSapporoMoiwa = resort === "札幌藻岩山滑雪場";
   const isPippu = resort === "比布滑雪場";
   const snowSapporoConfig = snowSapporoResorts[resort];
   const usesSnowSapporo = Boolean(snowSapporoConfig);
@@ -675,7 +1156,66 @@ function ResortDetail() {
         <article className="trail-card resort-info-card">
           <p className="card-kicker">TRAIL MAP</p>
           <h2>雪道資訊</h2>
-          {isAppiKogen ? (
+          {isSapporoMoiwa ? (
+            <>
+              <figure className="official-trail-map sapporo-moiwa-official-map">
+                <a href={sapporoMoiwaSkiAreaUrl} target="_blank" rel="noreferrer">
+                  <span><img src={sapporoMoiwaNorthMapImage} alt="札幌藻岩山滑雪場官方北斜面雪道圖" /></span>
+                  <span><img src={sapporoMoiwaSouthMapImage} alt="札幌藻岩山滑雪場官方南斜面雪道圖" /></span>
+                </a>
+              </figure>
+              <section className="sapporo-moiwa-course-guide" aria-labelledby="sapporo-moiwa-course-guide-title">
+                <div className="sapporo-moiwa-course-guide-heading">
+                  <p className="card-kicker">COURSE GUIDE</p>
+                </div>
+                <div className="sapporo-moiwa-course-guide-grid">
+                  {sapporoMoiwaCourseGuide.map((course) => (
+                    <article key={course.id}>
+                      <b>{course.id}</b>
+                      <div><strong>{course.name}</strong><small>{course.level}</small></div>
+                      <dl>
+                        <div><dt>全長</dt><dd>{course.length === null ? "—" : `${course.length.toLocaleString()} m`}</dd></div>
+                        <div><dt>平均坡度</dt><dd>{course.average === null ? "—" : `${course.average}°`}</dd></div>
+                        <div><dt>最大坡度</dt><dd>{course.maximum === null ? "—" : `${course.maximum}°`}</dd></div>
+                      </dl>
+                    </article>
+                  ))}
+                </div>
+              </section>
+            </>
+          ) : isSapporoKokusai ? (
+            <figure className="official-trail-map">
+              <a href={sapporoKokusaiSlopesUrl} target="_blank" rel="noreferrer">
+                <img
+                  src={sapporoKokusaiCourseMapImage}
+                  alt="札幌國際滑雪場官方 Course Map"
+                />
+              </a>
+            </figure>
+          ) : isTeine ? (
+            <figure className="official-trail-map">
+              <a href={teineCourseMapUrl} target="_blank" rel="noreferrer">
+                <img
+                  src={teineCourseMapImage}
+                  alt="札幌手稻滑雪場官方 Highland Zone 與 Olympia Zone 雪道圖"
+                />
+              </a>
+            </figure>
+          ) : isOfficialOnze ? (
+            <figure className="official-trail-map">
+              <a href="https://onze.jp/course/" target="_blank" rel="noreferrer">
+                <img
+                  src={onzeCourseMapImage}
+                  alt="Snow Cruise Onze 官方 Course Map 與 Course Spec"
+                />
+              </a>
+              <figcaption>
+                <a href="https://onze.jp/course/" target="_blank" rel="noreferrer">
+                  查看 Snow Cruise Onze 官方課程資訊 ↗
+                </a>
+              </figcaption>
+            </figure>
+          ) : isAppiKogen ? (
             <figure className="official-trail-map">
               <a href={appiTrailMapUrl} target="_blank" rel="noreferrer">
                 <img
@@ -696,6 +1236,37 @@ function ResortDetail() {
                 <img src={zaoTrailMapUrl} alt="藏王溫泉滑雪場雪道圖" />
               </a>
             </figure>
+          ) : isZaoSarukura ? (
+            <>
+              <figure className="official-trail-map zao-sarukura-official-map">
+                <a href={zaoSarukuraGelandeUrl} target="_blank" rel="noreferrer">
+                  <img src={zaoSarukuraCourseMapImage} alt="藏王猿倉滑雪場官方雪道圖" />
+                </a>
+              </figure>
+              <section className="sapporo-moiwa-course-guide zao-sarukura-course-guide" aria-labelledby="zao-sarukura-course-guide-title">
+                <div className="sapporo-moiwa-course-guide-heading">
+                  <div>
+                    <p className="card-kicker">COURSE GUIDE</p>
+                    <h3 id="zao-sarukura-course-guide-title">雪道資訊</h3>
+                  </div>
+                  <small>共 6 條雪道</small>
+                </div>
+                <div className="sapporo-moiwa-course-guide-grid">
+                  {zaoSarukuraCourses.map((course) => (
+                    <article key={course.id}>
+                      <b>{course.id}</b>
+                      <div><strong>{course.name}</strong><small>{course.level}</small></div>
+                      <dl>
+                        <div><dt>全長</dt><dd>{course.length.toLocaleString()} m</dd></div>
+                        <div><dt>平均坡度</dt><dd>{course.average}°</dd></div>
+                        <div><dt>最大坡度</dt><dd>{course.maximum === null ? "—" : `${course.maximum}°`}</dd></div>
+                      </dl>
+                    </article>
+                  ))}
+                </div>
+                <p className="zao-sarukura-course-note">另有「新連結コース（計画中）」規劃路線，尚非現行開放雪道。</p>
+              </section>
+            </>
           ) : isKamuiSkiLinks ? (
             <figure className="official-trail-map">
               <a href={kamuiCourseMapUrl} target="_blank" rel="noreferrer">
@@ -712,6 +1283,16 @@ function ResortDetail() {
             <div className="lift-route-heading"><p className="card-kicker">LIFT STATUS</p><h3>纜車運行狀況</h3></div>
             {isKamuiSkiLinks ? (
               <KamuiLiftStatus />
+            ) : isSapporoKokusai ? (
+              <SapporoKokusaiLiftStatus />
+            ) : isTeine ? (
+              <TeineLiftStatus />
+            ) : isBankei ? (
+              <BankeiStatusTabs />
+            ) : isSapporoMoiwa ? (
+              <MoiwaLiftStatus />
+            ) : isAsari ? (
+              <AsariLiftStatus />
             ) : isZaoOnsen ? (
               <ZaoOnsenLiftStatus />
             ) : isZaoSarukura ? (
@@ -728,10 +1309,27 @@ function ResortDetail() {
           <article className="current-weather-card resort-info-card">
           <p className="card-kicker">CURRENT WEATHER</p>
           <h2>目前天氣</h2>
-          {!isOfficialOnze && !isZaoSarukura && !isAppiKogen && (usesSnowSapporo ? snowSapporoState === "loading" : weatherState === "loading") && <p className="weather-message">正在取得最新預報…</p>}
-          {!isOfficialOnze && !isZaoSarukura && !isAppiKogen && (usesSnowSapporo ? snowSapporoState === "error" : weatherState === "error") && <p className="weather-message">暫時無法取得天氣資料，請稍後再試。</p>}
+          {!isTeine && !isOfficialOnze && !isZaoSarukura && !isAppiKogen && (usesSnowSapporo ? snowSapporoState === "loading" : weatherState === "loading") && <p className="weather-message">正在取得最新預報…</p>}
+          {!isTeine && !isOfficialOnze && !isZaoSarukura && !isAppiKogen && (usesSnowSapporo ? snowSapporoState === "error" : weatherState === "error") && <p className="weather-message">暫時無法取得天氣資料，請稍後再試。</p>}
           {isOfficialMoiwa && <><div className="official-moiwa-status"><span aria-hidden="true">⏸</span><div><strong>2025–26 SEASON COMPLETE</strong><p>官方公告：本季營運已結束。</p></div></div><a className="official-weather-link" href="https://niseko-moiwa.jp/slope/" target="_blank" rel="noreferrer">查看 Niseko Moiwa 官方即時公告 ↗</a></>}
-          {isAppiKogen ? (
+          {isTeine ? (
+            <>
+              <div className="current-weather-main">
+                <span>{snowSapporoWeatherSymbol(teineSnowForecast.current.weather)}</span>
+                <strong>{Math.round(teineSnowForecast.current.temperature)}°</strong>
+                <p>{teineSnowForecast.current.weather}</p>
+              </div>
+              <dl className="weather-metrics">
+                <div><dt>預報高度</dt><dd>{teineSnowForecast.elevation} m</dd></div>
+                <div><dt>風速</dt><dd>{teineSnowForecast.current.wind} km/h</dd></div>
+                <div><dt>當期降雪</dt><dd>{teineSnowForecast.current.snowfall.toFixed(1)} cm</dd></div>
+              </dl>
+              <small>Snow-Forecast 發布：{teineSnowForecast.issuedAt}（當地時間）</small>
+              <a className="official-weather-link" href={teineSnowForecast.sourceUrl} target="_blank" rel="noreferrer">
+                查看 Sapporo Teine 即時雪況 ↗
+              </a>
+            </>
+          ) : isAppiKogen ? (
             <>
               <div className="current-weather-main">
                 <span aria-hidden="true">雲</span>
@@ -819,14 +1417,14 @@ function ResortDetail() {
               </dl>
             </>
           )}
-          {isAppiKogen ? (
+          {isTeine ? (
+            null
+          ) : isAppiKogen ? (
             <small>目前天氣由安比高原官方網站提供；資料以官方更新時間為準。</small>
           ) : isZaoSarukura ? (
             <small>目前天氣以藏王猿倉官方頁面為準；休季期間未提供氣象觀測值。</small>
-          ) : usesSnowSapporo ? (
-            <small>目前天氣由 Snow Sapporo 提供；資料以網站更新時間為準。</small>
           ) : (
-            <small>以 {town.name} 座標提供區域預報，山頂實況可能不同。</small>
+            <small></small>
           )}
           </article>
 
@@ -835,10 +1433,26 @@ function ResortDetail() {
               <div><p className="card-kicker">7-DAY SNOWFALL</p><h2>未來 7 天降雪量</h2></div>
               <small>單位：cm</small>
             </div>
-            {weatherState === "loading" && <p className="weather-message">正在載入 7 天降雪預報…</p>}
-            {weatherState === "error" && <p className="weather-message">降雪預報暫時無法顯示。</p>}
+            {!isTeine && weatherState === "loading" && <p className="weather-message">正在載入 7 天降雪預報…</p>}
+            {!isTeine && weatherState === "error" && <p className="weather-message">降雪預報暫時無法顯示。</p>}
+            {isTeine && (
+              <div className="snowfall-chart">
+                {teineSnowForecast.days.map((day) => {
+                  const label = new Intl.DateTimeFormat("zh-TW", { weekday: "short" }).format(new Date(`${day.date}T12:00:00`));
+                  const snowfall = day.snowfall;
+                  return (
+                    <div className="snowfall-day" key={day.date}>
+                      <span>{label}</span>
+                      <div className="snowfall-track"><i style={{ height: snowfall === null ? "2%" : `${Math.max((snowfall / Math.max(...teineSnowForecast.days.map((item) => item.snowfall ?? 0), 1)) * 100, snowfall > 0 ? 8 : 2)}%` }} /></div>
+                      <strong>{snowfall === null ? "—" : snowfall.toFixed(1)}</strong>
+                      <small>{day.min === null ? "未公開" : `${Math.round(day.min)}° / ${Math.round(day.max)}°`}</small>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
             {isOfficialMoiwa && weatherState === "ready" && <div className="official-forecast"><div className="moiwa-forecast-grid">{daily.slice(0, 5).map((day) => <div className="moiwa-forecast-day" key={day.date}><strong>{new Intl.DateTimeFormat("en", { weekday: "short" }).format(new Date(`${day.date}T12:00:00`))}</strong><span className="moiwa-weather-icon">{weatherSymbol(day.code)}</span><p><b>{Math.round(day.max)}°</b> <i>{Math.round(day.min)}°</i></p><small>風速 {Math.round(day.wind)} km/h</small><em>{day.snowfall.toFixed(1)} cm</em></div>)}</div><a href="https://niseko-moiwa.jp/slope/" target="_blank" rel="noreferrer">查看 Niseko Moiwa 官方 Snow Forecast ↗</a></div>}
-            {!isOfficialMoiwa && weatherState === "ready" && (
+            {!isTeine && !isOfficialMoiwa && weatherState === "ready" && (
               <div className="snowfall-chart">
                 {daily.map((day) => {
                   const label = new Intl.DateTimeFormat("zh-TW", { weekday: "short" }).format(new Date(`${day.date}T12:00:00`));
@@ -854,13 +1468,14 @@ function ResortDetail() {
               </div>
             )}
             <p className="weather-source">
-              {isAppiKogen
+              {isTeine
+                ? "降雪資料由 Snow-Forecast 的 Sapporo Teine 682 m 預報提供。"
+                : isAppiKogen
                 ? "目前天氣由安比高原官方網站提供；7 天降雪預報由 Open-Meteo 提供。"
                 : isZaoSarukura
                 ? "目前天氣與雪場狀態由藏王猿倉官方網站提供；7 天降雪預報由 Open-Meteo 提供。"
                 : usesSnowSapporo
-                ? "目前天氣與積雪由 Snow Sapporo 提供；7 天降雪預報由 Open-Meteo 提供。"
-                : "區域天氣資料由 Open-Meteo 提供；實際雪況請以雪場公告為準。"}
+                }
             </p>
           </section>
         </div>

@@ -97,7 +97,7 @@
 .resort-detail-hero.is-compact .resort-hero-motif .hand-motif { width: 46px; height: 46px; }
 
 .resort-info-grid { max-width: 1180px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; margin-inline: auto; align-items: stretch; }
-.trail-card { min-width: 0; grid-column: 1 / -1; }
+.trail-card { min-width: 0; grid-column: 1 / -1; margin-bottom: 16px; }
 .resort-weather-column { min-width: 0; display: grid; grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: stretch; gap: 24px; }
 .resort-info-card, .snow-forecast-card { border: 1px solid #dce8ee; border-radius: 28px; background: #fff; box-shadow: 0 18px 50px rgba(45, 91, 117, .08); }
 .resort-info-card { min-height: 390px; padding: 32px; }
@@ -106,9 +106,34 @@
 
 .trail-sketch { position: relative; height: clamp(360px, 48vw, 610px); margin: 24px 0 17px; overflow: hidden; border-radius: 20px; background: #dff1f7; }
 .trail-sketch:has(.zao-sarukura-map) { width: 100%; min-width: 0; max-width: 100%; height: auto; aspect-ratio: 960 / 560; }
+.trail-sketch:has(.asari-official-course-map) { height: auto; aspect-ratio: 1001 / 1061; }
+.asari-official-course-map { display: block; width: 100%; height: 100%; }
+.asari-official-course-map img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.trail-sketch:has(.bankei-official-course-map) { height: auto; aspect-ratio: 2 / 1; background: #fff; }
+.bankei-official-course-map { display: block; width: 100%; height: 100%; }
+.bankei-official-course-map img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .official-trail-map { margin: 24px 0 17px; }
 .official-trail-map > a { display: block; overflow: hidden; border: 1px solid #dce8ee; border-radius: 20px; background: #dff1f7; }
 .official-trail-map img { display: block; width: 100%; height: auto; transition: transform .25s ease; }
+.sapporo-moiwa-official-map > a { position: relative; display: block; }
+.sapporo-moiwa-official-map > a span { display: block; min-width: 0; background: #e8f1f4; }
+.sapporo-moiwa-official-map > a span:first-child img { width: 100%; height: auto; }
+.sapporo-moiwa-official-map > a span + span { position: absolute; z-index: 2; right: 1.4%; bottom: 1.8%; width: 22%; overflow: hidden; border: 4px solid #fff; border-radius: 20px; box-shadow: 0 12px 28px rgba(18, 48, 64, .28); }
+.sapporo-moiwa-official-map > a span + span img { width: 100%; height: auto; }
+.sapporo-moiwa-course-guide { margin: 22px 0 8px; padding: 22px; border: 1px solid #dce8ee; border-radius: 18px; background: #f8fbfc; }
+.sapporo-moiwa-course-guide-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+.sapporo-moiwa-course-guide-heading h3 { margin: 0; color: #173d57; font-size: 22px; }
+.sapporo-moiwa-course-guide-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.sapporo-moiwa-course-guide-grid article { display: grid; grid-template-columns: 34px minmax(120px, .9fr) minmax(250px, 1.35fr); align-items: center; gap: 10px; min-width: 0; padding: 10px; border: 1px solid #dbe5e9; border-radius: 10px; background: #fff; }
+.sapporo-moiwa-course-guide-grid article > b { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 7px; background: #148d62; color: #fff; }
+.sapporo-moiwa-course-guide-grid article > div strong, .sapporo-moiwa-course-guide-grid article > div small { display: block; }
+.sapporo-moiwa-course-guide-grid article > div strong { overflow: hidden; color: #173d57; font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
+.sapporo-moiwa-course-guide-grid article > div small { margin-top: 2px; color: #6b8390; font-size: 11px; font-weight: 800; }
+.sapporo-moiwa-course-guide-grid dl { display: grid; grid-template-columns: repeat(3, 1fr); margin: 0; }
+.sapporo-moiwa-course-guide-grid dl div { padding-left: 8px; border-left: 1px solid #e4ecef; }
+.sapporo-moiwa-course-guide-grid dt { color: #7a909b; font-size: 10px; }
+.sapporo-moiwa-course-guide-grid dd { margin: 2px 0 0; color: #173d57; font-size: 12px; font-weight: 900; }
+.zao-sarukura-course-note { margin: 14px 0 0; color: #728b98; font-size: 12px; }
 .official-trail-map > a:hover img { transform: scale(1.01); }
 .official-trail-map figcaption { margin-top: 10px; text-align: right; }
 .official-trail-map figcaption a { color: #2f6f91; font-size: 14px; font-weight: 800; text-decoration: none; }
@@ -172,6 +197,89 @@
 .appi-lift-status-map figcaption { margin-top: 9px; text-align: right; }
 .appi-lift-status-map figcaption a { color: #2f6f91; font-size: 13px; font-weight: 800; text-decoration: none; }
 .appi-lift-status-map figcaption a:hover { text-decoration: underline; }
+.teine-live-status { margin-top: 16px; overflow: hidden; border: 1px solid #d5e0e6; border-radius: 18px; background: #e7ebef; }
+.teine-status-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 10px 10px 0; }
+.teine-status-tabs button { padding: 16px; border: 0; background: #fff; color: #111; font: inherit; font-size: 20px; font-weight: 800; text-align: center; cursor: pointer; transition: background .2s, color .2s; }
+.teine-status-tabs button:hover { background: #f5f8fa; }
+.teine-status-tabs button.is-active { background: #203858; color: #fff; }
+.teine-status-tabs button:focus-visible { position: relative; z-index: 1; outline: 3px solid #e9a232; outline-offset: -3px; }
+.teine-status-legend { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; padding: 8px 10px 10px; }
+.teine-status-legend span { position: relative; padding: 12px 4px 16px; background: #fff; color: #111; font-size: 14px; font-weight: 900; text-align: center; }
+.teine-status-legend span::after { position: absolute; right: 14%; bottom: 9px; left: 14%; height: 3px; background: #929292; content: ""; }
+.teine-status-legend .is-open::after { border-top: 3px dashed #f2a000; background: none; }
+.teine-status-legend .is-scheduled::after { background: #f28c00; }
+.teine-status-legend .is-checking::after { background: repeating-linear-gradient(90deg, #a280bf 0 8px, #fff 8px 12px); }
+.teine-status-legend .is-paused::after { background: #a581b8; }
+.teine-course-status-legend { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; padding: 8px 10px 10px; }
+.teine-course-status-legend > span { min-height: 46px; display: flex; align-items: center; justify-content: center; gap: 10px; background: #fff; color: #111; font-size: 14px; font-weight: 900; }
+.teine-course-status-legend i { width: 30px; height: 30px; display: inline-grid; place-content: center; border-radius: 50%; background: #138c21; color: #fff; font-size: 13px; font-style: normal; line-height: .75; text-align: center; }
+.teine-course-status-legend i small { display: block; font-size: 8px; font-weight: 900; }
+.teine-course-status-legend i.is-partial { background: #f18b00; }
+.teine-course-status-legend i.is-closed { background: #2b2b2b; font-size: 24px; font-weight: 300; line-height: 1; }
+.teine-status-layout { display: grid; grid-template-columns: minmax(0, 1.58fr) minmax(330px, 1fr); gap: 10px; padding: 0 10px 10px; }
+.teine-lift-map { position: relative; overflow: hidden; aspect-ratio: 670 / 870; background: #d8edf6; }
+.teine-lift-map img { width: 100%; height: 100%; display: block; object-fit: contain; }
+.teine-lift-lines { position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.teine-lift-lines line { fill: none; stroke: #8c8c8c; stroke-width: 8; stroke-linecap: round; }
+.teine-lift-lines .is-open line { stroke: #f2a000; stroke-dasharray: 10 7; }
+.teine-lift-lines .is-scheduled line { stroke: #f28c00; }
+.teine-lift-lines .is-checking line { stroke: #a280bf; stroke-dasharray: 15 7; }
+.teine-lift-lines .is-paused line { stroke: #a581b8; }
+.teine-lift-lines circle { fill: #203858; stroke: #fff; stroke-width: 4; }
+.teine-lift-lines text { fill: #fff; font-size: 17px; font-weight: 900; text-anchor: middle; dominant-baseline: central; }
+.teine-course-status-layer { position: absolute; z-index: 2; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.teine-course-status-layer circle { fill: #2b2b2b; stroke: #fff; stroke-width: 2; }
+.teine-course-status-layer line { stroke: #fff; stroke-width: 2; stroke-linecap: round; }
+.teine-course-status-layer .is-open circle { fill: #138c21; }
+.teine-course-status-layer .is-partial circle { fill: #f18b00; }
+.teine-course-status-layer text { fill: #fff; font-size: 9px; font-weight: 900; text-anchor: middle; }
+.teine-course-status-layer text .number { font-size: 12px; }
+.teine-course-levels { position: absolute; z-index: 3; top: 12px; left: 18px; display: flex; gap: 18px; color: #101820; font-size: 13px; font-weight: 900; pointer-events: none; }
+.teine-course-levels span::after { width: 28px; height: 2px; display: inline-block; margin-left: 7px; background: currentColor; content: ""; vertical-align: middle; }
+.teine-course-levels span::before { position: absolute; margin-top: 4px; margin-left: 33px; border-width: 4px 0 4px 6px; border-style: solid; border-color: transparent transparent transparent currentColor; content: ""; }
+.teine-course-levels .is-beginner { color: #008b49; }
+.teine-course-levels .is-intermediate { color: #ef1b24; }
+.teine-course-levels .is-advanced { color: #171717; }
+.teine-lift-zones { display: grid; align-content: start; gap: 12px; }
+.teine-lift-zones h4 { margin: 0 0 4px; color: #0d0d0d; font-size: clamp(25px, 3vw, 42px); letter-spacing: .08em; line-height: 1; }
+.teine-lift-zones ul { margin: 0; padding: 0; list-style: none; }
+.teine-lift-zones li { min-height: 62px; display: grid; grid-template-columns: 36px minmax(0, 1fr) auto; align-items: center; border: 2px solid #c6cdd6; background: #fff; }
+.teine-lift-zones li + li { margin-top: 3px; }
+.teine-lift-zones li > b { height: 100%; display: grid; place-items: center; background: #438fc1; color: #fff; font-size: 15px; }
+.teine-lift-zones li > div { min-width: 0; padding: 7px 10px; }
+.teine-lift-zones li strong, .teine-lift-zones li small { display: block; }
+.teine-lift-zones li strong { overflow: hidden; color: #111; font-size: 14px; text-overflow: ellipsis; white-space: nowrap; }
+.teine-lift-zones li small { margin-top: 2px; color: #303030; font-size: 11px; }
+.teine-lift-zones li > span { padding-right: 10px; color: #555; font-size: 11px; white-space: nowrap; }
+.teine-lift-zones li > span::before { margin-right: 8px; color: #3e8dc3; content: "×"; font-size: 18px; font-weight: 900; }
+.teine-lift-zones li > span.is-open::before { color: #ed9e00; content: "●"; }
+.teine-lift-zones li > span.is-scheduled::before { color: #ed8c00; content: "◆"; }
+.teine-lift-zones li > span.is-checking::before { color: #9876b5; content: "◆"; }
+.teine-lift-zones li > span.is-paused::before { color: #9c77ad; content: "—"; }
+.teine-lift-zones li > span.is-partial::before { color: #ef9b20; content: "◐"; }
+.teine-course-zones li.is-course { grid-template-columns: 50px minmax(0, 1fr) auto; }
+.teine-course-zones li.is-course > b { padding-inline: 4px; font-size: 11px; }
+.teine-status-source { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 16px; background: #fff; color: #668396; }
+.teine-status-source a { color: #2f6f91; font-size: 13px; font-weight: 800; text-decoration: none; }
+.bankei-live-status { margin-top: 16px; overflow: hidden; border: 1px solid #d7d7d7; border-radius: 18px; background: #fff; }
+.bankei-status-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 10px; background: #fff; }
+.bankei-status-tabs button { padding: 18px 12px; border: 1px solid #d8d8d8; background: #f5f5f5; color: #171717; font: inherit; font-size: 21px; font-weight: 900; cursor: pointer; transition: background .2s, color .2s; }
+.bankei-status-tabs button.is-active { border-color: #203858; background: #203858; color: #fff; }
+.bankei-status-tabs button:focus-visible { outline: 3px solid #edb94d; outline-offset: -3px; }
+.bankei-status-panel { background: #fff; }
+.bankei-status-summary { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; padding: 18px 20px 12px; background: #fff; }
+.bankei-status-summary strong { color: #173d57; font-size: 18px; }
+.bankei-status-summary small { color: #718895; }
+.bankei-status-panel ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0; padding: 0 12px 14px; list-style: none; }
+.bankei-status-panel.is-courses ul { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.bankei-status-panel li { min-width: 0; display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 58px; padding: 10px 12px; border: 1px solid #dce5ea; background: #fff; }
+.bankei-status-panel li strong, .bankei-status-panel li small { display: block; }
+.bankei-status-panel li strong { color: #173d57; font-size: 14px; }
+.bankei-status-panel li small { margin-top: 3px; color: #758c99; font-size: 11px; }
+.bankei-status-panel li > span { flex: 0 0 auto; padding: 4px 8px; border-radius: 999px; background: #e8edf0; color: #617581; font-size: 11px; font-weight: 900; }
+.bankei-status-panel li > span.is-open { background: #dff2e6; color: #14723d; }
+.bankei-status-source { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 16px; border-top: 1px solid #dce5ea; background: #fff; color: #718895; font-size: 12px; }
+.bankei-status-source a { color: #176b99; font-weight: 900; text-decoration: none; }
 .zao-live-lift-map { width: 100%; height: clamp(480px, 62vw, 720px); overflow: hidden; border: 1px solid #d5e8ee; border-radius: 15px; background: #e7f1e3; touch-action: none; }
 .zao-live-lift-map .maplibregl-canvas-container, .zao-live-lift-map .maplibregl-canvas { cursor: grab; touch-action: none; }
 .zao-live-lift-map .maplibregl-canvas:active { cursor: grabbing; }
@@ -186,6 +294,33 @@
 .kamui-lift-closed.is-open { background: #ffe2df; color: #c82f28; }
 .kamui-status-dot.is-open { background: #e53935; box-shadow: 0 0 0 5px rgba(229,57,53,.15); }
 .kamui-lift-status > p { margin: 0; padding: 13px 20px 15px; color: #668396; font-size: 12px; line-height: 1.6; }
+.kokusai-lift-status-legend { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; padding: 8px; background: #eeeeeb; }
+.kokusai-lift-status-legend span { position: relative; padding: 10px 4px 14px; background: #fff; color: #3b5260; font-size: 12px; font-weight: 900; text-align: center; }
+.kokusai-lift-status-legend span::after { position: absolute; right: 18%; bottom: 8px; left: 18%; height: 3px; background: #929292; content: ""; }
+.kokusai-lift-status-legend .is-open::after { border-top: 3px dashed #f2a000; background: none; }
+.kokusai-lift-status-legend .is-scheduled::after { background: #f28c00; }
+.kokusai-lift-status-legend .is-checking::after { background: repeating-linear-gradient(90deg, #a280bf 0 8px, #fff 8px 12px); }
+.kokusai-lift-number { width: 32px; height: 32px; display: grid; place-items: center; flex: 0 0 32px; border-radius: 50%; background: #3181ad; color: #fff; font-size: 13px; }
+.kokusai-live-lift-status li { justify-content: flex-start; }
+.kokusai-live-lift-status li > div { min-width: 0; flex: 1; }
+.kokusai-live-lift-status .kamui-lift-closed.is-scheduled { background: #fff3df; color: #a65f00; }
+.kokusai-live-lift-status .kamui-lift-closed.is-checking, .kokusai-live-lift-status .kamui-lift-closed.is-paused { background: #f2eafa; color: #765394; }
+.kokusai-live-lift-status { background: #fff; }
+.kokusai-live-lift-status .kamui-lift-status-summary { background: #f7f7f5; }
+.kokusai-status-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 8px 8px 0; background: #eeeeeb; }
+.kokusai-status-tabs button { padding: 15px 12px; border: 0; background: #fff; color: #31586b; font: inherit; font-size: 17px; font-weight: 900; cursor: pointer; transition: color .2s, background .2s; }
+.kokusai-status-tabs button.is-active { background: #203858; color: #fff; }
+.kokusai-status-tabs button:focus-visible { outline: 3px solid #f2a000; outline-offset: -3px; }
+.kokusai-course-level { width: 42px; min-height: 32px; display: grid; align-self: stretch; place-items: center; flex: 0 0 42px; color: #fff; font-size: 12px; }
+.kokusai-course-level.is-初級 { background: #159e58; }
+.kokusai-course-level.is-中級 { background: #df2530; }
+.kokusai-course-level.is-上級 { background: #26292b; }
+.kokusai-course-status-list li { padding-left: 0; }
+.kokusai-live-lift-status [role="tabpanel"] li strong { font-size: 18px; line-height: 1.35; }
+.kokusai-live-lift-status [role="tabpanel"] li small { margin-top: 4px; font-size: 14px; line-height: 1.45; }
+.kokusai-live-lift-status [role="tabpanel"] .kamui-lift-closed { padding: 7px 11px; font-size: 14px; }
+.kokusai-live-lift-status [role="tabpanel"] .kokusai-lift-number { width: 38px; height: 38px; flex-basis: 38px; font-size: 15px; }
+.kokusai-live-lift-status [role="tabpanel"] .kokusai-course-level { width: 50px; flex-basis: 50px; font-size: 14px; }
 .hirafu-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
 .hirafu-back-ridge { fill: #c7e0e8; stroke: #8aadb9; stroke-width: 2; }
 .hirafu-forest, .hirafu-tree-island { fill: url(#hirafu-trees); }
@@ -833,6 +968,9 @@
   font-size: 10.5px;
 }
 
+.kurodake-legend text { font-size: 13.5px; }
+.kurodake-legend .legend-slope { font-size: 12px; }
+
 /* Use one typography scale for every course-information box below a trail map. */
 :is(
   .fus-guide,
@@ -966,9 +1104,28 @@
   .trail-sketch { height: 330px; }
   .trail-sketch:has(.zao-sarukura-map) { height: 330px; aspect-ratio: auto; overflow-x: auto; overflow-y: hidden; scrollbar-color: #8eb5c2 #e6f1f3; scrollbar-width: thin; }
   .trail-sketch .zao-sarukura-map { width: auto; min-width: 566px; max-width: none; height: 330px; }
+  .sapporo-moiwa-official-map > a span + span { right: 1.5%; bottom: 2%; width: 27%; border-width: 2px; border-radius: 11px; }
+  .sapporo-moiwa-course-guide { padding: 16px 12px; }
+  .sapporo-moiwa-course-guide-grid { grid-template-columns: 1fr; }
+  .sapporo-moiwa-course-guide-grid article { grid-template-columns: 34px minmax(0, 1fr); }
+  .sapporo-moiwa-course-guide-grid dl { grid-column: 1 / -1; }
   .kamui-lift-status-summary { align-items: flex-start; flex-direction: column; }
   .kamui-lift-status ul { grid-template-columns: 1fr; }
   .kamui-lift-status li:nth-child(odd) { border-right: 0; }
+  .teine-lift-zones { grid-template-columns: 1fr; }
+  .teine-lift-zones section + section { border-top: 1px solid #dce8ee; border-left: 0; }
+  .teine-status-tabs button { padding: 12px 6px; font-size: 14px; }
+  .teine-status-legend { grid-template-columns: repeat(2, 1fr); }
+  .teine-course-status-legend > span { gap: 5px; font-size: 12px; }
+  .teine-course-levels { top: 8px; left: 10px; gap: 10px; font-size: 11px; }
+  .teine-course-levels span::after { width: 18px; }
+  .teine-course-levels span::before { margin-left: 23px; }
+  .teine-status-layout { grid-template-columns: 1fr; }
+  .teine-lift-map { min-height: 0; }
+  .teine-status-source { align-items: flex-start; flex-direction: column; }
+  .bankei-status-tabs button { padding: 14px 6px; font-size: 17px; }
+  .bankei-status-summary, .bankei-status-source { align-items: flex-start; flex-direction: column; }
+  .bankei-status-panel ul, .bankei-status-panel.is-courses ul { grid-template-columns: 1fr; }
   .resort-experience-card { padding: 26px 20px; }
   .experience-heading { align-items: flex-start; flex-direction: column; gap: 12px; }
   .experience-actions { align-items: flex-end; flex-direction: column; }

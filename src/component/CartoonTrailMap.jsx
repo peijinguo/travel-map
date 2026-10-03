@@ -501,7 +501,7 @@ function KurodakeTrailMap({ resort }) {
         </text>
       </g>
       <g className="kurodake-legend" transform="translate(22 122)">
-        <rect width="268" height="132" rx="16" />
+        <rect width="330" height="132" rx="16" />
         {routes.map((route, index) => (
           <g
             className={`is-${route.lineStyle}`}
@@ -512,7 +512,7 @@ function KurodakeTrailMap({ resort }) {
             <text x="39" y="4">
               {route.name}
             </text>
-            <text className="legend-slope" x="196" y="4">
+            <text className="legend-slope" x="255" y="4">
               {route.slope}
             </text>
           </g>
@@ -5632,6 +5632,8 @@ const layoutBias = {
 
 function ProfiledTrailMap({ resort, profile }) {
   const bias = layoutBias[profile.layout] ?? layoutBias.fan;
+  const titlePanelWidth = Math.min(520, Math.max(305, resort.length * 9 + 36));
+  const titleFontSize = resort.length > 30 ? 14 : 17;
   const peakX = 450 + bias.lean;
   const peakY = 75 + bias.ridge;
   const visibleCourses = Math.min(profile.courses, 20);
@@ -5745,8 +5747,8 @@ function ProfiledTrailMap({ resort, profile }) {
         </g>
       ))}
       <g className="profile-map-title" transform="translate(25 24)">
-        <rect width="305" height="76" rx="17" />
-        <text x="18" y="31">
+        <rect width={titlePanelWidth} height="76" rx="17" />
+        <text x="18" y="31" style={{ fontSize: `${titleFontSize}px` }}>
           {resort}
         </text>
         <text className="profile-map-stats" x="18" y="57">
@@ -6678,12 +6680,40 @@ function CartoonTrailMap({ resort }) {
   if (resort === "當麻山滑雪場") return <TohmaTrailMap resort={resort} />;
   if (resort === "Kamui Ski Links") return <KamuiTrailMap resort={resort} />;
   if (resort === "Snow Cruise Onze") return <OnzeTrailMap resort={resort} />;
-  if (resort === "朝里川溫泉滑雪場") return <AsariTrailMap resort={resort} />;
+  if (resort === "朝里川溫泉滑雪場")
+    return (
+      <a
+        className="asari-official-course-map"
+        href="https://asari-ski.com/slopes/#anchor02"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="開啟朝里川溫泉滑雪場官方雪道資訊"
+      >
+        <img
+          src={`${import.meta.env.BASE_URL}assets/asari-course-map.png`}
+          alt="朝里川溫泉滑雪場官方 Course Map"
+        />
+      </a>
+    );
   if (resort === "小樽天狗山滑雪場")
     return <TenguyamaTrailMap resort={resort} />;
   if (resort === "札幌手稻滑雪場") return <TeineTrailMap resort={resort} />;
   if (resort === "札幌國際滑雪場") return <KokusaiTrailMap resort={resort} />;
-  if (resort === "札幌盤溪滑雪場") return <BankeiTrailMap resort={resort} />;
+  if (resort === "札幌盤溪滑雪場")
+    return (
+      <a
+        className="bankei-official-course-map"
+        href="https://www.bankei.co.jp/ski/"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="開啟札幌盤溪滑雪場官方資訊"
+      >
+        <img
+          src={`${import.meta.env.BASE_URL}assets/bankei-course-map.png`}
+          alt="札幌盤溪滑雪場官方 Course Map"
+        />
+      </a>
+    );
   if (resort === "札幌藻岩山滑雪場") return <MoiwaTrailMap resort={resort} />;
   if (resort === "伊ノ沢市民スキー場") return <InosawaTrailMap resort={resort} />;
   const profile = trailMapProfiles[resort];

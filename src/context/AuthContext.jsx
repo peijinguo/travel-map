@@ -3,12 +3,11 @@ import {
   isFirebaseConfigured,
   observeAuth,
   signInAnonymous,
-  signInWithGoogle,
-  signOutGoogle,
 } from "../services/firebase";
 
 const AuthContext = createContext(null);
 const SYNC_CODE_STORAGE_KEY = "travel-map-sync-code";
+const SYNC_CODE_HISTORY_STORAGE_KEY = "travel-map-sync-code-history";
 
 function createSyncCode() {
   const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -18,6 +17,20 @@ function createSyncCode() {
 
 function normalizeSyncCode(value) {
   return value.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 32);
+}
+
+function getSavedSyncCodes(currentCode) {
+  try {
+    const savedCodes = JSON.parse(
+      localStorage.getItem(SYNC_CODE_HISTORY_STORAGE_KEY) ?? "[]",
+    );
+    const normalizedCodes = Array.isArray(savedCodes)
+      ? savedCodes.map(normalizeSyncCode).filter((code) => code.length >= 8)
+      : [];
+    return [...new Set([currentCode, ...normalizedCodes])].slice(0, 8);
+  } catch {
+    return [currentCode];
+  }
 }
 
 async function hashSyncCode(code) {
@@ -31,25 +44,31 @@ async function hashSyncCode(code) {
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [authReady, setAuthReady] = useState(false);
+  const [authError, setAuthError] = useState("");
   const [syncCode, setSyncCodeState] = useState(() => {
-    const savedCode = localStorage.getItem(SYNC_CODE_STORAGE_KEY);
-    if (savedCode) return normalizeSyncCode(savedCode);
-    const newCode = createSyncCode();
-    localStorage.setItem(SYNC_CODE_STORAGE_KEY, newCode);
-    return newCode;
+    const saved = normalizeSyncCode(
+      localStorage.getItem(SYNC_CODE_STORAGE_KEY) ?? "",
+    );
+    if (saved.length >= 8) return saved;
+    const next = createSyncCode();
+    localStorage.setItem(SYNC_CODE_STORAGE_KEY, next);
+    return next;
   });
+  const [syncCodes, setSyncCodes] = useState(() => getSavedSyncCodes(syncCode));
   const [syncSpaceId, setSyncSpaceId] = useState(null);
+  const [syncVersion, setSyncVersion] = useState(0);
 
   useEffect(() => {
-    let anonymousAttempted = false;
+    let attempted = false;
     return observeAuth(async (nextUser) => {
-      if (!nextUser && isFirebaseConfigured && !anonymousAttempted) {
-        anonymousAttempted = true;
+      if (!nextUser && isFirebaseConfigured && !attempted) {
+        attempted = true;
         try {
           await signInAnonymous();
           return;
         } catch (error) {
-          console.error("無法啟用匿名同步", error);
+          console.error("匿名同步驗證失敗", error);
+          setAuthError("請在 Firebase Authentication 啟用「匿名」登入");
         }
       }
       setUser(nextUser);
@@ -59,6 +78,7 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     let cancelled = false;
+    setSyncSpaceId(null);
     hashSyncCode(syncCode).then((spaceId) => {
       if (!cancelled) setSyncSpaceId(spaceId);
     });
@@ -68,11 +88,42 @@ export function AuthProvider({ children }) {
   }, [syncCode]);
 
   const setSyncCode = (value) => {
-    const nextCode = normalizeSyncCode(value);
-    if (nextCode.length < 8) return false;
-    localStorage.setItem(SYNC_CODE_STORAGE_KEY, nextCode);
+    const next = normalizeSyncCode(value);
+    if (next.length < 8) return false;
+    localStorage.setItem(SYNC_CODE_STORAGE_KEY, next);
+    setSyncCodes((codes) => {
+      const updatedCodes = [...new Set([next, ...codes])].slice(0, 8);
+      localStorage.setItem(
+        SYNC_CODE_HISTORY_STORAGE_KEY,
+        JSON.stringify(updatedCodes),
+      );
+      return updatedCodes;
+    });
     setSyncSpaceId(null);
-    setSyncCodeState(nextCode);
+    setSyncCodeState(next);
+    setSyncVersion((version) => version + 1);
+    hashSyncCode(next).then(setSyncSpaceId);
+    return true;
+  };
+
+  const removeSyncCode = (value) => {
+    const codeToRemove = normalizeSyncCode(value);
+    const remainingCodes = syncCodes.filter((code) => code !== codeToRemove);
+    if (remainingCodes.length === 0) return false;
+
+    localStorage.setItem(
+      SYNC_CODE_HISTORY_STORAGE_KEY,
+      JSON.stringify(remainingCodes),
+    );
+    setSyncCodes(remainingCodes);
+
+    if (codeToRemove === syncCode) {
+      const nextCode = remainingCodes[0];
+      localStorage.setItem(SYNC_CODE_STORAGE_KEY, nextCode);
+      setSyncSpaceId(null);
+      setSyncCodeState(nextCode);
+      setSyncVersion((version) => version + 1);
+    }
     return true;
   };
 
@@ -80,14 +131,16 @@ export function AuthProvider({ children }) {
     () => ({
       user,
       authReady,
+      authError,
       isFirebaseConfigured,
       syncCode,
+      syncCodes,
       syncSpaceId,
+      syncVersion,
       setSyncCode,
-      signIn: signInWithGoogle,
-      signOut: signOutGoogle,
+      removeSyncCode,
     }),
-    [user, authReady, syncCode, syncSpaceId],
+    [user, authReady, authError, syncCode, syncCodes, syncSpaceId, syncVersion],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

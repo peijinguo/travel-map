@@ -1,9 +1,14 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✨ 補上路由跳轉 Hook
+import { useSearchParams } from "react-router-dom";
 import { snowTowns } from "./Home";
 import HandDrawnMotif from "../../component/HandDrawnMotif";
 import { useAuth } from "../../context/AuthContext";
-import { loadPlannerCloud, savePlannerCloud } from "../../services/firebase";
+import {
+  loadTransitDurationCloud,
+  loadPlannerCloud,
+  savePlannerCloud,
+  subscribePlannerCloud,
+} from "../../services/firebase";
 import "../../assets/pages/_planner.scss";
 
 const STORAGE_KEY = "yuki-tabi-planner-days-v2";
@@ -11,7 +16,25 @@ const LEGACY_STORAGE_KEY = "yuki-tabi-planner-items";
 const GEOCODE_CACHE_KEY = "yuki-tabi-google-geocode-cache-v3";
 const LODGING_STORAGE_KEY = "yuki-tabi-lodgings-v1";
 const ACTIVE_DAY_STORAGE_KEY = "yuki-tabi-planner-active-day-v1";
+const DRAFT_STORAGE_KEY = "yuki-tabi-planner-drafts-v1";
+const FOOD_FAVORITES_STORAGE_KEY = "yuki-tabi-food-favorites-v1";
 const pendingGeocodes = new Map();
+
+function loadItemDrafts() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(DRAFT_STORAGE_KEY)) ?? {};
+    return new Map(Object.entries(saved));
+  } catch {
+    return new Map();
+  }
+}
+
+function persistItemDrafts(drafts) {
+  localStorage.setItem(
+    DRAFT_STORAGE_KEY,
+    JSON.stringify(Object.fromEntries(drafts)),
+  );
+}
 const LODGING_PLACE_TYPES = new Set([
   "lodging",
   "hotel",
@@ -22,6 +45,24 @@ const LODGING_PLACE_TYPES = new Set([
   "campground",
   "rv_park",
 ]);
+const FOOD_PLACE_TYPES = new Set([
+  "restaurant",
+  "cafe",
+  "food",
+  "bakery",
+  "bar",
+  "meal_takeaway",
+  "meal_delivery",
+]);
+
+function loadFoodFavorites() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(FOOD_FAVORITES_STORAGE_KEY) ?? "[]");
+    return Array.isArray(saved) ? saved : [];
+  } catch {
+    return [];
+  }
+}
 const NON_LODGING_LOCATION_PATTERN = /滑雪場|滑雪场|スキー場|ski\s*(?:area|resort)/iu;
 const CHECKOUT_PATTERN = /退房|退宿|チェック[\s-]*アウト|check[\s-]*out/iu;
 const JARTIC_URL = "https://www.jartic.or.jp/";
@@ -34,6 +75,60 @@ const isLodgingLocation = (location) =>
 
 const isLodgingStay = (location, itineraryText = "") =>
   isLodgingLocation(location) && !CHECKOUT_PATTERN.test(itineraryText);
+
+const isFoodLocation = (location) =>
+  !isLodgingLocation(location) &&
+  Boolean(location?.types?.some((type) => FOOD_PLACE_TYPES.has(type)));
+
+const getItineraryMotif = (location, itineraryText = "") => {
+  if (isLodgingLocation(location)) return "onsen";
+  const noteText = String(itineraryText);
+  const placeName = String(location?.name ?? "");
+  const placeCuisine = String(location?.cuisine ?? "");
+  const placeText = `${noteText} ${placeName}`;
+  if (/family\s*mart|ファミリーマート|ファミマ/iu.test(placeText)) return "familymart";
+  if (/7\s*[-‐‑–—]?\s*eleven|seven\s*eleven|セブン[\s-]*イレブン|セブンイレブン/iu.test(placeText)) return "seveneleven";
+  if (/滑雪場|滑雪场|スキー場|スノーパーク|ski\s*(?:area|resort)|snow\s*(?:resort|park)/iu.test(`${noteText} ${placeName}`)) return "chairlift";
+  // Japanese stores commonly write sushi as 「寿し」; recognize it even when
+  // the Google place category has not been returned yet.
+  if (/壽司|寿司|寿し|すし|鮨|鮓|sushi|海鮮丼/iu.test(`${noteText} ${placeName}`)) return "sushi";
+  if (/天婦羅|天ぷら|天丼|tempura/iu.test(`${noteText} ${placeName}`)) return "tempura";
+  const foodPlace = isFoodLocation(location);
+  if (!foodPlace) return null;
+  // Read the complete note first, then the primary place name. Do not use the
+  // formatted Google address because nearby category words can cause false matches.
+  const classifyFood = (text) => {
+    if (/居酒屋|酒場|ビール|生ビール|beer|izakaya/iu.test(text)) return "beer";
+    if (/烤羊|羊肉|羊排|成吉思汗|ジンギスカン|ラム(?:肉|焼|ステーキ)?|lamb|mutton/iu.test(text)) return "lamb";
+    if (/牛排|牛肉|和牛|燒肉|烧肉|焼肉|ステーキ|steak|beef|wagyu|yakiniku|hamburg/iu.test(text)) return "steak";
+    if (/壽司|寿司|寿し|すし|鮨|鮓|sushi|海鮮丼/iu.test(text)) return "sushi";
+    if (/天婦羅|天ぷら|天丼|tempura/iu.test(text)) return "tempura";
+    if (/咖哩|咖喱|カレー|curry/iu.test(text)) return "curry";
+    if (/糰子|团子|団子|dango|和菓子|麻糬|mochi|もち/iu.test(text)) return "dango";
+    if (/聖代|圣代|芭菲|parfait|パフェ|冰淇淋|霜淇淋|アイスクリーム|ソフトクリーム|soft\s*cream/iu.test(text)) return "parfait";
+    if (/可麗餅|可丽饼|クレープ|cr[eê]pe/iu.test(text)) return "crepe";
+    if (/拉麵|拉面|ラーメン|ramen/iu.test(text)) return "ramen";
+    if (/烏龍|乌冬|うどん|蕎麥|荞麦|そば|麵|面|noodle/iu.test(text)) return "ramen";
+    return null;
+  };
+  const noteMotif = classifyFood(noteText);
+  if (noteMotif) return noteMotif;
+  const nameMotif = classifyFood(`${placeName} ${placeCuisine}`);
+  if (nameMotif) return nameMotif;
+  return "ramen";
+};
+
+const getItineraryMotifLabel = (motif) =>
+  ({
+    onsen: "住宿／泡湯",
+    familymart: "FamilyMart",
+    seveneleven: "7-Eleven",
+    lamb: "烤羊肉",
+    beer: "居酒屋",
+    crepe: "可麗餅",
+    ramen: "拉麵",
+    chairlift: "滑雪場",
+  })[motif] ?? "吃的";
 
 function saveLodging(location, day, stayItemId = "") {
   try {
@@ -241,6 +336,24 @@ const townAliases = {
 
 const namedPlaces = [
   {
+    id: "taiwan-taoyuan-international-airport",
+    name: "桃園國際機場",
+    latitude: 25.0796514,
+    longitude: 121.234217,
+    displayName: "桃園市大園區航站南路9號 桃園國際機場",
+    types: ["airport"],
+    aliases: [
+      "桃園國際機場",
+      "台灣桃園國際機場",
+      "臺灣桃園國際機場",
+      "桃園機場",
+      "Taoyuan International Airport",
+      "Taiwan Taoyuan International Airport",
+      "TPE Airport",
+      "TPE",
+    ],
+  },
+  {
     id: "tohma-mountain-ski-area",
     name: "當麻山滑雪場",
     latitude: 43.835491,
@@ -298,6 +411,25 @@ const namedPlaces = [
       "lavender pension",
       "薰衣草旅館",
       "薰衣草民宿",
+    ],
+  },
+  {
+    id: "lumber-house-onuma",
+    name: "Lumber House ランバーハウス",
+    // 函館近郊的大沼地區（行政區為七飯町）。固定使用此地點，避免
+    // 同名店家被 Google 的文字搜尋誤判到其他城市。
+    latitude: 42.009,
+    longitude: 140.67,
+    displayName: "北海道亀田郡七飯町字軍川19-32（函館・大沼）",
+    types: ["restaurant", "food", "point_of_interest", "establishment"],
+    cuisine: "大沼牛 ステーキ steak",
+    aliases: [
+      "Lumber House",
+      "Lumber House ランバーハウス",
+      "ランバーハウス",
+      "ランバー ハウス",
+      "ランバーハウス 函館",
+      "ランバーハウス 大沼",
     ],
   },
 ];
@@ -448,7 +580,8 @@ function geocodeJapanesePlace(text) {
   const cacheKey = query.toLocaleLowerCase();
   try {
     const cache = JSON.parse(localStorage.getItem(GEOCODE_CACHE_KEY)) ?? {};
-    if (Object.hasOwn(cache, cacheKey)) return Promise.resolve(cache[cacheKey]);
+    // 只重用成功的定位；先前暫時失敗留下的 null 必須允許重新查詢。
+    if (cache[cacheKey]) return Promise.resolve(cache[cacheKey]);
   } catch {
     // 快取損壞時直接重新查詢。
   }
@@ -518,6 +651,90 @@ function makeItem(text = "") {
     done: false,
   };
 }
+
+const makeVersionId = () =>
+  `version-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+
+const syncActiveVersionItems = (day, nextItems) => {
+  if (!Array.isArray(day.versions) || !day.activeVersionId) {
+    return { ...day, items: nextItems };
+  }
+  return {
+    ...day,
+    items: nextItems,
+    versions: day.versions.map((version) =>
+      version.id === day.activeVersionId
+        ? { ...version, items: nextItems }
+        : version,
+    ),
+  };
+};
+
+const repairLocatedItemText = (items = []) =>
+  items.map((item) =>
+    !item.text?.trim() && item.location?.name
+      ? { ...item, text: item.location.name }
+      : item,
+  );
+
+const normalizePlannerDay = (day) => ({
+  ...day,
+  date: day.date ?? "",
+  items: repairLocatedItemText(day.items),
+  ...(Array.isArray(day.versions)
+    ? {
+        versions: day.versions.map((version, index) => ({
+          ...version,
+          label: `版本 ${index + 1}`,
+          items: repairLocatedItemText(version.items),
+        })),
+      }
+    : {}),
+});
+
+function PlannerTextInput({ value, onDraftChange }) {
+  const [draft, setDraft] = useState(value);
+  const focusedRef = useRef(false);
+  const textareaRef = useRef(null);
+
+  useEffect(() => {
+    if (!focusedRef.current) setDraft(value);
+  }, [value]);
+
+  useEffect(() => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+    textarea.style.height = "auto";
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  }, [draft]);
+
+  return (
+    <textarea
+      ref={textareaRef}
+      rows="2"
+      value={draft}
+      placeholder="輸入行程"
+      onFocus={() => {
+        focusedRef.current = true;
+      }}
+      onChange={(event) => {
+        const nextDraft = event.target.value;
+        setDraft(nextDraft);
+        onDraftChange(nextDraft);
+      }}
+      onBlur={() => {
+        focusedRef.current = false;
+      }}
+    />
+  );
+}
+
+const hasPlannerContent = (plannerDays) =>
+  Array.isArray(plannerDays) && plannerDays.some(
+    (day) =>
+      Boolean(day.date) ||
+      day.items?.some((item) => Boolean(item.text?.trim())),
+  );
 
 function formatItineraryDate(dateString, weekdayOnly = false) {
   if (!dateString) return weekdayOnly ? "" : "尚未設定";
@@ -672,7 +889,7 @@ function getInitialDays() {
       saved.length &&
       saved.every((day) => Array.isArray(day.items))
     )
-      return saved.map((day) => ({ ...day, date: day.date ?? "" }));
+      return saved.map(normalizePlannerDay);
     const legacy = JSON.parse(localStorage.getItem(LEGACY_STORAGE_KEY));
     return [
       makeDay(
@@ -938,11 +1155,75 @@ function requestDirections(maps, request) {
   });
 }
 
+function requestTransitDuration(maps, origin, destination, departureTime) {
+  const service = new maps.DistanceMatrixService();
+  return new Promise((resolve, reject) => {
+    service.getDistanceMatrix(
+      {
+        origins: [origin],
+        destinations: [destination],
+        travelMode: maps.TravelMode.TRANSIT,
+        transitOptions: { departureTime },
+      },
+      (response, status) => {
+        const element = response?.rows?.[0]?.elements?.[0];
+        if (status === "OK" && element?.status === "OK" && element.duration?.text) {
+          resolve(element.duration.text);
+        } else {
+          reject(new Error(`transit-duration-${String(status).toLowerCase()}`));
+        }
+      },
+    );
+  });
+}
+
+const formatDurationMillis = (durationMillis) => {
+  if (!Number.isFinite(durationMillis)) return null;
+  const totalMinutes = Math.max(1, Math.round(durationMillis / 60000));
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  if (!hours) return `${minutes} 分鐘`;
+  return minutes ? `${hours} 小時 ${minutes} 分鐘` : `${hours} 小時`;
+};
+
+async function requestModernTransitDuration(maps, origin, destination, departureTime) {
+  const { Route } = await maps.importLibrary("routes");
+  let lastError;
+  for (const requestedTime of [departureTime, null]) {
+    try {
+      const response = await Route.computeRoutes({
+        origin: { location: origin },
+        destination: { location: destination },
+        travelMode: "TRANSIT",
+        ...(requestedTime ? { departureTime: requestedTime } : {}),
+        computeAlternativeRoutes: true,
+        fields: ["localizedValues", "durationMillis"],
+        language: "zh-TW",
+        region: "jp",
+      });
+      const firstRoute = response.routes?.[0];
+      const duration =
+        firstRoute?.localizedValues?.duration ||
+        formatDurationMillis(firstRoute?.durationMillis);
+      if (duration) return duration;
+    } catch (error) {
+      lastError = error;
+    }
+  }
+  throw lastError ?? new Error("modern-transit-duration-unavailable");
+}
+
 function getTransitDepartureTime(dateString) {
   const departure = dateString
     ? new Date(`${dateString}T08:00:00`)
     : new Date();
   const minimum = new Date(Date.now() + 5 * 60 * 1000);
+  const maximum = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+  if (departure > maximum) {
+    const nearbyDeparture = new Date(Date.now() + 24 * 60 * 60 * 1000);
+    nearbyDeparture.setHours(8, 0, 0, 0);
+    return nearbyDeparture;
+  }
   return departure > minimum ? departure : minimum;
 }
 
@@ -998,6 +1279,27 @@ function estimateRoadTrip(from, to) {
   };
 }
 
+function estimateFlightTime(from, to) {
+  const earthRadiusKm = 6371;
+  const toRadians = (value) => (value * Math.PI) / 180;
+  const latitudeDelta = toRadians(to.latitude - from.latitude);
+  const longitudeDelta = toRadians(to.longitude - from.longitude);
+  const a =
+    Math.sin(latitudeDelta / 2) ** 2 +
+    Math.cos(toRadians(from.latitude)) *
+      Math.cos(toRadians(to.latitude)) *
+      Math.sin(longitudeDelta / 2) ** 2;
+  const distance = earthRadiusKm * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const hours = Math.max(Math.round((distance / 750 + 0.35) * 2) / 2, 0.5);
+  return `約 ${Number.isInteger(hours) ? hours : hours.toFixed(1)} 小時`;
+}
+
+const FLIGHT_NOTE_PATTERN = /航班|班機|飛機|航空|搭機|flight|airline/iu;
+const DRIVING_NOTE_PATTERN = /開車|自駕|自驾|駕車|驾车|開車前往|租車|租车|還車|还车|還租車|还租车|drive|driving|car\b/iu;
+const TRANSIT_NOTE_PATTERN = /搭車|電車|火車|巴士|公車|客運|新幹線|地鐵|捷運|\b(?:JR|train|bus|transit)\b/iu;
+const EXPLICIT_TRANSIT_NOTE_PATTERN = /搭車|電車|火車|巴士|公車|客運|新幹線|地鐵|捷運|\b(?:train|bus|transit)\b/iu;
+const WALKING_NOTE_PATTERN = /走路|步行|徒步|散步|walk(?:ing)?/iu;
+
 function makeGoogleDirectionsUrl(from, to, travelMode) {
   const parameters = new URLSearchParams({
     api: "1",
@@ -1008,12 +1310,91 @@ function makeGoogleDirectionsUrl(from, to, travelMode) {
   return `https://www.google.com/maps/dir/?${parameters}`;
 }
 
-function TravelSegment({ segment, from, to }) {
+function DrivingCarIcon() {
+  return (
+    <svg className="planner-driving-car-icon" viewBox="0 0 48 48" aria-hidden="true">
+      <path className="car-body" d="M4 27h5l7-13h18l9 13h1c2 0 3 2 3 4v7H2v-8c0-2 1-3 2-3z" />
+      <path className="car-window" d="M18 17h6v10H12zM27 17h6l7 10H27z" />
+      <path className="car-detail" d="M5 32h5M42 32h4M17 31h14" />
+      <circle className="car-wheel" cx="13" cy="38" r="5" />
+      <circle className="car-hub" cx="13" cy="38" r="2" />
+      <circle className="car-wheel" cx="37" cy="38" r="5" />
+      <circle className="car-hub" cx="37" cy="38" r="2" />
+    </svg>
+  );
+}
+
+function TransitTrainIcon() {
+  return (
+    <svg className="planner-transit-train-icon" viewBox="0 0 48 48" aria-hidden="true">
+      <path className="train-body" d="M10 6c8-3 20-3 28 0l3 27c0 4-3 7-7 7H14c-4 0-7-3-7-7z" />
+      <path className="train-window" d="M13 11h22l2 14H11z" />
+      <path className="train-detail" d="M12 30h5m14 0h5M17 40l-6 6m20-6 6 6M16 46h16" />
+      <circle className="train-light" cx="15" cy="32" r="2.5" />
+      <circle className="train-light" cx="33" cy="32" r="2.5" />
+    </svg>
+  );
+}
+
+function FlightPlaneIcon() {
+  return (
+    <svg className="planner-flight-plane-icon" viewBox="0 0 48 48" aria-hidden="true">
+      <path className="plane-body" d="M9 25 32 13l10 3 3 5-18 15-14 1-6-6z" />
+      <path className="plane-body plane-wing" d="m24 25 22 7-2 4-22-4zM18 24 6 14l-4 2 11 14z" />
+      <path className="plane-body" d="m37 17 5-12 3 2-2 14z" />
+      <path className="plane-window" d="m23 19 7-4 8 3-12 7z" />
+      <path className="plane-accent" d="m8 26 5-3 6 3 1 5-4 5-5 1-4-6z" />
+      <path className="plane-detail" d="M6 18 4 40M1 16l9 26M28 35l-2 7" />
+      <circle className="plane-wheel" cx="25" cy="43" r="4" />
+      <circle className="plane-wheel-hub" cx="25" cy="43" r="1.5" />
+    </svg>
+  );
+}
+
+function WalkingIcon() {
+  return (
+    <svg className="planner-walking-icon" viewBox="0 0 48 48" aria-hidden="true">
+      <g className="walking-footprint" transform="rotate(-18 16 16)">
+        <ellipse cx="16" cy="22" rx="5.5" ry="9" />
+        <circle cx="9.3" cy="12" r="2.5" /><circle cx="13.5" cy="9" r="2.2" /><circle cx="17.7" cy="8.2" r="2" /><circle cx="21.3" cy="9.7" r="1.7" /><circle cx="24" cy="12.3" r="1.45" />
+      </g>
+      <g className="walking-footprint" transform="rotate(18 31 31)">
+        <ellipse cx="31" cy="37" rx="5.5" ry="9" />
+        <circle cx="24.3" cy="27" r="2.5" /><circle cx="28.5" cy="24" r="2.2" /><circle cx="32.7" cy="23.2" r="2" /><circle cx="36.3" cy="24.7" r="1.7" /><circle cx="39" cy="27.3" r="1.45" />
+      </g>
+    </svg>
+  );
+}
+
+function TravelSegment({ segment, from, to, note = "" }) {
   const fromName = from.name;
   const toName = to.name;
   const estimate = estimateRoadTrip(from, to);
+  const prefersFlight = FLIGHT_NOTE_PATTERN.test(note);
+  const prefersWalking = !prefersFlight && WALKING_NOTE_PATTERN.test(note);
+  // A clear 「搭車」 instruction overrides incidental place-name words such as
+  // "Rent-a-Car". Conversely, an explicit 「開車」 remains self-driving even
+  // when the hotel name contains "JR".
+  const prefersExplicitTransit = EXPLICIT_TRANSIT_NOTE_PATTERN.test(note);
+  const prefersDriving = !prefersFlight && !prefersWalking && !prefersExplicitTransit && DRIVING_NOTE_PATTERN.test(note);
+  const prefersTransit = !prefersFlight && !prefersWalking && !prefersDriving && TRANSIT_NOTE_PATTERN.test(note);
+  const transitDuration = segment?.transit?.[0]?.duration ?? segment?.transitDuration;
+  const transitLabel = transitDuration
+    ? `搭車約 ${transitDuration}`
+    : "搭車時間請至 Google Maps 查看";
+  const walkingLabel = segment?.walking?.duration
+    ? `走路約 ${segment.walking.duration}`
+    : "走路時間請至 Google Maps 查看";
+  const summaryLabel = prefersFlight
+    ? `飛行時間 ${estimateFlightTime(from, to)}`
+    : prefersWalking
+      ? walkingLabel
+    : prefersTransit
+      ? transitLabel
+      : `開車約 ${segment?.driving?.duration ?? estimate.duration}`;
   const drivingUrl = makeGoogleDirectionsUrl(from, to, "driving");
   const transitUrl = makeGoogleDirectionsUrl(from, to, "transit");
+  const walkingUrl = makeGoogleDirectionsUrl(from, to, "walking");
   return (
     <li className="planner-travel-segment" aria-label={`${fromName}到${toName}的交通資訊`}>
       <div className="planner-travel-line" aria-hidden="true">
@@ -1022,7 +1403,6 @@ function TravelSegment({ segment, from, to }) {
       </div>
       <div className="planner-travel-content">
         <p>
-          <b>{fromName}</b>
           <span>前往</span>
           <b>{toName}</b>
         </p>
@@ -1032,15 +1412,19 @@ function TravelSegment({ segment, from, to }) {
         {segment?.status === "error" && (
           <div className="planner-travel-fallback">
             <section className="planner-driving-option">
-              <span aria-hidden="true">🚗</span>
+              <span aria-hidden="true">{prefersFlight ? <FlightPlaneIcon /> : prefersWalking ? <WalkingIcon /> : prefersTransit ? <TransitTrainIcon /> : <DrivingCarIcon />}</span>
               <div>
-                <strong>開車 {estimate.duration}</strong>
-                <small>{estimate.distance}・依兩點距離推算</small>
+                <strong>{prefersFlight ? `飛行時間 ${estimateFlightTime(from, to)}` : prefersWalking ? walkingLabel : prefersTransit ? transitLabel : `開車 ${estimate.duration}`}</strong>
+                {prefersWalking && segment?.walking?.distance && <small>{segment.walking.distance}</small>}
+                {!prefersFlight && !prefersWalking && !prefersTransit && <small>{estimate.distance}</small>}
               </div>
             </section>
             <div className="planner-route-links">
-              <a href={drivingUrl} target="_blank" rel="noreferrer">查看開車路線 ↗</a>
-              <a href={transitUrl} target="_blank" rel="noreferrer">查看大眾運輸班次 ↗</a>
+              {!prefersTransit && (
+                <a href={drivingUrl} target="_blank" rel="noreferrer">開車路線 ↗</a>
+              )}
+              {prefersWalking && <a href={walkingUrl} target="_blank" rel="noreferrer">步行路線 ↗</a>}
+              <a href={transitUrl} target="_blank" rel="noreferrer">大眾運輸 ↗</a>
               <a
                 className="is-jartic"
                 href={JARTIC_URL}
@@ -1048,7 +1432,7 @@ function TravelSegment({ segment, from, to }) {
                 rel="noreferrer"
                 title="手機會由 JARTIC 自動顯示行動版"
               >
-                JARTIC 即時交通 ↗
+                即時路況 ↗
               </a>
             </div>
           </div>
@@ -1056,43 +1440,27 @@ function TravelSegment({ segment, from, to }) {
         {segment?.status === "ready" && (
           <div className="planner-travel-options">
             <section className="planner-driving-option">
-              <span aria-hidden="true">🚗</span>
+              <span aria-hidden="true">{prefersFlight ? <FlightPlaneIcon /> : prefersWalking ? <WalkingIcon /> : prefersTransit ? <TransitTrainIcon /> : <DrivingCarIcon />}</span>
               <div>
-                <strong>開車約 {segment.driving?.duration ?? "無資料"}</strong>
-                {segment.driving?.distance && <small>{segment.driving.distance}</small>}
-              </div>
-            </section>
-            <section className="planner-transit-option">
-              <span aria-hidden="true">🚆</span>
-              <div>
-                <strong>公共交通班次</strong>
-                {segment.transit.length ? (
-                  <ul>
-                    {segment.transit.map((route) => (
-                      <li key={route.id}>
-                        <time>{route.departure}</time>
-                        <span>→ {route.arrival || "抵達時間依班次"}</span>
-                        <em>{route.duration}</em>
-                        {route.lines.length > 0 && (
-                          <small>{route.lines.join("・")}</small>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <>
-                    <small>此區間查無可用的大眾運輸路線</small>
-                    <a className="planner-transit-link" href={transitUrl} target="_blank" rel="noreferrer">
-                      到 Google Maps 查看其他班次 ↗
-                    </a>
-                  </>
+                <strong>{summaryLabel}</strong>
+                {prefersWalking && segment.walking?.distance && <small>{segment.walking.distance}</small>}
+                {!prefersFlight && !prefersWalking && !prefersTransit && (
+                  <small>{segment.driving?.distance ?? estimate.distance}</small>
                 )}
               </div>
             </section>
           </div>
         )}
-        {segment?.status !== "error" && (
+        {segment?.status !== "error" && !prefersTransit && !prefersFlight && !prefersWalking && (
           <div className="planner-road-links">
+            <a
+              className="is-google"
+              href={drivingUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Google Maps ↗
+            </a>
             <a
               className="is-jartic"
               href={JARTIC_URL}
@@ -1100,8 +1468,29 @@ function TravelSegment({ segment, from, to }) {
               rel="noreferrer"
               title="手機會由 JARTIC 自動顯示行動版"
             >
-              JARTIC 即時交通 ↗
+              即時路況 ↗
             </a>
+          </div>
+        )}
+        {segment?.status !== "error" && prefersTransit && (
+          <div className="planner-route-links">
+            <a href={transitUrl} target="_blank" rel="noreferrer">
+              Google Maps ↗
+            </a>
+            <a
+              className="is-jartic"
+              href={JARTIC_URL}
+              target="_blank"
+              rel="noreferrer"
+              title="手機會由 JARTIC 自動顯示行動版"
+            >
+              即時路況 ↗
+            </a>
+          </div>
+        )}
+        {segment?.status !== "error" && prefersWalking && (
+          <div className="planner-route-links">
+            <a href={walkingUrl} target="_blank" rel="noreferrer">Google Maps 步行路線 ↗</a>
           </div>
         )}
       </div>
@@ -1129,7 +1518,7 @@ function RoadConditionSummary({ stops }) {
           title="手機會由 JARTIC 自動顯示行動版"
         >
           <span>●</span>
-          JARTIC 即時交通
+          即時路況
           <i>↗</i>
         </a>
       </div>
@@ -1138,9 +1527,10 @@ function RoadConditionSummary({ stops }) {
 }
 
 function Planner() {
-  const { user, syncSpaceId } = useAuth();
+  const { user, syncSpaceId, syncVersion } = useAuth();
   const cloudKey = user && syncSpaceId ? syncSpaceId : null;
-  const navigate = useNavigate(); // ✨ 補上宣告 navigate
+  const [searchParams] = useSearchParams();
+  const linkedVersionAppliedRef = useRef("");
   const [days, setDays] = useState(getInitialDays);
   const [activeDayId, setActiveDayId] = useState(
     () => {
@@ -1152,13 +1542,64 @@ function Planner() {
     },
   );
   const dayBoardRef = useRef(null);
+  const [draggedDayId, setDraggedDayId] = useState(null);
+  const [dragOverDayId, setDragOverDayId] = useState(null);
   const [draggedId, setDraggedId] = useState(null);
   const [dragOverId, setDragOverId] = useState(null);
   const [locating, setLocating] = useState({});
   const [locationErrors, setLocationErrors] = useState({});
   const [travelSegments, setTravelSegments] = useState({});
   const [cloudLoadedFor, setCloudLoadedFor] = useState(null);
+  const [saveRequest, setSaveRequest] = useState(0);
+  const [plannerSaveStatus, setPlannerSaveStatus] = useState("");
+  const [foodFavorites, setFoodFavorites] = useState(loadFoodFavorites);
   const initialCloudDataRef = useRef({ days, activeDayId });
+  const localEditPendingRef = useRef(false);
+  const itemDraftsRef = useRef(loadItemDrafts());
+  const [, setDraftRevision] = useState(0);
+
+  const toggleFoodFavorite = (location, item) => {
+    if (!isFoodLocation(location)) return;
+    const favoriteId = String(location.id ?? location.placeId ?? location.name);
+    setFoodFavorites((current) => {
+      const alreadySaved = current.some((favorite) => favorite.id === favoriteId);
+      const next = alreadySaved
+        ? current.filter((favorite) => favorite.id !== favoriteId)
+        : [
+            ...current,
+            {
+              id: favoriteId,
+              name: location.name ?? item.text.split(/\r?\n/)[0],
+              area: location.displayName ?? activeDay?.label ?? "美食",
+              to: `/planner?day=${encodeURIComponent(activeDayId)}`,
+            },
+          ];
+      localStorage.setItem(FOOD_FAVORITES_STORAGE_KEY, JSON.stringify(next));
+      window.dispatchEvent(new CustomEvent("food-favorites-changed"));
+      return next;
+    });
+  };
+
+  useEffect(() => {
+    const dayId = searchParams.get("day");
+    const versionId = searchParams.get("version");
+    const linkKey = `${dayId ?? ""}:${versionId ?? ""}`;
+    if (!dayId || linkedVersionAppliedRef.current === linkKey) return;
+    const linkedDay = days.find((day) => day.id === dayId);
+    if (!linkedDay) return;
+    linkedVersionAppliedRef.current = linkKey;
+    setActiveDayId(dayId);
+    if (!versionId) return;
+    setDays((currentDays) =>
+      currentDays.map((day) => {
+        if (day.id !== dayId) return day;
+        const version = day.versions?.find((entry) => entry.id === versionId);
+        return version
+          ? { ...day, activeVersionId: versionId, items: version.items }
+          : day;
+      }),
+    );
+  }, [days, searchParams]);
 
   useEffect(() => {
     let cancelled = false;
@@ -1168,26 +1609,43 @@ function Planner() {
     };
 
     const loadCloudData = async () => {
+      window.dispatchEvent(
+        new CustomEvent("cloud-sync-status", { detail: "loading" }),
+      );
       try {
         const cloud = await loadPlannerCloud(cloudKey);
         if (cancelled) return;
-        if (Array.isArray(cloud?.days) && cloud.days.length) {
-          const cloudDays = cloud.days.map((day) => ({
-            ...day,
-            date: day.date ?? "",
-          }));
+        const localData = initialCloudDataRef.current;
+        const cloudHasContent =
+          Array.isArray(cloud?.days) &&
+          cloud.days.length > 0 &&
+          hasPlannerContent(cloud.days);
+        const localHasContent = hasPlannerContent(localData.days);
+
+        if (cloudHasContent) {
+          const cloudDays = cloud.days.map(normalizePlannerDay);
           setDays(cloudDays);
-          setActiveDayId(
-            cloudDays.some((day) => day.id === cloud.activeDayId)
-              ? cloud.activeDayId
+          setActiveDayId((currentId) =>
+            cloudDays.some((day) => day.id === currentId)
+              ? currentId
               : cloudDays[0].id,
           );
-        } else {
-          await savePlannerCloud(cloudKey, initialCloudDataRef.current);
+        } else if (localHasContent || !cloud) {
+          await savePlannerCloud(cloudKey, { days: localData.days });
         }
-        if (!cancelled) setCloudLoadedFor(cloudKey);
+        if (!cancelled) {
+          setCloudLoadedFor(cloudKey);
+          window.dispatchEvent(
+            new CustomEvent("cloud-sync-status", { detail: "success" }),
+          );
+        }
       } catch (error) {
         console.error("無法載入雲端行程", error);
+        if (!cancelled) {
+          window.dispatchEvent(
+            new CustomEvent("cloud-sync-status", { detail: "error" }),
+          );
+        }
       }
     };
 
@@ -1195,7 +1653,7 @@ function Planner() {
     return () => {
       cancelled = true;
     };
-  }, [cloudKey]);
+  }, [cloudKey, syncVersion]);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(days));
@@ -1206,14 +1664,54 @@ function Planner() {
   }, [activeDayId]);
 
   useEffect(() => {
-    if (!cloudKey || cloudLoadedFor !== cloudKey) return;
-    const timer = window.setTimeout(() => {
-      savePlannerCloud(cloudKey, { days, activeDayId }).catch((error) => {
+    if (!cloudKey || cloudLoadedFor !== cloudKey || saveRequest === 0) return;
+    savePlannerCloud(cloudKey, { days })
+      .then(() => {
+        localEditPendingRef.current = false;
+        setPlannerSaveStatus("已儲存並同步");
+        window.dispatchEvent(
+          new CustomEvent("cloud-sync-status", { detail: "success" }),
+        );
+      })
+      .catch((error) => {
         console.error("無法儲存雲端行程", error);
+        setPlannerSaveStatus("已儲存在此裝置，雲端同步失敗");
+        window.dispatchEvent(
+          new CustomEvent("cloud-sync-status", { detail: "error" }),
+        );
       });
-    }, 500);
-    return () => window.clearTimeout(timer);
-  }, [days, activeDayId, cloudKey, cloudLoadedFor]);
+  }, [saveRequest, cloudKey, cloudLoadedFor]);
+
+  useEffect(() => {
+    if (!cloudKey || cloudLoadedFor !== cloudKey) return undefined;
+    return subscribePlannerCloud(
+      cloudKey,
+      (cloud) => {
+        if (localEditPendingRef.current) return;
+        if (!Array.isArray(cloud?.days) || !cloud.days.length) return;
+        setDays((currentDays) => {
+          const nextDays = cloud.days.map(normalizePlannerDay);
+          return JSON.stringify(currentDays) === JSON.stringify(nextDays)
+            ? currentDays
+            : nextDays;
+        });
+        setActiveDayId((currentId) =>
+          cloud.days.some((day) => day.id === currentId)
+            ? currentId
+            : cloud.days[0].id,
+        );
+        window.dispatchEvent(
+          new CustomEvent("cloud-sync-status", { detail: "success" }),
+        );
+      },
+      (error) => {
+        console.error("無法即時接收雲端行程", error);
+        window.dispatchEvent(
+          new CustomEvent("cloud-sync-status", { detail: "error" }),
+        );
+      },
+    );
+  }, [cloudKey, cloudLoadedFor]);
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
@@ -1235,23 +1733,114 @@ function Planner() {
   const activeDay = days.find((day) => day.id === activeDayId) ?? days[0];
   const items = activeDay.items;
   const setItems = (updater) =>
+    (localEditPendingRef.current = true,
     setDays((current) =>
       current.map((day) => {
         if (day.id !== activeDayId) return day;
-        return {
-          ...day,
-          items: typeof updater === "function" ? updater(day.items) : updater,
-        };
+        const nextItems =
+          typeof updater === "function" ? updater(day.items) : updater;
+        return syncActiveVersionItems(day, nextItems);
       }),
-    );
+    ));
   const updateDay = (dayId, patch) => {
+    localEditPendingRef.current = true;
     if (Object.hasOwn(patch, "date")) updateLodgingStayDate(dayId, patch.date);
     setDays((current) =>
       current.map((day) => (day.id === dayId ? { ...day, ...patch } : day)),
     );
   };
 
+  const getDayVersions = (day) =>
+    Array.isArray(day.versions) && day.versions.length
+      ? day.versions.map((version, index) => ({
+          ...version,
+          label: `版本 ${index + 1}`,
+        }))
+      : [{ id: "version-1", label: "版本 1", items: day.items }];
+
+  const switchDayVersion = (versionId) => {
+    localEditPendingRef.current = true;
+    const drafts = new Map(itemDraftsRef.current);
+    const currentItems = items.map((item) =>
+      drafts.has(item.id) ? { ...item, text: drafts.get(item.id) } : item,
+    );
+    items.forEach((item) => itemDraftsRef.current.delete(item.id));
+    persistItemDrafts(itemDraftsRef.current);
+    setDays((currentDays) =>
+      currentDays.map((day) => {
+        if (day.id !== activeDayId) return day;
+        const versions = getDayVersions(day).map((version) =>
+          version.id === (day.activeVersionId ?? "version-1")
+            ? { ...version, items: currentItems }
+            : version,
+        );
+        const selected = versions.find((version) => version.id === versionId);
+        return selected
+          ? { ...day, versions, activeVersionId: versionId, items: selected.items }
+          : day;
+      }),
+    );
+  };
+
+  const addDayVersion = () => {
+    localEditPendingRef.current = true;
+    const drafts = new Map(itemDraftsRef.current);
+    const currentItems = items.map((item) =>
+      drafts.has(item.id) ? { ...item, text: drafts.get(item.id) } : item,
+    );
+    items.forEach((item) => itemDraftsRef.current.delete(item.id));
+    persistItemDrafts(itemDraftsRef.current);
+    setDays((currentDays) =>
+      currentDays.map((day) => {
+        if (day.id !== activeDayId) return day;
+        const versions = getDayVersions(day).map((version) =>
+          version.id === (day.activeVersionId ?? "version-1")
+            ? { ...version, items: currentItems }
+            : version,
+        );
+        const nextItems = currentItems.map((item) => ({
+          ...item,
+          id: globalThis.crypto?.randomUUID?.() ?? makeVersionId(),
+        }));
+        const nextVersion = {
+          id: makeVersionId(),
+          label: `版本 ${versions.length + 1}`,
+          items: nextItems.length ? nextItems : [makeItem()],
+        };
+        return {
+          ...day,
+          versions: [...versions, nextVersion],
+          activeVersionId: nextVersion.id,
+          items: nextVersion.items,
+        };
+      }),
+    );
+  };
+
+  const removeDayVersion = () => {
+    const versions = getDayVersions(activeDay);
+    if (versions.length <= 1) return;
+    localEditPendingRef.current = true;
+    setDays((currentDays) =>
+      currentDays.map((day) => {
+        if (day.id !== activeDayId) return day;
+        const activeVersionId = day.activeVersionId ?? "version-1";
+        const nextVersions = getDayVersions(day).filter(
+          (version) => version.id !== activeVersionId,
+        );
+        const nextVersion = nextVersions[0];
+        return {
+          ...day,
+          versions: nextVersions,
+          activeVersionId: nextVersion.id,
+          items: nextVersion.items,
+        };
+      }),
+    );
+  };
+
   const addDay = () => {
+    localEditPendingRef.current = true;
     const previousDate = days.at(-1)?.date;
     const date = previousDate ? new Date(`${previousDate}T00:00:00`) : null;
     if (date && !Number.isNaN(date.getTime())) date.setDate(date.getDate() + 1);
@@ -1261,22 +1850,53 @@ function Planner() {
       date: date ? toDateInputValue(date) : "",
     };
     setDays((current) => [...current, nextDay]);
+    setPlannerSaveStatus(cloudKey ? "正在同步新增的 DAY…" : "已儲存在此裝置");
+    setSaveRequest((request) => request + 1);
     setActiveDayId(nextDay.id);
     setDraggedId(null);
     setDragOverId(null);
   };
 
-  const removeActiveDay = () => {
+  const removeDay = (dayId) => {
     if (days.length <= 1) return;
-    const activeIndex = days.findIndex((day) => day.id === activeDayId);
-    const nextDays = days.filter((day) => day.id !== activeDayId);
-    const nextActive =
-      nextDays[Math.min(Math.max(activeIndex - 1, 0), nextDays.length - 1)];
-    removeLodgingsForDay(activeDayId);
+    localEditPendingRef.current = true;
+    const removedIndex = days.findIndex((day) => day.id === dayId);
+    const nextDays = days.filter((day) => day.id !== dayId);
+    const nextActive = activeDayId === dayId
+      ? nextDays[Math.min(Math.max(removedIndex - 1, 0), nextDays.length - 1)]
+      : days.find((day) => day.id === activeDayId);
+    removeLodgingsForDay(dayId);
     setDays(nextDays);
-    setActiveDayId(nextActive.id);
+    setPlannerSaveStatus(cloudKey ? "正在同步 DAY 變更…" : "已儲存在此裝置");
+    setSaveRequest((request) => request + 1);
+    if (nextActive) setActiveDayId(nextActive.id);
     setDraggedId(null);
     setDragOverId(null);
+  };
+
+  const removeActiveDay = () => removeDay(activeDayId);
+
+  const dropDay = (targetDayId) => {
+    if (!draggedDayId || draggedDayId === targetDayId) {
+      setDraggedDayId(null);
+      setDragOverDayId(null);
+      return;
+    }
+
+    localEditPendingRef.current = true;
+    setDays((currentDays) => {
+      const from = currentDays.findIndex((day) => day.id === draggedDayId);
+      const to = currentDays.findIndex((day) => day.id === targetDayId);
+      if (from < 0 || to < 0) return currentDays;
+      const nextDays = [...currentDays];
+      const [movedDay] = nextDays.splice(from, 1);
+      nextDays.splice(to, 0, movedDay);
+      return nextDays;
+    });
+    setPlannerSaveStatus(cloudKey ? "正在同步 DAY 順序…" : "已儲存在此裝置");
+    setSaveRequest((request) => request + 1);
+    setDraggedDayId(null);
+    setDragOverDayId(null);
   };
 
   const plannedStops = useMemo(
@@ -1358,19 +1978,62 @@ function Planner() {
               destination: routePoint(pair.to),
             };
             try {
-              const [drivingResult, transitResult] = await Promise.all([
+              const [drivingResult, walkingResult, transitResult] = await Promise.all([
                 requestDirections(maps, {
                   ...baseRequest,
                   travelMode: maps.TravelMode.DRIVING,
-                }),
+                }).catch(() => null),
+                requestDirections(maps, {
+                  ...baseRequest,
+                  travelMode: maps.TravelMode.WALKING,
+                }).catch(() => null),
                 requestDirections(maps, {
                   ...baseRequest,
                   travelMode: maps.TravelMode.TRANSIT,
                   provideRouteAlternatives: true,
                   transitOptions: { departureTime },
-                }).catch(() => null),
+                }).catch(() =>
+                  requestDirections(maps, {
+                    ...baseRequest,
+                    travelMode: maps.TravelMode.TRANSIT,
+                    provideRouteAlternatives: true,
+                    transitOptions: { departureTime: getTransitDepartureTime() },
+                  }).catch(() => null),
+                ),
               ]);
-              const drivingLeg = drivingResult.routes?.[0]?.legs?.[0];
+              const drivingLeg = drivingResult?.routes?.[0]?.legs?.[0];
+              const walkingLeg = walkingResult?.routes?.[0]?.legs?.[0];
+              const transitRoutes = (transitResult?.routes ?? [])
+                .slice(0, 3)
+                .map(summarizeTransitRoute)
+                .filter(Boolean);
+              const fallbackTransitDuration = transitRoutes[0]?.duration
+                ? null
+                : await loadTransitDurationCloud(
+                    baseRequest.origin,
+                    baseRequest.destination,
+                    departureTime,
+                  ).catch(() => null) ??
+                  await requestModernTransitDuration(
+                    maps,
+                    baseRequest.origin,
+                    baseRequest.destination,
+                    departureTime,
+                  ).catch(() =>
+                    requestTransitDuration(
+                      maps,
+                      baseRequest.origin,
+                      baseRequest.destination,
+                      departureTime,
+                    ).catch(() =>
+                      requestTransitDuration(
+                        maps,
+                        baseRequest.origin,
+                        baseRequest.destination,
+                        getTransitDepartureTime(),
+                      ).catch(() => null),
+                    ),
+                  );
               return [
                 pair.fromItemId,
                 {
@@ -1381,10 +2044,14 @@ function Planner() {
                         distance: drivingLeg.distance?.text,
                       }
                     : null,
-                  transit: (transitResult?.routes ?? [])
-                    .slice(0, 3)
-                    .map(summarizeTransitRoute)
-                    .filter(Boolean),
+                  walking: walkingLeg
+                    ? {
+                        duration: walkingLeg.duration?.text,
+                        distance: walkingLeg.distance?.text,
+                      }
+                    : null,
+                  transit: transitRoutes,
+                  transitDuration: fallbackTransitDuration,
                 },
               ];
             } catch {
@@ -1415,17 +2082,64 @@ function Planner() {
     setItems((current) =>
       current.map((item) => (item.id === id ? { ...item, ...patch } : item)),
     );
-  const updateItemText = (id, text) => {
-    setLocationErrors((current) => ({ ...current, [id]: "" }));
-    if (CHECKOUT_PATTERN.test(text)) {
-      const currentItem = items.find((item) => item.id === id);
-      removeLodging(currentItem?.location?.id, activeDayId, id);
+  const saveAllItemDrafts = () => {
+    const drafts = new Map(itemDraftsRef.current);
+    const itemsToLocate = items
+      .filter((item) => drafts.has(item.id))
+      .map((item) => ({ ...item, text: drafts.get(item.id) }))
+      .filter((item) => item.text.trim());
+    localEditPendingRef.current = true;
+    if (drafts.size) {
+      setDays((currentDays) =>
+        currentDays.map((day) =>
+          day.id === activeDayId
+            ? syncActiveVersionItems(
+                day,
+                day.items.map((item) =>
+                  drafts.has(item.id)
+                    ? {
+                        ...item,
+                        text: drafts.get(item.id),
+                        ...(item.text === drafts.get(item.id)
+                          ? {}
+                          : { location: undefined }),
+                      }
+                    : item,
+                ),
+              )
+            : day,
+        ),
+      );
+      items.forEach((item) => itemDraftsRef.current.delete(item.id));
+      persistItemDrafts(itemDraftsRef.current);
+      itemsToLocate.forEach((item) => locateItem(item));
     }
-    setItems((current) =>
-      current.map((item) =>
-        item.id === id ? { ...item, text } : item,
-      ),
+    setPlannerSaveStatus(cloudKey ? "已儲存，正在同步…" : "已儲存在此裝置");
+    setSaveRequest((request) => request + 1);
+  };
+  const applyLocatedItem = (itemId, location, locatedText = "") => {
+    localEditPendingRef.current = true;
+    setDays((current) =>
+      current.map((day) => {
+        if (day.id !== activeDayId) return day;
+        return syncActiveVersionItems(
+          day,
+          day.items.map((candidate) =>
+            candidate.id === itemId
+              ? {
+                  ...candidate,
+                  ...(locatedText ? { text: locatedText } : {}),
+                  location,
+                }
+              : candidate,
+          ),
+        );
+      }),
     );
+    itemDraftsRef.current.delete(itemId);
+    persistItemDrafts(itemDraftsRef.current);
+    setPlannerSaveStatus(cloudKey ? "定位完成，正在同步…" : "定位完成");
+    setSaveRequest((request) => request + 1);
   };
   const locateItem = async (item) => {
     if (!item.text.trim() || locating[item.id]) return;
@@ -1437,16 +2151,7 @@ function Planner() {
         removeLodging(namedPlace.id, activeDayId, item.id);
       }
       setLocationErrors((current) => ({ ...current, [item.id]: "" }));
-      setDays((current) =>
-        current.map((day) => ({
-          ...day,
-          items: day.items.map((candidate) =>
-            candidate.id === item.id
-              ? { ...candidate, location: namedPlace }
-              : candidate,
-          ),
-        })),
-      );
+      applyLocatedItem(item.id, namedPlace, item.text);
       return;
     }
     setLocating((current) => ({ ...current, [item.id]: true }));
@@ -1456,16 +2161,7 @@ function Planner() {
       if (!location) {
         const fallbackTown = findTownForText(item.text);
         if (fallbackTown) {
-          setDays((current) =>
-            current.map((day) => ({
-              ...day,
-              items: day.items.map((candidate) =>
-                candidate.id === item.id
-                  ? { ...candidate, location: fallbackTown }
-                  : candidate,
-              ),
-            })),
-          );
+          applyLocatedItem(item.id, fallbackTown, item.text);
           return;
         }
         setLocationErrors((current) => ({
@@ -1479,14 +2175,7 @@ function Planner() {
       } else if (CHECKOUT_PATTERN.test(item.text)) {
         removeLodging(location.id, activeDayId, item.id);
       }
-      setDays((current) =>
-        current.map((day) => ({
-          ...day,
-          items: day.items.map((candidate) =>
-            candidate.id === item.id ? { ...candidate, location } : candidate,
-          ),
-        })),
-      );
+      applyLocatedItem(item.id, location, item.text);
     } catch (error) {
       setLocationErrors((current) => ({
         ...current,
@@ -1496,11 +2185,29 @@ function Planner() {
       setLocating((current) => ({ ...current, [item.id]: false }));
     }
   };
+  const locateCurrentItem = (item) => {
+    const draftText = itemDraftsRef.current.get(item.id) ?? item.text;
+    if (!draftText.trim()) return;
+    if (draftText !== item.text) {
+      setItems((current) =>
+        current.map((candidate) =>
+          candidate.id === item.id
+            ? { ...candidate, text: draftText }
+            : candidate,
+        ),
+      );
+      itemDraftsRef.current.delete(item.id);
+      persistItemDrafts(itemDraftsRef.current);
+    }
+    locateItem({ ...item, text: draftText });
+  };
   const removeItem = (id) => {
     const item = items.find((candidate) => candidate.id === id);
     const lodgingLocation = item?.location ?? findNamedPlaceForText(item?.text ?? "");
     // 即使地點後來被重新判定為非住宿，也要清除先前已收錄的住宿資料。
     removeLodging(lodgingLocation?.id, activeDayId, item.id);
+    itemDraftsRef.current.delete(id);
+    persistItemDrafts(itemDraftsRef.current);
     setItems((current) => current.filter((item) => item.id !== id));
   };
   const addItem = (text = "") =>
@@ -1533,27 +2240,6 @@ function Planner() {
 
   return (
     <div className="planner-page">
-      <div className="planner-doodle planner-doodle--mountain">
-        <HandDrawnMotif type="yotei" />
-      </div>
-      <div className="planner-doodle planner-doodle--ropeway">
-        <HandDrawnMotif type="kamikawaRopeway" />
-      </div>
-      <div className="planner-doodle planner-doodle--penguin">
-        <HandDrawnMotif type="penguin" />
-      </div>
-      <div className="planner-doodle planner-doodle--snow-monster">
-        <HandDrawnMotif type="juhyo" />
-      </div>
-      <div className="planner-doodle planner-doodle--skier">
-        <HandDrawnMotif type="skier" />
-      </div>
-      <div className="planner-doodle planner-doodle--onsen">
-        <HandDrawnMotif type="onsen" />
-      </div>
-      <div className="planner-doodle planner-doodle--bear">
-        <HandDrawnMotif type="bear" />
-      </div>
       <header className="planner-heading">
         <div>
           <p>
@@ -1577,7 +2263,6 @@ function Planner() {
             <GoogleRouteMap stops={plannedStops} />
           </div>
           <p className="planner-map-hint">
-            <span>↗</span> 地圖路線會跟著目前選取的日期與行程順序即時更新。
           </p>
         </div>
 
@@ -1592,15 +2277,40 @@ function Planner() {
             {days.map((day, dayIndex) => {
               const active = day.id === activeDayId;
               return (
-                <button
-                  type="button"
-                  className={active ? "is-active" : ""}
-                  aria-pressed={active}
+                <div
+                  className={`planner-day-tab ${active ? "is-active" : ""} ${draggedDayId === day.id ? "is-dragging" : ""} ${dragOverDayId === day.id && draggedDayId !== day.id ? "is-drag-over" : ""}`}
                   key={day.id}
-                  onClick={() => setActiveDayId(day.id)}
+                  onDragOver={(event) => {
+                    event.preventDefault();
+                    event.dataTransfer.dropEffect = "move";
+                    setDragOverDayId(day.id);
+                  }}
+                  onDrop={(event) => {
+                    event.preventDefault();
+                    dropDay(day.id);
+                  }}
                 >
-                  DAY {dayIndex + 1} 
-                </button>
+                  <button
+                    type="button"
+                    className="planner-day-tab-select"
+                    draggable
+                    aria-pressed={active}
+                    aria-label={`DAY ${dayIndex + 1}，按住拖曳可調整順序`}
+                    title="按住拖曳可調整 DAY 順序"
+                    onClick={() => setActiveDayId(day.id)}
+                    onDragStart={(event) => {
+                      event.dataTransfer.effectAllowed = "move";
+                      event.dataTransfer.setData("text/plain", day.id);
+                      setDraggedDayId(day.id);
+                    }}
+                    onDragEnd={() => {
+                      setDraggedDayId(null);
+                      setDragOverDayId(null);
+                    }}
+                  >
+                    DAY {dayIndex + 1}
+                  </button>
+                </div>
               );
             })}
             <div
@@ -1610,15 +2320,10 @@ function Planner() {
             >
               <button
                 type="button"
-                onClick={removeActiveDay}
-                disabled={days.length <= 1}
-                aria-label="刪除目前這一天"
-              >
-                −
-              </button>
-              <button type="button" onClick={addDay} aria-label="增加一天">
-                ＋
-              </button>
+                className="planner-add-day-button"
+                onClick={addDay}
+                aria-label="增加一天"
+              />
             </div>
           </nav>
           <div
@@ -1632,6 +2337,8 @@ function Planner() {
               .map((day) => {
               const dayIndex = days.findIndex((entry) => entry.id === day.id);
               const active = true;
+              const dayVersions = getDayVersions(day);
+              const activeVersionId = day.activeVersionId ?? dayVersions[0].id;
               return (
                 <section
                   data-day-id={day.id}
@@ -1641,6 +2348,16 @@ function Planner() {
                   aria-label={`第 ${dayIndex + 1} 天`}
                   onClick={() => !active && setActiveDayId(day.id)}
                 >
+                  <button
+                    className="planner-day-delete"
+                    type="button"
+                    aria-label={`刪除 DAY ${dayIndex + 1}`}
+                    title={`刪除 DAY ${dayIndex + 1}`}
+                    disabled={days.length <= 1}
+                    onClick={() => removeDay(day.id)}
+                  >
+                    <span aria-hidden="true">×</span>
+                  </button>
                   <button
                     className="planner-day-select"
                     type="button"
@@ -1671,6 +2388,40 @@ function Planner() {
                       <b>{formatItineraryDate(day.date)}</b>
                     )}
                   </div>
+                  <div className="planner-version-picker" aria-label="行程版本">
+                    <span>行程版本</span>
+                    <div>
+                      {dayVersions.map((version) => (
+                        <button
+                          type="button"
+                          className={
+                            version.id === activeVersionId ? "is-active" : ""
+                          }
+                          key={version.id}
+                          onClick={() => switchDayVersion(version.id)}
+                        >
+                          {version.label}
+                        </button>
+                      ))}
+                      <button
+                        type="button"
+                        className="is-version-action"
+                        onClick={addDayVersion}
+                        aria-label="新增行程版本"
+                      >
+                        ＋
+                      </button>
+                      <button
+                        type="button"
+                        className="is-version-action"
+                        onClick={removeDayVersion}
+                        disabled={dayVersions.length <= 1}
+                        aria-label="刪除目前行程版本"
+                      >
+                        −
+                      </button>
+                    </div>
+                  </div>
                   {active ? (
                     <>
                       <ol className="planner-list">
@@ -1685,6 +2436,7 @@ function Planner() {
                               nextItem.location ??
                               findKnownLocationForText(nextItem.text)
                             : null;
+                          const itemMotif = getItineraryMotif(resolvedLocation, item.text);
                           return (
                             <Fragment key={item.id}>
                             <li
@@ -1725,78 +2477,74 @@ function Planner() {
                                 <div className="planner-item-meta">
                                   <b>
                                     STOP {String(index + 1).padStart(2, "0")}
+                                    {itemMotif && (
+                                      <span
+                                        className={`planner-item-category-icon ${itemMotif === "lamb" ? "is-lamb" : ""} ${itemMotif === "chairlift" ? "is-chairlift" : ""}`}
+                                        title={getItineraryMotifLabel(itemMotif)}
+                                      >
+                                        <HandDrawnMotif type={itemMotif} />
+                                      </span>
+                                    )}
                                   </b>
                                   {resolvedLocation ? (
                                     <>
-                                      <span title={item.location?.displayName}>
-                                        已定位 · {resolvedLocation.name}
-                                      </span>
                                       <div className="planner-meta-actions-group">
                                         <button
-                                          className="planner-locate"
+                                          className={`planner-locate planner-icon-locate ${locating[item.id] ? "is-locating" : ""}`}
                                           type="button"
+                                          aria-label="重新定位"
+                                          data-tooltip={locating[item.id] ? undefined : "重新定位"}
                                           disabled={locating[item.id]}
-                                          onClick={() => locateItem(item)}
+                                          onClick={() => locateCurrentItem(item)}
                                         >
                                           {locating[item.id] ? (
                                             "定位中…"
                                           ) : (
-                                            <>
-                                              <span className="planner-locate-icon" aria-hidden="true">⌖</span>
-                                              重新定位
-                                            </>
+                                            <span className="planner-locate-icon" aria-hidden="true">⌖</span>
                                           )}
                                         </button>
 
-                                        {/* ✨ 修正後的飯店官網按鈕區塊 */}
-                                        {isLodgingStay(resolvedLocation, item.text) && (
+                                        {isFoodLocation(resolvedLocation) && (
                                           <button
-                                            className="planner-locate planner-hotel-intro-btn"
+                                            className={`planner-locate planner-food-favorite-btn ${foodFavorites.some((favorite) => favorite.id === String(resolvedLocation.id ?? resolvedLocation.placeId ?? resolvedLocation.name)) ? "is-favorite" : ""}`}
                                             type="button"
-                                            onClick={() => {
-                                              navigate(
-                                                `/hotel?lodging=${encodeURIComponent(resolvedLocation.id)}`,
-                                              );
-                                            }}
+                                            aria-label={foodFavorites.some((favorite) => favorite.id === String(resolvedLocation.id ?? resolvedLocation.placeId ?? resolvedLocation.name)) ? "移除美食收藏" : "加入我的最愛"}
+                                            data-tooltip={foodFavorites.some((favorite) => favorite.id === String(resolvedLocation.id ?? resolvedLocation.placeId ?? resolvedLocation.name)) ? "移除美食收藏" : "加入我的最愛"}
+                                            onClick={() => toggleFoodFavorite(resolvedLocation, item)}
                                           >
-                                            <svg className="planner-hotel-intro-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                              <path d="M4 20V9l8-5 8 5v11M9 20v-6h6v6M8 10h.01M16 10h.01" />
-                                            </svg>
-                                            查看住宿
+                                            <span aria-hidden="true">
+                                              {foodFavorites.some((favorite) => favorite.id === String(resolvedLocation.id ?? resolvedLocation.placeId ?? resolvedLocation.name)) ? "♥" : "♡"}
+                                            </span>
                                           </button>
                                         )}
                                       </div>
                                     </>
                                   ) : (
                                     <button
-                                      className="planner-locate"
+                                      className={`planner-locate planner-icon-locate ${locating[item.id] ? "is-locating" : ""}`}
                                       type="button"
-                                      disabled={
-                                        !item.text.trim() || locating[item.id]
-                                      }
-                                      onClick={() => locateItem(item)}
+                                      aria-label="定位"
+                                      data-tooltip={locating[item.id] ? undefined : "定位"}
+                                      disabled={locating[item.id]}
+                                      onClick={() => locateCurrentItem(item)}
                                     >
                                       {locating[item.id] ? (
                                         "定位中…"
                                       ) : (
-                                        <>
-                                          <span className="planner-locate-icon" aria-hidden="true">⌖</span>
-                                          定位
-                                        </>
+                                        <span className="planner-locate-icon" aria-hidden="true">⌖</span>
                                       )}
                                     </button>
                                   )}
                                 </div>
-                                <textarea
-                                  rows="2"
-                                  value={item.text}
-                                  placeholder="輸入行程"
-                                  onChange={(event) =>
-                                    updateItemText(item.id, event.target.value)
+                                <PlannerTextInput
+                                  value={
+                                    itemDraftsRef.current.get(item.id) ?? item.text
                                   }
-                                  onBlur={() => {
-                                    if (!item.location && item.text.trim())
-                                      locateItem(item);
+                                  onDraftChange={(nextText) => {
+                                    localEditPendingRef.current = true;
+                                    itemDraftsRef.current.set(item.id, nextText);
+                                    persistItemDrafts(itemDraftsRef.current);
+                                    setDraftRevision((revision) => revision + 1);
                                   }}
                                 />
                                 {locationErrors[item.id] && (
@@ -1828,7 +2576,7 @@ function Planner() {
                                   onClick={() => removeItem(item.id)}
                                   aria-label="刪除待辦"
                                 >
-                                  ×
+                                  <span aria-hidden="true">×</span>
                                 </button>
                               </div>
                             </li>
@@ -1838,6 +2586,7 @@ function Planner() {
                                 segment={travelSegments[item.id]}
                                 from={resolvedLocation}
                                 to={nextLocation}
+                                note={itemDraftsRef.current.get(item.id) ?? item.text}
                               />
                             )}
                             </Fragment>
@@ -1851,6 +2600,16 @@ function Planner() {
                       >
                         <span>＋</span> 新增當日行程
                       </button>
+                      <button
+                        className="planner-save-all"
+                        type="button"
+                        onClick={saveAllItemDrafts}
+                      >
+                        儲存並同步
+                      </button>
+                      <span className="planner-save-status" role="status">
+                        {plannerSaveStatus}
+                      </span>
                     </>
                   ) : (
                     <div className="planner-day-preview">

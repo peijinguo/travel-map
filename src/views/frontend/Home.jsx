@@ -15,6 +15,36 @@ const projectLocation = (latitude, longitude) => ({
 // eslint-disable-next-line react-refresh/only-export-components
 export const snowTowns = [
   {
+    id: "nanae",
+    name: "七飯町",
+    prefecture: "北海道",
+    kana: "NANAE",
+    motif: "onumaDango",
+    latitude: 41.98649,
+    longitude: 140.746745,
+    // Float the Onuma dango over Uchiura Bay so it stays off the map's land.
+    visualX: 89,
+    visualY: 16,
+    pinVisual: true,
+    note: "駒ヶ岳與大沼湖景",
+    resorts: ["Hakodate Nanae Snow Park"],
+  },
+  {
+    id: "mori",
+    name: "森町",
+    prefecture: "北海道",
+    kana: "MORI",
+    motif: "ikaMeshi",
+    latitude: 42.00256,
+    longitude: 140.60217,
+    // Float the Mori ikameshi over the Japan Sea so it stays off the map's land.
+    visualX: -63,
+    visualY: 8,
+    pinVisual: true,
+    note: "大沼自然與親子雪場",
+    resorts: ["グリーンピア大沼スキー場"],
+  },
+  {
     id: "niseko",
     name: "二世古町",
     prefecture: "北海道",
@@ -64,7 +94,7 @@ export const snowTowns = [
     visualX: -201,
     visualY: 6,
     note: "札幌電視塔與雪祭",
-    resorts: ["札幌手稻滑雪場", "札幌國際滑雪場", "札幌盤溪滑雪場", "札幌藻岩山滑雪場", "Fu's Snow Area"],
+    resorts: ["札幌手稻滑雪場", "札幌國際滑雪場", "札幌盤溪滑雪場", "札幌藻岩山滑雪場", "Fu's Snow Area", "Takino Snow World Family Ski Resort"],
   },
   {
     id: "mashike",
@@ -178,7 +208,7 @@ export const snowTowns = [
     motif: "birch",
     latitude: 39.9565,
     longitude: 141.071,
-    visualX: -155,
+    visualX: -165,
     visualY: -15,
     note: "安比高原白樺林",
     resorts: ["安比高原滑雪場", "八幡平度假村 Panorama 滑雪場", "八幡平度假村下倉滑雪場"],
@@ -297,6 +327,7 @@ const separateMarkerPositions = (towns, minimumDistance = 102) => {
     const location = projectLocation(town.latitude, town.longitude);
     return {
       id: town.id,
+      pinned: Boolean(town.pinVisual),
       anchorX: location.x,
       anchorY: location.y,
       x: location.x + (town.visualX ?? 0),
@@ -313,15 +344,18 @@ const separateMarkerPositions = (towns, minimumDistance = 102) => {
         const dx = b.x - a.x;
         const dy = b.y - a.y;
         const distance = Math.hypot(dx, dy) || 1;
-        if (distance >= minimumDistance) continue;
+        if (distance >= minimumDistance || (a.pinned && b.pinned)) continue;
 
-        const shift = (minimumDistance - distance) / 2;
+        // Pinned markers were hand-placed in open water; push their
+        // neighbours the whole way instead of nudging them back onto land.
+        const shift = minimumDistance - distance;
+        const shareA = a.pinned ? 0 : b.pinned ? 1 : 0.5;
         const unitX = dx / distance;
         const unitY = dy / distance;
-        a.x -= unitX * shift;
-        a.y -= unitY * shift;
-        b.x += unitX * shift;
-        b.y += unitY * shift;
+        a.x -= unitX * shift * shareA;
+        a.y -= unitY * shift * shareA;
+        b.x += unitX * shift * (1 - shareA);
+        b.y += unitY * shift * (1 - shareA);
         moved = true;
       }
     }

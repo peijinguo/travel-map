@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="210" viewBox="0 0 900 210">
+  <rect width="900" height="210" rx="22" fill="#fffdf8"/>
+  <style>
+    .tile{fill:#fff;stroke:#d9e4e9;stroke-width:2}.ink{fill:none;stroke:#704f3c;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.meat{fill:#d9684f;stroke:#704f3c;stroke-width:2.5;stroke-linejoin:round}.inside{fill:#e88968;stroke:#9a4f3f;stroke-width:1.8}.fat{fill:#fff1d7;stroke:#8f6250;stroke-width:2}.grill{fill:none;stroke:#854536;stroke-width:2.2;stroke-linecap:round}.plate{fill:#eef5f5;stroke:#597988;stroke-width:2.5}.metal{fill:#687983;stroke:#4c555a;stroke-width:2.5}.veg{fill:#8dbb7a;stroke:#547253;stroke-width:2}.steam{fill:none;stroke:#8aa8b7;stroke-width:2.5;stroke-linecap:round}.label{font:700 16px sans-serif;fill:#284d63;text-anchor:middle}.num{font:800 15px sans-serif;fill:#fff;text-anchor:middle;dominant-baseline:middle}.badge{fill:#315e70}
+  </style>
+
+  <g transform="translate(18 15)">
+    <rect class="tile" width="160" height="180" rx="16"/><circle class="badge" cx="22" cy="22" r="14"/><text class="num" x="22" y="22">1</text>
+    <path class="meat" d="M27 94c0-24 18-44 41-51 21-7 49 3 58 23 9 19-1 37-17 47-18 11-29 27-49 24-18-3-33-22-33-43z"/>
+    <path class="inside" d="M38 93c0-17 14-33 32-38 17-5 37 3 43 16 6 13-2 25-14 32-14 9-23 22-38 19-13-3-23-14-23-29z"/>
+    <path class="grill" d="m48 76 22 11m-27 4 22 11m38-26 13 7m-20 5 13 7"/>
+    <text class="label" x="80" y="166">經典牛排</text>
+  </g>
+
+  <g transform="translate(194 15)">
+    <rect class="tile" width="160" height="180" rx="16"/><circle class="badge" cx="22" cy="22" r="14"/><text class="num" x="22" y="22">2</text>
+    <path class="steam" d="M48 40c-6-6 4-8 0-16M80 37c-6-6 4-8 0-16M111 41c-6-6 4-8 0-16"/>
+    <path class="metal" d="M24 68h112l-9 68H33zM33 136h94"/>
+    <path class="meat" d="M43 91c0-13 12-24 28-25 17-1 29 8 29 21 0 15-13 27-31 28-15 1-26-10-26-24z"/>
+    <path class="grill" d="m54 80 30 18m-34-5 27 16"/><circle class="veg" cx="113" cy="99" r="10"/><path class="ink" d="M107 99h12M113 93v12"/>
+    <text class="label" x="80" y="166">鐵板牛排</text>
+  </g>
+
+  <g transform="translate(370 15)">
+    <rect class="tile" width="160" height="180" rx="16"/><circle class="badge" cx="22" cy="22" r="14"/><text class="num" x="22" y="22">3</text>
+    <path class="meat" d="M31 98c-5-25 13-50 40-53 20-2 36 9 38 27 3 23-15 43-37 47-19 4-37-5-41-21z"/>
+    <path class="fat" d="M80 56c9-7 22-2 25 8 2 7-2 13-8 15l-19 43c5 3 5 10 0 14-6 4-13-2-10-9l20-45c-10-5-14-18-8-26z"/>
+    <path class="grill" d="m42 75 24 12m-28 5 24 12"/>
+    <text class="label" x="80" y="166">丁骨牛排</text>
+  </g>
+
+  <g transform="translate(546 15)">
+    <rect class="tile" width="160" height="180" rx="16"/><circle class="badge" cx="22" cy="22" r="14"/><text class="num" x="22" y="22">4</text>
+    <ellipse class="plate" cx="80" cy="97" rx="57" ry="39"/>
+    <path class="meat" d="M43 94c0-16 13-28 30-28 18 0 31 11 31 25 0 16-15 29-33 29-16 0-28-10-28-26z"/>
+    <path class="grill" d="m53 80 28 17m-31-4 25 16"/>
+    <circle class="veg" cx="113" cy="105" r="8"/><path class="fat" d="M105 78c5-7 15-6 18 2-5 6-13 6-18-2z"/>
+    <text class="label" x="80" y="166">牛排餐盤</text>
+  </g>
+
+  <g transform="translate(722 15)">
+    <rect class="tile" width="160" height="180" rx="16"/><circle class="badge" cx="22" cy="22" r="14"/><text class="num" x="22" y="22">5</text>
+    <path class="steam" d="M56 42c-6-6 4-8 0-16M83 38c-6-6 4-8 0-16M108 43c-6-6 4-8 0-16"/>
+    <path class="plate" d="M28 122c12 17 92 17 104 0-21 5-83 5-104 0z"/>
+    <path class="meat" d="M38 82h28v27H38zM70 61h27v27H70zM95 90h28v27H95z"/><path class="meat2 inside" d="M52 105h27v25H52zM84 82h27v26H84z"/>
+    <path class="grill" d="m42 89 20 13m12-34 19 13m7 16 19 13m-62 2 18 12m13-35 19 13"/>
+    <text class="label" x="80" y="166">骰子牛</text>
+  </g>
+</svg>

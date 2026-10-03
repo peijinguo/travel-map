@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="210" viewBox="0 0 900 210">
+  <rect width="900" height="210" rx="22" fill="#fffdf8"/>
+  <style>
+    .tile{fill:#fff;stroke:#d9e4e9;stroke-width:2}.ink{fill:none;stroke:#704f3c;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.accent{fill:#fff0d8;stroke:#e87543;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.red{fill:#ef8067;stroke:#704f3c;stroke-width:2.5}.rice{fill:#fffdf5;stroke:#704f3c;stroke-width:2.5}.green{fill:#8dbb7a;stroke:#704f3c;stroke-width:2.5}.label{font:700 17px sans-serif;fill:#284d63;text-anchor:middle}.num{font:800 15px sans-serif;fill:#fff;text-anchor:middle;dominant-baseline:middle}.badge{fill:#315e70}
+  </style>
+
+  <g transform="translate(18 15)">
+    <rect class="tile" width="160" height="180" rx="16"/>
+    <circle class="badge" cx="22" cy="22" r="14"/><text class="num" x="22" y="22">1</text>
+    <path class="accent" d="M38 92h84c-3 31-18 47-42 47S41 123 38 92z"/>
+    <path class="ink" d="M35 92c16 5 75 5 90 0M55 88c0-13 12-13 12-25s-10-13-5-25M79 88c0-13 12-13 12-25s-10-13-5-25M102 88c0-11 10-13 10-23M42 51l73 27M48 40l71 27"/>
+    <text class="label" x="80" y="166">拉麵碗</text>
+  </g>
+
+  <g transform="translate(194 15)">
+    <rect class="tile" width="160" height="180" rx="16"/>
+    <circle class="badge" cx="22" cy="22" r="14"/><text class="num" x="22" y="22">2</text>
+    <path class="rice" d="M37 86c0-13 12-23 27-23h35c15 0 25 10 25 23v23c0 12-10 20-23 20H60c-14 0-23-8-23-20z"/>
+    <path class="red" d="M42 77c6-21 23-32 42-31 19 0 30 8 37 27-24 8-55 10-79 4z"/>
+    <path class="ink" d="M53 62c13 5 32 7 51 3M73 47c4 5 13 8 22 8"/>
+    <path class="green" d="M73 78h17v50H73z"/>
+    <text class="label" x="80" y="166">握壽司</text>
+  </g>
+
+  <g transform="translate(370 15)">
+    <rect class="tile" width="160" height="180" rx="16"/>
+    <circle class="badge" cx="22" cy="22" r="14"/><text class="num" x="22" y="22">3</text>
+    <path class="rice" d="M31 103c5-30 25-48 50-48 24 0 43 18 48 48z"/>
+    <path class="accent" d="M31 103c13-18 29-23 48-15 20 8 31 6 50-4v34c-25 13-73 13-98 0z"/>
+    <path class="ink" d="M49 117c17 5 48 5 65-2M91 89c4 4 8 9 10 15"/>
+    <circle class="green" cx="68" cy="100" r="5"/>
+    <text class="label" x="80" y="166">咖哩飯</text>
+  </g>
+
+  <g transform="translate(546 15)">
+    <rect class="tile" width="160" height="180" rx="16"/>
+    <circle class="badge" cx="22" cy="22" r="14"/><text class="num" x="22" y="22">4</text>
+    <path class="ink" d="M54 135 99 43M63 138 108 47"/>
+    <circle class="red" cx="94" cy="57" r="13"/>
+    <circle class="accent" cx="80" cy="84" r="13"/>
+    <circle class="green" cx="67" cy="111" r="13"/>
+    <path class="ink" d="M43 135c18 5 50 5 69 0"/>
+    <text class="label" x="80" y="166">三色糰子</text>
+  </g>
+
+  <g transform="translate(722 15)">
+    <rect class="tile" width="160" height="180" rx="16"/>
+    <circle class="badge" cx="22" cy="22" r="14"/><text class="num" x="22" y="22">5</text>
+    <path class="accent" d="M49 70h62l-12 60H61z"/>
+    <path class="ink" d="M61 130h38M73 130v10M87 130v10M65 140h31"/>
+    <path class="rice" d="M55 70c-2-12 7-21 18-20 2-12 19-16 27-6 13-1 20 12 15 26z"/>
+    <circle class="red" cx="84" cy="40" r="8"/>
+    <path class="green" d="M84 32c3-8 8-10 13-8-2 6-6 9-13 8z"/>
+    <path class="ink" d="M58 88h47M62 104h40"/>
+    <text class="label" x="80" y="166">水果聖代</text>
+  </g>
+</svg>

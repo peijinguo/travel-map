@@ -1,12 +1,31 @@
+// Keep the selected tempura artwork inline so the small itinerary icon also
+// works in mobile browsers and offline-style previews without a separate image request.
+import tempuraShrimpIcon from "../assets/tempura-shrimp-icon-v1.png?inline";
+
 const motifColors = {
   mountain: "#78aeca", yotei: "#78aeca", lantern: "#e87543", clock: "#d9a24f", tvTower: "#d95743", apple: "#9ac65c", cherry: "#c54f72",
   watermelon: "#71a85d", bear: "#c99867", penguin: "#76abc8", camera: "#a97852", ropeway: "#dc6b45", kamikawaRopeway: "#55aaa6", glass: "#76c5d7",
   lavender: "#8f78ba", tree: "#72a269", birch: "#85ae77", rice: "#d2a548", koshihikari: "#d9aa43", onigiri: "#f4efe1", horse: "#b7835e", hakuba: "#78aeca",
-  onsen: "#f06449", monkey: "#c38a60", castle: "#d76d4d", snowpeak: "#7daac4", coal: "#46535b",
-  cow: "#f2d5a6", juhyo: "#a9d9e9", skier: "#e9704f", strawberry: "#e95459", sakura: "#ef8fa7", yakeishi: "#7cacc5", soba: "#d4a867",
+  onsen: "#f06449", monkey: "#c38a60", castle: "#d76d4d", snowpeak: "#7daac4", coal: "#46535b", star: "#f2bf4e", onumaDango: "#efbd69", ikaMeshi: "#b87654",
+  cow: "#f2d5a6", juhyo: "#a9d9e9", skier: "#e9704f", strawberry: "#e95459", sakura: "#ef8fa7", yakeishi: "#7cacc5", soba: "#d4a867", food: "#e87543", sushi: "#ef8067", tempura: "#e8a44e", curry: "#d99a47", dango: "#8dbb7a", parfait: "#ef8fa7", crepe: "#f3bf5b", ramen: "#1f4f7a", lamb: "#d87852", steak: "#d9684f", beer: "#f6b93b", chairlift: "#e96b3d", hotel: "#5f91ad", familymart: "#008b7c", seveneleven: "#e95532",
 };
 
 const motifs = {
+  food: <><path className="ramen-bowl" d="M5 26h38c-1 12-8 19-19 19S6 38 5 26z"/><path className="ramen-rim" d="M4 26c6-7 34-7 40 0-6 6-34 6-40 0z"/><path className="ramen-noodles" d="M13 25c0-5 4-5 4-10s-3-5-1-9M18 26c0-5 4-5 4-10s-3-5-1-9M23 26c0-5 4-5 4-10s-3-5-1-9M28 26c0-5 4-5 4-10s-3-5-1-9"/><path className="ramen-pork" d="M30 22c4-5 10-3 11 1 1 4-4 7-9 6-5-1-5-4-2-7z"/><path className="ramen-scallion" d="m10 22 3-3m0 6 4-4m1 5 3-3m-9-4 2 2m4-3 2 2"/><path className="ramen-chili" d="M24 25c2-3 5-3 7 0-1 3-5 4-7 0z"/><path className="ramen-chopsticks" d="m8 6 32 11M10 2l32 11"/></>,
+  ramen: <><path className="ramen-bowl" d="M5 26h38c-1 12-8 19-19 19S6 38 5 26z"/><path className="ramen-rim" d="M4 26c6-7 34-7 40 0-6 6-34 6-40 0z"/><path className="ramen-noodles" d="M13 25c0-5 4-5 4-10s-3-5-1-9M18 26c0-5 4-5 4-10s-3-5-1-9M23 26c0-5 4-5 4-10s-3-5-1-9M28 26c0-5 4-5 4-10s-3-5-1-9"/><path className="ramen-pork" d="M30 22c4-5 10-3 11 1 1 4-4 7-9 6-5-1-5-4-2-7z"/><path className="ramen-scallion" d="m10 22 3-3m0 6 4-4m1 5 3-3m-9-4 2 2m4-3 2 2"/><path className="ramen-chili" d="M24 25c2-3 5-3 7 0-1 3-5 4-7 0z"/><path className="ramen-chopsticks" d="m8 6 32 11M10 2l32 11"/></>,
+  sushi: <><path className="sushi-rice" d="M7 24c0-7 6-12 14-12h9c8 0 13 5 13 12v10c0 6-5 10-12 10H19C12 44 7 40 7 34z"/><path className="sushi-fish" d="M9 20C12 9 21 4 31 5c8 0 13 5 16 14-12 4-27 5-38 1z"/><path className="sushi-detail" d="M15 13c7 3 17 4 26 1M25 5c2 3 7 5 12 5"/><path className="sushi-nori" d="M20 21h9v23h-9z"/></>,
+  tempura: <><path className="tempura-plate" d="M4 35c6 5 34 5 40 0v5c-7 7-33 7-40 0z"/><path className="tempura-paper" d="m9 33 8-10 22 3-7 12z"/><path className="tempura-shrimp" d="M13 33c-3-7 1-17 9-20 6-2 12 1 13 6 1 4-2 7-6 7-4-1-7 2-6 5 1 3 5 4 8 3-4 5-12 5-18-1z"/><path className="tempura-tail" d="m17 16-3-8 6 5 2-7 4 8"/><path className="tempura-batter" d="M17 21c3-3 9-4 13-1M15 27c3-2 6-2 9 0M26 32c2 1 4 1 6 0"/></>,
+  curry: <><path className="curry-rice" d="M4 27C7 12 17 4 25 4s18 8 21 23z"/><path className="curry-sauce" d="M4 27c7-9 15-12 24-8 9 4 14 3 18-2v17c-12 7-30 7-42 0z"/><path className="curry-plate" d="M3 34c9 6 34 6 44 0-2 7-10 10-22 10S5 41 3 34z"/><circle className="curry-pea" cx="19" cy="26" r="2.5"/></>,
+  dango: <><path className="dango-stick" d="M13 44 36 4M17 45 40 6"/><circle className="dango-red" cx="34" cy="10" r="7"/><circle className="dango-white" cx="27" cy="23" r="7"/><circle className="dango-green" cx="20" cy="36" r="7"/></>,
+  parfait: <><path className="parfait-glass" d="M10 18h28l-6 22H16zM18 40v5m12-5v5M13 45h22"/><path className="parfait-cream" d="M12 18c-1-6 4-10 9-9 1-6 9-8 13-3 6 0 9 6 6 12z"/><circle className="parfait-fruit" cx="25" cy="5" r="4"/><path className="parfait-leaf" d="M25 2c2-4 6-4 8-2-2 3-5 4-8 2z"/><path className="parfait-layer" d="M14 25h20M16 32h16"/></>,
+  crepe: <><path className="crepe-wrap" d="m7 13 35 5-16 28L7 13z"/><path className="crepe-fold" d="m11 15 15 27M17 19l17 4M21 28l10 3"/><path className="crepe-cream" d="M12 14c3-8 13-7 15 1 4-6 12-2 13 5z"/><circle className="crepe-fruit" cx="19" cy="9" r="4"/><circle className="crepe-fruit" cx="31" cy="11" r="4"/></>,
+  lamb: <><path className="lamb-steam" d="M17 10c-3-4 3-6 0-9M25 9c-3-4 3-6 0-9M34 11c-3-4 3-6 0-9"/><path className="lamb-dome" d="M6 35c2-16 8-26 18-26s16 10 18 26z"/><path className="lamb-grill" d="M4 35h40l-3 8H7zM8 39h32"/><path className="lamb-meat lamb-meat-one" d="M11 27c0-6 6-9 11-6 5 3 3 9-2 11-5 2-10 0-9-5z"/><path className="lamb-meat lamb-meat-two" d="M25 22c2-6 9-7 13-3 4 5 0 10-6 10-5 0-9-3-7-7z"/><path className="lamb-fat" d="M14 26c2-2 5-3 8-1M29 21c2-1 5-1 7 1"/></>,
+  steak: <><path className="steak-meat" d="M4 28c0-9 7-18 17-22 9-4 20 0 23 8 4 8 0 15-7 19-7 5-11 11-19 9C10 41 4 35 4 28z"/><path className="steak-rim" d="M9 28c0-7 6-14 14-17 7-3 15 0 18 6 2 5-1 10-6 13-6 4-9 9-15 7-6-1-11-4-11-9z"/><path className="steak-highlight" d="M16 16c5-3 11-3 16 0"/><path className="steak-grill" d="m13 22 9 5m-11 2 9 5m15-11 6 3m-9 2 6 3"/></>,
+  familymart: <><rect className="brand-card" x="3" y="8" width="42" height="32" rx="4"/><path className="familymart-blue" d="M6 13h36v7H6z"/><path className="familymart-green" d="M6 28h36v7H6z"/><text className="familymart-word" x="24" y="26" textAnchor="middle">FM</text></>,
+  seveneleven: <><rect className="brand-card" x="5" y="5" width="38" height="38" rx="5"/><path className="seveneleven-orange" d="M8 9h32v6H8z"/><path className="seveneleven-green" d="M8 33h32v6H8z"/><text className="seveneleven-seven" x="23" y="32" textAnchor="middle">7</text><text className="seveneleven-eleven" x="34" y="31" textAnchor="middle">11</text></>,
+  beer: <><path className="beer-body" d="M8 17h27l-2 28H11z"/><path className="beer-handle" d="M35 21h5c5 0 7 4 7 9v2c0 6-3 10-9 10h-4M35 27h4c2 0 3 1 3 4v1c0 3-1 5-4 5h-4"/><path className="beer-foam" d="M7 18C5 11 9 7 15 8c2-6 9-7 13-2 5-3 11 1 10 7 4 2 3 8-1 10-4 2-7 0-9-3-4 5-9 4-12 0-4 3-8 2-9-2z"/><path className="beer-glass" d="M17 25v13M26 25v13"/><circle className="beer-bubble" cx="42" cy="12" r="3"/><circle className="beer-bubble" cx="38" cy="5" r="1.8"/></>,
+  chairlift: <><path className="chairlift-cable" d="M3 7c13 3 27 2 42-2"/><path className="chairlift-frame" d="M24 7c0 5-4 6-4 11v4M20 18l9-1M29 17v4M13 22l18-2M13 22c-2 4-2 9-2 14M31 20c3 4 3 8 3 12M13 27l19-2M15 27v8M32 25l1 7"/><path className="chairlift-seat" d="m9 35 28-4-2 6-24 4z"/></>,
+  hotel: <><path className="hotel-building" d="M9 44V10h30v34M6 44h36M14 10V5h20v5"/><path className="hotel-roof-snow" d="M12 10c4-3 7 1 12-1 4-2 8 1 13-1"/><path className="hotel-windows" d="M15 16h6v6h-6zM27 16h6v6h-6zM15 27h6v6h-6zM27 27h6v6h-6z"/><path className="hotel-door" d="M21 44V36h6v8"/><path className="hotel-sign" d="M17 5V2h14v3M21 2h6"/></>,
   mountain: <><path d="M5 38 19 14l6 11 5-8 13 21"/><path d="m14 23 5-4 5 7 5-5 5 7"/><path d="M9 39c8-2 21 2 31-1"/></>,
   yotei: <><path className="yotei-mountain" d="M2 41c8-7 13-19 20-32 1-3 3-3 5 0 7 13 12 25 19 32z"/><path className="yotei-snow" d="M14 26c3-6 6-12 8-17 1-3 3-3 5 0 3 5 5 11 8 17l-6-4-4 5-5-5z"/><path className="yotei-ridges" d="M14 38c3-7 5-12 8-16M34 38c-3-7-5-12-7-16"/><path className="yotei-forest" d="m5 41 4-8 4 8m21 0 4-9 5 9M15 41l3-6 3 6"/><path className="yotei-ground" d="M2 42c12-2 31 2 44-1"/></>,
   lantern: <><path d="M17 8h14M15 13h18l-2 26H17z"/><path d="M19 18h10M18 24h12M18 30h12M21 8c0-5 6-5 6 0"/><path d="M21 39h6"/></>,
@@ -34,6 +53,9 @@ const motifs = {
   monkey: <><path className="monkey-body" d="M17 28c-2 4-3 10-1 15h16c2-5 1-11-1-15z"/><circle cx="13" cy="17" r="5"/><circle cx="35" cy="17" r="5"/><circle className="monkey-head" cx="24" cy="17" r="11"/><path className="monkey-face" d="M17 18c0-6 3-9 7-9s7 3 7 9c0 7-3 10-7 10s-7-3-7-10z"/><path d="M20 17h1M27 17h1M22 22c1 2 3 2 4 0M18 31l-7 8M30 31l7 8M19 43l-4 3M29 43l4 3"/><path className="monkey-tail" d="M31 34c9-4 12 1 9 5-3 5-9 2-7-2"/><circle className="monkey-cheek" cx="19" cy="21" r="1.8"/><circle className="monkey-cheek" cx="29" cy="21" r="1.8"/></>,
   castle: <><path d="M8 42h32M12 42V29h24v13M16 29v-9h16v9M20 20v-8h8v8M17 12h14l-4-5h-6z"/><path d="M9 29h30l-4-5H13zM13 20h22l-4-5H17zM22 42v-7h4v7"/></>,
   snowpeak: <><path d="M5 39 20 13l7 12 4-6 12 20"/><path d="m14 23 6-5 6 8 5-4 5 8M24 4v5M13 8l3 4M35 8l-3 4"/></>,
+  star: <><path className="star-body" d="m24 4 5.5 12.5L43 18l-10 9.3L35.8 41 24 34.2 12.2 41 15 27.3 5 18l13.5-1.5z"/><circle className="star-eye" cx="19" cy="23" r="1.4"/><circle className="star-eye" cx="29" cy="23" r="1.4"/><path className="star-smile" d="M19 28c3 3 7 3 10 0"/><path className="star-sparkle" d="M41 8v6m-3-3h6M8 7v5M5.5 9.5h5"/></>,
+  onumaDango: <><path className="onuma-dango-stick" d="M8 39 38 8M12 42 42 11"/><circle className="onuma-dango-red" cx="31" cy="14" r="7"/><circle className="onuma-dango-white" cx="24" cy="21" r="7"/><circle className="onuma-dango-green" cx="17" cy="28" r="7"/><path className="onuma-dango-smile" d="M21 22c2 2 4 2 6 0"/><circle className="onuma-dango-eye" cx="22" cy="19.5" r="1"/><circle className="onuma-dango-eye" cx="26" cy="19.5" r="1"/></>,
+  ikaMeshi: <><path className="ika-meshi-fin" d="M24 2 40 19 24 15 8 19z"/><path className="ika-meshi-body" d="M24 7c6 5 10 13 10 21 0 4-1 7-3 9H17c-2-2-3-5-3-9 0-8 4-16 10-21z"/><path className="ika-meshi-rice" d="M15 29c6-3 12-3 18 0 .5 3 .2 6-2 8H17c-2-2-2.5-5-2-8z"/><path className="ika-meshi-cut" d="M14.5 29c6-3 13-3 19 0"/><path className="ika-meshi-grains" d="m19 32 2-1m4 1 2-1m-8 3 2-1m4 1 2-1"/><path className="ika-meshi-tentacles" d="M19 37c-1 4-3 6-6 5m9-5c0 4-1 6-3 7m10-7c0 4 1 6 3 7m-6-7c1 4 3 6 6 5"/><circle className="ika-meshi-eye" cx="20" cy="21" r="1.6"/><circle className="ika-meshi-eye" cx="28" cy="21" r="1.6"/><path className="ika-meshi-smile" d="M21.5 24c1.5 1.5 4 1.5 5 0"/><path className="ika-meshi-shine" d="M20 13c-1.500 2-2 4-2 6"/></>,
   coal: <><path className="coal-mine-frame" d="M6 43V18h36v25M3 18h42L24 5z"/><path className="coal-mine-beam" d="M12 18 24 43 36 18M6 29h36"/><path className="coal-cart" d="M11 31h25l-4 10H15z"/><circle className="coal-wheel" cx="18" cy="44" r="3"/><circle className="coal-wheel" cx="30" cy="44" r="3"/><path className="coal-pile" d="m16 31 5-8 4 5 4-7 6 10z"/></>,
   cow: <><path className="cow-head" d="M11 19c2-7 7-11 13-11s11 4 13 11v14c-2 8-7 12-13 12s-11-4-13-12z"/><path className="cow-ears" d="M12 19 4 14c0 6 3 10 8 10M36 19l8-5c0 6-3 10-8 10"/><path className="cow-horns" d="M15 13c-3-5-1-8 2-9M33 13c3-5 1-8-2-9"/><path className="cow-patch cow-patch-left" d="M12 18c2-5 5-8 10-9l1 9-5 5z"/><path className="cow-patch cow-patch-right" d="M29 10c4 2 7 5 8 10l-5 3-4-6z"/><circle className="cow-eye" cx="18" cy="23" r="1.4"/><circle className="cow-eye" cx="30" cy="23" r="1.4"/><path className="cow-muzzle" d="M15 31c0-5 4-7 9-7s9 2 9 7c0 6-4 9-9 9s-9-3-9-9z"/><circle className="cow-nostril" cx="20" cy="31" r="1.3"/><circle className="cow-nostril" cx="28" cy="31" r="1.3"/></>,
   juhyo: <><path d="M24 5c-3 2-4 5-3 8-5-2-8 3-5 7-6-1-8 6-3 9-5 3-2 9 3 9h16c5 0 8-6 3-9 5-3 3-10-3-9 3-4 0-9-5-7 1-3 0-6-3-8z"/><path d="M24 17v27M17 22l7 5 8-7M16 31l8 5 10-6M19 44h10"/></>,
@@ -45,6 +67,17 @@ const motifs = {
 };
 
 function HandDrawnMotif({ type, className = "" }) {
+  if (type === "tempura") {
+    return (
+      <img
+        className={`hand-motif motif-tempura ${className}`}
+        src={tempuraShrimpIcon}
+        alt=""
+        aria-hidden="true"
+      />
+    );
+  }
+
   return (
     <svg
       className={`hand-motif motif-${type} ${className}`}

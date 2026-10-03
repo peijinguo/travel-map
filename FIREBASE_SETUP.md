@@ -13,3 +13,22 @@
 
 登入同一個 Google 帳號後，行程內容、目前選取的 DAY，以及雪場體驗筆記
 會儲存在該帳號自己的 Firestore 路徑中。未登入時仍使用原本的本機儲存。
+# Google Routes API（大眾運輸時間）
+
+行程表會優先透過 Firebase Callable Function 取得 Google Routes API 的大眾運輸時間，避免把 Web Service 金鑰暴露在瀏覽器。
+
+1. 在同一個 Google Cloud 專案啟用 **Routes API**，並確認帳單已啟用。
+2. 建立只允許 Routes API 的 API Key。
+3. 將金鑰存成 Firebase Secret：
+
+   ```bash
+   firebase functions:secrets:set GOOGLE_MAPS_API_KEY
+   ```
+
+4. 部署 Function：
+
+   ```bash
+   firebase deploy --only functions:getTransitRoute
+   ```
+
+Function 部署於 `asia-northeast1`。若 Function 尚未部署或暫時失敗，前端會自動沿用 Maps JavaScript API 查詢與 Google Maps 連結。
