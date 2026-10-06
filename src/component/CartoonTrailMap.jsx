@@ -6716,7 +6716,7 @@ function CartoonTrailMap({ resort }) {
     );
   if (resort === "札幌藻岩山滑雪場") return <MoiwaTrailMap resort={resort} />;
   if (resort === "伊ノ沢市民スキー場") return <InosawaTrailMap resort={resort} />;
-  const profile = trailMapProfiles[resort];
+  const profile = trailMapProfiles[resort] ?? { courses: 1, lifts: 1, layout: "fan" };
   return <ProfiledTrailMap resort={resort} profile={profile} />;
 }
 

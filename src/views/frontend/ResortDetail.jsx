@@ -89,6 +89,20 @@ const sapporoKokusaiCourseMapImage =
 const sapporoMoiwaSkiAreaUrl = "https://sapporo-moiwa.jp/skiareainformation/#course-guide";
 const sapporoMoiwaNorthMapImage = `${import.meta.env.BASE_URL}assets/sapporo-moiwa-north-map.jpg`;
 const sapporoMoiwaSouthMapImage = `${import.meta.env.BASE_URL}assets/sapporo-moiwa-south-map.jpg`;
+const hakodateNanaeCourseMapImage = `${import.meta.env.BASE_URL}assets/hakodate-nanae-course-map.jpg`;
+const greenpiaOnumaCourseUrl = "https://www.gp-onuma.com/ski/ski_course/";
+const greenpiaOnumaCourseMapUrl =
+  "https://www.gp-onuma.com/wp/wp-content/themes/gp-onuma_ver2/img/ski/map_22.pdf";
+const greenpiaOnumaCourseMapImage = `${import.meta.env.BASE_URL}assets/greenpia-onuma-course-map.jpg`;
+const greenpiaOnumaCourses = [
+  { id: 1, name: "ファミリーロード", level: "初級〜中級", length: 1200, maximum: 14 },
+  { id: 2, name: "ミルキーウェイ", level: "初級〜中級", length: 550, maximum: 17 },
+  { id: 3, name: "パノラマコース", level: "初級〜中級", length: 800, maximum: 22 },
+  { id: 4, name: "スカイウェイ", level: "中級〜上級", length: 400, maximum: 30 },
+  { id: 5, name: "ロマンスコース", level: "初級", length: 800, maximum: 17 },
+  { id: 6, name: "コスミックコース", level: "上級", length: 560, maximum: 24 },
+  { id: 7, name: "超上級者コース", level: "上級", length: 200, maximum: 26 },
+];
 const sapporoMoiwaCourseGuide = [
   { id: 1, name: "うさぎ平コース", level: "高級", length: 840, average: 15, maximum: 35 },
   { id: 2, name: "ダイナミックコース", level: "高級／中級", length: 290, average: 22, maximum: 37 },
@@ -259,9 +273,9 @@ function ResortExperienceNote({ resort, storageKey }) {
     () => localStorage.getItem(storageKey) ?? "",
   );
   const [noteStatus, setNoteStatus] = useState("");
-  const [cloudLoadedFor, setCloudLoadedFor] = useState(null);
   const latestNoteRef = useRef(experienceNote);
   const noteEditPendingRef = useRef(false);
+  const lastCloudKeyRef = useRef(null);
 
   useEffect(() => {
     latestNoteRef.current = experienceNote;
@@ -270,13 +284,21 @@ function ResortExperienceNote({ resort, storageKey }) {
 
   useEffect(() => {
     let cancelled = false;
-    setCloudLoadedFor(null);
     if (!cloudKey) return undefined;
+    if (lastCloudKeyRef.current !== null && lastCloudKeyRef.current !== cloudKey) {
+      noteEditPendingRef.current = false;
+    }
 
     loadResortNoteCloud(cloudKey, storageKey)
       .then(async (cloudNote) => {
         if (cancelled) return;
-        if (cloudNote === null) {
+        // switching to another sync code must show that code's note, never carry the current one over
+        const isSwitchingSpace =
+          lastCloudKeyRef.current !== null && lastCloudKeyRef.current !== cloudKey;
+        lastCloudKeyRef.current = cloudKey;
+        if (cloudNote === null && isSwitchingSpace) {
+          setExperienceNote("");
+        } else if (cloudNote === null) {
           const localNote = localStorage.getItem(storageKey) ?? "";
           if (localNote) {
             await saveResortNoteCloud(cloudKey, storageKey, localNote);
@@ -284,10 +306,7 @@ function ResortExperienceNote({ resort, storageKey }) {
         } else if (latestNoteRef.current === experienceNote) {
           setExperienceNote(cloudNote);
         }
-        if (!cancelled) {
-          setCloudLoadedFor(cloudKey);
-          setNoteStatus("已同步至雲端");
-        }
+        if (!cancelled) setNoteStatus("已同步至雲端");
       })
       .catch((error) => {
         console.error("無法載入雲端筆記", error);
@@ -300,13 +319,14 @@ function ResortExperienceNote({ resort, storageKey }) {
   }, [cloudKey, storageKey, syncVersion]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (!cloudKey || cloudLoadedFor !== cloudKey) return undefined;
+    if (!cloudKey) return undefined;
     return subscribeResortNoteCloud(
       cloudKey,
       storageKey,
       (cloudNote) => {
         if (noteEditPendingRef.current) return;
         if (cloudNote === null) return;
+        lastCloudKeyRef.current = cloudKey;
         setExperienceNote((currentNote) =>
           currentNote === cloudNote ? currentNote : cloudNote,
         );
@@ -317,7 +337,7 @@ function ResortExperienceNote({ resort, storageKey }) {
         setNoteStatus("雲端同步失敗，內容已保存在此裝置");
       },
     );
-  }, [cloudKey, storageKey, cloudLoadedFor]);
+  }, [cloudKey, storageKey]);
 
   useEffect(() => {
     if (!authReady || cloudKey) return;
@@ -1001,6 +1021,8 @@ function ResortDetail() {
   const isBankei = resort === "札幌盤溪滑雪場";
   const isSapporoMoiwa = resort === "札幌藻岩山滑雪場";
   const isPippu = resort === "比布滑雪場";
+  const isHakodateNanae = resort === "Hakodate Nanae Snow Park";
+  const isGreenpiaOnuma = resort === "グリーンピア大沼スキー場";
   const snowSapporoConfig = snowSapporoResorts[resort];
   const usesSnowSapporo = Boolean(snowSapporoConfig);
   const snowSapporoState = !usesSnowSapporo
@@ -1224,6 +1246,45 @@ function ResortDetail() {
                 />
               </a>
             </figure>
+          ) : isHakodateNanae ? (
+            <figure className="official-trail-map">
+              <a href={hakodateNanaeCourseMapImage} target="_blank" rel="noreferrer">
+                <img src={hakodateNanaeCourseMapImage} alt="函館七飯滑雪場官方雪道圖" />
+              </a>
+            </figure>
+          ) : isGreenpiaOnuma ? (
+            <>
+              <figure className="official-trail-map">
+                <a href={greenpiaOnumaCourseMapUrl} target="_blank" rel="noreferrer">
+                  <img src={greenpiaOnumaCourseMapImage} alt="グリーンピア大沼スキー場官方雪道圖" />
+                </a>
+              </figure>
+              <section className="sapporo-moiwa-course-guide greenpia-course-guide" aria-labelledby="greenpia-course-guide-title">
+                <div className="sapporo-moiwa-course-guide-heading">
+                  <div>
+                    <p className="card-kicker">COURSE GUIDE</p>
+                    <h3 id="greenpia-course-guide-title">雪道資訊</h3>
+                  </div>
+                  <small>共 {greenpiaOnumaCourses.length} 條雪道</small>
+                </div>
+                <div className="sapporo-moiwa-course-guide-grid">
+                  {greenpiaOnumaCourses.map((course) => (
+                    <article key={course.id}>
+                      <b>{course.id}</b>
+                      <div><strong>{course.name}</strong><small>{course.level}</small></div>
+                      <dl>
+                        <div><dt>全長</dt><dd>{course.length.toLocaleString()} m</dd></div>
+                        <div><dt>最大坡度</dt><dd>{course.maximum}°</dd></div>
+                      </dl>
+                    </article>
+                  ))}
+                </div>
+                <p className="zao-sarukura-course-note">
+                  另有兒童專用的キッズゲレンデ與そりゲレンデ。資料來源：
+                  <a href={greenpiaOnumaCourseUrl} target="_blank" rel="noreferrer">グリーンピア大沼 コースのご紹介 ↗</a>
+                </p>
+              </section>
+            </>
           ) : isPippu ? (
             <figure className="official-trail-map">
               <a href={pippuTrailMapUrl} target="_blank" rel="noreferrer">

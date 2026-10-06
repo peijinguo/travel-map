@@ -134,6 +134,8 @@
 .sapporo-moiwa-course-guide-grid dt { color: #7a909b; font-size: 10px; }
 .sapporo-moiwa-course-guide-grid dd { margin: 2px 0 0; color: #173d57; font-size: 12px; font-weight: 900; }
 .zao-sarukura-course-note { margin: 14px 0 0; color: #728b98; font-size: 12px; }
+.greenpia-course-guide .sapporo-moiwa-course-guide-grid dl { grid-template-columns: repeat(2, 1fr); }
+.greenpia-course-guide .zao-sarukura-course-note a { color: #1a6f95; font-weight: 800; }
 .official-trail-map > a:hover img { transform: scale(1.01); }
 .official-trail-map figcaption { margin-top: 10px; text-align: right; }
 .official-trail-map figcaption a { color: #2f6f91; font-size: 14px; font-weight: 800; text-decoration: none; }

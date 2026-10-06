@@ -305,10 +305,6 @@ button, input { font: inherit; }
 }
 .town-marker:hover .marker-leader, .town-marker:focus .marker-leader { opacity: .95; stroke-width: 1.6; }
 .town-marker:hover .marker-label, .town-marker:focus .marker-label, .town-marker.is-active .marker-label { opacity: 1; transform: translate(0, 25px); }
-.town-marker-pippu .marker-label {
-  opacity: 1;
-  transform: translate(0, 25px);
-}
 .map-caption { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); margin: 0; color: #86a0b1; font-size: 10px; white-space: nowrap; }
 .map-caption a { color: #5c8299; text-underline-offset: 2px; }
 
@@ -349,8 +345,9 @@ button, input { font: inherit; }
   .hero-copy { width: 100%; align-self: stretch; text-align: left; }
   .eyebrow { justify-content: flex-start; }
   .hero-lead { margin-right: auto; margin-left: 0; }
-  .map-stage { min-height: 600px; margin: 0; padding-inline: 34px; overflow: visible; }
-  .japan-map { width: min(88%, 520px); max-width: none; height: auto; transform: translate3d(-28px, 90px, 0) scale(.96); }
+  .map-stage { min-height: 0; margin: 0; padding: 10px 34px 92px; overflow: visible; }
+  /* the icons around the map overflow the svg box; this scale + offset fits map and icons to the screen width */
+  .japan-map { width: min(88%, 360px); max-width: none; height: auto; transform: translate3d(-28.5%, 42%, 0) scale(1.39); }
   .resort-panel { position: relative; top: auto; right: auto; width: 100%; max-height: calc(100dvh - 24px); padding: 24px 20px; transform: none; }
   .resort-list { max-height: 235px; }
 }

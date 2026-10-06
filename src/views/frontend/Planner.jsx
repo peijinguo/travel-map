@@ -18,6 +18,8 @@ const LODGING_STORAGE_KEY = "yuki-tabi-lodgings-v1";
 const ACTIVE_DAY_STORAGE_KEY = "yuki-tabi-planner-active-day-v1";
 const DRAFT_STORAGE_KEY = "yuki-tabi-planner-drafts-v1";
 const FOOD_FAVORITES_STORAGE_KEY = "yuki-tabi-food-favorites-v1";
+// 記住本機行程屬於哪個同步空間；在其他頁面切換同步碼後，行程頁才知道要換資料。
+const PLANNER_SPACE_STORAGE_KEY = "yuki-tabi-planner-space-v1";
 const pendingGeocodes = new Map();
 
 function loadItemDrafts() {
@@ -1554,6 +1556,7 @@ function Planner() {
   const [plannerSaveStatus, setPlannerSaveStatus] = useState("");
   const [foodFavorites, setFoodFavorites] = useState(loadFoodFavorites);
   const initialCloudDataRef = useRef({ days, activeDayId });
+  const lastCloudKeyRef = useRef(null);
   const localEditPendingRef = useRef(false);
   const itemDraftsRef = useRef(loadItemDrafts());
   const [, setDraftRevision] = useState(0);
@@ -1607,6 +1610,12 @@ function Planner() {
     if (!cloudKey) return () => {
       cancelled = true;
     };
+    // Switching to another sync code must show that code's data, never carry
+    // the current one over, even when the switch happened on another page.
+    const previousSpace =
+      lastCloudKeyRef.current ?? localStorage.getItem(PLANNER_SPACE_STORAGE_KEY);
+    const isSwitchingSpace = previousSpace !== null && previousSpace !== cloudKey;
+    if (isSwitchingSpace) localEditPendingRef.current = false;
 
     const loadCloudData = async () => {
       window.dispatchEvent(
@@ -1615,6 +1624,8 @@ function Planner() {
       try {
         const cloud = await loadPlannerCloud(cloudKey);
         if (cancelled) return;
+        lastCloudKeyRef.current = cloudKey;
+        localStorage.setItem(PLANNER_SPACE_STORAGE_KEY, cloudKey);
         const localData = initialCloudDataRef.current;
         const cloudHasContent =
           Array.isArray(cloud?.days) &&
@@ -1630,6 +1641,10 @@ function Planner() {
               ? currentId
               : cloudDays[0].id,
           );
+        } else if (isSwitchingSpace) {
+          const emptyDays = [makeDay(1), makeDay(2), makeDay(3)];
+          setDays(emptyDays);
+          setActiveDayId(emptyDays[0].id);
         } else if (localHasContent || !cloud) {
           await savePlannerCloud(cloudKey, { days: localData.days });
         }
@@ -1683,12 +1698,15 @@ function Planner() {
   }, [saveRequest, cloudKey, cloudLoadedFor]);
 
   useEffect(() => {
-    if (!cloudKey || cloudLoadedFor !== cloudKey) return undefined;
+    if (!cloudKey) return undefined;
     return subscribePlannerCloud(
       cloudKey,
       (cloud) => {
         if (localEditPendingRef.current) return;
         if (!Array.isArray(cloud?.days) || !cloud.days.length) return;
+        lastCloudKeyRef.current = cloudKey;
+        localStorage.setItem(PLANNER_SPACE_STORAGE_KEY, cloudKey);
+        setCloudLoadedFor(cloudKey);
         setDays((currentDays) => {
           const nextDays = cloud.days.map(normalizePlannerDay);
           return JSON.stringify(currentDays) === JSON.stringify(nextDays)
@@ -1711,7 +1729,7 @@ function Planner() {
         );
       },
     );
-  }, [cloudKey, cloudLoadedFor]);
+  }, [cloudKey]);
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
@@ -2240,16 +2258,6 @@ function Planner() {
 
   return (
     <div className="planner-page">
-      <header className="planner-heading">
-        <div>
-          <p>
-            <span>JAPAN</span> TRIP PLANNER
-          </p>
-          <h1>
-            我的<em>雪旅手帳</em>
-          </h1>
-        </div>
-      </header>
       <section className="planner-workspace">
         <div className="planner-map-card">
           <div className="planner-card-title">
@@ -2504,7 +2512,7 @@ function Planner() {
                                           )}
                                         </button>
 
-                                        {isFoodLocation(resolvedLocation) && (
+                                        {isFoodLocation(resolvedLocation) && itemMotif !== "chairlift" && (
                                           <button
                                             className={`planner-locate planner-food-favorite-btn ${foodFavorites.some((favorite) => favorite.id === String(resolvedLocation.id ?? resolvedLocation.placeId ?? resolvedLocation.name)) ? "is-favorite" : ""}`}
                                             type="button"

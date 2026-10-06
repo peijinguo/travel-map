@@ -18,6 +18,7 @@ export const trailMapProfiles = {
   "札幌盤溪滑雪場": p(17, 6, "wide", { zones: 3, summit: 0.52 }),
   "札幌藻岩山滑雪場": p(10, 5, "dual", { zones: 2, summit: 0.47 }),
   "Fu's Snow Area": p(6, 3, "compact", { zones: 1, summit: 0.53 }),
+  "グリーンピア大沼スキー場": p(7, 2, "compact", { zones: 1, summit: 0.5 }),
   "Takino Snow World Family Ski Resort": p(1, 1, "single", { zones: 1, summit: 0.56 }),
   "暑寒別岳滑雪場": p(2, 1, "compact", { zones: 1, summit: 0.5 }),
   "Kamui Ski Links": p(25, 6, "wide", { zones: 3, summit: 0.48 }),
