@@ -1555,6 +1555,7 @@ function Planner() {
   const [saveRequest, setSaveRequest] = useState(0);
   const [plannerSaveStatus, setPlannerSaveStatus] = useState("");
   const [foodFavorites, setFoodFavorites] = useState(loadFoodFavorites);
+  const [dayPendingDelete, setDayPendingDelete] = useState(null);
   const initialCloudDataRef = useRef({ days, activeDayId });
   const lastCloudKeyRef = useRef(null);
   const localEditPendingRef = useRef(false);
@@ -1892,7 +1893,27 @@ function Planner() {
     setDragOverId(null);
   };
 
-  const removeActiveDay = () => removeDay(activeDayId);
+  // 刪除整天前先確認，避免誤按日期選擇器或 × 就把一整天的行程刪掉。
+  const requestRemoveDay = (dayId) => {
+    if (days.length <= 1) return;
+    setDayPendingDelete(dayId);
+  };
+
+  const confirmRemoveDay = () => {
+    if (dayPendingDelete) removeDay(dayPendingDelete);
+    setDayPendingDelete(null);
+  };
+
+  const removeActiveDay = () => requestRemoveDay(activeDayId);
+
+  useEffect(() => {
+    if (!dayPendingDelete) return undefined;
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") setDayPendingDelete(null);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [dayPendingDelete]);
 
   const dropDay = (targetDayId) => {
     if (!draggedDayId || draggedDayId === targetDayId) {
@@ -2362,7 +2383,10 @@ function Planner() {
                     aria-label={`刪除 DAY ${dayIndex + 1}`}
                     title={`刪除 DAY ${dayIndex + 1}`}
                     disabled={days.length <= 1}
-                    onClick={() => removeDay(day.id)}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      requestRemoveDay(day.id);
+                    }}
                   >
                     <span aria-hidden="true">×</span>
                   </button>
@@ -2636,6 +2660,45 @@ function Planner() {
           </div>
         </aside>
       </section>
+      {dayPendingDelete && (() => {
+        const dayIndex = days.findIndex((day) => day.id === dayPendingDelete);
+        const day = days[dayIndex];
+        if (!day) return null;
+        const itemCount = day.items.filter((item) => item.text.trim()).length;
+        return (
+          <div
+            className="planner-confirm-backdrop"
+            onClick={() => setDayPendingDelete(null)}
+          >
+            <section
+              className="planner-confirm"
+              role="alertdialog"
+              aria-modal="true"
+              aria-labelledby="planner-confirm-title"
+              aria-describedby="planner-confirm-message"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <h2 id="planner-confirm-title">
+                刪除 DAY {dayIndex + 1}
+                {day.date && <small>{formatItineraryDate(day.date)}</small>}
+              </h2>
+              <p id="planner-confirm-message">
+                {itemCount
+                  ? `這一天的 ${itemCount} 個行程和住宿紀錄會一起刪除，刪除後無法復原。`
+                  : "這一天會被刪除，刪除後無法復原。"}
+              </p>
+              <div className="planner-confirm-actions">
+                <button type="button" autoFocus onClick={() => setDayPendingDelete(null)}>
+                  取消
+                </button>
+                <button className="is-danger" type="button" onClick={confirmRemoveDay}>
+                  刪除
+                </button>
+              </div>
+            </section>
+          </div>
+        );
+      })()}
     </div>
   );
 }

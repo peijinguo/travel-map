@@ -1005,3 +1005,14 @@
   .planner-calendar-weekdays span { font-size: 13px; }
   .planner-calendar-days button { font-size: 15px; }
 }
+
+.planner-confirm-backdrop { position: fixed; inset: 0; z-index: 1200; display: grid; place-items: center; padding: 16px; background: rgba(18, 54, 83, .38); }
+.planner-confirm { width: min(100%, 360px); padding: 24px 22px 20px; border: 2px solid #fff; border-radius: 20px; background: #fffdf7; box-shadow: 0 18px 40px rgba(18, 54, 83, .22); color: #123653; }
+.planner-confirm h2 { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; margin: 0 0 10px; font-size: 22px; font-weight: 900; letter-spacing: .03em; }
+.planner-confirm h2 small { color: #718795; font-size: 14px; font-weight: 800; letter-spacing: 0; }
+.planner-confirm p { margin: 0 0 20px; color: #5d7585; font-size: 15px; line-height: 1.6; }
+.planner-confirm-actions { display: flex; justify-content: flex-end; gap: 10px; }
+.planner-confirm-actions button { min-width: 88px; padding: 10px 16px; border: 1.5px solid #9eb5c3; border-radius: 999px; background: #fff; color: #123653; font: inherit; font-size: 15px; font-weight: 800; cursor: pointer; }
+.planner-confirm-actions button:hover { background: #f2f6f8; }
+.planner-confirm-actions .is-danger { border-color: #d9574f; background: #d9574f; color: #fff; }
+.planner-confirm-actions .is-danger:hover { border-color: #bf3f39; background: #bf3f39; }
