@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { snowTowns } from "../views/frontend/Home";
 import { useAuth } from "../context/AuthContext";
@@ -17,6 +17,7 @@ function Header() {
   const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSyncOpen, setIsSyncOpen] = useState(false);
+  const syncRef = useRef(null);
   const [isSyncCodeSelectOpen, setIsSyncCodeSelectOpen] = useState(false);
   const [syncCodeDraft, setSyncCodeDraft] = useState(syncCode);
   const [newSyncCode, setNewSyncCode] = useState("");
@@ -24,6 +25,27 @@ function Header() {
   const [favorites, setFavorites] = useState([]);
   const [foodFavorites, setFoodFavorites] = useState([]);
   const [activeFavoriteTab, setActiveFavoriteTab] = useState("resorts");
+
+  // 點同步碼面板以外的地方或按 Esc 時關閉面板。
+  useEffect(() => {
+    if (!isSyncOpen) return undefined;
+    const closeSyncPanel = () => {
+      setIsSyncOpen(false);
+      setIsSyncCodeSelectOpen(false);
+    };
+    const closeOnOutsidePress = (event) => {
+      if (!syncRef.current?.contains(event.target)) closeSyncPanel();
+    };
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") closeSyncPanel();
+    };
+    document.addEventListener("pointerdown", closeOnOutsidePress);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOnOutsidePress);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [isSyncOpen]);
 
   const loadFavorites = useCallback(() => {
     const savedFavorites = snowTowns.flatMap((town) =>
@@ -166,7 +188,7 @@ function Header() {
         <span />
       </button>
       <div className="header-controls">
-        <div className="header-sync">
+        <div className="header-sync" ref={syncRef}>
           <button
             type="button"
             className="header-login"
