@@ -83,4 +83,9 @@ jobs:
 
       - name: Publish updated website
         if: (steps.changes.outputs.changed == 'true' || inputs.force_publish) && steps.build-env.outputs.ready == 'true'
-        run: npx gh-pages -d dist -u "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+        # gh-pages cannot parse "[bot]" in its -u option, so set the
+        # committer through git config instead.
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          npx gh-pages -d dist
