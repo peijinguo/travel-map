@@ -84,8 +84,12 @@ jobs:
       - name: Publish updated website
         if: (steps.changes.outputs.changed == 'true' || inputs.force_publish) && steps.build-env.outputs.ready == 'true'
         # gh-pages cannot parse "[bot]" in its -u option, so set the
-        # committer through git config instead.
+        # committer through git config instead. It also pushes from its own
+        # clone, which does not inherit the checkout credentials, so give it
+        # an authenticated repository URL.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          npx gh-pages -d dist
+          npx gh-pages -d dist -r "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
