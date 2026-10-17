@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "*/15 * * * *"
   workflow_dispatch:
+    inputs:
+      force_publish:
+        description: "Rebuild and publish the website even if the status has not changed"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -59,7 +64,7 @@ jobs:
       # so skip publishing instead.
       - name: Restore build settings
         id: build-env
-        if: steps.changes.outputs.changed == 'true'
+        if: (steps.changes.outputs.changed == 'true' || inputs.force_publish)
         shell: bash
         env:
           ENV_LOCAL: ${{ secrets.ENVLOCAL }}
@@ -73,9 +78,9 @@ jobs:
           fi
 
       - name: Build updated website
-        if: steps.changes.outputs.changed == 'true' && steps.build-env.outputs.ready == 'true'
+        if: (steps.changes.outputs.changed == 'true' || inputs.force_publish) && steps.build-env.outputs.ready == 'true'
         run: npx vite build
 
       - name: Publish updated website
-        if: steps.changes.outputs.changed == 'true' && steps.build-env.outputs.ready == 'true'
+        if: (steps.changes.outputs.changed == 'true' || inputs.force_publish) && steps.build-env.outputs.ready == 'true'
         run: npx gh-pages -d dist -u "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
