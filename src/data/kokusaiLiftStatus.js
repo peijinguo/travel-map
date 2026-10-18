@@ -1,6 +1,6 @@
 // 此檔案由 scripts/sync-kokusai-lift-status.mjs 自動產生，請勿手動修改。
 export const kokusaiLiftStatus = {
-  "syncedAt": "2026/10/18 08:00",
+  "syncedAt": "2026/10/18 09:50",
   "sourceUrl": "https://www.sapporo-kokusai.jp/slopes/",
   "courses": [
     {
