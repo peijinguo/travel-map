@@ -95,6 +95,9 @@ const getItineraryMotif = (location, itineraryText = "") => {
   // the Google place category has not been returned yet.
   if (/壽司|寿司|寿し|すし|鮨|鮓|sushi|海鮮丼/iu.test(`${noteText} ${placeName}`)) return "sushi";
   if (/天婦羅|天ぷら|天丼|tempura/iu.test(`${noteText} ${placeName}`)) return "tempura";
+  // Store-specific signature dishes that the generic keywords cannot infer.
+  if (/沼の家|numa\s*no\s*ya/iu.test(placeName)) return "numanoyaDango";
+  if (/ハセガワストア|hasegawa\s*store|やきとり弁当|燒鳥便當|烤雞肉串便當|yakitori\s*bento/iu.test(placeText)) return "yakitoriBento";
   const foodPlace = isFoodLocation(location);
   if (!foodPlace) return null;
   // Read the complete note first, then the primary place name. Do not use the
@@ -129,6 +132,9 @@ const getItineraryMotifLabel = (motif) =>
     beer: "居酒屋",
     crepe: "可麗餅",
     ramen: "拉麵",
+    dango: "糰子",
+    numanoyaDango: "沼の家糰子",
+    yakitoriBento: "烤雞肉串便當",
     chairlift: "滑雪場",
   })[motif] ?? "吃的";
 

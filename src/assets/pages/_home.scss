@@ -147,6 +147,13 @@ button, input { font: inherit; }
 .motif-dango .dango-red { fill: #ef8067; stroke: #704f3c; }
 .motif-dango .dango-white { fill: #fff1dc; stroke: #704f3c; }
 .motif-dango .dango-green { fill: #8dbb7a; stroke: #704f3c; }
+.motif-numanoyaDango .numanoya-box { fill: #f6ead6; stroke: #8b6a4c; stroke-width: 1.4; stroke-linejoin: round; }
+.motif-numanoyaDango .numanoya-tray { fill: #fffaf0; stroke: #b8987a; stroke-width: 1; }
+.motif-numanoyaDango .numanoya-mochi { fill: #f1c46f; stroke: #9a6a35; stroke-width: 0.9; }
+.motif-numanoyaDango .numanoya-glaze { fill: none; stroke: #8a4b25; stroke-width: 1.6; stroke-linecap: round; }
+.motif-numanoyaDango .numanoya-anko { fill: #6f4741; stroke: #4e302c; stroke-width: 1.1; stroke-linejoin: round; }
+.motif-numanoyaDango .numanoya-anko-swirl { fill: none; stroke: #9a6d63; stroke-width: 1; stroke-linecap: round; }
+.motif-numanoyaDango .numanoya-pick { fill: none; stroke: #d9b583; stroke-width: 1.3; stroke-linecap: round; }
 .motif-parfait .parfait-glass, .motif-parfait .parfait-layer { fill: #edf8fb; stroke: #597988; }
 .motif-parfait .parfait-cream { fill: #fff1dc; stroke: #704f3c; }
 .motif-parfait .parfait-fruit { fill: #ef8067; stroke: #704f3c; }
@@ -172,6 +179,14 @@ button, input { font: inherit; }
 .motif-steak .steak-meat { fill: var(--motif-color); stroke: #7f493b; }
 .motif-steak .steak-rim { fill: #e88968; stroke: #9a4f3f; stroke-width: 1.4; }
 .motif-steak .steak-highlight { fill: none; stroke: #ffd5b7; stroke-width: 1.5; }
+.motif-yakitoriBento .yakitori-stick { fill: none; stroke: #3b2418; stroke-width: 1.4; stroke-linecap: round; }
+.motif-yakitoriBento .yakitori-meat { fill: #9a5528; stroke: #3b2418; stroke-width: 1.3; stroke-linejoin: round; }
+.motif-yakitoriBento .yakitori-fat { fill: none; stroke: #e9b27c; stroke-width: 1.1; stroke-linecap: round; }
+.motif-yakitoriBento .yakitori-char { fill: none; stroke: #4a2414; stroke-width: 1.2; stroke-linecap: round; }
+.motif-yakitoriBento .yakitori-green { fill: #7fae4e; stroke: #3b2418; stroke-width: 1.2; }
+.motif-yakitoriBento .yakitori-negi { fill: #fbf1d6; stroke: #3b2418; stroke-width: 1.2; }
+.motif-yakitoriBento .yakitori-orange { fill: #f08a3c; stroke: #3b2418; stroke-width: 1.2; }
+.motif-yakitoriBento .yakitori-red { fill: #d9533f; stroke: #3b2418; stroke-width: 1.2; }
 .motif-steak .steak-grill { fill: none; stroke: #854536; stroke-width: 1.8; }
 .motif-beer .beer-body { fill: var(--motif-color); stroke: #284d63; }
 .motif-beer .beer-handle, .motif-beer .beer-glass { fill: none; stroke: #284d63; stroke-width: 2; }
