@@ -91,14 +91,17 @@ const getItineraryMotif = (location, itineraryText = "") => {
   if (/family\s*mart|ファミリーマート|ファミマ/iu.test(placeText)) return "familymart";
   if (/7\s*[-‐‑–—]?\s*eleven|seven\s*eleven|セブン[\s-]*イレブン|セブンイレブン/iu.test(placeText)) return "seveneleven";
   if (/滑雪場|滑雪场|スキー場|スノーパーク|ski\s*(?:area|resort)|snow\s*(?:resort|park)/iu.test(`${noteText} ${placeName}`)) return "chairlift";
+  const headline = `${noteText.split(/\r?\n/)[0]} ${placeName}`;
+  // Store-specific signature dishes that the generic keywords cannot infer.
+  // Match only the stop's own name (first line), so a note mentioning another
+  // restaurant, e.g. a sushi fallback, does not override the store's icon.
+  if (/沼の家|numa\s*no\s*ya/iu.test(placeName)) return "numanoyaDango";
+  if (/サク男ともち子|saku\s*o\s*to\s*mochiko/iu.test(headline)) return "crepe";
+  if (/ハセガワストア|hasegawa\s*store|長谷川商店|长谷川商店|やきとり弁当|燒鳥便當|烤雞肉串便當|烤肉串便當|yakitori\s*bento/iu.test(headline)) return "yakitoriBento";
   // Japanese stores commonly write sushi as 「寿し」; recognize it even when
   // the Google place category has not been returned yet.
   if (/壽司|寿司|寿し|すし|鮨|鮓|sushi|海鮮丼/iu.test(`${noteText} ${placeName}`)) return "sushi";
   if (/天婦羅|天ぷら|天丼|tempura/iu.test(`${noteText} ${placeName}`)) return "tempura";
-  // Store-specific signature dishes that the generic keywords cannot infer.
-  if (/沼の家|numa\s*no\s*ya/iu.test(placeName)) return "numanoyaDango";
-  if (/サク男ともち子|saku\s*o\s*to\s*mochiko/iu.test(placeText)) return "crepe";
-  if (/ハセガワストア|hasegawa\s*store|長谷川商店|长谷川商店|やきとり弁当|燒鳥便當|烤雞肉串便當|烤肉串便當|yakitori\s*bento/iu.test(placeText)) return "yakitoriBento";
   const foodPlace = isFoodLocation(location);
   if (!foodPlace) return null;
   // Read the complete note first, then the primary place name. Do not use the
