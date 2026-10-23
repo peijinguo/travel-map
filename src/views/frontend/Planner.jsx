@@ -98,7 +98,7 @@ const getItineraryMotif = (location, itineraryText = "") => {
   // Store-specific signature dishes that the generic keywords cannot infer.
   if (/沼の家|numa\s*no\s*ya/iu.test(placeName)) return "numanoyaDango";
   if (/サク男ともち子|saku\s*o\s*to\s*mochiko/iu.test(placeText)) return "crepe";
-  if (/ハセガワストア|hasegawa\s*store|やきとり弁当|燒鳥便當|烤雞肉串便當|yakitori\s*bento/iu.test(placeText)) return "yakitoriBento";
+  if (/ハセガワストア|hasegawa\s*store|長谷川商店|长谷川商店|やきとり弁当|燒鳥便當|烤雞肉串便當|烤肉串便當|yakitori\s*bento/iu.test(placeText)) return "yakitoriBento";
   const foodPlace = isFoodLocation(location);
   if (!foodPlace) return null;
   // Read the complete note first, then the primary place name. Do not use the
