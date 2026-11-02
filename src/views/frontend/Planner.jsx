@@ -2,13 +2,14 @@ import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { snowTowns } from "./Home";
 import HandDrawnMotif from "../../component/HandDrawnMotif";
+import RouteMap from "../../component/RouteMap";
 import { useAuth } from "../../context/AuthContext";
 import {
-  loadTransitDurationCloud,
   loadPlannerCloud,
   savePlannerCloud,
   subscribePlannerCloud,
 } from "../../services/firebase";
+import { requestRoute, searchJapanPlace } from "../../services/freeMaps";
 import "../../assets/pages/_planner.scss";
 
 const STORAGE_KEY = "yuki-tabi-planner-days-v2";
@@ -513,8 +514,18 @@ const toJapaneseSearchText = (text) =>
       })[character],
   );
 
+// 行程常寫成「中文名 日文名」，整串查不到時改查名稱的前後段。
+const getNameFragments = (query) => {
+  const words = query.split(/\s+/).filter(Boolean);
+  const fragments = [];
+  for (let length = words.length - 1; length >= 1; length -= 1) {
+    fragments.push(words.slice(-length).join(" "), words.slice(0, length).join(" "));
+  }
+  return fragments.filter((fragment) => fragment.length >= 4);
+};
+
 const getGeocodeQueries = (text) => {
-  const original = getLocationQuery(text);
+  const original = getLocationQuery(text).replace(/長谷川商店|长谷川商店/gu, "ハセガワストア");
   const withoutType = original
     .replace(
       /(?:滑雪度假村|滑雪渡假村|滑雪場|滑雪场|雪場|雪场|飯店|酒店|旅館|民宿)$/u,
@@ -528,9 +539,10 @@ const getGeocodeQueries = (text) => {
         toJapaneseSearchText(original),
         withoutType,
         toJapaneseSearchText(withoutType),
+        ...getNameFragments(original),
       ].filter(Boolean),
     ),
-  ];
+  ].slice(0, 8);
 };
 
 function findTownForText(text) {
@@ -575,15 +587,7 @@ const getLocationQuery = (text) => text.split(/[｜|\n]/)[0].trim();
 
 const getGeocodingErrorMessage = (error) =>
   ({
-    "geocoding-request_denied":
-      "Google 拒絕定位：請確認 API Key 的 API 限制已加入 Geocoding API，且網站限制包含目前網址。",
-    "geocoding-over_query_limit":
-      "Google 定位已超過配額或帳單額度，請到 Google Cloud Console 檢查用量。",
-    "geocoding-invalid_request": "定位內容無效，請補上飯店或景點的完整名稱。",
-    "missing-google-maps-api-key":
-      "找不到 Google Maps API Key，請確認 .env.local 設定後已重啟網站。",
-    "google-maps-load-failed":
-      "Google Maps 載入失敗，請確認網路與 API Key 的網站限制。",
+    "map-service-rate-limited": "地點搜尋太頻繁，請稍等一下再試一次。",
   })[error?.message] ?? "定位服務暫時無法使用，請稍後再試。";
 
 function geocodeJapanesePlace(text) {
@@ -599,42 +603,11 @@ function geocodeJapanesePlace(text) {
   }
   if (pendingGeocodes.has(cacheKey)) return pendingGeocodes.get(cacheKey);
   const task = (async () => {
-    const maps = await loadGoogleMaps();
-    const geocoder = new maps.Geocoder();
-    let result = null;
-    let matchedQuery = query;
+    let location = null;
     for (const candidate of getGeocodeQueries(text)) {
-      const response = await new Promise((resolve, reject) => {
-        geocoder.geocode(
-          { address: `${candidate}, 日本`, region: "JP" },
-          (results, status) => {
-            if (status === "OK") resolve(results?.[0] ?? null);
-            else if (status === "ZERO_RESULTS") resolve(null);
-            else reject(new Error(`geocoding-${status.toLowerCase()}`));
-          },
-        );
-      });
-      if (response) {
-        result = response;
-        matchedQuery = candidate;
-        break;
-      }
+      location = await searchJapanPlace(candidate, getLocationQuery(text));
+      if (location) break;
     }
-    const placeInfo = result
-      ? await findPlaceInfo(maps, matchedQuery, result.place_id)
-      : { types: [], website: "" };
-    const location = result
-      ? {
-          id: `google-${result.place_id}`,
-          name: matchedQuery,
-          latitude: result.geometry.location.lat(),
-          longitude: result.geometry.location.lng(),
-          displayName: result.formatted_address,
-          query: matchedQuery,
-          types: [...new Set([...(result.types ?? []), ...placeInfo.types])],
-          website: placeInfo.website,
-        }
-      : null;
     try {
       const cache = JSON.parse(localStorage.getItem(GEOCODE_CACHE_KEY)) ?? {};
       localStorage.setItem(
@@ -916,358 +889,6 @@ function getInitialDays() {
   }
 }
 
-let googleMapsPromise;
-
-function loadGoogleMaps() {
-  if (globalThis.google?.maps) return Promise.resolve(globalThis.google.maps);
-  if (googleMapsPromise) return googleMapsPromise;
-  const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-  if (!apiKey) return Promise.reject(new Error("missing-google-maps-api-key"));
-
-  googleMapsPromise = new Promise((resolve, reject) => {
-    const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(apiKey)}&libraries=places&v=weekly&language=zh-TW&region=TW`;
-    script.async = true;
-    script.onerror = () => reject(new Error("google-maps-load-failed"));
-    script.onload = () => resolve(globalThis.google.maps);
-    document.head.append(script);
-  });
-  return googleMapsPromise;
-}
-
-function findPlaceInfo(maps, query, geocodePlaceId) {
-  if (!maps.places?.PlacesService)
-    return Promise.resolve({ types: [], website: "" });
-
-  const service = new maps.places.PlacesService(document.createElement("div"));
-  const getDetails = (placeId) =>
-    new Promise((resolve) => {
-      service.getDetails(
-        { placeId, fields: ["types", "website"] },
-        (place, status) => {
-          if (status === maps.places.PlacesServiceStatus.OK && place) {
-            resolve({ types: place.types ?? [], website: place.website ?? "" });
-            return;
-          }
-          resolve(null);
-        },
-      );
-    });
-
-  return getDetails(geocodePlaceId).then((placeInfo) => {
-    if (placeInfo) return placeInfo;
-    return new Promise((resolve) => {
-      service.textSearch({ query: `${query}, 日本` }, async (results, status) => {
-        if (status !== maps.places.PlacesServiceStatus.OK || !results?.length) {
-          resolve({ types: [], website: "" });
-          return;
-        }
-        const place =
-          results.find((candidate) => candidate.place_id === geocodePlaceId) ??
-          results[0];
-        resolve(
-          (await getDetails(place.place_id)) ?? {
-            types: place.types ?? [],
-            website: "",
-          },
-        );
-      });
-    });
-  });
-}
-
-function getOverlappingMarkerOffsets(coordinates) {
-  const groups = [];
-  const overlapDistance = 0.001;
-
-  coordinates.forEach((coordinate, index) => {
-    const group = groups.find(({ center }) => {
-      const latitudeScale = Math.cos((coordinate.lat * Math.PI) / 180);
-      const latGap = coordinate.lat - center.lat;
-      const lngGap = (coordinate.lng - center.lng) * latitudeScale;
-      return Math.hypot(latGap, lngGap) < overlapDistance;
-    });
-
-    if (group) {
-      group.items.push({ coordinate, index });
-      const total = group.items.length;
-      group.center = group.items.reduce(
-        (center, item) => ({
-          lat: center.lat + item.coordinate.lat / total,
-          lng: center.lng + item.coordinate.lng / total,
-        }),
-        { lat: 0, lng: 0 },
-      );
-    } else {
-      groups.push({ center: coordinate, items: [{ coordinate, index }] });
-    }
-  });
-
-  const offsets = coordinates.map(() => ({ x: 0, y: 0 }));
-  groups.forEach(({ items }) => {
-    if (items.length < 2) return;
-    const radius = 24;
-    items.forEach(({ index }, itemIndex) => {
-      if (itemIndex === 0) return;
-      const angle = (Math.PI * 2 * (itemIndex - 1)) / (items.length - 1);
-      offsets[index] = {
-        x: Math.round(Math.cos(angle) * radius),
-        y: Math.round(Math.sin(angle) * radius),
-      };
-    });
-  });
-
-  return offsets;
-}
-
-function GoogleRouteMap({ stops }) {
-  const canvasRef = useRef(null);
-  const mapRef = useRef(null);
-  const markersRef = useRef([]);
-  const routeRef = useRef(null);
-  const infoWindowRef = useRef(null);
-  const stopsRef = useRef(stops);
-  const [mapReady, setMapReady] = useState(false);
-  const [loadError, setLoadError] = useState("");
-  const stopsKey = stops
-    .map(({ item, town }) =>
-      [item.id, town.id, town.latitude, town.longitude, town.name].join(":"),
-    )
-    .join("|");
-
-  useEffect(() => {
-    stopsRef.current = stops;
-  }, [stops]);
-
-  useEffect(() => {
-    let cancelled = false;
-    loadGoogleMaps()
-      .then((maps) => {
-        if (cancelled || !canvasRef.current) return;
-        mapRef.current = new maps.Map(canvasRef.current, {
-          center: { lat: 38.2, lng: 137.7 },
-          zoom: 5,
-          minZoom: 3,
-          mapTypeControl: false,
-          streetViewControl: false,
-          fullscreenControl: true,
-          gestureHandling: "greedy",
-        });
-        infoWindowRef.current = new maps.InfoWindow();
-        setMapReady(true);
-        setLoadError("");
-      })
-      .catch((error) => {
-        if (!cancelled) setLoadError(error.message);
-      });
-    return () => {
-      cancelled = true;
-      markersRef.current.forEach((marker) => marker.setMap(null));
-      markersRef.current = [];
-      routeRef.current?.setMap(null);
-      mapRef.current = null;
-    };
-  }, []);
-
-  useEffect(() => {
-    const map = mapRef.current;
-    const maps = globalThis.google?.maps;
-    if (!map || !maps) return;
-    const currentStops = stopsRef.current;
-    const coordinates = currentStops.map(({ town }) => ({
-      lat: town.latitude,
-      lng: town.longitude,
-    }));
-    const markerOffsets = getOverlappingMarkerOffsets(coordinates);
-    const markerIcon =
-      "data:image/svg+xml;charset=UTF-8," +
-      encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="32" height="42" viewBox="0 0 32 42"><path fill="#e53935" d="M16 0C7.2 0 0 7.2 0 16c0 11.8 16 26 16 26s16-14.2 16-26C32 7.2 24.8 0 16 0z"/><circle cx="16" cy="16" r="12" fill="#e53935"/></svg>');
-
-    markersRef.current.forEach((marker) => marker.setMap(null));
-    markersRef.current = currentStops.map((stop, index) => {
-      const offset = markerOffsets[index];
-      const marker = new maps.Marker({
-        map,
-        position: coordinates[index],
-        icon: {
-          url: markerIcon,
-          size: new maps.Size(32, 42),
-          anchor: new maps.Point(16 - offset.x, 42 - offset.y),
-          labelOrigin: new maps.Point(16, 16),
-        },
-        label: { text: String(index + 1), color: "#ffffff", fontWeight: "800" },
-        title: `第 ${index + 1} 站：${stop.town.name}`,
-        zIndex: index + 1,
-      });
-      marker.addListener("click", () => {
-        const content = document.createElement("div");
-        const stopNumber = document.createElement("strong");
-        const stopName = document.createElement("span");
-        content.className = "planner-google-popup";
-        stopNumber.textContent = `STOP ${String(index + 1).padStart(2, "0")}`;
-        stopName.textContent = stop.town.name;
-        content.append(stopNumber, stopName);
-        infoWindowRef.current.setContent(content);
-        infoWindowRef.current.open({ map, anchor: marker });
-      });
-      return marker;
-    });
-
-    routeRef.current?.setMap(null);
-    routeRef.current = new maps.Polyline({
-      map,
-      path: coordinates,
-      strokeColor: "#8b5a3c",
-      strokeOpacity: 0.95,
-      strokeWeight: 5,
-      geodesic: true,
-    });
-
-    if (!coordinates.length) {
-      map.setCenter({ lat: 38.2, lng: 137.7 });
-      map.setZoom(5);
-    } else if (coordinates.length === 1) {
-      map.setCenter(coordinates[0]);
-      map.setZoom(13);
-    } else {
-      const bounds = new maps.LatLngBounds();
-      coordinates.forEach((coordinate) => bounds.extend(coordinate));
-      map.fitBounds(bounds, 72);
-    }
-  }, [stopsKey, mapReady]);
-
-  if (loadError)
-    return (
-      <div className="planner-google-status">
-        <strong>Google 地圖尚未啟用</strong>
-        <span>請在 .env 設定 VITE_GOOGLE_MAPS_API_KEY 後重新啟動網站。</span>
-      </div>
-    );
-  return (
-    <div
-      ref={canvasRef}
-      className="planner-google-map"
-      aria-label="日本雪旅行程 Google 地圖"
-    />
-  );
-}
-
-const routePoint = (location) => ({
-  lat: location.latitude,
-  lng: location.longitude,
-});
-
-function requestDirections(maps, request) {
-  const service = new maps.DirectionsService();
-  return new Promise((resolve, reject) => {
-    service.route(request, (result, status) => {
-      if (status === maps.DirectionsStatus.OK && result) resolve(result);
-      else reject(new Error(`directions-${String(status).toLowerCase()}`));
-    });
-  });
-}
-
-function requestTransitDuration(maps, origin, destination, departureTime) {
-  const service = new maps.DistanceMatrixService();
-  return new Promise((resolve, reject) => {
-    service.getDistanceMatrix(
-      {
-        origins: [origin],
-        destinations: [destination],
-        travelMode: maps.TravelMode.TRANSIT,
-        transitOptions: { departureTime },
-      },
-      (response, status) => {
-        const element = response?.rows?.[0]?.elements?.[0];
-        if (status === "OK" && element?.status === "OK" && element.duration?.text) {
-          resolve(element.duration.text);
-        } else {
-          reject(new Error(`transit-duration-${String(status).toLowerCase()}`));
-        }
-      },
-    );
-  });
-}
-
-const formatDurationMillis = (durationMillis) => {
-  if (!Number.isFinite(durationMillis)) return null;
-  const totalMinutes = Math.max(1, Math.round(durationMillis / 60000));
-  const hours = Math.floor(totalMinutes / 60);
-  const minutes = totalMinutes % 60;
-  if (!hours) return `${minutes} 分鐘`;
-  return minutes ? `${hours} 小時 ${minutes} 分鐘` : `${hours} 小時`;
-};
-
-async function requestModernTransitDuration(maps, origin, destination, departureTime) {
-  const { Route } = await maps.importLibrary("routes");
-  let lastError;
-  for (const requestedTime of [departureTime, null]) {
-    try {
-      const response = await Route.computeRoutes({
-        origin: { location: origin },
-        destination: { location: destination },
-        travelMode: "TRANSIT",
-        ...(requestedTime ? { departureTime: requestedTime } : {}),
-        computeAlternativeRoutes: true,
-        fields: ["localizedValues", "durationMillis"],
-        language: "zh-TW",
-        region: "jp",
-      });
-      const firstRoute = response.routes?.[0];
-      const duration =
-        firstRoute?.localizedValues?.duration ||
-        formatDurationMillis(firstRoute?.durationMillis);
-      if (duration) return duration;
-    } catch (error) {
-      lastError = error;
-    }
-  }
-  throw lastError ?? new Error("modern-transit-duration-unavailable");
-}
-
-function getTransitDepartureTime(dateString) {
-  const departure = dateString
-    ? new Date(`${dateString}T08:00:00`)
-    : new Date();
-  const minimum = new Date(Date.now() + 5 * 60 * 1000);
-  const maximum = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
-  if (departure > maximum) {
-    const nearbyDeparture = new Date(Date.now() + 24 * 60 * 60 * 1000);
-    nearbyDeparture.setHours(8, 0, 0, 0);
-    return nearbyDeparture;
-  }
-  return departure > minimum ? departure : minimum;
-}
-
-function collectTransitLines(steps = []) {
-  return [
-    ...new Set(
-      steps.flatMap((step) => {
-        const details = step.transit;
-        if (!details) return [];
-        const line =
-          details.line?.short_name ??
-          details.line?.name ??
-          details.line?.agencies?.[0]?.name;
-        const vehicle = details.line?.vehicle?.name;
-        return [line ?? vehicle].filter(Boolean);
-      }),
-    ),
-  ];
-}
-
-function summarizeTransitRoute(route, index) {
-  const leg = route.legs?.[0];
-  if (!leg) return null;
-  return {
-    id: `${index}-${leg.departure_time?.value?.getTime?.() ?? leg.duration?.value ?? 0}`,
-    departure: leg.departure_time?.text ?? "依現場時刻",
-    arrival: leg.arrival_time?.text ?? "",
-    duration: leg.duration?.text ?? "",
-    lines: collectTransitLines(leg.steps),
-  };
-}
-
 function estimateRoadTrip(from, to) {
   const earthRadiusKm = 6371;
   const toRadians = (value) => (value * Math.PI) / 180;
@@ -1390,10 +1011,7 @@ function TravelSegment({ segment, from, to, note = "" }) {
   const prefersExplicitTransit = EXPLICIT_TRANSIT_NOTE_PATTERN.test(note);
   const prefersDriving = !prefersFlight && !prefersWalking && !prefersExplicitTransit && DRIVING_NOTE_PATTERN.test(note);
   const prefersTransit = !prefersFlight && !prefersWalking && !prefersDriving && TRANSIT_NOTE_PATTERN.test(note);
-  const transitDuration = segment?.transit?.[0]?.duration ?? segment?.transitDuration;
-  const transitLabel = transitDuration
-    ? `搭車約 ${transitDuration}`
-    : "搭車時間請至 Google Maps 查看";
+  const transitLabel = "搭車時間請至 Google Maps 查看";
   const walkingLabel = segment?.walking?.duration
     ? `走路約 ${segment.walking.duration}`
     : "走路時間請至 Google Maps 查看";
@@ -2017,115 +1635,25 @@ function Planner() {
       ),
     );
 
-    loadGoogleMaps()
-      .then(async (maps) => {
-        const departureTime = getTransitDepartureTime(activeDay.date);
-        const results = await Promise.all(
-          currentTravelPairs.map(async (pair) => {
-            const baseRequest = {
-              origin: routePoint(pair.from),
-              destination: routePoint(pair.to),
-            };
-            try {
-              const [drivingResult, walkingResult, transitResult] = await Promise.all([
-                requestDirections(maps, {
-                  ...baseRequest,
-                  travelMode: maps.TravelMode.DRIVING,
-                }).catch(() => null),
-                requestDirections(maps, {
-                  ...baseRequest,
-                  travelMode: maps.TravelMode.WALKING,
-                }).catch(() => null),
-                requestDirections(maps, {
-                  ...baseRequest,
-                  travelMode: maps.TravelMode.TRANSIT,
-                  provideRouteAlternatives: true,
-                  transitOptions: { departureTime },
-                }).catch(() =>
-                  requestDirections(maps, {
-                    ...baseRequest,
-                    travelMode: maps.TravelMode.TRANSIT,
-                    provideRouteAlternatives: true,
-                    transitOptions: { departureTime: getTransitDepartureTime() },
-                  }).catch(() => null),
-                ),
-              ]);
-              const drivingLeg = drivingResult?.routes?.[0]?.legs?.[0];
-              const walkingLeg = walkingResult?.routes?.[0]?.legs?.[0];
-              const transitRoutes = (transitResult?.routes ?? [])
-                .slice(0, 3)
-                .map(summarizeTransitRoute)
-                .filter(Boolean);
-              const fallbackTransitDuration = transitRoutes[0]?.duration
-                ? null
-                : await loadTransitDurationCloud(
-                    baseRequest.origin,
-                    baseRequest.destination,
-                    departureTime,
-                  ).catch(() => null) ??
-                  await requestModernTransitDuration(
-                    maps,
-                    baseRequest.origin,
-                    baseRequest.destination,
-                    departureTime,
-                  ).catch(() =>
-                    requestTransitDuration(
-                      maps,
-                      baseRequest.origin,
-                      baseRequest.destination,
-                      departureTime,
-                    ).catch(() =>
-                      requestTransitDuration(
-                        maps,
-                        baseRequest.origin,
-                        baseRequest.destination,
-                        getTransitDepartureTime(),
-                      ).catch(() => null),
-                    ),
-                  );
-              return [
-                pair.fromItemId,
-                {
-                  status: "ready",
-                  driving: drivingLeg
-                    ? {
-                        duration: drivingLeg.duration?.text,
-                        distance: drivingLeg.distance?.text,
-                      }
-                    : null,
-                  walking: walkingLeg
-                    ? {
-                        duration: walkingLeg.duration?.text,
-                        distance: walkingLeg.distance?.text,
-                      }
-                    : null,
-                  transit: transitRoutes,
-                  transitDuration: fallbackTransitDuration,
-                },
-              ];
-            } catch {
-              return [pair.fromItemId, { status: "error" }];
-            }
-          }),
-        );
-        if (!cancelled) setTravelSegments(Object.fromEntries(results));
-      })
-      .catch(() => {
-        if (cancelled) return;
-        setTravelSegments(
-          Object.fromEntries(
-            currentTravelPairs.map((pair) => [
-              pair.fromItemId,
-              { status: "error" },
-            ]),
-          ),
-        );
-      });
+    Promise.all(
+      currentTravelPairs.map(async (pair) => {
+        const [driving, walking] = await Promise.all([
+          requestRoute(pair.from, pair.to, "driving").catch(() => null),
+          requestRoute(pair.from, pair.to, "walking").catch(() => null),
+        ]);
+        return [
+          pair.fromItemId,
+          { status: driving || walking ? "ready" : "error", driving, walking },
+        ];
+      }),
+    ).then((results) => {
+      if (!cancelled) setTravelSegments(Object.fromEntries(results));
+    });
 
     return () => {
       cancelled = true;
     };
-  }, [travelPairsKey, activeDay.date]);
+  }, [travelPairsKey]);
 
   const updateItem = (id, patch) =>
     setItems((current) =>
@@ -2298,8 +1826,8 @@ function Planner() {
             </div>
             <strong>{plannedStops.length} 個停靠點</strong>
           </div>
-          <div className="planner-map-stage has-google-map">
-            <GoogleRouteMap stops={plannedStops} />
+          <div className="planner-map-stage has-route-map">
+            <RouteMap stops={plannedStops} />
           </div>
           <p className="planner-map-hint">
           </p>

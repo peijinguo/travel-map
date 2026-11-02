@@ -212,14 +212,14 @@
   white-space: nowrap;
 }
 .planner-map-stage { min-height: 575px; display: grid; flex: 1; place-items: center; padding: 0; overflow: visible; }
-.planner-map-stage.has-google-map { min-height: 590px; margin: 0 18px; overflow: hidden; border: 2px solid #334b56; border-radius: 22px 28px 23px 26px; background: #dceff5; box-shadow: 7px 9px 0 rgba(53,77,88,.1); }
-.planner-google-map { width: 100%; height: 100%; min-height: 590px; }
-.planner-google-popup { display: grid; gap: 3px; padding: 4px 2px; color: #123653; font-family: inherit; }
-.planner-google-popup strong { color: #e96b3d; font-size: 12px; letter-spacing: .08em; }
-.planner-google-popup span { font-size: 14px; font-weight: 900; }
-.planner-google-status { display: grid; gap: 8px; place-items: center; padding: 32px; color: #334b56; text-align: center; }
-.planner-google-status strong { font-size: 20px; }
-.planner-google-status span { max-width: 420px; font-size: 14px; line-height: 1.7; }
+.planner-map-stage.has-route-map { min-height: 590px; margin: 0 18px; overflow: hidden; border: 2px solid #334b56; border-radius: 22px 28px 23px 26px; background: #dceff5; box-shadow: 7px 9px 0 rgba(53,77,88,.1); }
+.planner-route-map { width: 100%; height: 100%; min-height: 590px; }
+.planner-route-popup { display: grid; gap: 3px; padding: 4px 2px; color: #123653; font-family: inherit; }
+.planner-route-popup strong { color: #e96b3d; font-size: 12px; letter-spacing: .08em; }
+.planner-route-popup span { font-size: 14px; font-weight: 900; }
+.planner-route-status { display: grid; gap: 8px; place-items: center; padding: 32px; color: #334b56; text-align: center; }
+.planner-route-status strong { font-size: 20px; }
+.planner-route-status span { max-width: 420px; font-size: 14px; line-height: 1.7; }
 .planner-map-marker {
   width: 48px;
   height: 56px;
@@ -248,10 +248,9 @@
   text-shadow: 0 1px 0 rgba(255,235,190,.65);
   transform: translateX(-50%) rotate(-5deg);
 }
-.planner-google-map { position: relative; width: 100%; height: 100%; min-height: 590px; }
-.planner-google-canvas { position: absolute; inset: 0; }
-.planner-google-status { position: absolute; inset: 50% auto auto 50%; min-width: 260px; padding: 18px 22px; border: 2px solid #334b56; border-radius: 14px; background: rgba(255,253,247,.96); color: #123653; font-weight: 800; text-align: center; transform: translate(-50%,-50%) rotate(-.4deg); box-shadow: 5px 6px 0 rgba(51,75,86,.14); }
-.planner-google-status small { display: block; margin-top: 7px; color: #718a99; font-size: 11px; }
+.planner-route-map { position: relative; width: 100%; height: 100%; min-height: 590px; }
+.planner-route-status { position: absolute; inset: 50% auto auto 50%; min-width: 260px; padding: 18px 22px; border: 2px solid #334b56; border-radius: 14px; background: rgba(255,253,247,.96); color: #123653; font-weight: 800; text-align: center; transform: translate(-50%,-50%) rotate(-.4deg); box-shadow: 5px 6px 0 rgba(51,75,86,.14); }
+.planner-route-status small { display: block; margin-top: 7px; color: #718a99; font-size: 11px; }
 .planner-map-key-note { margin: -42px 24px 12px; padding: 8px 12px; z-index: 2; border: 1px dashed #e96b3d; border-radius: 9px; background: rgba(255,250,240,.92); color: #6c7e88; font-size: 11px; text-align: center; }
 .planner-japan-map { width: 106%; height: auto; max-width: 1000px; overflow: visible; filter: drop-shadow(9px 11px 0 rgba(121, 82, 62, .16)); }
 .planner-map-paper { fill: #fffaf0; stroke: #334b56; stroke-width: 2.2; stroke-dasharray: 3 1.5; }
@@ -863,7 +862,7 @@
   .planner-road-summary { grid-template-columns: 38px minmax(0, 1fr); margin: 0 12px 16px; padding: 12px; }
   .planner-road-summary-icon { width: 38px; height: 38px; font-size: 15px; }
   .planner-road-summary-actions { grid-column: 1 / -1; justify-content: flex-start; }
-  .planner-google-map, .planner-map-stage.has-google-map { min-height: 390px; }
+  .planner-route-map, .planner-map-stage.has-route-map { min-height: 390px; }
   .planner-day-tabs { gap: 6px; }
   .planner-day-tabs button { padding-inline: 7px; }
   .planner-day-board { min-height: 560px; gap: 5px; overflow-x: auto; }
@@ -1016,3 +1015,6 @@
 .planner-confirm-actions button:hover { background: #f2f6f8; }
 .planner-confirm-actions .is-danger { border-color: #d9574f; background: #d9574f; color: #fff; }
 .planner-confirm-actions .is-danger:hover { border-color: #bf3f39; background: #bf3f39; }
+
+.planner-route-pin { display: grid; width: 32px; height: 40px; padding-bottom: 10px; place-items: center; background: #e53935; clip-path: path("M16 0C7.2 0 0 7.2 0 16c0 11.8 16 24 16 24s16-12.200 16-24C32 7.200 24.800 0 16 0z"); color: #fff; font-size: 14px; font-weight: 800; line-height: 1; cursor: pointer; }
+.has-route-map .maplibregl-popup-content { border-radius: 10px; padding: 8px 12px; }

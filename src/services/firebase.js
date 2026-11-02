@@ -15,7 +15,6 @@ import {
   serverTimestamp,
   setDoc,
 } from "firebase/firestore";
-import { getFunctions, httpsCallable } from "firebase/functions";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -31,10 +30,6 @@ export const isFirebaseConfigured = Object.values(firebaseConfig).every(Boolean)
 const app = isFirebaseConfigured ? initializeApp(firebaseConfig) : null;
 export const auth = app ? getAuth(app) : null;
 export const db = app ? getFirestore(app) : null;
-const functions = app ? getFunctions(app, "asia-northeast1") : null;
-const transitRouteCallable = functions
-  ? httpsCallable(functions, "getTransitRoute", { timeout: 15000 })
-  : null;
 
 export const observeAuth = (callback) => {
   if (!auth) {
@@ -55,29 +50,6 @@ export const signInAnonymous = () => {
 };
 
 export const signOutGoogle = () => (auth ? signOut(auth) : Promise.resolve());
-
-export async function loadTransitDurationCloud(
-  origin,
-  destination,
-  departureTime,
-) {
-  if (!transitRouteCallable || !auth?.currentUser) return null;
-  const result = await transitRouteCallable({
-    origin,
-    destination,
-    departureTime: departureTime?.toISOString?.() ?? null,
-  });
-  const duration = result.data?.duration;
-  if (duration) return duration;
-  const seconds = Number(result.data?.durationSeconds);
-  if (!Number.isFinite(seconds) || seconds <= 0) return null;
-  const minutes = Math.max(1, Math.round(seconds / 60));
-  const hours = Math.floor(minutes / 60);
-  const remainder = minutes % 60;
-  return hours
-    ? `${hours} 小時${remainder ? ` ${remainder} 分鐘` : ""}`
-    : `${minutes} 分鐘`;
-}
 
 const withSyncTimeout = (promise, timeoutMs = 6000) =>
   Promise.race([

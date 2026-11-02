@@ -58,9 +58,9 @@ jobs:
           git commit -m "chore: sync ski resort live status"
           git push
 
-      # The site reads its Google Maps and Firebase settings at build time.
+      # The site reads its Firebase settings at build time.
       # The whole local .env.local is stored in the ENVLOCAL repository
-      # secret; without it the published site loses the map and cloud sync,
+      # secret; without it the published site loses cloud sync,
       # so skip publishing instead.
       - name: Restore build settings
         id: build-env
@@ -70,11 +70,11 @@ jobs:
           ENV_LOCAL: ${{ secrets.ENVLOCAL }}
         run: |
           printf '%s\n' "$ENV_LOCAL" | tr -d '\r' > .env.local
-          if grep -Eq '^VITE_GOOGLE_MAPS_API_KEY=.+' .env.local && grep -Eq '^VITE_FIREBASE_API_KEY=.+' .env.local; then
+          if grep -Eq '^VITE_FIREBASE_API_KEY=.+' .env.local; then
             echo "ready=true" >> "$GITHUB_OUTPUT"
           else
             echo "ready=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::The ENVLOCAL secret is missing Google Maps / Firebase settings; skipped publishing the website."
+            echo "::warning::The ENVLOCAL secret is missing the Firebase settings; skipped publishing the website."
           fi
 
       - name: Build updated website
