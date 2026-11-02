@@ -2,6 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 
+// Transitous requires a source link and contact details beside its transit times.
+const TRANSIT_ATTRIBUTION =
+  '<a href="https://transitous.org/sources/" target="_blank" rel="noreferrer">Transitous</a> | ' +
+  '<a href="https://github.com/peijinguo/travel-map" target="_blank" rel="noreferrer">專案聯絡</a>';
 // OpenFreeMap serves OpenStreetMap tiles without an API key or usage fees.
 const MAP_STYLE_URL = "https://tiles.openfreemap.org/styles/liberty";
 const JAPAN_CENTER = [137.7, 38.2];
@@ -109,9 +113,13 @@ function RouteMap({ stops }) {
     mapRef.current = map;
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
     map.addControl(new maplibregl.FullscreenControl(), "top-right");
-    // The OpenStreetMap licence requires attribution, so keep it as an info
-    // button here; the page footer also names the sources.
-    map.addControl(new maplibregl.AttributionControl({ compact: true }));
+    // The data licences require attribution, so keep it behind an info button.
+    map.addControl(
+      new maplibregl.AttributionControl({
+        compact: true,
+        customAttribution: TRANSIT_ATTRIBUTION,
+      }),
+    );
     // "load" waits for every visible tile, which takes seconds on the free
     // tile server; the style is enough to draw the stops and the route.
     map.once("style.load", () => {

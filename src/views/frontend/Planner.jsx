@@ -2212,17 +2212,6 @@ function Planner() {
           </div>
         </aside>
       </section>
-      <p className="planner-credits">
-        地圖資料：
-        <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap</a>
-        {" · "}
-        <a href="https://openfreemap.org/" target="_blank" rel="noreferrer">OpenFreeMap</a>
-        {" · "}
-        大眾運輸時刻資料：
-        <a href="https://transitous.org/sources/" target="_blank" rel="noreferrer">Transitous</a>
-        {" · "}
-        <a href="https://github.com/peijinguo/travel-map" target="_blank" rel="noreferrer">專案聯絡</a>
-      </p>
       {dayPendingDelete && (() => {
         const dayIndex = days.findIndex((day) => day.id === dayPendingDelete);
         const day = days[dayIndex];
