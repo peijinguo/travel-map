@@ -2213,6 +2213,11 @@ function Planner() {
         </aside>
       </section>
       <p className="planner-credits">
+        地圖資料：
+        <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap</a>
+        {" · "}
+        <a href="https://openfreemap.org/" target="_blank" rel="noreferrer">OpenFreeMap</a>
+        {" · "}
         大眾運輸時刻資料：
         <a href="https://transitous.org/sources/" target="_blank" rel="noreferrer">Transitous</a>
         {" · "}

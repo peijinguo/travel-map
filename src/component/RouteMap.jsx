@@ -104,10 +104,14 @@ function RouteMap({ stops }) {
       center: JAPAN_CENTER,
       zoom: JAPAN_ZOOM,
       minZoom: 2,
+      attributionControl: false,
     });
     mapRef.current = map;
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
     map.addControl(new maplibregl.FullscreenControl(), "top-right");
+    // The OpenStreetMap licence requires attribution, so keep it as an info
+    // button here; the page footer also names the sources.
+    map.addControl(new maplibregl.AttributionControl({ compact: true }));
     // "load" waits for every visible tile, which takes seconds on the free
     // tile server; the style is enough to draw the stops and the route.
     map.once("style.load", () => {
@@ -123,6 +127,12 @@ function RouteMap({ stops }) {
         paint: { "line-color": "#8b5a3c", "line-width": 5, "line-opacity": 0.95 },
       });
       setMapReady(true);
+    });
+    map.once("load", () => {
+      map
+        .getContainer()
+        .querySelector(".maplibregl-ctrl-attrib")
+        ?.classList.remove("maplibregl-compact-show");
     });
     return () => {
       markersRef.current = [];
