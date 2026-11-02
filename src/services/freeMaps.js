@@ -3,9 +3,15 @@
 const PHOTON_URL = "https://photon.komoot.io/api/";
 const NOMINATIM_LOOKUP_URL = "https://nominatim.openstreetmap.org/lookup";
 const ROUTE_URLS = {
-  driving: "https://routing.openstreetmap.de/routed-car/route/v1/driving",
-  walking: "https://routing.openstreetmap.de/routed-foot/route/v1/foot",
+  driving: [
+    "https://router.project-osrm.org/route/v1/driving",
+    "https://routing.openstreetmap.de/routed-car/route/v1/driving",
+  ],
+  walking: ["https://routing.openstreetmap.de/routed-foot/route/v1/foot"],
 };
+// The free routing servers answer bursts with 429, so requests are sent one at
+// a time and every finished route is cached.
+const ROUTE_REQUEST_GAP_MS = 1100;
 const ROUTE_CACHE_KEY = "yuki-tabi-route-cache-v1";
 const JAPAN_BBOX = "122,24,154,46";
 const REQUEST_TIMEOUT_MS = 10000;
@@ -148,6 +154,25 @@ const writeRouteCache = (key, route) => {
   }
 };
 
+let routeQueue = Promise.resolve();
+
+function enqueueRouteRequest(task) {
+  const result = routeQueue.then(task);
+  routeQueue = result
+    .catch(() => null)
+    .then(() => new Promise((resolve) => setTimeout(resolve, ROUTE_REQUEST_GAP_MS)));
+  return result;
+}
+
+async function fetchRoute(baseUrl, coordinates) {
+  const response = await fetch(`${baseUrl}/${coordinates}?overview=false`, {
+    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+  });
+  if (!response.ok) return null;
+  const payload = await response.json();
+  return payload.routes?.[0] ?? null;
+}
+
 // mode is "driving" or "walking". Resolves to null when no road connects the
 // two points, for example across the sea.
 export async function requestRoute(from, to, mode) {
@@ -158,18 +183,17 @@ export async function requestRoute(from, to, mode) {
   const cached = readRouteCache()[cacheKey];
   if (cached) return cached;
 
-  const response = await fetch(`${ROUTE_URLS[mode]}/${coordinates}?overview=false`, {
-    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+  return enqueueRouteRequest(async () => {
+    for (const baseUrl of ROUTE_URLS[mode]) {
+      const route = await fetchRoute(baseUrl, coordinates).catch(() => null);
+      if (!route) continue;
+      const summary = {
+        duration: formatDuration(route.duration),
+        distance: formatDistance(route.distance),
+      };
+      writeRouteCache(cacheKey, summary);
+      return summary;
+    }
+    return null;
   });
-  if (!response.ok) return null;
-  const payload = await response.json();
-  const route = payload.routes?.[0];
-  if (!route) return null;
-
-  const summary = {
-    duration: formatDuration(route.duration),
-    distance: formatDistance(route.distance),
-  };
-  writeRouteCache(cacheKey, summary);
-  return summary;
 }

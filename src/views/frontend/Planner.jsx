@@ -1598,6 +1598,7 @@ function Planner() {
           fromItemId: item.id,
           from,
           to,
+          needsWalking: WALKING_NOTE_PATTERN.test(item.text),
         }];
       }),
     [items],
@@ -1606,6 +1607,7 @@ function Planner() {
   const travelPairsKey = travelPairs
     .map((pair) =>
       [
+        pair.needsWalking,
         pair.fromItemId,
         pair.from.id,
         pair.from.latitude,
@@ -1635,20 +1637,24 @@ function Planner() {
       ),
     );
 
-    Promise.all(
-      currentTravelPairs.map(async (pair) => {
-        const [driving, walking] = await Promise.all([
-          requestRoute(pair.from, pair.to, "driving").catch(() => null),
-          requestRoute(pair.from, pair.to, "walking").catch(() => null),
-        ]);
-        return [
-          pair.fromItemId,
-          { status: driving || walking ? "ready" : "error", driving, walking },
-        ];
-      }),
-    ).then((results) => {
-      if (!cancelled) setTravelSegments(Object.fromEntries(results));
-    });
+    const loadSegments = async () => {
+      for (const pair of currentTravelPairs) {
+        const driving = await requestRoute(pair.from, pair.to, "driving").catch(() => null);
+        const walking = pair.needsWalking
+          ? await requestRoute(pair.from, pair.to, "walking").catch(() => null)
+          : null;
+        if (cancelled) return;
+        setTravelSegments((current) => ({
+          ...current,
+          [pair.fromItemId]: {
+            status: driving || walking ? "ready" : "error",
+            driving,
+            walking,
+          },
+        }));
+      }
+    };
+    loadSegments();
 
     return () => {
       cancelled = true;

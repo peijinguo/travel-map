@@ -108,7 +108,9 @@ function RouteMap({ stops }) {
     mapRef.current = map;
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
     map.addControl(new maplibregl.FullscreenControl(), "top-right");
-    map.on("load", () => {
+    // "load" waits for every visible tile, which takes seconds on the free
+    // tile server; the style is enough to draw the stops and the route.
+    map.once("style.load", () => {
       map.addSource(ROUTE_SOURCE_ID, {
         type: "geojson",
         data: makeRouteLine([]),
