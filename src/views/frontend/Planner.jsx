@@ -9,7 +9,7 @@ import {
   savePlannerCloud,
   subscribePlannerCloud,
 } from "../../services/firebase";
-import { requestRoute, searchJapanPlace } from "../../services/freeMaps";
+import { requestRoute, requestTransitTime, searchJapanPlace } from "../../services/freeMaps";
 import "../../assets/pages/_planner.scss";
 
 const STORAGE_KEY = "yuki-tabi-planner-days-v2";
@@ -1011,7 +1011,9 @@ function TravelSegment({ segment, from, to, note = "" }) {
   const prefersExplicitTransit = EXPLICIT_TRANSIT_NOTE_PATTERN.test(note);
   const prefersDriving = !prefersFlight && !prefersWalking && !prefersExplicitTransit && DRIVING_NOTE_PATTERN.test(note);
   const prefersTransit = !prefersFlight && !prefersWalking && !prefersDriving && TRANSIT_NOTE_PATTERN.test(note);
-  const transitLabel = "搭車時間請至 Google Maps 查看";
+  const transitLabel = segment?.transit
+    ? `搭車約 ${segment.transit.duration}（估算）`
+    : "搭車時間請至 Google Maps 查看";
   const walkingLabel = segment?.walking?.duration
     ? `走路約 ${segment.walking.duration}`
     : "走路時間請至 Google Maps 查看";
@@ -1076,6 +1078,14 @@ function TravelSegment({ segment, from, to, note = "" }) {
                 {prefersWalking && segment.walking?.distance && <small>{segment.walking.distance}</small>}
                 {!prefersFlight && !prefersWalking && !prefersTransit && (
                   <small>{segment.driving?.distance ?? estimate.distance}</small>
+                )}
+                {prefersTransit && segment.transit && (
+                  <small>
+                    時刻資料：
+                    <a href="https://transitous.org/sources/" target="_blank" rel="noreferrer">Transitous</a>
+                    {" · "}
+                    <a href="https://github.com/peijinguo/travel-map" target="_blank" rel="noreferrer">專案聯絡</a>
+                  </small>
                 )}
               </div>
             </section>
@@ -1599,6 +1609,7 @@ function Planner() {
           from,
           to,
           needsWalking: WALKING_NOTE_PATTERN.test(item.text),
+          needsTransit: TRANSIT_NOTE_PATTERN.test(item.text),
         }];
       }),
     [items],
@@ -1608,6 +1619,7 @@ function Planner() {
     .map((pair) =>
       [
         pair.needsWalking,
+        pair.needsTransit,
         pair.fromItemId,
         pair.from.id,
         pair.from.latitude,
@@ -1643,13 +1655,17 @@ function Planner() {
         const walking = pair.needsWalking
           ? await requestRoute(pair.from, pair.to, "walking").catch(() => null)
           : null;
+        const transit = pair.needsTransit
+          ? await requestTransitTime(pair.from, pair.to).catch(() => null)
+          : null;
         if (cancelled) return;
         setTravelSegments((current) => ({
           ...current,
           [pair.fromItemId]: {
-            status: driving || walking ? "ready" : "error",
+            status: driving || walking || transit ? "ready" : "error",
             driving,
             walking,
+            transit,
           },
         }));
       }

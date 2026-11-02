@@ -12,6 +12,10 @@ const ROUTE_URLS = {
 // The free routing servers answer bursts with 429, so requests are sent one at
 // a time and every finished route is cached.
 const ROUTE_REQUEST_GAP_MS = 1100;
+const TRANSIT_URL = "https://api.transitous.org/api/v5/plan";
+// Stops are often far from a station; the default 15 minute walk finds nothing
+// for trips like 函館 to 大沼公園.
+const TRANSIT_MAX_WALK_SECONDS = "3600";
 const ROUTE_CACHE_KEY = "yuki-tabi-route-cache-v1";
 const JAPAN_BBOX = "122,24,154,46";
 const REQUEST_TIMEOUT_MS = 10000;
@@ -173,12 +177,48 @@ async function fetchRoute(baseUrl, coordinates) {
   return payload.routes?.[0] ?? null;
 }
 
+const toRouteCoordinates = ({ latitude, longitude }) =>
+  `${longitude.toFixed(5)},${latitude.toFixed(5)}`;
+
+// Timetables only cover the coming weeks, so a trip months away is estimated
+// from the next weekday at 09:00 in Japan.
+function getNextWeekdayMorning() {
+  const date = new Date(Date.now() + 24 * 60 * 60 * 1000);
+  while ([0, 6].includes(date.getUTCDay())) date.setUTCDate(date.getUTCDate() + 1);
+  date.setUTCHours(0, 0, 0, 0);
+  return date;
+}
+
+// Resolves to null when no timetable data connects the two points. Coverage is
+// mostly rail, so stops away from a station, such as ski resorts, often have none.
+export async function requestTransitTime(from, to) {
+  const cacheKey = `transit:${toRouteCoordinates(from)};${toRouteCoordinates(to)}`;
+  const cached = readRouteCache()[cacheKey];
+  if (cached) return cached;
+
+  return enqueueRouteRequest(async () => {
+    const parameters = new URLSearchParams({
+      fromPlace: `${from.latitude},${from.longitude}`,
+      toPlace: `${to.latitude},${to.longitude}`,
+      time: getNextWeekdayMorning().toISOString(),
+      maxPreTransitTime: TRANSIT_MAX_WALK_SECONDS,
+      maxPostTransitTime: TRANSIT_MAX_WALK_SECONDS,
+    });
+    const { itineraries = [] } = await fetchJson(`${TRANSIT_URL}?${parameters}`);
+    const seconds = itineraries
+      .filter(({ legs }) => legs.some(({ mode }) => mode !== "WALK"))
+      .map(({ duration }) => duration);
+    if (!seconds.length) return null;
+    const summary = { duration: formatDuration(Math.min(...seconds)) };
+    writeRouteCache(cacheKey, summary);
+    return summary;
+  });
+}
+
 // mode is "driving" or "walking". Resolves to null when no road connects the
 // two points, for example across the sea.
 export async function requestRoute(from, to, mode) {
-  const coordinates = [from, to]
-    .map(({ latitude, longitude }) => `${longitude.toFixed(5)},${latitude.toFixed(5)}`)
-    .join(";");
+  const coordinates = [from, to].map(toRouteCoordinates).join(";");
   const cacheKey = `${mode}:${coordinates}`;
   const cached = readRouteCache()[cacheKey];
   if (cached) return cached;
