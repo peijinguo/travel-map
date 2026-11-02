@@ -13,9 +13,9 @@ const ROUTE_URLS = {
 // a time and every finished route is cached.
 const ROUTE_REQUEST_GAP_MS = 1100;
 const TRANSIT_URL = "https://api.transitous.org/api/v5/plan";
-// Stops are often far from a station; the default 15 minute walk finds nothing
-// for trips like 函館 to 大沼公園.
-const TRANSIT_MAX_WALK_SECONDS = "3600";
+// Stops are often some way from a station; the default 15 minute walk finds
+// nothing for trips like 函館 to 大沼公園.
+const TRANSIT_MAX_WALK_SECONDS = 30 * 60;
 const ROUTE_CACHE_KEY = "yuki-tabi-route-cache-v1";
 const JAPAN_BBOX = "122,24,154,46";
 const REQUEST_TIMEOUT_MS = 10000;
@@ -189,10 +189,19 @@ function getNextWeekdayMorning() {
   return date;
 }
 
+// Bus data is mostly missing, so without this a short taxi or bus hop such as
+// 函館空港 to 湯の川 comes back as a 56 minute walk to a 2 minute tram ride.
+function isSensibleTransitTrip({ duration, legs }) {
+  const walkSeconds = legs
+    .filter(({ mode }) => mode === "WALK")
+    .reduce((total, leg) => total + leg.duration, 0);
+  return walkSeconds <= TRANSIT_MAX_WALK_SECONDS && walkSeconds <= duration - walkSeconds;
+}
+
 // Resolves to null when no timetable data connects the two points. Coverage is
 // mostly rail, so stops away from a station, such as ski resorts, often have none.
 export async function requestTransitTime(from, to) {
-  const cacheKey = `transit:${toRouteCoordinates(from)};${toRouteCoordinates(to)}`;
+  const cacheKey = `transit-v2:${toRouteCoordinates(from)};${toRouteCoordinates(to)}`;
   const cached = readRouteCache()[cacheKey];
   if (cached) return cached;
 
@@ -201,13 +210,11 @@ export async function requestTransitTime(from, to) {
       fromPlace: `${from.latitude},${from.longitude}`,
       toPlace: `${to.latitude},${to.longitude}`,
       time: getNextWeekdayMorning().toISOString(),
-      maxPreTransitTime: TRANSIT_MAX_WALK_SECONDS,
-      maxPostTransitTime: TRANSIT_MAX_WALK_SECONDS,
+      maxPreTransitTime: String(TRANSIT_MAX_WALK_SECONDS),
+      maxPostTransitTime: String(TRANSIT_MAX_WALK_SECONDS),
     });
     const { itineraries = [] } = await fetchJson(`${TRANSIT_URL}?${parameters}`);
-    const seconds = itineraries
-      .filter(({ legs }) => legs.some(({ mode }) => mode !== "WALK"))
-      .map(({ duration }) => duration);
+    const seconds = itineraries.filter(isSensibleTransitTrip).map(({ duration }) => duration);
     if (!seconds.length) return null;
     const summary = { duration: formatDuration(Math.min(...seconds)) };
     writeRouteCache(cacheKey, summary);

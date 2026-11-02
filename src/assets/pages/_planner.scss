@@ -1028,3 +1028,6 @@
   .planner-map-stage.has-route-map { min-height: 0; }
   .planner-route-map { min-height: 0; }
 }
+
+.planner-credits { position: relative; z-index: 1; max-width: 1480px; margin: 14px auto 0; color: #718795; font-size: 12px; text-align: center; }
+.planner-credits a { color: inherit; }

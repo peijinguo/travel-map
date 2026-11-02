@@ -1012,7 +1012,7 @@ function TravelSegment({ segment, from, to, note = "" }) {
   const prefersDriving = !prefersFlight && !prefersWalking && !prefersExplicitTransit && DRIVING_NOTE_PATTERN.test(note);
   const prefersTransit = !prefersFlight && !prefersWalking && !prefersDriving && TRANSIT_NOTE_PATTERN.test(note);
   const transitLabel = segment?.transit
-    ? `搭車約 ${segment.transit.duration}（估算）`
+    ? `搭車約 ${segment.transit.duration}`
     : "搭車時間請至 Google Maps 查看";
   const walkingLabel = segment?.walking?.duration
     ? `走路約 ${segment.walking.duration}`
@@ -1078,14 +1078,6 @@ function TravelSegment({ segment, from, to, note = "" }) {
                 {prefersWalking && segment.walking?.distance && <small>{segment.walking.distance}</small>}
                 {!prefersFlight && !prefersWalking && !prefersTransit && (
                   <small>{segment.driving?.distance ?? estimate.distance}</small>
-                )}
-                {prefersTransit && segment.transit && (
-                  <small>
-                    時刻資料：
-                    <a href="https://transitous.org/sources/" target="_blank" rel="noreferrer">Transitous</a>
-                    {" · "}
-                    <a href="https://github.com/peijinguo/travel-map" target="_blank" rel="noreferrer">專案聯絡</a>
-                  </small>
                 )}
               </div>
             </section>
@@ -2220,6 +2212,12 @@ function Planner() {
           </div>
         </aside>
       </section>
+      <p className="planner-credits">
+        大眾運輸時刻資料：
+        <a href="https://transitous.org/sources/" target="_blank" rel="noreferrer">Transitous</a>
+        {" · "}
+        <a href="https://github.com/peijinguo/travel-map" target="_blank" rel="noreferrer">專案聯絡</a>
+      </p>
       {dayPendingDelete && (() => {
         const dayIndex = days.findIndex((day) => day.id === dayPendingDelete);
         const day = days[dayIndex];
