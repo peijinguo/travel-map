@@ -127,13 +127,13 @@
 .sapporo-moiwa-course-guide-grid article { display: grid; grid-template-columns: 34px minmax(120px, .9fr) minmax(250px, 1.35fr); align-items: center; gap: 10px; min-width: 0; padding: 10px; border: 1px solid #dbe5e9; border-radius: 10px; background: #fff; }
 .sapporo-moiwa-course-guide-grid article > b { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 7px; background: #148d62; color: #fff; }
 .sapporo-moiwa-course-guide-grid article > div strong, .sapporo-moiwa-course-guide-grid article > div small { display: block; }
-.sapporo-moiwa-course-guide-grid article > div strong { overflow: hidden; color: #173d57; font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
-.sapporo-moiwa-course-guide-grid article > div small { margin-top: 2px; color: #6b8390; font-size: 11px; font-weight: 800; }
+.sapporo-moiwa-course-guide-grid article > div strong { color: #173d57; font-size: 17px; line-height: 1.35; }
+.sapporo-moiwa-course-guide-grid article > div small { margin-top: 3px; color: #6b8390; font-size: 14px; font-weight: 800; }
 .sapporo-moiwa-course-guide-grid dl { display: grid; grid-template-columns: repeat(3, 1fr); margin: 0; }
 .sapporo-moiwa-course-guide-grid dl div { padding-left: 8px; border-left: 1px solid #e4ecef; }
-.sapporo-moiwa-course-guide-grid dt { color: #7a909b; font-size: 10px; }
-.sapporo-moiwa-course-guide-grid dd { margin: 2px 0 0; color: #173d57; font-size: 12px; font-weight: 900; }
-.zao-sarukura-course-note { margin: 14px 0 0; color: #728b98; font-size: 12px; }
+.sapporo-moiwa-course-guide-grid dt { color: #7a909b; font-size: 13px; }
+.sapporo-moiwa-course-guide-grid dd { margin: 2px 0 0; color: #173d57; font-size: 16px; font-weight: 900; }
+.zao-sarukura-course-note { margin: 14px 0 0; color: #728b98; font-size: 14px; line-height: 1.6; }
 .greenpia-course-guide .sapporo-moiwa-course-guide-grid dl { grid-template-columns: repeat(2, 1fr); }
 .greenpia-course-guide .zao-sarukura-course-note a { color: #1a6f95; font-weight: 800; }
 .official-trail-map > a:hover img { transform: scale(1.01); }
@@ -1151,3 +1151,13 @@
 .horotachi-summit text { fill: #354d59; font-size: 10px; font-weight: 900; }
 .horotachi-warning path { fill: #f5cf55; stroke: #9b352f; stroke-width: 2; }
 .horotachi-warning text { fill: #9b352f; font-size: 9px; font-weight: 900; }
+
+// The course cards need room for their larger text, so stack the figures under
+// the name before they run out of the card.
+@media (max-width: 1300px) {
+  .sapporo-moiwa-course-guide-grid article { grid-template-columns: 34px minmax(0, 1fr); }
+  .sapporo-moiwa-course-guide-grid dl { grid-column: 1 / -1; }
+}
+@media (max-width: 900px) {
+  .sapporo-moiwa-course-guide-grid { grid-template-columns: 1fr; }
+}
