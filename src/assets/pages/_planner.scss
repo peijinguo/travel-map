@@ -1018,3 +1018,11 @@
 
 .planner-route-pin { display: grid; width: 32px; height: 40px; padding-bottom: 10px; place-items: center; background: #e53935; clip-path: path("M16 0C7.2 0 0 7.2 0 16c0 11.8 16 24 16 24s16-12.200 16-24C32 7.200 24.800 0 16 0z"); color: #fff; font-size: 14px; font-weight: 800; line-height: 1; cursor: pointer; }
 .has-route-map .maplibregl-popup-content { border-radius: 10px; padding: 8px 12px; }
+
+// The itinerary column can be thousands of pixels tall. Keep the map at screen
+// height and in view while scrolling, instead of stretching it to match.
+@media (min-width: 1051px) {
+  .planner-map-card { position: sticky; top: 104px; align-self: start; height: calc(100vh - 128px); min-height: 520px; }
+  .planner-map-stage.has-route-map { min-height: 0; }
+  .planner-route-map { min-height: 0; }
+}
