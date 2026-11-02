@@ -1022,6 +1022,8 @@
 // The itinerary column can be thousands of pixels tall. Keep the map at screen
 // height and in view while scrolling, instead of stretching it to match.
 @media (min-width: 1051px) {
+  // overflow: hidden would make the page the sticky scroll container.
+  .planner-page { overflow: clip; }
   .planner-map-card { position: sticky; top: 104px; align-self: start; height: calc(100vh - 128px); min-height: 520px; }
   .planner-map-stage.has-route-map { min-height: 0; }
   .planner-route-map { min-height: 0; }
