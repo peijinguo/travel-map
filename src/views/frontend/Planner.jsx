@@ -9,7 +9,12 @@ import {
   savePlannerCloud,
   subscribePlannerCloud,
 } from "../../services/firebase";
-import { requestRoute, requestTransitTime, searchJapanPlace } from "../../services/freeMaps";
+import {
+  findCoordinatesInText,
+  requestRoute,
+  requestTransitTime,
+  searchJapanPlace,
+} from "../../services/freeMaps";
 import "../../assets/pages/_planner.scss";
 
 const STORAGE_KEY = "yuki-tabi-planner-days-v2";
@@ -604,7 +609,20 @@ function geocodeJapanesePlace(text) {
   if (pendingGeocodes.has(cacheKey)) return pendingGeocodes.get(cacheKey);
   const task = (async () => {
     let location = null;
-    for (const candidate of getGeocodeQueries(text)) {
+    const coordinates = findCoordinatesInText(text);
+    if (coordinates) {
+      const name = getLocationQuery(text).replace(/https?:\/\/\S+|-?\d+\.\d+\s*,\s*-?\d+\.\d+/g, "").trim();
+      location = {
+        id: `pin-${coordinates.latitude.toFixed(5)},${coordinates.longitude.toFixed(5)}`,
+        name: name || "指定地點",
+        ...coordinates,
+        displayName: `${coordinates.latitude.toFixed(5)}, ${coordinates.longitude.toFixed(5)}`,
+        query: name,
+        types: [],
+        website: "",
+      };
+    }
+    for (const candidate of location ? [] : getGeocodeQueries(text)) {
       location = await searchJapanPlace(candidate, getLocationQuery(text));
       if (location) break;
     }
@@ -1757,7 +1775,7 @@ function Planner() {
         }
         setLocationErrors((current) => ({
           ...current,
-          [item.id]: "找不到地點，請補上都道府縣或日文名稱",
+          [item.id]: "找不到地點，請改用日文名稱或地址，或貼上 Google Maps 的連結或座標",
         }));
         return;
       }

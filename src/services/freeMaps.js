@@ -2,6 +2,13 @@
 // OpenStreetMap data, so a place must exist in OSM to be found.
 const PHOTON_URL = "https://photon.komoot.io/api/";
 const NOMINATIM_LOOKUP_URL = "https://nominatim.openstreetmap.org/lookup";
+const NOMINATIM_SEARCH_URL = "https://nominatim.openstreetmap.org/search";
+const GSI_ADDRESS_URL = "https://msearch.gsi.go.jp/address-search/AddressSearch";
+// Nominatim allows one request per second.
+const NOMINATIM_GAP_MS = 1100;
+// When Photon stops answering, skip it for a while instead of waiting for a
+// timeout on every search.
+const PHOTON_RETRY_AFTER_MS = 5 * 60 * 1000;
 const ROUTE_URLS = {
   driving: [
     "https://router.project-osrm.org/route/v1/driving",
@@ -51,6 +58,14 @@ const fetchJson = async (url) => {
   return response.json();
 };
 
+let nextNominatimAt = 0;
+async function fetchNominatim(url) {
+  const wait = nextNominatimAt - Date.now();
+  nextNominatimAt = Math.max(Date.now(), nextNominatimAt) + NOMINATIM_GAP_MS;
+  if (wait > 0) await new Promise((resolve) => setTimeout(resolve, wait));
+  return fetchJson(url);
+}
+
 async function loadPlaceDetails({ osm_type: osmType, osm_id: osmId }) {
   if (!osmType || !osmId) return {};
   const query = new URLSearchParams({
@@ -59,7 +74,7 @@ async function loadPlaceDetails({ osm_type: osmType, osm_id: osmId }) {
     extratags: "1",
   });
   try {
-    const [place] = await fetchJson(`${NOMINATIM_LOOKUP_URL}?${query}`);
+    const [place] = await fetchNominatim(`${NOMINATIM_LOOKUP_URL}?${query}`);
     return place?.extratags ?? {};
   } catch {
     // Website and cuisine are extras; the located stop is still usable.
@@ -77,8 +92,8 @@ const normalizeName = (name) =>
 // full name must not widen the match: リブマックスリゾート函館 alone would also
 // accept the chain's other hotels. English queries are kept as they also match
 // a place's translated name.
-function isSamePlaceName(name, query, fullName) {
-  if (!CJK_PATTERN.test(query)) return true;
+function isSamePlaceName(name, query, fullName, matchEnglish = false) {
+  if (!matchEnglish && !CJK_PATTERN.test(query)) return true;
   const resultName = normalizeName(name);
   if (resultName.length < 3) return false;
   return (
@@ -88,8 +103,77 @@ function isSamePlaceName(name, query, fullName) {
   );
 }
 
+async function searchNominatim(query, fullName) {
+  const parameters = new URLSearchParams({
+    q: query,
+    format: "jsonv2",
+    limit: "5",
+    countrycodes: "jp",
+    extratags: "1",
+    namedetails: "1",
+  });
+  const places = await fetchNominatim(`${NOMINATIM_SEARCH_URL}?${parameters}`);
+  // Nominatim also matches words in addresses, so English queries must match
+  // one of the place's names too.
+  const place = places.find(({ name, namedetails = {} }) =>
+    [name, ...Object.values(namedetails)]
+      .filter(Boolean)
+      .some((candidate) => isSamePlaceName(candidate, query, fullName, true)),
+  );
+  if (!place) return null;
+  const details = place.extratags ?? {};
+  return {
+    id: `osm-${place.osm_type[0].toUpperCase()}${place.osm_id}`,
+    name: place.name || query,
+    latitude: Number(place.lat),
+    longitude: Number(place.lon),
+    displayName: place.display_name,
+    query,
+    types: OSM_PLACE_TYPES[place.type] ?? [],
+    website: details.website ?? details["contact:website"] ?? "",
+    ...(details.cuisine ? { cuisine: details.cuisine } : {}),
+  };
+}
+
+const ADDRESS_PATTERN = /[都道府県市区町村郡].*\d/u;
+
+// Japanese addresses are covered by the GSI (国土地理院) address search. Only
+// street-level results are kept; a bare city name would drop the pin in the
+// city centre.
+async function searchJapaneseAddress(query) {
+  if (!ADDRESS_PATTERN.test(query)) return null;
+  const results = await fetchJson(`${GSI_ADDRESS_URL}?${new URLSearchParams({ q: query })}`);
+  const result = results.find(({ properties }) => /\d|丁目|番/u.test(properties.title));
+  if (!result) return null;
+  const [longitude, latitude] = result.geometry.coordinates;
+  return {
+    id: `gsi-${latitude.toFixed(5)},${longitude.toFixed(5)}`,
+    name: query,
+    latitude,
+    longitude,
+    displayName: result.properties.title,
+    query,
+    types: [],
+    website: "",
+  };
+}
+
+let photonDownUntil = 0;
+
 // fullName is the stop's complete name when query is only a part of it.
+// Photon is tried first; Nominatim takes over when Photon is down.
 export async function searchJapanPlace(query, fullName = query) {
+  if (Date.now() >= photonDownUntil) {
+    try {
+      return (await searchPhoton(query, fullName)) ?? (await searchJapaneseAddress(query));
+    } catch {
+      photonDownUntil = Date.now() + PHOTON_RETRY_AFTER_MS;
+    }
+  }
+  return (await searchNominatim(query, fullName)) ?? (await searchJapaneseAddress(query));
+}
+
+async function searchPhoton(query, fullName) {
   const parameters = new URLSearchParams({ q: query, limit: "5", bbox: JAPAN_BBOX });
   const { features = [] } = await fetchJson(`${PHOTON_URL}?${parameters}`);
   const feature = features.find(
@@ -124,6 +208,27 @@ export async function searchJapanPlace(query, fullName = query) {
     website: details.website ?? details["contact:website"] ?? "",
     ...(details.cuisine ? { cuisine: details.cuisine } : {}),
   };
+}
+
+const inJapan = (latitude, longitude) =>
+  latitude > 20 && latitude < 46 && longitude > 122 && longitude < 154;
+
+// A stop can carry exact coordinates, pasted as "41.794, 140.751" or as a
+// Google Maps link, for places that no free search knows.
+export function findCoordinatesInText(text) {
+  const patterns = [
+    /!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/,
+    /@(-?\d+\.\d+),(-?\d+\.\d+)/,
+    /(-?\d{1,2}\.\d{3,})\s*,\s*(-?\d{2,3}\.\d{3,})/,
+  ];
+  for (const pattern of patterns) {
+    const match = text.match(pattern);
+    if (!match) continue;
+    const latitude = Number(match[1]);
+    const longitude = Number(match[2]);
+    if (inJapan(latitude, longitude)) return { latitude, longitude };
+  }
+  return null;
 }
 
 const formatDuration = (seconds) => {
