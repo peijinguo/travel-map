@@ -2073,21 +2073,18 @@ function Planner() {
                               onDrop={() => dropItem(item.id)}
                             >
                               <button
-                                className="planner-drag-handle"
+                                className="planner-drag-handle planner-stop-tag"
                                 type="button"
                                 draggable
                                 onDragStart={() => setDraggedId(item.id)}
-                                aria-label="拖曳調整順序"
+                                aria-label={`STOP ${String(index + 1).padStart(2, "0")}，拖曳調整順序`}
                                 title="拖曳調整順序"
                               >
-                                ⠿
+                                STOP {String(index + 1).padStart(2, "0")}
                               </button>
                               <div className="planner-item-copy">
                                 <div className="planner-item-meta">
                                   <b>
-                                    <span className="planner-stop-tag">
-                                      STOP {String(index + 1).padStart(2, "0")}
-                                    </span>
                                     {itemMotif && (
                                       <span
                                         className={`planner-item-category-icon ${itemMotif === "lamb" ? "is-lamb" : ""} ${itemMotif === "chairlift" ? "is-chairlift" : ""}`}
