@@ -590,6 +590,19 @@ function findNamedPlaceForText(text) {
 
 const getLocationQuery = (text) => text.split(/[｜|\n]/)[0].trim();
 
+// A saved location belongs to the text it was found for; once the text
+// changes it may point at a different place, so drop it.
+const withItemText = (item, text) =>
+  item.text === text ? item : { ...item, text, location: undefined };
+
+// Resolve where an itinerary item is, preferring an unsaved draft over the
+// saved text so a stale location never outlives an edit.
+function resolveItemLocation(item, draftText) {
+  const text = draftText ?? item.text;
+  const savedLocation = text === item.text ? item.location : null;
+  return findNamedPlaceForText(text) ?? savedLocation ?? findKnownLocationForText(text);
+}
+
 const getGeocodingErrorMessage = (error) =>
   ({
     "map-service-rate-limited": "地點搜尋太頻繁，請稍等一下再試一次。",
@@ -1052,6 +1065,9 @@ function TravelSegment({ segment, from, to, note = "" }) {
           <span>前往</span>
           <b>{toName}</b>
         </p>
+        {!segment && (
+          <small className="planner-travel-message">儲存後更新交通時間</small>
+        )}
         {segment?.status === "loading" && (
           <small className="planner-travel-message">正在查詢交通時間…</small>
         )}
@@ -1426,7 +1442,7 @@ function Planner() {
     localEditPendingRef.current = true;
     const drafts = new Map(itemDraftsRef.current);
     const currentItems = items.map((item) =>
-      drafts.has(item.id) ? { ...item, text: drafts.get(item.id) } : item,
+      drafts.has(item.id) ? withItemText(item, drafts.get(item.id)) : item,
     );
     items.forEach((item) => itemDraftsRef.current.delete(item.id));
     persistItemDrafts(itemDraftsRef.current);
@@ -1450,7 +1466,7 @@ function Planner() {
     localEditPendingRef.current = true;
     const drafts = new Map(itemDraftsRef.current);
     const currentItems = items.map((item) =>
-      drafts.has(item.id) ? { ...item, text: drafts.get(item.id) } : item,
+      drafts.has(item.id) ? withItemText(item, drafts.get(item.id)) : item,
     );
     items.forEach((item) => itemDraftsRef.current.delete(item.id));
     persistItemDrafts(itemDraftsRef.current);
@@ -1587,10 +1603,7 @@ function Planner() {
     () =>
       items
         .map((item, index) => {
-          const town =
-            findNamedPlaceForText(item.text) ??
-            item.location ??
-            findKnownLocationForText(item.text);
+          const town = resolveItemLocation(item);
           return town ? { item, town, order: index + 1 } : null;
         })
         .filter(Boolean),
@@ -1601,14 +1614,8 @@ function Planner() {
     () =>
       items.slice(0, -1).flatMap((item, index) => {
         const nextItem = items[index + 1];
-        const from =
-          findNamedPlaceForText(item.text) ??
-          item.location ??
-          findKnownLocationForText(item.text);
-        const to =
-          findNamedPlaceForText(nextItem.text) ??
-          nextItem.location ??
-          findKnownLocationForText(nextItem.text);
+        const from = resolveItemLocation(item);
+        const to = resolveItemLocation(nextItem);
         if (!from || !to) return [];
         return [{
           id: `${item.id}--${nextItem.id}`,
@@ -1699,13 +1706,7 @@ function Planner() {
                 day,
                 day.items.map((item) =>
                   drafts.has(item.id)
-                    ? {
-                        ...item,
-                        text: drafts.get(item.id),
-                        ...(item.text === drafts.get(item.id)
-                          ? {}
-                          : { location: undefined }),
-                      }
+                    ? withItemText(item, drafts.get(item.id))
                     : item,
                 ),
               )
@@ -1794,7 +1795,7 @@ function Planner() {
       setItems((current) =>
         current.map((candidate) =>
           candidate.id === item.id
-            ? { ...candidate, text: draftText }
+            ? withItemText(candidate, draftText)
             : candidate,
         ),
       );
@@ -2026,16 +2027,18 @@ function Planner() {
                     <>
                       <ol className="planner-list">
                         {items.map((item, index) => {
-                          const resolvedLocation =
-                            findNamedPlaceForText(item.text) ??
-                            item.location ??
-                            findKnownLocationForText(item.text);
+                          const itemDraft = itemDraftsRef.current.get(item.id);
+                          const resolvedLocation = resolveItemLocation(item, itemDraft);
                           const nextItem = items[index + 1];
+                          const nextDraft = nextItem && itemDraftsRef.current.get(nextItem.id);
                           const nextLocation = nextItem
-                            ? findNamedPlaceForText(nextItem.text) ??
-                              nextItem.location ??
-                              findKnownLocationForText(nextItem.text)
+                            ? resolveItemLocation(nextItem, nextDraft)
                             : null;
+                          // Fetched routes follow the saved text; while either end
+                          // has unsaved edits, fall back to the rough estimate.
+                          const hasUnsavedEnds =
+                            (itemDraft !== undefined && itemDraft !== item.text) ||
+                            (nextDraft !== undefined && nextDraft !== nextItem.text);
                           const itemMotif = getItineraryMotif(resolvedLocation, item.text);
                           return (
                             <Fragment key={item.id}>
@@ -2171,7 +2174,7 @@ function Planner() {
                             {resolvedLocation && nextLocation && (
                               <TravelSegment
                                 key={`travel-${item.id}-${nextItem.id}`}
-                                segment={travelSegments[item.id]}
+                                segment={hasUnsavedEnds ? undefined : travelSegments[item.id]}
                                 from={resolvedLocation}
                                 to={nextLocation}
                                 note={itemDraftsRef.current.get(item.id) ?? item.text}
