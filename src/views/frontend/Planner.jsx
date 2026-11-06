@@ -2201,20 +2201,22 @@ function Planner() {
                           );
                         })}
                       </ol>
-                      <button
-                        className="planner-add"
-                        type="button"
-                        onClick={() => addItem()}
-                      >
-                        <span>＋</span> 新增當日行程
-                      </button>
-                      <button
-                        className="planner-save-all"
-                        type="button"
-                        onClick={saveAllItemDrafts}
-                      >
-                        儲存並同步
-                      </button>
+                      <div className="planner-bottom-actions">
+                        <button
+                          className="planner-add"
+                          type="button"
+                          onClick={() => addItem()}
+                        >
+                          <span>＋</span> 增加行程
+                        </button>
+                        <button
+                          className="planner-save-all"
+                          type="button"
+                          onClick={saveAllItemDrafts}
+                        >
+                          儲存
+                        </button>
+                      </div>
                       <span className="planner-save-status" role="status">
                         {plannerSaveStatus}
                       </span>
