@@ -350,7 +350,12 @@ main:has(.home-page) { flex: 1; display: flex; flex-direction: column; }
     min-height: 510px;
     padding-bottom: 10px;
   }
-  .map-stage { min-height: 490px; }
+  .map-stage {
+    min-height: 490px;
+    /* reserve exactly the room the 1.8x map reaches below its own box, so the page scrolls just enough */
+    padding-bottom: calc(min(72vh, 700px) * .57 + 24px);
+  }
+  .japan-map { transform: translate3d(-300px, 28.6%, 0) scale(1.8); transform-origin: 50% 0; align-self: start; }
 }
 
 @media (max-width: 1120px) {
