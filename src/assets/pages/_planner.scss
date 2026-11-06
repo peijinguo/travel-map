@@ -414,7 +414,7 @@
 .planner-version-picker { display: flex; align-items: center; gap: 9px; margin: -3px 2px 11px; overflow: hidden; }
 .planner-version-picker > span { flex: 0 0 auto; color: #6b8290; font-size: 17px; font-weight: 900; }
 .planner-version-picker > div { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
-.planner-version-picker button { min-width: max-content; padding: 5.5px 10.5px; border: 1.5px solid #9eb3bd; border-radius: 999px; background: #fff; color: #557180; font-family: inherit; font-size: 17px; font-weight: 800; line-height: 1; letter-spacing: .025em; cursor: pointer; }
+.planner-version-picker button { min-width: max-content; padding: 5.5px 10.5px; border: 1.5px solid #9eb3bd; border-radius: 7px 9px 6px 8px; background: #fff; color: #557180; font-family: inherit; font-size: 17px; font-weight: 800; line-height: 1; letter-spacing: .025em; cursor: pointer; }
 .planner-version-picker button.is-active { border-color: transparent; background: #2f5a8fb0; color: #eceff2; }
 .planner-version-picker button.is-version-action { width: 32px; min-width: 32px; height: 32px; padding: 0; font-size: 18px; }
 .planner-version-picker button:disabled { opacity: .3; cursor: default; }
