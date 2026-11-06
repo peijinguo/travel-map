@@ -1054,8 +1054,8 @@ function estimateFlightTime(from, to) {
 
 const FLIGHT_NOTE_PATTERN = /航班|班機|飛機|航空|搭機|flight|airline/iu;
 const DRIVING_NOTE_PATTERN = /開車|自駕|自驾|駕車|驾车|開車前往|租車|租车|還車|还车|還租車|还租车|drive|driving|car\b/iu;
-const TRANSIT_NOTE_PATTERN = /搭車|電車|火車|巴士|公車|客運|新幹線|地鐵|捷運|\b(?:JR|train|bus|transit)\b/iu;
-const EXPLICIT_TRANSIT_NOTE_PATTERN = /搭車|電車|火車|巴士|公車|客運|新幹線|地鐵|捷運|\b(?:train|bus|transit)\b/iu;
+const TRANSIT_NOTE_PATTERN = /搭車|電車|火車|巴士|公車|客運|新幹線|地鐵|捷運|機捷|高鐵|台鐵|臺鐵|輕軌|列車|\b(?:JR|MRT|HSR|train|bus|transit)\b/iu;
+const EXPLICIT_TRANSIT_NOTE_PATTERN = /搭車|電車|火車|巴士|公車|客運|新幹線|地鐵|捷運|機捷|高鐵|台鐵|臺鐵|輕軌|列車|\b(?:MRT|HSR|train|bus|transit)\b/iu;
 const WALKING_NOTE_PATTERN = /走路|步行|徒步|散步|walk(?:ing)?/iu;
 
 function makeGoogleDirectionsUrl(from, to, travelMode) {
