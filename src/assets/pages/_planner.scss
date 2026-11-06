@@ -488,7 +488,7 @@
 .planner-list > li > .planner-drag-handle.planner-stop-tag:hover { background: #a67e7e; }
 .planner-list > li:nth-child(odd) { transform: rotate(-.12deg); }
 .planner-list > li:nth-child(even) { transform: rotate(.12deg); }
-.planner-list > li:hover { border-color: #123653; background: rgba(247,251,252,.74); }
+.planner-list > li:hover { border-color: #123653; background: #fbf4f4; }
 .planner-list > li.is-drag-over { border-color: #126bd6; transform: translateY(3px) rotate(-.2deg); box-shadow: 0 4px 0 rgba(18,107,214,.11); }
 .planner-list > li.planner-travel-segment {
   grid-template-columns: minmax(0, 1fr);
