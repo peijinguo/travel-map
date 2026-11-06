@@ -6,8 +6,21 @@ import "maplibre-gl/dist/maplibre-gl.css";
 const TRANSIT_ATTRIBUTION =
   '<a href="https://transitous.org/sources/" target="_blank" rel="noreferrer">Transitous</a> | ' +
   '<a href="https://github.com/peijinguo/travel-map" target="_blank" rel="noreferrer">專案聯絡</a>';
-// OpenFreeMap serves OpenStreetMap tiles without an API key or usage fees.
-const MAP_STYLE_URL = "https://tiles.openfreemap.org/styles/liberty";
+// Standard OpenStreetMap raster tiles; no API key needed.
+const MAP_STYLE = {
+  version: 8,
+  sources: {
+    osm: {
+      type: "raster",
+      tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+      tileSize: 256,
+      maxzoom: 19,
+      attribution:
+        '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> contributors',
+    },
+  },
+  layers: [{ id: "osm", type: "raster", source: "osm" }],
+};
 const JAPAN_CENTER = [137.7, 38.2];
 const JAPAN_ZOOM = 4;
 const ROUTE_SOURCE_ID = "planner-route";
@@ -104,7 +117,7 @@ function RouteMap({ stops }) {
     if (!webglSupported || !canvasRef.current) return undefined;
     const map = new maplibregl.Map({
       container: canvasRef.current,
-      style: MAP_STYLE_URL,
+      style: MAP_STYLE,
       center: JAPAN_CENTER,
       zoom: JAPAN_ZOOM,
       minZoom: 2,

@@ -17,7 +17,7 @@
 
 行程地圖、定位與開車／走路時間都使用免費服務，不需要 API Key 或帳單：
 
-- 地圖：MapLibre + OpenFreeMap
+- 地圖：MapLibre + OpenStreetMap
 - 定位：Photon（資料來自 OpenStreetMap）
 - 路線：OSRM（routing.openstreetmap.de）
 
