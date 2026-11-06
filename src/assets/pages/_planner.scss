@@ -482,10 +482,10 @@
   background: #fff;
 }
 .planner-list .planner-item-meta b { position: static; }
-.planner-list > li > .planner-drag-handle.planner-stop-tag { position: absolute; top: -0.8px; right: calc(100% + 6px); left: auto; z-index: 1; display: inline-flex; justify-content: center; width: var(--stop-tag-w); margin: 0; font-family: inherit; cursor: grab; align-items: center; height: 52px; padding: 0; border: 1px solid #3f4a51; border-radius: 6px; background: #4b565d; color: #f1f4f6; font-size: 13px; font-weight: 800; letter-spacing: .05em; line-height: 1; white-space: nowrap; box-shadow: 1px 2px 0 rgba(52,67,74,.07); }
+.planner-list > li > .planner-drag-handle.planner-stop-tag { position: absolute; top: -0.8px; right: calc(100% + 6px); left: auto; z-index: 1; display: inline-flex; justify-content: center; width: var(--stop-tag-w); margin: 0; font-family: inherit; cursor: grab; align-items: center; height: 52px; padding: 0; border: 1px solid #a67e7e; border-radius: 6px; background: #b88f8f; color: #fff; font-size: 13px; font-weight: 800; letter-spacing: .05em; line-height: 1; white-space: nowrap; box-shadow: 1px 2px 0 rgba(52,67,74,.07); }
 .planner-list > li.planner-travel-segment { margin-left: var(--stop-gutter) !important; }
 .planner-list > li > .planner-drag-handle.planner-stop-tag:active { cursor: grabbing; }
-.planner-list > li > .planner-drag-handle.planner-stop-tag:hover { background: #3f4a51; }
+.planner-list > li > .planner-drag-handle.planner-stop-tag:hover { background: #a67e7e; }
 .planner-list > li:nth-child(odd) { transform: rotate(-.12deg); }
 .planner-list > li:nth-child(even) { transform: rotate(.12deg); }
 .planner-list > li:hover { border-color: #123653; background: rgba(247,251,252,.74); }
