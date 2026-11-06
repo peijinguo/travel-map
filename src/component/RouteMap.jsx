@@ -69,10 +69,19 @@ function getOverlappingMarkerOffsets(coordinates) {
   return offsets;
 }
 
-const makeRouteLine = (coordinates) => ({
+// Each leg follows its road or rail path when one was found, so the stops
+// are joined the way the trip actually goes instead of in straight lines.
+const makeRouteLine = (coordinates, paths = []) => ({
   type: "Feature",
   properties: {},
-  geometry: { type: "LineString", coordinates },
+  geometry: {
+    type: "MultiLineString",
+    coordinates: coordinates.slice(0, -1).map((start, index) => {
+      const end = coordinates[index + 1];
+      const path = paths[index];
+      return path?.length > 1 ? [start, ...path, end] : [start, end];
+    }),
+  },
 });
 
 function makeStopMarker(stop, index, coordinate, offset) {
@@ -94,11 +103,12 @@ function makeStopMarker(stop, index, coordinate, offset) {
     .setPopup(new maplibregl.Popup({ offset: 40 }).setDOMContent(content));
 }
 
-function RouteMap({ stops, label = "行程路線地圖" }) {
+function RouteMap({ stops, paths = [], label = "行程路線地圖" }) {
   const canvasRef = useRef(null);
   const mapRef = useRef(null);
   const markersRef = useRef([]);
   const stopsRef = useRef(stops);
+  const pathsRef = useRef(paths);
   const [mapReady, setMapReady] = useState(false);
   const [webglSupported] = useState(() =>
     Boolean(document.createElement("canvas").getContext("webgl2")),
@@ -108,10 +118,14 @@ function RouteMap({ stops, label = "行程路線地圖" }) {
       [item.id, town.id, town.latitude, town.longitude, town.name].join(":"),
     )
     .join("|");
+  const pathsKey = paths
+    .map((path) => (path ? `${path.length}:${path[0]}:${path.at(-1)}` : "-"))
+    .join("|");
 
   useEffect(() => {
     stopsRef.current = stops;
-  }, [stops]);
+    pathsRef.current = paths;
+  }, [stops, paths]);
 
   useEffect(() => {
     if (!webglSupported || !canvasRef.current) return undefined;
@@ -173,7 +187,6 @@ function RouteMap({ stops, label = "行程路線地圖" }) {
     markersRef.current = currentStops.map((stop, index) =>
       makeStopMarker(stop, index, coordinates[index], markerOffsets[index]).addTo(map),
     );
-    map.getSource(ROUTE_SOURCE_ID)?.setData(makeRouteLine(coordinates));
 
     if (!coordinates.length) {
       map.jumpTo({ center: JAPAN_CENTER, zoom: JAPAN_ZOOM });
@@ -185,6 +198,15 @@ function RouteMap({ stops, label = "行程路線地圖" }) {
       map.fitBounds(bounds, { padding: 56, maxZoom: 13, animate: false });
     }
   }, [stopsKey, mapReady]);
+
+  // Routes arrive after the stops, so the line is redrawn on its own without
+  // moving the view.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !mapReady) return;
+    const coordinates = stopsRef.current.map(({ town }) => [town.longitude, town.latitude]);
+    map.getSource(ROUTE_SOURCE_ID)?.setData(makeRouteLine(coordinates, pathsRef.current));
+  }, [stopsKey, pathsKey, mapReady]);
 
   if (!webglSupported)
     return (

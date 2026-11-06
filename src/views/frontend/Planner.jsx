@@ -1120,18 +1120,38 @@ function WalkingIcon() {
   );
 }
 
+// How a stop's note says to reach the next stop: "flight", "walking",
+// "transit" or "driving" (the default).
+function getTravelMode(note = "") {
+  if (FLIGHT_NOTE_PATTERN.test(note)) return "flight";
+  if (WALKING_NOTE_PATTERN.test(note)) return "walking";
+  // A clear 「搭車」 instruction overrides incidental place-name words such as
+  // "Rent-a-Car". Conversely, an explicit 「開車」 remains self-driving even
+  // when the hotel name contains "JR".
+  if (EXPLICIT_TRANSIT_NOTE_PATTERN.test(note)) return "transit";
+  if (DRIVING_NOTE_PATTERN.test(note)) return "driving";
+  return TRANSIT_NOTE_PATTERN.test(note) ? "transit" : "driving";
+}
+
+// The road or rail shape of a leg for the route map. Without a timetable or
+// footpath match the road route stands in; flights and legs with no route at
+// all are drawn straight.
+function getTravelPath(segment, mode) {
+  if (mode === "flight") return null;
+  const path = [segment?.[mode]?.path, segment?.driving?.path].find(
+    (candidate) => candidate?.length > 1,
+  );
+  return path ?? null;
+}
+
 function TravelSegment({ segment, from, to, note = "" }) {
   const fromName = from.name;
   const toName = to.name;
   const estimate = estimateRoadTrip(from, to);
-  const prefersFlight = FLIGHT_NOTE_PATTERN.test(note);
-  const prefersWalking = !prefersFlight && WALKING_NOTE_PATTERN.test(note);
-  // A clear 「搭車」 instruction overrides incidental place-name words such as
-  // "Rent-a-Car". Conversely, an explicit 「開車」 remains self-driving even
-  // when the hotel name contains "JR".
-  const prefersExplicitTransit = EXPLICIT_TRANSIT_NOTE_PATTERN.test(note);
-  const prefersDriving = !prefersFlight && !prefersWalking && !prefersExplicitTransit && DRIVING_NOTE_PATTERN.test(note);
-  const prefersTransit = !prefersFlight && !prefersWalking && !prefersDriving && TRANSIT_NOTE_PATTERN.test(note);
+  const travelMode = getTravelMode(note);
+  const prefersFlight = travelMode === "flight";
+  const prefersWalking = travelMode === "walking";
+  const prefersTransit = travelMode === "transit";
   const transitLabel = segment?.transit
     ? `搭車約 ${segment.transit.duration}`
     : `搭車約 ${estimateTransitTime(from, to)}`;
@@ -1699,6 +1719,17 @@ function Planner() {
     [items],
   );
 
+  // The shape of each leg between consecutive pins; null draws it straight.
+  const routePaths = useMemo(
+    () =>
+      plannedStops.slice(0, -1).map((stop, index) => {
+        const next = plannedStops[index + 1];
+        if (next.order !== stop.order + 1) return null;
+        return getTravelPath(travelSegments[stop.item.id], getTravelMode(stop.item.text));
+      }),
+    [plannedStops, travelSegments],
+  );
+
   const travelPairs = useMemo(
     () =>
       items.slice(0, -1).flatMap((item, index) => {
@@ -1946,7 +1977,7 @@ function Planner() {
             <strong>{plannedStops.length} 個停靠點</strong>
           </div>
           <div className="planner-map-stage has-route-map">
-            <RouteMap stops={plannedStops} label={routeMapTitle} />
+            <RouteMap stops={plannedStops} paths={routePaths} label={routeMapTitle} />
           </div>
           <p className="planner-map-hint">
           </p>

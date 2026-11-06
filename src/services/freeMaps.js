@@ -349,7 +349,9 @@ function enqueueRouteRequest(task) {
 }
 
 async function fetchRoute(baseUrl, coordinates) {
-  const response = await fetch(`${baseUrl}/${coordinates}?overview=false`, {
+  // A simplified road outline is enough for the overview map and stays small
+  // in the route cache.
+  const response = await fetch(`${baseUrl}/${coordinates}?overview=simplified&geometries=geojson`, {
     signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
   });
   if (!response.ok) return null;
@@ -359,6 +361,51 @@ async function fetchRoute(baseUrl, coordinates) {
 
 const toRouteCoordinates = ({ latitude, longitude }) =>
   `${longitude.toFixed(5)},${latitude.toFixed(5)}`;
+
+// The map draws routes as [longitude, latitude] pairs; 5 decimals is about a
+// metre, and long rail lines are thinned so the cache stays small.
+const MAX_PATH_POINTS = 400;
+function compactPath(path) {
+  const step = Math.ceil(path.length / MAX_PATH_POINTS);
+  const kept = path.filter((_, index) => index % step === 0 || index === path.length - 1);
+  return kept.map(([longitude, latitude]) => [
+    Number(longitude.toFixed(5)),
+    Number(latitude.toFixed(5)),
+  ]);
+}
+
+// Transitous sends each leg's shape as an encoded polyline.
+function decodePolyline(encoded, precision) {
+  const factor = 10 ** precision;
+  const path = [];
+  let index = 0;
+  let latitude = 0;
+  let longitude = 0;
+  while (index < encoded.length) {
+    const deltas = [0, 0].map(() => {
+      let result = 0;
+      let shift = 0;
+      let byte;
+      do {
+        byte = encoded.charCodeAt(index++) - 63;
+        result |= (byte & 0x1f) << shift;
+        shift += 5;
+      } while (byte >= 0x20);
+      return result & 1 ? ~(result >> 1) : result >> 1;
+    });
+    latitude += deltas[0];
+    longitude += deltas[1];
+    path.push([longitude / factor, latitude / factor]);
+  }
+  return path;
+}
+
+const getTransitPath = ({ legs }) =>
+  compactPath(
+    legs.flatMap(({ legGeometry }) =>
+      legGeometry?.points ? decodePolyline(legGeometry.points, legGeometry.precision ?? 6) : [],
+    ),
+  );
 
 // Timetables only cover the coming weeks, so a trip months away is estimated
 // from the next weekday in Japan. Rural lines run rarely, so a midday start is
@@ -383,7 +430,7 @@ function isSensibleTransitTrip({ duration, legs }) {
 // Resolves to null when no timetable data connects the two points. Coverage is
 // mostly rail, so stops away from a station, such as ski resorts, often have none.
 export async function requestTransitTime(from, to) {
-  const cacheKey = `transit-v2:${toRouteCoordinates(from)};${toRouteCoordinates(to)}`;
+  const cacheKey = `transit-v3:${toRouteCoordinates(from)};${toRouteCoordinates(to)}`;
   const cached = readRouteCache()[cacheKey];
   if (cached) return cached;
 
@@ -397,9 +444,14 @@ export async function requestTransitTime(from, to) {
         maxPostTransitTime: String(TRANSIT_MAX_WALK_SECONDS),
       });
       const { itineraries = [] } = await fetchJson(`${TRANSIT_URL}?${parameters}`);
-      const seconds = itineraries.filter(isSensibleTransitTrip).map(({ duration }) => duration);
-      if (!seconds.length) continue;
-      const summary = { duration: formatDuration(Math.min(...seconds)) };
+      const fastest = itineraries
+        .filter(isSensibleTransitTrip)
+        .sort((first, second) => first.duration - second.duration)[0];
+      if (!fastest) continue;
+      const summary = {
+        duration: formatDuration(fastest.duration),
+        path: getTransitPath(fastest),
+      };
       writeRouteCache(cacheKey, summary);
       return summary;
     }
@@ -411,7 +463,7 @@ export async function requestTransitTime(from, to) {
 // two points, for example across the sea.
 export async function requestRoute(from, to, mode) {
   const coordinates = [from, to].map(toRouteCoordinates).join(";");
-  const cacheKey = `${mode}:${coordinates}`;
+  const cacheKey = `${mode}-v2:${coordinates}`;
   const cached = readRouteCache()[cacheKey];
   if (cached) return cached;
 
@@ -422,6 +474,7 @@ export async function requestRoute(from, to, mode) {
       const summary = {
         duration: formatDuration(route.duration),
         distance: formatDistance(route.distance),
+        path: compactPath(route.geometry?.coordinates ?? []),
       };
       writeRouteCache(cacheKey, summary);
       return summary;
