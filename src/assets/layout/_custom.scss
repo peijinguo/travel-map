@@ -107,8 +107,9 @@
   border-radius: 999px;
   background: #fff;
   color: #476a82;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
+  letter-spacing: .05em;
   cursor: pointer;
 }
 
@@ -140,7 +141,7 @@
   font-weight: 900;
 }
 .header-login img { object-fit: cover; }
-.header-login strong { white-space: nowrap; }
+.header-login strong { font-size: 20px; font-weight: 700; letter-spacing: .05em; white-space: nowrap; }
 .header-sync { position: relative; }
 .sync-code-panel {
   position: absolute;
