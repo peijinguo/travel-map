@@ -1134,7 +1134,7 @@ function TravelSegment({ segment, from, to, note = "" }) {
   const prefersTransit = !prefersFlight && !prefersWalking && !prefersDriving && TRANSIT_NOTE_PATTERN.test(note);
   const transitLabel = segment?.transit
     ? `搭車約 ${segment.transit.duration}`
-    : `搭車約 ${estimateTransitTime(from, to)}（估算）`;
+    : `搭車約 ${estimateTransitTime(from, to)}`;
   const walkingLabel = segment?.walking?.duration
     ? `走路約 ${segment.walking.duration}`
     : "走路時間請至 Google Maps 查看";
