@@ -451,6 +451,25 @@ const namedPlaces = [
     ],
   },
   {
+    id: "livemax-resort-hakodate-shikabe",
+    name: "リブマックスリゾート函館 鹿部温泉",
+    // 免費搜尋找不到這家飯店，又會因名稱中的「函館」退回函館市中心。
+    // 座標取自 OSM 上同地址的舊名「鹿部ロイヤルホテル」。
+    latitude: 42.07222,
+    longitude: 140.77195,
+    displayName: "北海道茅部郡鹿部町字本別530-127",
+    types: ["lodging"],
+    aliases: [
+      "リブマックスリゾート函館 鹿部温泉",
+      "リブマックスリゾート函館",
+      "リブマックス 鹿部温泉",
+      "リブマックス鹿部",
+      "鹿部ロイヤルホテル",
+      "Livemax Resort Hakodate",
+      "Livemax Resort Hakodate Shikabe",
+    ],
+  },
+  {
     id: "horumon-ichiba-ai-hakodate",
     name: "函館炭火焼肉・ホルモン市場 愛",
     // OpenStreetMap 沒有收錄這家店，座標取自國土地理院的地址搜尋。
