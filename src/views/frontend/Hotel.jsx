@@ -26,6 +26,17 @@ const LODGING_TYPES = new Set([
   "rv_park",
 ]);
 
+// OpenStreetMap lacks a website tag for some lodgings; known official sites by name.
+const KNOWN_LODGING_WEBSITES = [
+  { pattern: /グリーンピア大沼|green\s*pia\s*onuma/i, url: "https://www.gp-onuma.com/stay/hotel/" },
+];
+const getLodgingWebsite = (lodging) =>
+  lodging.website ||
+  KNOWN_LODGING_WEBSITES.find(({ pattern }) =>
+    pattern.test(`${lodging.name ?? ""} ${lodging.displayName ?? ""}`),
+  )?.url ||
+  "";
+
 const formatStayDate = (dateString, dayNumber) => {
   if (!dateString) return `入住日期尚未設定 DAY ${dayNumber ?? "?"}`;
   const date = new Date(`${dateString}T00:00:00`);
@@ -226,10 +237,10 @@ function Hotel() {
                 </div>
               </div>
               <div className="hotel-list-actions">
-                {lodging.website ? (
+                {getLodgingWebsite(lodging) ? (
                   <a
                     className="hotel-website-link"
-                    href={lodging.website}
+                    href={getLodgingWebsite(lodging)}
                     target="_blank"
                     rel="noreferrer"
                     aria-label="前往官方網站"
