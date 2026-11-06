@@ -412,11 +412,11 @@
 .planner-date-field input { min-width: 0; width: 100%; padding: 9px 11px; border: 1.7px solid currentColor; border-radius: 7px 9px 6px 8px; outline: none; background: rgba(255,255,255,.84); color: #284d63; font-family: inherit; font-size: 20px; font-weight: 800; }
 .planner-date-field b { overflow: hidden; color: #05456a; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
 .planner-version-picker { display: flex; align-items: center; gap: 9px; margin: -3px 2px 11px; overflow: hidden; }
-.planner-version-picker > span { flex: 0 0 auto; color: #6b8290; font-size: 13px; font-weight: 900; }
+.planner-version-picker > span { flex: 0 0 auto; color: #6b8290; font-size: 17px; font-weight: 900; }
 .planner-version-picker > div { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
-.planner-version-picker button { min-width: max-content; padding: 1px 10px; border: 1.5px solid #9eb3bd; border-radius: 8px; background: #fff; color: #557180; font-family: inherit; font-size: 13px; font-weight: 900; cursor: pointer; }
+.planner-version-picker button { min-width: max-content; padding: 4px 12px; border: 1.5px solid #9eb3bd; border-radius: 999px; background: #fff; color: #557180; font-family: inherit; font-size: 17px; font-weight: 900; line-height: 1.25; cursor: pointer; }
 .planner-version-picker button.is-active { border-color: #315e70; background: #315e70; color: #fff; }
-.planner-version-picker button.is-version-action { width: 30px; min-width: 30px; padding-inline: 0; font-size: 18px; }
+.planner-version-picker button.is-version-action { width: 32px; min-width: 32px; height: 32px; padding: 0; font-size: 18px; }
 .planner-version-picker button:disabled { opacity: .3; cursor: default; }
 .planner-date-input {
   width: 100%;
