@@ -12,6 +12,14 @@
 body { margin: 0; min-width: 320px; background: #f5f9fc; font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
 button, input { font: inherit; }
 
+html:has(.home-page),
+body:has(.home-page),
+#root:has(.home-page),
+main:has(.home-page) {
+  min-height: 100%;
+  background: #9fafbc;
+}
+
 .home-page {
   min-height: calc(100dvh - 72px);
   overflow-x: clip;
@@ -36,11 +44,6 @@ button, input { font: inherit; }
   content: none;
 }
 .hero-copy { position: relative; z-index: 2; align-self: center; }
-.eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 22px; color: rgba(255,255,255,.72); font-size: 12px; font-weight: 700; letter-spacing: .16em; }
-.eyebrow span { padding: 7px 10px; border-radius: 999px; background: #123653; color: #fff; letter-spacing: .1em; }
-.hero-copy h1 { margin: 0; color: #fffaf0; font-size: clamp(38px, 3.4vw, 65px); line-height: 1.18; font-weight: 900; letter-spacing: -.05em; text-shadow: 0 2px 0 rgba(0, 0, 0, .12); }
-.hero-copy h1 em { position: relative; color: #126bd6; font-style: normal; }
-.hero-copy h1 em::after { content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 7px; border-radius: 50%; background: #ffd563; transform: rotate(-2deg); z-index: -1; }
 .hero-lead { max-width: 320px; margin: 25px 0 32px; color: rgba(255,255,255,.78); font-size: 15px; line-height: 1.9; }
 .hero-hint { display: inline-flex; align-items: center; gap: 10px; padding: 10px 15px 10px 10px; border: 1px solid #d4e1e9; border-radius: 999px; background: rgba(255,255,255,.72); color: #476a82; font-size: 12px; font-weight: 700; letter-spacing: .07em; }
 .hero-hint span { width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; background: #f8c24f; color: #123653; font-size: 16px; }
@@ -355,7 +358,6 @@ button, input { font: inherit; }
   .home-page { min-height: calc(100dvh - 64px); }
   .map-hero { display: flex; flex-direction: column; align-items: stretch; padding: 34px 18px 14px; }
   .hero-copy { width: 100%; align-self: stretch; text-align: left; }
-  .eyebrow { justify-content: flex-start; }
   .hero-lead { margin-right: auto; margin-left: 0; }
   .map-stage { min-height: 0; margin: 0; padding: 10px 34px 92px; overflow: visible; }
   /* the icons around the map overflow the svg box; this scale + offset fits map and icons to the screen width */

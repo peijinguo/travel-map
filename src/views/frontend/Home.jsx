@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import HandDrawnMotif from "../../component/HandDrawnMotif";
-import HomeFooter from "../../component/HomeFooter";
 import { japanPrefecturePaths, municipalityPaths } from "../../municipalityPaths";
 
 // Calibrated to the geographic extent of the source SVG. Town anchors are
@@ -403,8 +402,7 @@ function Home() {
     <div className="home-page">
       <section className="map-hero" aria-labelledby="map-title">
         <div className="hero-copy">
-          <p className="eyebrow"><span>JAPAN</span> POWDER TRIP</p>
-          <h1 id="map-title">想去哪座<br /><em>雪山</em>冒險？</h1>
+          <h1 id="map-title" className="visually-hidden">日本雪場地圖</h1>
         </div>
 
         <div className="map-stage">
@@ -485,7 +483,6 @@ function Home() {
         </aside>
       </section>
 
-      <HomeFooter />
     </div>
   );
 }
