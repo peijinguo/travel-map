@@ -711,6 +711,9 @@ const repairLocatedItemText = (items = []) =>
       : item,
   );
 
+// Versions are labelled A, B, C… by position.
+const versionLabel = (index) => String.fromCharCode(65 + index);
+
 const normalizePlannerDay = (day) => ({
   ...day,
   date: day.date ?? "",
@@ -719,7 +722,7 @@ const normalizePlannerDay = (day) => ({
     ? {
         versions: day.versions.map((version, index) => ({
           ...version,
-          label: `版本 ${index + 1}`,
+          label: versionLabel(index),
           items: repairLocatedItemText(version.items),
         })),
       }
@@ -1452,9 +1455,9 @@ function Planner() {
     Array.isArray(day.versions) && day.versions.length
       ? day.versions.map((version, index) => ({
           ...version,
-          label: `版本 ${index + 1}`,
+          label: versionLabel(index),
         }))
-      : [{ id: "version-1", label: "版本 1", items: day.items }];
+      : [{ id: "version-1", label: versionLabel(0), items: day.items }];
 
   const switchDayVersion = (versionId) => {
     localEditPendingRef.current = true;
@@ -1502,7 +1505,7 @@ function Planner() {
         }));
         const nextVersion = {
           id: makeVersionId(),
-          label: `版本 ${versions.length + 1}`,
+          label: versionLabel(versions.length),
           items: nextItems.length ? nextItems : [makeItem()],
         };
         return {
