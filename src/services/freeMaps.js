@@ -25,6 +25,12 @@ const TRANSIT_URL = "https://api.transitous.org/api/v5/plan";
 const TRANSIT_MAX_WALK_SECONDS = 30 * 60;
 const ROUTE_CACHE_KEY = "yuki-tabi-route-cache-v1";
 const JAPAN_BBOX = "122,24,154,46";
+// Trips start and end in Taiwan (home, airport, 高鐵), so Taiwan is searched
+// when nothing in Japan matches.
+const REGIONS = {
+  japan: { countryCode: "JP", nominatimCode: "jp", bbox: JAPAN_BBOX },
+  taiwan: { countryCode: "TW", nominatimCode: "tw", bbox: "118,21,123,27" },
+};
 const REQUEST_TIMEOUT_MS = 10000;
 
 // The planner decides lodging and food stops from Google-style place types, so
@@ -112,12 +118,18 @@ function isSamePlaceName(name, query, fullName, matchEnglish = false) {
 const SKI_AREA_PATTERN = /滑雪場|滑雪场|スキー場|スノーパーク|ski\s*(?:area|resort)|snow\s*(?:resort|park)/iu;
 const isSkiAreaTag = (key, value) =>
   value === "winter_sports" || key === "piste" || value === "ski_resort";
+// Likewise an airport stop takes the airport itself, not a station or hotel
+// named after it (「桃園機場捷運台北車站」 is in Taipei).
+const AIRPORT_PATTERN = /機場|机场|空港|airport/iu;
+const isAirportTag = (key, value) => key === "aeroway" || value === "aerodrome";
 function pickPreferred(matches, fullName, getTag) {
-  if (SKI_AREA_PATTERN.test(fullName)) {
-    const skiArea = matches.find((match) => isSkiAreaTag(...getTag(match)));
-    if (skiArea) return skiArea;
-  }
-  return matches[0];
+  const preferredTag = SKI_AREA_PATTERN.test(fullName)
+    ? isSkiAreaTag
+    : AIRPORT_PATTERN.test(fullName)
+      ? isAirportTag
+      : null;
+  const preferred = preferredTag && matches.find((match) => preferredTag(...getTag(match)));
+  return preferred ?? matches[0];
 }
 
 // A part of a stop's name, such as "Hakodate" from "Ai Hakodate Yakiniku",
@@ -125,12 +137,12 @@ function pickPreferred(matches, fullName, getTag) {
 const isBroadAreaForPartialName = (osmCategory, query, fullName) =>
   query !== fullName && ["place", "boundary"].includes(osmCategory);
 
-async function searchNominatim(query, fullName) {
+async function searchNominatim(query, fullName, region = REGIONS.japan) {
   const parameters = new URLSearchParams({
     q: query,
     format: "jsonv2",
     limit: "5",
-    countrycodes: "jp",
+    countrycodes: region.nominatimCode,
     extratags: "1",
     namedetails: "1",
   });
@@ -188,25 +200,53 @@ let photonDownUntil = 0;
 // fullName is the stop's complete name when query is only a part of it.
 // Photon is tried first; Nominatim takes over when Photon is down.
 export async function searchJapanPlace(query, fullName = query) {
+  return (
+    (await searchRegion(query, fullName, REGIONS.japan)) ??
+    (await searchJapaneseAddress(query)) ??
+    (await searchTaiwanPlace(query, fullName))
+  );
+}
+
+async function searchRegion(query, fullName, region) {
   if (Date.now() >= photonDownUntil) {
     try {
-      return (await searchPhoton(query, fullName)) ?? (await searchJapaneseAddress(query));
+      return await searchPhoton(query, fullName, region);
     } catch {
       photonDownUntil = Date.now() + PHOTON_RETRY_AFTER_MS;
     }
   }
-  return (await searchNominatim(query, fullName)) ?? (await searchJapaneseAddress(query));
+  return searchNominatim(query, fullName, region);
 }
 
-async function searchPhoton(query, fullName) {
-  const parameters = new URLSearchParams({ q: query, limit: "5", bbox: JAPAN_BBOX });
+// Taiwanese stops are usually written the colloquial way, 「新竹高鐵」, while
+// the map names the station 「高鐵新竹站」.
+// Airports are likewise 「桃園機場」 for 「臺灣桃園國際機場」.
+const toTaiwanStationQueries = (query) => {
+  const highSpeedRail = /^(.+?)高鐵站?$/u.exec(query);
+  if (highSpeedRail) return [`高鐵${highSpeedRail[1]}站`];
+  const airport = /^(?:臺灣|台灣)?(.+?)(?:國際)?機場$/u.exec(query);
+  if (airport) return [`臺灣${airport[1]}國際機場`, `臺北${airport[1]}機場`, `${airport[1]}國際機場`];
+  return [];
+};
+
+async function searchTaiwanPlace(query, fullName) {
+  if (!CJK_PATTERN.test(query)) return null;
+  for (const candidate of [...toTaiwanStationQueries(query), query]) {
+    const place = await searchRegion(candidate, fullName, REGIONS.taiwan);
+    if (place) return place;
+  }
+  return null;
+}
+
+async function searchPhoton(query, fullName, region = REGIONS.japan) {
+  const parameters = new URLSearchParams({ q: query, limit: "5", bbox: region.bbox });
   // English queries are compared with the English names; Photon otherwise
   // matches loosely, e.g. "Ai Hakodate Yakiniku" returned 焼肉ライク.
   if (!CJK_PATTERN.test(query)) parameters.set("lang", "en");
   const { features = [] } = await fetchJson(`${PHOTON_URL}?${parameters}`);
   const matches = features.filter(
     ({ properties }) =>
-      properties.countrycode === "JP" &&
+      properties.countrycode === region.countryCode &&
       properties.name &&
       !isBroadAreaForPartialName(properties.osm_key, query, fullName) &&
       isSamePlaceName(properties.name, query, fullName, true),
@@ -244,7 +284,9 @@ async function searchPhoton(query, fullName) {
 }
 
 const inJapan = (latitude, longitude) =>
-  latitude > 20 && latitude < 46 && longitude > 122 && longitude < 154;
+  (latitude > 20 && latitude < 46 && longitude > 122 && longitude < 154) ||
+  // Taiwan, for pasted coordinates of the trip's start and end.
+  (latitude > 21 && latitude < 27 && longitude > 118 && longitude < 123);
 
 // A stop can carry exact coordinates, pasted as "41.794, 140.751" or as a
 // Google Maps link, for places that no free search knows.
