@@ -450,6 +450,24 @@ const namedPlaces = [
       "ランバーハウス 大沼",
     ],
   },
+  {
+    id: "horumon-ichiba-ai-hakodate",
+    name: "函館炭火焼肉・ホルモン市場 愛",
+    // OpenStreetMap 沒有收錄這家店，座標取自國土地理院的地址搜尋。
+    latitude: 41.786606,
+    longitude: 140.787796,
+    displayName: "北海道函館市花園町1-13",
+    types: ["restaurant", "food", "point_of_interest", "establishment"],
+    cuisine: "焼肉 ホルモン yakiniku",
+    aliases: [
+      "函館炭火焼肉・ホルモン市場 愛",
+      "函館焼肉ホルモン市場愛",
+      "焼肉ホルモン市場愛",
+      "ホルモン市場愛",
+      "ホルモン市場 愛 函館",
+      "Hakodate Yakiniku Horumon Ichiba Ai",
+    ],
+  },
 ];
 
 const initialItems = [
