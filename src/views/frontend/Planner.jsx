@@ -19,7 +19,7 @@ import "../../assets/pages/_planner.scss";
 
 const STORAGE_KEY = "yuki-tabi-planner-days-v2";
 const LEGACY_STORAGE_KEY = "yuki-tabi-planner-items";
-const GEOCODE_CACHE_KEY = "yuki-tabi-google-geocode-cache-v3";
+const GEOCODE_CACHE_KEY = "yuki-tabi-google-geocode-cache-v4";
 const LODGING_STORAGE_KEY = "yuki-tabi-lodgings-v1";
 const ACTIVE_DAY_STORAGE_KEY = "yuki-tabi-planner-active-day-v1";
 const DRAFT_STORAGE_KEY = "yuki-tabi-planner-drafts-v1";

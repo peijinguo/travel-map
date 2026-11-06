@@ -106,6 +106,20 @@ function isSamePlaceName(name, query, fullName, matchEnglish = false) {
   );
 }
 
+// A ski area often shares its name with the resort hotel next to it
+// (グリーンピア大沼 is both). When the stop names a ski area, prefer the
+// winter-sports result among the same-name matches.
+const SKI_AREA_PATTERN = /滑雪場|滑雪场|スキー場|スノーパーク|ski\s*(?:area|resort)|snow\s*(?:resort|park)/iu;
+const isSkiAreaTag = (key, value) =>
+  value === "winter_sports" || key === "piste" || value === "ski_resort";
+function pickPreferred(matches, fullName, getTag) {
+  if (SKI_AREA_PATTERN.test(fullName)) {
+    const skiArea = matches.find((match) => isSkiAreaTag(...getTag(match)));
+    if (skiArea) return skiArea;
+  }
+  return matches[0];
+}
+
 // A part of a stop's name, such as "Hakodate" from "Ai Hakodate Yakiniku",
 // would otherwise match the whole city and pin the stop at its centre.
 const isBroadAreaForPartialName = (osmCategory, query, fullName) =>
@@ -123,13 +137,14 @@ async function searchNominatim(query, fullName) {
   const places = await fetchNominatim(`${NOMINATIM_SEARCH_URL}?${parameters}`);
   // Nominatim also matches words in addresses, so English queries must match
   // one of the place's names too.
-  const place = places.find(
+  const matches = places.filter(
     ({ name, namedetails = {}, category }) =>
       !isBroadAreaForPartialName(category, query, fullName) &&
       [name, ...Object.values(namedetails)]
         .filter(Boolean)
         .some((candidate) => isSamePlaceName(candidate, query, fullName, true)),
   );
+  const place = pickPreferred(matches, fullName, ({ category, type }) => [category, type]);
   if (!place) return null;
   const details = place.extratags ?? {};
   return {
@@ -189,13 +204,17 @@ async function searchPhoton(query, fullName) {
   // matches loosely, e.g. "Ai Hakodate Yakiniku" returned 焼肉ライク.
   if (!CJK_PATTERN.test(query)) parameters.set("lang", "en");
   const { features = [] } = await fetchJson(`${PHOTON_URL}?${parameters}`);
-  const feature = features.find(
+  const matches = features.filter(
     ({ properties }) =>
       properties.countrycode === "JP" &&
       properties.name &&
       !isBroadAreaForPartialName(properties.osm_key, query, fullName) &&
       isSamePlaceName(properties.name, query, fullName, true),
   );
+  const feature = pickPreferred(matches, fullName, ({ properties }) => [
+    properties.osm_key,
+    properties.osm_value,
+  ]);
   if (!feature) return null;
 
   const { properties, geometry } = feature;
