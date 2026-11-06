@@ -496,9 +496,9 @@ const namedPlaces = [
     id: "greenpia-onuma-ski-area",
     name: "グリーンピア大沼スキー場",
     // 與同名飯店相鄰；只有寫明滑雪場的行程會用到這裡（見 findNamedPlaceForText）。
-    // 座標取自 OSM 的 winter_sports 園區。
-    latitude: 42.00822,
-    longitude: 140.59569,
+    // 座標取自滑雪場的 Mapcode 490 282 893*64。
+    latitude: 42.002323,
+    longitude: 140.602963,
     displayName: "北海道茅部郡森町赤井川229（グリーンピア大沼スキー場）",
     types: [],
     aliases: [
