@@ -1865,7 +1865,9 @@ function Planner() {
         <aside className="planner-list-card">
           <div className="planner-card-title">
             <div>
-              <h2>{days.length} 天行程表</h2>
+              <h2>
+                <em className="planner-title-day">{days.length} 天行程表</em>
+              </h2>
             </div>
           </div>
           <nav className="planner-day-picker" aria-label="選擇行程天數">
