@@ -227,8 +227,15 @@ function Hotel() {
               </div>
               <div className="hotel-list-actions">
                 {lodging.website ? (
-                  <a href={lodging.website} target="_blank" rel="noreferrer">
-                    前往官方網站 ↗
+                  <a
+                    className="hotel-website-link"
+                    href={lodging.website}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="前往官方網站"
+                    data-tooltip="前往官方網站"
+                  >
+                    <span aria-hidden="true">↗</span>
                   </a>
                 ) : (
                   <small>尚未取得官方網站</small>
