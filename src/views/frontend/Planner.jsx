@@ -1047,10 +1047,6 @@ function TravelSegment({ segment, from, to, note = "" }) {
   const walkingUrl = makeGoogleDirectionsUrl(from, to, "walking");
   return (
     <li className="planner-travel-segment" aria-label={`${fromName}到${toName}的交通資訊`}>
-      <div className="planner-travel-line" aria-hidden="true">
-        <span />
-        <i>↓</i>
-      </div>
       <div className="planner-travel-content">
         <p>
           <span>前往</span>

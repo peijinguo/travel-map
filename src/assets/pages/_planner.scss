@@ -484,8 +484,7 @@
 .planner-list > li.is-drag-over { border-color: #126bd6; transform: translateY(3px) rotate(-.2deg); box-shadow: 0 4px 0 rgba(18,107,214,.11); }
 .planner-list > li.is-done { background: rgba(237, 245, 247, .68); }
 .planner-list > li.planner-travel-segment {
-  grid-template-columns: 34px minmax(0, 1fr);
-  gap: 9px;
+  grid-template-columns: minmax(0, 1fr);
   align-items: stretch;
   margin: -8px 0;
   padding: 3px 8px 4px 16px;
@@ -496,32 +495,6 @@
 .planner-list > li.planner-travel-segment:hover {
   border-color: transparent;
   background: transparent;
-}
-.planner-travel-line {
-  position: relative;
-  min-height: 74px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #46768b;
-}
-.planner-travel-line span {
-  position: absolute;
-  top: 12%;
-  width: 2px;
-  height: 70%;
-  background: repeating-linear-gradient(to bottom, #79a2b2 0 5px, transparent 5px 10px);
-}
-.planner-travel-line i {
-  position: absolute;
-  top: calc(82% - 1px);
-  z-index: 1;
-  padding: 0;
-  background: #fff;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 900;
-  line-height: 1;
 }
 .planner-travel-content {
   min-width: 0;
