@@ -155,7 +155,8 @@
   box-shadow: 7px 9px 0 rgba(18, 54, 83, .16), 0 20px 50px rgba(18, 54, 83, .18);
   color: #123653;
 }
-.sync-code-heading { display: flex; align-items: flex-start; justify-content: space-between; }
+.sync-code-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+.sync-code-heading p { margin: 2px 0 0; color: #5d7585; font-size: 14px; line-height: 1.6; }
 .sync-code-heading small { color: #8b5a3c; font-size: 12px; font-weight: 900; letter-spacing: .16em; }
 .sync-code-heading h2 { margin: 3px 0 0; font-size: 24px; }
 .sync-code-heading > button { border: 0; background: transparent; color: #7891a2; font-size: 27px; line-height: 1; cursor: pointer; }

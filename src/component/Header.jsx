@@ -226,14 +226,15 @@ function Header() {
               aria-label="雪旅行程"
             >
               <div className="sync-code-heading">
-                <div>
-                  <h2>我的雪旅行程</h2>
-                </div>
-                <button type="button" onClick={() => setIsSyncOpen(false)}>
+                <p>選擇要查看的行程；在其他裝置輸入相同的行程代號，就能一起查看與編輯行程和筆記。</p>
+                <button
+                  type="button"
+                  aria-label="關閉"
+                  onClick={() => setIsSyncOpen(false)}
+                >
                   ×
                 </button>
               </div>
-              <p>選擇要查看的行程；在其他裝置輸入相同的行程代號，就能一起查看與編輯行程和筆記。</p>
               <div className="sync-code-form">
                 <div className="sync-code-input-row">
                   <div className="sync-code-select">
