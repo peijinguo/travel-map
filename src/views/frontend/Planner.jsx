@@ -499,7 +499,7 @@ const namedPlaces = [
     // 座標取自 OSM 的 winter_sports 園區。
     latitude: 42.00822,
     longitude: 140.59569,
-    displayName: "北海道茅部郡森町赤井川（グリーンピア大沼スキー場）",
+    displayName: "北海道茅部郡森町赤井川229（グリーンピア大沼スキー場）",
     types: [],
     aliases: [
       "グリーンピア大沼スキー場",
