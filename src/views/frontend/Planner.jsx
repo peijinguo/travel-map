@@ -118,6 +118,8 @@ const getItineraryMotif = (location, itineraryText = "") => {
   if (/壽司|寿司|寿し|すし|鮨|鮓|sushi|海鮮丼/iu.test(`${noteText} ${placeName}`)) return "sushi";
   if (/天婦羅|天ぷら|天丼|tempura/iu.test(`${noteText} ${placeName}`)) return "tempura";
   const foodPlace = isFoodLocation(location);
+  // An onsen stop that the map only knows as the 温泉 area, not as a hotel.
+  if (!foodPlace && location && /温泉|溫泉|onsen/iu.test(`${noteText.split(/\r?\n/)[0]} ${placeName}`)) return "onsen";
   if (!foodPlace) return null;
   // Read the complete note first, then the primary place name. Do not use the
   // formatted Google address because nearby category words can cause false matches.
@@ -509,6 +511,24 @@ const namedPlaces = [
       "グリーンピア大沼スキー場",
       "Greenpia Onuma Ski Area",
       "Greenpia Onuma Ski Resort",
+    ],
+  },
+  {
+    id: "yunokawa-onsen-emi-hakodateya",
+    name: "湯の川温泉 笑 函館屋",
+    // OSM 沒有收錄這家旅館，搜尋只會落在「湯の川温泉」整區；座標取自
+    // 國土地理院的地址搜尋（函館市湯川町三丁目10番3号）。
+    latitude: 41.77599,
+    longitude: 140.790527,
+    displayName: "北海道函館市湯川町三丁目10番3号",
+    types: ["lodging"],
+    aliases: [
+      "湯の川温泉 笑 函館屋",
+      "湯の川温泉笑函館屋",
+      "笑 函館屋",
+      "Yunokawa Onsen EMI HAKODATEYA",
+      "Yunokawa Onsen EMI HAKODATEYA 湯の川温泉 笑 函館屋",
+      "EMI HAKODATEYA",
     ],
   },
   {
