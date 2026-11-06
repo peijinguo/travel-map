@@ -88,15 +88,20 @@ const isFoodLocation = (location) =>
   !isLodgingLocation(location) &&
   Boolean(location?.types?.some((type) => FOOD_PLACE_TYPES.has(type)));
 
+const SKI_AREA_PATTERN = /滑雪場|滑雪场|スキー場|スノーパーク|ski\s*(?:area|resort)|snow\s*(?:resort|park)/iu;
+
 const getItineraryMotif = (location, itineraryText = "") => {
-  if (isLodgingLocation(location)) return "onsen";
   const noteText = String(itineraryText);
   const placeName = String(location?.name ?? "");
+  // A ski area run by a resort hotel (e.g. グリーンピア大沼) is tagged as
+  // lodging by Google, so check the stop's own name before the lodging test.
+  if (SKI_AREA_PATTERN.test(`${noteText.split(/\r?\n/)[0]} ${placeName}`)) return "chairlift";
+  if (isLodgingLocation(location)) return "onsen";
   const placeCuisine = String(location?.cuisine ?? "");
   const placeText = `${noteText} ${placeName}`;
   if (/family\s*mart|ファミリーマート|ファミマ/iu.test(placeText)) return "familymart";
   if (/7\s*[-‐‑–—]?\s*eleven|seven\s*eleven|セブン[\s-]*イレブン|セブンイレブン/iu.test(placeText)) return "seveneleven";
-  if (/滑雪場|滑雪场|スキー場|スノーパーク|ski\s*(?:area|resort)|snow\s*(?:resort|park)/iu.test(`${noteText} ${placeName}`)) return "chairlift";
+  if (SKI_AREA_PATTERN.test(`${noteText} ${placeName}`)) return "chairlift";
   const headline = `${noteText.split(/\r?\n/)[0]} ${placeName}`;
   // Store-specific signature dishes that the generic keywords cannot infer.
   // Match only the stop's own name (first line), so a note mentioning another
