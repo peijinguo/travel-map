@@ -484,6 +484,7 @@ const namedPlaces = [
     types: ["lodging"],
     aliases: [
       "リブマックスリゾート函館 グリーンピア大沼",
+      "Greenpia Onuma リブマックスリゾート函館 グリーンピア大沼",
       "リブマックス グリーンピア大沼",
       "グリーンピア大沼",
       "Greenpia Onuma",
