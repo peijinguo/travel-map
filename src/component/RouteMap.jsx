@@ -85,10 +85,14 @@ const makeRouteLine = (coordinates, paths = []) => ({
 });
 
 function makeStopMarker(stop, index, coordinate, offset) {
+  // The pin is clipped to a teardrop, so the hover label hangs off a wrapper.
+  const marker = document.createElement("div");
+  marker.className = "planner-route-marker";
+  marker.dataset.tooltip = `第 ${index + 1} 站：${stop.town.name}`;
   const pin = document.createElement("div");
   pin.className = "planner-route-pin";
   pin.textContent = String(index + 1);
-  pin.title = `第 ${index + 1} 站：${stop.town.name}`;
+  marker.append(pin);
 
   const content = document.createElement("div");
   const stopNumber = document.createElement("strong");
@@ -98,7 +102,7 @@ function makeStopMarker(stop, index, coordinate, offset) {
   stopName.textContent = stop.town.name;
   content.append(stopNumber, stopName);
 
-  return new maplibregl.Marker({ element: pin, anchor: "bottom", offset })
+  return new maplibregl.Marker({ element: marker, anchor: "bottom", offset })
     .setLngLat(coordinate)
     .setPopup(new maplibregl.Popup({ offset: 40 }).setDOMContent(content));
 }
