@@ -129,13 +129,12 @@ function Header() {
       <Link className="brand" to="/" aria-label="雪旅地圖首頁">
         <span className="brand-mark brand-mark--image" aria-hidden="true">
           <img
-            src={`${import.meta.env.BASE_URL}assets/logo-options/logo-b-snow-pin.svg`}
+            src={`${import.meta.env.BASE_URL}assets/logo-options/logo-snowflake.svg`}
             alt=""
           />
         </span>
         <span className="brand-copy">
           <strong>雪旅地圖</strong>
-          <small>YUKI TABI</small>
         </span>
       </Link>
       <nav
