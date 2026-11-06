@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { isLodgingName } from "../../services/freeMaps";
 import "../../assets/pages/_hotel.scss";
 
 // Itinerary versions are labelled A, B, C… by position; older saved data
@@ -75,7 +76,8 @@ function loadLodgings() {
                   !CHECKOUT_PATTERN.test(item.text ?? "") &&
                   item.location &&
                   !NON_LODGING_NAME_PATTERN.test(item.location.name ?? "") &&
-                  item.location.types?.some((type) => LODGING_TYPES.has(type)),
+                  (item.location.types?.some((type) => LODGING_TYPES.has(type)) ||
+                    (!item.location.types?.length && isLodgingName(item.location.name))),
               )
               .map((item) => ({ item, day, dayIndex, version })),
           );

@@ -11,6 +11,7 @@ import {
 } from "../../services/firebase";
 import {
   findCoordinatesInText,
+  isLodgingName,
   requestRoute,
   requestTransitTime,
   searchJapanPlace,
@@ -75,9 +76,12 @@ const NON_LODGING_LOCATION_PATTERN = /滑雪場|滑雪场|スキー場|ski\s*(?:
 const CHECKOUT_PATTERN = /退房|退宿|チェック[\s-]*アウト|check[\s-]*out/iu;
 const JARTIC_URL = "https://www.jartic.or.jp/";
 
+// Stops located before untyped hotel-named places were marked as lodging
+// (see getPlaceTypes in freeMaps) are recognized by their name too.
 const isLodgingLocation = (location) =>
   Boolean(
-    location?.types?.some((type) => LODGING_PLACE_TYPES.has(type)) &&
+    (location?.types?.some((type) => LODGING_PLACE_TYPES.has(type)) ||
+      (location && !location.types?.length && isLodgingName(location.name))) &&
       !NON_LODGING_LOCATION_PATTERN.test(location.name ?? ""),
   );
 

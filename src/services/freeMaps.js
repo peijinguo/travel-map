@@ -55,6 +55,23 @@ const OSM_PLACE_TYPES = {
   convenience: ["convenience_store"],
 };
 
+// OSM sometimes lacks the hotel itself and only has something named after it,
+// e.g. a bike rental called 「函館 湯の川温泉 海と灯／ヒューイットリゾート」.
+// Such an untyped place whose name says hotel is treated as lodging, so it
+// gets the onsen icon and shows up on the lodging page. リゾート alone also
+// names ski and theme parks (ルスツリゾート), so it counts only with 温泉.
+const LODGING_NAME_PATTERN = /ホテル|旅館|ゲストハウス|ペンション|民宿|hotel|ryokan|hostel|飯店|酒店|(?:温泉|溫泉|onsen).*(?:リゾート|resort)|(?:リゾート|resort).*(?:温泉|溫泉|onsen)/iu;
+const SKI_NAME_PATTERN = /スキー|滑雪|ski|snow/iu;
+export const isLodgingName = (name = "") =>
+  LODGING_NAME_PATTERN.test(name) && !SKI_NAME_PATTERN.test(name);
+
+function getPlaceTypes(osmValue, name = "") {
+  const types = OSM_PLACE_TYPES[osmValue];
+  if (types) return types;
+  if (["winter_sports", "piste", "ski_resort"].includes(osmValue)) return [];
+  return isLodgingName(name) ? ["lodging"] : [];
+}
+
 const fetchJson = async (url) => {
   const response = await fetch(url, {
     signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
@@ -166,7 +183,7 @@ async function searchNominatim(query, fullName, region = REGIONS.japan) {
     longitude: Number(place.lon),
     displayName: place.display_name,
     query,
-    types: OSM_PLACE_TYPES[place.type] ?? [],
+    types: getPlaceTypes(place.type, place.name),
     website: details.website ?? details["contact:website"] ?? "",
     ...(details.cuisine ? { cuisine: details.cuisine } : {}),
   };
@@ -277,7 +294,7 @@ async function searchPhoton(query, fullName, region = REGIONS.japan) {
       .filter(Boolean)
       .join(" "),
     query,
-    types: OSM_PLACE_TYPES[properties.osm_value] ?? [],
+    types: getPlaceTypes(properties.osm_value, properties.name),
     website: details.website ?? details["contact:website"] ?? "",
     ...(details.cuisine ? { cuisine: details.cuisine } : {}),
   };
