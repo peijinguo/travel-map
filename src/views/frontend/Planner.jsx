@@ -1684,10 +1684,6 @@ function Planner() {
     };
   }, [travelPairsKey]);
 
-  const updateItem = (id, patch) =>
-    setItems((current) =>
-      current.map((item) => (item.id === id ? { ...item, ...patch } : item)),
-    );
   const saveAllItemDrafts = () => {
     const drafts = new Map(itemDraftsRef.current);
     const itemsToLocate = items
@@ -2037,7 +2033,7 @@ function Planner() {
                           return (
                             <Fragment key={item.id}>
                             <li
-                              className={`${item.done ? "is-done" : ""} ${dragOverId === item.id ? "is-drag-over" : ""}`}
+                              className={dragOverId === item.id ? "is-drag-over" : ""}
                               onDragEnd={() => {
                                 setDraggedId(null);
                                 setDragOverId(null);
@@ -2058,18 +2054,6 @@ function Planner() {
                               >
                                 ⠿
                               </button>
-                              <label className="planner-check">
-                                <input
-                                  type="checkbox"
-                                  checked={item.done}
-                                  onChange={(event) =>
-                                    updateItem(item.id, {
-                                      done: event.target.checked,
-                                    })
-                                  }
-                                />
-                                <span aria-hidden="true">✓</span>
-                              </label>
                               <div className="planner-item-copy">
                                 <div className="planner-item-meta">
                                   <b>
@@ -2212,7 +2196,6 @@ function Planner() {
                     <div className="planner-day-preview">
                       {day.items.slice(0, 1).map((item) => (
                         <div key={item.id}>
-                          <span>{item.done ? "✓" : ""}</span>
                           <p>{item.text || "點選後輸入行程"}</p>
                           <i>⠿</i>
                         </div>
