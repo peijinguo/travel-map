@@ -493,6 +493,21 @@ const namedPlaces = [
     ],
   },
   {
+    id: "greenpia-onuma-ski-area",
+    name: "グリーンピア大沼スキー場",
+    // 與同名飯店相鄰；只有寫明滑雪場的行程會用到這裡（見 findNamedPlaceForText）。
+    // 座標取自 OSM 的 winter_sports 園區。
+    latitude: 42.00822,
+    longitude: 140.59569,
+    displayName: "北海道茅部郡森町赤井川（グリーンピア大沼スキー場）",
+    types: [],
+    aliases: [
+      "グリーンピア大沼スキー場",
+      "Greenpia Onuma Ski Area",
+      "Greenpia Onuma Ski Resort",
+    ],
+  },
+  {
     id: "horumon-ichiba-ai-hakodate",
     name: "函館炭火焼肉・ホルモン市場 愛",
     // OpenStreetMap 沒有收錄這家店，座標取自國土地理院的地址搜尋。
@@ -629,21 +644,22 @@ function findTownForText(text) {
 }
 
 function findKnownLocationForText(text) {
-  const normalized = normalizeText(getLocationQuery(text));
-  if (!normalized) return null;
-  return (
-    namedPlaces.find((place) =>
-      place.aliases.some((alias) => normalized === normalizeText(alias)),
-    ) ?? findTownForText(text)
-  );
+  return findNamedPlaceForText(text) ?? findTownForText(text);
 }
 
+// normalizeText drops words like スキー場, so 「グリーンピア大沼スキー場」 would
+// equal the hotel 「グリーンピア大沼」. A stop that names a ski area must never
+// take a lodging's fixed pin.
 function findNamedPlaceForText(text) {
-  const normalized = normalizeText(getLocationQuery(text));
+  const query = getLocationQuery(text);
+  const normalized = normalizeText(query);
   if (!normalized) return null;
+  const namesSkiArea = SKI_AREA_PATTERN.test(query);
   return (
-    namedPlaces.find((place) =>
-      place.aliases.some((alias) => normalized === normalizeText(alias)),
+    namedPlaces.find(
+      (place) =>
+        !(namesSkiArea && place.types?.includes("lodging")) &&
+        place.aliases.some((alias) => normalized === normalizeText(alias)),
     ) ?? null
   );
 }
