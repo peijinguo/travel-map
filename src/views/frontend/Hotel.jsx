@@ -31,7 +31,12 @@ const formatStayDate = (dateString, dayNumber) => {
   const date = new Date(`${dateString}T00:00:00`);
   if (Number.isNaN(date.getTime())) return `${dateString} DAY ${dayNumber ?? "?"}`;
   const weekday = new Intl.DateTimeFormat("zh-TW", { weekday: "long" }).format(date);
-  return `${date.getMonth() + 1} 月 ${date.getDate()} 日（${weekday}）DAY ${dayNumber ?? "?"} 入住`;
+  const ymd = [
+    date.getFullYear(),
+    String(date.getMonth() + 1).padStart(2, "0"),
+    String(date.getDate()).padStart(2, "0"),
+  ].join("/");
+  return `${ymd}（${weekday}）DAY ${dayNumber ?? "?"} 入住`;
 };
 
 function loadLodgings() {
@@ -185,7 +190,7 @@ function Hotel() {
               className={version === selectedVersion ? "is-active" : undefined}
               to={`/hotel?version=${encodeURIComponent(version)}`}
             >
-              {version}
+              版本 {version}
             </Link>
           ))}
         </nav>
