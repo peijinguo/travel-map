@@ -96,12 +96,20 @@ function isSamePlaceName(name, query, fullName, matchEnglish = false) {
   if (!matchEnglish && !CJK_PATTERN.test(query)) return true;
   const resultName = normalizeName(name);
   if (resultName.length < 3) return false;
+  // A generic word left over from a partial name ("Yakiniku") must not match a
+  // place that is merely called that.
+  if (query !== fullName && resultName.length < normalizeName(fullName).length / 2) return false;
   return (
     normalizeName(query).includes(resultName) ||
     normalizeName(fullName).includes(resultName) ||
     resultName.includes(normalizeName(fullName))
   );
 }
+
+// A part of a stop's name, such as "Hakodate" from "Ai Hakodate Yakiniku",
+// would otherwise match the whole city and pin the stop at its centre.
+const isBroadAreaForPartialName = (osmCategory, query, fullName) =>
+  query !== fullName && ["place", "boundary"].includes(osmCategory);
 
 async function searchNominatim(query, fullName) {
   const parameters = new URLSearchParams({
@@ -115,10 +123,12 @@ async function searchNominatim(query, fullName) {
   const places = await fetchNominatim(`${NOMINATIM_SEARCH_URL}?${parameters}`);
   // Nominatim also matches words in addresses, so English queries must match
   // one of the place's names too.
-  const place = places.find(({ name, namedetails = {} }) =>
-    [name, ...Object.values(namedetails)]
-      .filter(Boolean)
-      .some((candidate) => isSamePlaceName(candidate, query, fullName, true)),
+  const place = places.find(
+    ({ name, namedetails = {}, category }) =>
+      !isBroadAreaForPartialName(category, query, fullName) &&
+      [name, ...Object.values(namedetails)]
+        .filter(Boolean)
+        .some((candidate) => isSamePlaceName(candidate, query, fullName, true)),
   );
   if (!place) return null;
   const details = place.extratags ?? {};
@@ -175,12 +185,16 @@ export async function searchJapanPlace(query, fullName = query) {
 
 async function searchPhoton(query, fullName) {
   const parameters = new URLSearchParams({ q: query, limit: "5", bbox: JAPAN_BBOX });
+  // English queries are compared with the English names; Photon otherwise
+  // matches loosely, e.g. "Ai Hakodate Yakiniku" returned 焼肉ライク.
+  if (!CJK_PATTERN.test(query)) parameters.set("lang", "en");
   const { features = [] } = await fetchJson(`${PHOTON_URL}?${parameters}`);
   const feature = features.find(
     ({ properties }) =>
       properties.countrycode === "JP" &&
       properties.name &&
-      isSamePlaceName(properties.name, query, fullName),
+      !isBroadAreaForPartialName(properties.osm_key, query, fullName) &&
+      isSamePlaceName(properties.name, query, fullName, true),
   );
   if (!feature) return null;
 
