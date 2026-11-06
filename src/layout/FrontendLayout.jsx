@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Header from "../component/Header"
+import BackToTop from "../component/BackToTop"
 
 function FrontendLayout() {
     return (
@@ -8,6 +9,7 @@ function FrontendLayout() {
             <main>
                 <Outlet />
             </main>
+            <BackToTop />
         </>
     )
 }
