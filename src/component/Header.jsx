@@ -26,7 +26,7 @@ function Header() {
   const [foodFavorites, setFoodFavorites] = useState([]);
   const [activeFavoriteTab, setActiveFavoriteTab] = useState("resorts");
 
-  // 點同步碼面板以外的地方或按 Esc 時關閉面板。
+  // 點雪旅行程面板以外的地方或按 Esc 時關閉面板。
   useEffect(() => {
     if (!isSyncOpen) return undefined;
     const closeSyncPanel = () => {
@@ -90,7 +90,7 @@ function Header() {
       const messages = {
         loading: "正在重新載入資料…",
         success: "同步完成",
-        error: "同步失敗，請確認 Firestore 規則後再試一次",
+        error: "同步失敗，請稍後再試一次",
       };
       setSyncMessage(messages[event.detail] ?? "");
     };
@@ -116,12 +116,12 @@ function Header() {
 
   const removeSavedSyncCode = (code) => {
     if (!removeSyncCode(code)) {
-      setSyncMessage("至少需要保留一組同步碼");
+      setSyncMessage("至少需要保留一個雪旅行程");
       return;
     }
     const nextCode = syncCodes.find((savedCode) => savedCode !== code);
     setSyncCodeDraft(nextCode ?? syncCode);
-    setSyncMessage("同步碼已從此裝置移除");
+    setSyncMessage("已從此裝置移除這個行程");
   };
 
   return (
@@ -195,7 +195,7 @@ function Header() {
             aria-controls="sync-code-panel"
             title={
               user
-                ? "設定跨裝置同步碼"
+                ? "切換或新增雪旅行程"
                 : isFirebaseConfigured
                   ? authError || "正在啟用同步"
                   : "目前使用本機儲存"
@@ -211,7 +211,7 @@ function Header() {
             <span aria-hidden="true">↻</span>
             <strong>
               {user
-                ? "同步碼"
+                ? "雪旅行程"
                 : isFirebaseConfigured
                   ? authReady
                     ? "同步失敗"
@@ -223,24 +223,24 @@ function Header() {
             <section
               className="sync-code-panel"
               id="sync-code-panel"
-              aria-label="跨裝置同步設定"
+              aria-label="雪旅行程"
             >
               <div className="sync-code-heading">
                 <div>
-                  <h2>跨裝置同步</h2>
+                  <h2>我的雪旅行程</h2>
                 </div>
                 <button type="button" onClick={() => setIsSyncOpen(false)}>
                   ×
                 </button>
               </div>
-              <p>選擇此裝置曾使用過的同步碼，即可切換共用的行程與筆記。</p>
+              <p>選擇要查看的行程；在其他裝置輸入相同的行程代號，就能一起查看與編輯行程和筆記。</p>
               <div className="sync-code-form">
                 <div className="sync-code-input-row">
                   <div className="sync-code-select">
                     <button
                       className="sync-code-select-trigger"
                       type="button"
-                      aria-label="選擇同步碼"
+                      aria-label="選擇雪旅行程"
                       aria-expanded={isSyncCodeSelectOpen}
                       aria-haspopup="listbox"
                       onClick={() =>
@@ -263,7 +263,7 @@ function Header() {
                                 setSyncCodeDraft(code);
                                 setIsSyncCodeSelectOpen(false);
                                 if (setSyncCode(code)) {
-                                  setSyncMessage("已套用同步碼，正在重新載入資料…");
+                                  setSyncMessage("已切換行程，正在載入資料…");
                                 }
                               }}
                             >
@@ -272,7 +272,7 @@ function Header() {
                             <button
                               className="sync-code-option-remove"
                               type="button"
-                              aria-label={`刪除同步碼 ${code}`}
+                              aria-label={`從此裝置移除行程 ${code}`}
                               onClick={() => removeSavedSyncCode(code)}
                             >
                               ×
@@ -283,7 +283,7 @@ function Header() {
                     )}
                   </div>
                 </div>
-                <label htmlFor="new-sync-code">新增同步碼</label>
+                <label htmlFor="new-sync-code">新增或加入行程</label>
                 <div className="sync-code-input-row">
                   <input
                     id="new-sync-code"
@@ -291,7 +291,7 @@ function Header() {
                     maxLength="32"
                     autoComplete="off"
                     spellCheck="false"
-                    placeholder="輸入至少 8 碼英數字"
+                    placeholder="行程代號，至少 8 碼英數字"
                     onChange={(event) => {
                       setNewSyncCode(
                         event.target.value
@@ -305,12 +305,12 @@ function Header() {
                     type="button"
                     onClick={() => {
                       if (!setSyncCode(newSyncCode)) {
-                        setSyncMessage("同步碼至少需要 8 個英文字母或數字");
+                        setSyncMessage("行程代號至少需要 8 個英文字母或數字");
                         return;
                       }
                       setSyncCodeDraft(newSyncCode);
                       setNewSyncCode("");
-                      setSyncMessage("已新增並套用同步碼，正在重新載入資料…");
+                      setSyncMessage("已加入行程，正在載入資料…");
                     }}
                   >
                     新增
