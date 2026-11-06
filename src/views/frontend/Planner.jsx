@@ -1395,6 +1395,7 @@ function Planner() {
 
   const activeDay = days.find((day) => day.id === activeDayId) ?? days[0];
   const items = activeDay.items;
+  const routeMapTitle = `DAY ${Math.max(days.indexOf(activeDay), 0) + 1} 路線地圖`;
   const setItems = (updater) =>
     (localEditPendingRef.current = true,
     setDays((current) =>
@@ -1850,12 +1851,12 @@ function Planner() {
           <div className="planner-card-title">
             <div>
               <span>ROUTE MAP</span>
-              <h2>日本雪旅路線</h2>
+              <h2>{routeMapTitle}</h2>
             </div>
             <strong>{plannedStops.length} 個停靠點</strong>
           </div>
           <div className="planner-map-stage has-route-map">
-            <RouteMap stops={plannedStops} />
+            <RouteMap stops={plannedStops} label={routeMapTitle} />
           </div>
           <p className="planner-map-hint">
           </p>

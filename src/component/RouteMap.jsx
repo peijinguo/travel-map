@@ -94,7 +94,7 @@ function makeStopMarker(stop, index, coordinate, offset) {
     .setPopup(new maplibregl.Popup({ offset: 40 }).setDOMContent(content));
 }
 
-function RouteMap({ stops }) {
+function RouteMap({ stops, label = "行程路線地圖" }) {
   const canvasRef = useRef(null);
   const mapRef = useRef(null);
   const markersRef = useRef([]);
@@ -194,7 +194,7 @@ function RouteMap({ stops }) {
       </div>
     );
   return (
-    <div ref={canvasRef} className="planner-route-map" aria-label="日本雪旅行程地圖" />
+    <div ref={canvasRef} className="planner-route-map" aria-label={label} />
   );
 }
 
