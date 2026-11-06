@@ -461,12 +461,29 @@ const namedPlaces = [
     types: ["lodging"],
     aliases: [
       "リブマックスリゾート函館 鹿部温泉",
-      "リブマックスリゾート函館",
       "リブマックス 鹿部温泉",
       "リブマックス鹿部",
       "鹿部ロイヤルホテル",
       "Livemax Resort Hakodate",
       "Livemax Resort Hakodate Shikabe",
+    ],
+  },
+  {
+    id: "livemax-resort-hakodate-greenpia-onuma",
+    name: "リブマックスリゾート函館 グリーンピア大沼",
+    // 免費搜尋時而找到園區、時而找到園內露營場，失敗時還會退回函館市中心；
+    // 固定使用 OSM 上的飯店主建築。
+    latitude: 42.0009,
+    longitude: 140.60208,
+    displayName: "北海道茅部郡森町赤井川229（大沼）",
+    types: ["lodging"],
+    aliases: [
+      "リブマックスリゾート函館 グリーンピア大沼",
+      "リブマックス グリーンピア大沼",
+      "グリーンピア大沼",
+      "Greenpia Onuma",
+      "Greenpia大沼",
+      "Livemax Resort Hakodate Greenpia Onuma",
     ],
   },
   {
