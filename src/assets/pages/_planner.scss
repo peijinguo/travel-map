@@ -448,7 +448,7 @@
 .planner-calendar-actions button { padding: 5px 8px; border: 0; background: transparent; color: #126bd6; font-family: inherit; font-size: 15px; font-weight: 800; cursor: pointer; }
 .planner-sheet-heading { display: flex; align-items: center; justify-content: space-between; padding: 0 3px 4px; color: #284d63; }
 .planner-sheet-heading i { color: currentColor; font-size: 20px; font-style: normal; }
-.planner-day-sheet .planner-list { margin-top: 3px; margin-bottom: 10px; }
+.planner-day-sheet .planner-list { margin-top: 1px; margin-bottom: 8px; }
 .planner-day-sheet .planner-list > li { grid-template-columns: 0 minmax(0,1fr) auto; gap: 6px; padding: 10px 8px 10px 4px; }
 .planner-day-sheet .planner-drag-handle { font-size: 19px; }
 .planner-day-sheet .planner-item-copy textarea { min-height: 52px; font-size: 19px; }
@@ -461,7 +461,7 @@
 .planner-day-preview p { max-height: 33px; margin: 0; overflow: hidden; color: #4a6573; font-size: 9px; line-height: 1.5; }
 .planner-day-preview i { font-size: 11px; font-style: normal; }
 
-.planner-list { display: grid; gap: 12px; margin: 18px -7px 18px 0; padding: 0 7px 0 0; overflow-y: auto; list-style: none; scrollbar-color: #bfd0d9 transparent; scrollbar-width: thin; }
+.planner-list { display: grid; gap: 12px; margin: 18px -7px 18px 0; padding: 2px 7px 2px 0; overflow-y: auto; list-style: none; scrollbar-color: #bfd0d9 transparent; scrollbar-width: thin; }
 .planner-list > li {
   display: grid;
   grid-template-columns: 0 minmax(0, 1fr) 60px;
