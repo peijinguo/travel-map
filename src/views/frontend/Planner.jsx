@@ -992,6 +992,24 @@ function getInitialDays() {
   }
 }
 
+// When no timetable connects two stops, give a rough figure instead of only
+// pointing at Google Maps: trains and buses average about 50 km/h on the road
+// distance, plus some 10 minutes of waiting and walking.
+function estimateTransitTime(from, to) {
+  const toRadians = (value) => (value * Math.PI) / 180;
+  const a =
+    Math.sin(toRadians(to.latitude - from.latitude) / 2) ** 2 +
+    Math.cos(toRadians(from.latitude)) *
+      Math.cos(toRadians(to.latitude)) *
+      Math.sin(toRadians(to.longitude - from.longitude) / 2) ** 2;
+  const roadDistance = Math.max(6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)) * 1.28, 1);
+  const minutes = Math.max(Math.round(((roadDistance / 50) * 60 + 10) / 5) * 5, 10);
+  const hours = Math.floor(minutes / 60);
+  return hours
+    ? `${hours} 小時${minutes % 60 ? ` ${minutes % 60} 分鐘` : ""}`
+    : `${minutes} 分鐘`;
+}
+
 function estimateRoadTrip(from, to) {
   const earthRadiusKm = 6371;
   const toRadians = (value) => (value * Math.PI) / 180;
@@ -1116,7 +1134,7 @@ function TravelSegment({ segment, from, to, note = "" }) {
   const prefersTransit = !prefersFlight && !prefersWalking && !prefersDriving && TRANSIT_NOTE_PATTERN.test(note);
   const transitLabel = segment?.transit
     ? `搭車約 ${segment.transit.duration}`
-    : "搭車時間請至 Google Maps 查看";
+    : `搭車約 ${estimateTransitTime(from, to)}（估算）`;
   const walkingLabel = segment?.walking?.duration
     ? `走路約 ${segment.walking.duration}`
     : "走路時間請至 Google Maps 查看";

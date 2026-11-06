@@ -319,11 +319,13 @@ const toRouteCoordinates = ({ latitude, longitude }) =>
   `${longitude.toFixed(5)},${latitude.toFixed(5)}`;
 
 // Timetables only cover the coming weeks, so a trip months away is estimated
-// from the next weekday at 09:00 in Japan.
-function getNextWeekdayMorning() {
+// from the next weekday in Japan. Rural lines run rarely, so a midday start is
+// tried when the 09:00 one finds nothing.
+const TRANSIT_START_HOURS_JST = [9, 13];
+function getNextWeekdayAt(hourJst) {
   const date = new Date(Date.now() + 24 * 60 * 60 * 1000);
   while ([0, 6].includes(date.getUTCDay())) date.setUTCDate(date.getUTCDate() + 1);
-  date.setUTCHours(0, 0, 0, 0);
+  date.setUTCHours(hourJst - 9, 0, 0, 0);
   return date;
 }
 
@@ -344,19 +346,22 @@ export async function requestTransitTime(from, to) {
   if (cached) return cached;
 
   return enqueueRouteRequest(async () => {
-    const parameters = new URLSearchParams({
-      fromPlace: `${from.latitude},${from.longitude}`,
-      toPlace: `${to.latitude},${to.longitude}`,
-      time: getNextWeekdayMorning().toISOString(),
-      maxPreTransitTime: String(TRANSIT_MAX_WALK_SECONDS),
-      maxPostTransitTime: String(TRANSIT_MAX_WALK_SECONDS),
-    });
-    const { itineraries = [] } = await fetchJson(`${TRANSIT_URL}?${parameters}`);
-    const seconds = itineraries.filter(isSensibleTransitTrip).map(({ duration }) => duration);
-    if (!seconds.length) return null;
-    const summary = { duration: formatDuration(Math.min(...seconds)) };
-    writeRouteCache(cacheKey, summary);
-    return summary;
+    for (const hour of TRANSIT_START_HOURS_JST) {
+      const parameters = new URLSearchParams({
+        fromPlace: `${from.latitude},${from.longitude}`,
+        toPlace: `${to.latitude},${to.longitude}`,
+        time: getNextWeekdayAt(hour).toISOString(),
+        maxPreTransitTime: String(TRANSIT_MAX_WALK_SECONDS),
+        maxPostTransitTime: String(TRANSIT_MAX_WALK_SECONDS),
+      });
+      const { itineraries = [] } = await fetchJson(`${TRANSIT_URL}?${parameters}`);
+      const seconds = itineraries.filter(isSensibleTransitTrip).map(({ duration }) => duration);
+      if (!seconds.length) continue;
+      const summary = { duration: formatDuration(Math.min(...seconds)) };
+      writeRouteCache(cacheKey, summary);
+      return summary;
+    }
+    return null;
   });
 }
 
