@@ -758,17 +758,17 @@
   width: 100%;
   margin: 2px 0 9px;
   padding: 15px 14px;
-  border: 1.5px solid #6f9aaa;
+  border: 1.5px solid transparent;
   border-radius: 11px;
-  background: #315e70;
-  color: #fff;
+  background: #2f5a8fb0;
+  color: #eceff2;
   font-family: inherit;
   font-size: 15px;
   font-weight: 900;
   white-space: nowrap;
   cursor: pointer;
 }
-.planner-save-all:hover { background: #214958; }
+.planner-save-all:hover { background: #2f5a8f; }
 .planner-bottom-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: stretch; margin: 2px 0 9px; }
 .planner-bottom-actions .planner-add,
 .planner-bottom-actions .planner-save-all { margin: 0; padding: 13px 12px; }
