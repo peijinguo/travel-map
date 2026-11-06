@@ -227,7 +227,6 @@ function Header() {
             >
               <div className="sync-code-heading">
                 <div>
-                  <small>SYNC CODE</small>
                   <h2>跨裝置同步</h2>
                 </div>
                 <button type="button" onClick={() => setIsSyncOpen(false)}>

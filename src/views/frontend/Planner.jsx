@@ -1850,7 +1850,6 @@ function Planner() {
         <div className="planner-map-card">
           <div className="planner-card-title">
             <div>
-              <span>ROUTE MAP</span>
               <h2>{routeMapTitle}</h2>
             </div>
             <strong>{plannedStops.length} 個停靠點</strong>
@@ -1865,7 +1864,6 @@ function Planner() {
         <aside className="planner-list-card">
           <div className="planner-card-title">
             <div>
-              <span>MY ITINERARY</span>
               <h2>{days.length} 天行程表</h2>
             </div>
           </div>
