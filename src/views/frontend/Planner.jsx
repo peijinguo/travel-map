@@ -828,7 +828,7 @@ function formatItineraryDate(dateString, weekdayOnly = false) {
 const toDateInputValue = (date) =>
   `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 
-function PlannerDatePicker({ value, onChange, onDelete, canDelete }) {
+function PlannerDatePicker({ value, onChange }) {
   const rootRef = useRef(null);
   const selectedDate = value ? new Date(`${value}T00:00:00`) : null;
   const [open, setOpen] = useState(false);
@@ -935,13 +935,6 @@ function PlannerDatePicker({ value, onChange, onDelete, canDelete }) {
             )}
           </div>
           <div className="planner-calendar-actions">
-            <button
-              type="button"
-              onClick={onDelete}
-              disabled={!canDelete}
-            >
-              刪除行程
-            </button>
             <button type="button" onClick={chooseToday}>
               今天
             </button>
@@ -1627,7 +1620,6 @@ function Planner() {
     setDayPendingDelete(null);
   };
 
-  const removeActiveDay = () => requestRemoveDay(activeDayId);
 
   useEffect(() => {
     if (!dayPendingDelete) return undefined;
@@ -2040,8 +2032,6 @@ function Planner() {
                         <PlannerDatePicker
                           value={day.date}
                           onChange={(date) => updateDay(day.id, { date })}
-                          onDelete={removeActiveDay}
-                          canDelete={days.length > 1}
                         />
                         {day.date && (
                           <em>{formatItineraryDate(day.date, true)}</em>
