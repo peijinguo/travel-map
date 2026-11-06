@@ -238,7 +238,19 @@ function Hotel() {
                     <span aria-hidden="true">↗</span>
                   </a>
                 ) : (
-                  <small>尚未取得官方網站</small>
+                  <a
+                    className="hotel-website-link"
+                    href={`https://www.google.com/search?q=${encodeURIComponent(`${lodging.name} 官方網站`)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="搜尋官方網站"
+                    data-tooltip="搜尋官方網站"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <circle cx="10.5" cy="10.5" r="6" />
+                      <path d="m15 15 5 5" />
+                    </svg>
+                  </a>
                 )}
               </div>
             </li>
