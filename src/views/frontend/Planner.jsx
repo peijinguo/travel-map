@@ -1846,7 +1846,12 @@ function Planner() {
         <div className="planner-map-card">
           <div className="planner-card-title">
             <div>
-              <h2>{routeMapTitle}</h2>
+              <h2>
+                <em className="planner-title-day">
+                  DAY {Math.max(days.indexOf(activeDay), 0) + 1}
+                </em>{" "}
+                路線地圖
+              </h2>
             </div>
             <strong>{plannedStops.length} 個停靠點</strong>
           </div>

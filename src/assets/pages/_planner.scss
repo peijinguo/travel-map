@@ -51,7 +51,8 @@
 }
 .planner-map-card { position: relative; display: flex; min-height: 690px; flex-direction: column; overflow: visible; border: 2px solid #34434a; border-radius: 19px 28px 21px 25px; background: repeating-linear-gradient(0deg, rgba(52,67,74,.025) 0 1px, transparent 1px 7px), #fff; box-shadow: 3px 4px 0 rgba(52,67,74,.09), 8px 10px 0 rgba(52,67,74,.045); transform: none; }
 .planner-map-card::before { content: ""; position: absolute; inset: 5px 9px; z-index: 0; pointer-events: none; border: 1px dashed rgba(52,67,74,.48); border-radius: 23px 18px 26px 20px; transform: rotate(.13deg); }
-.planner-map-card::after { content: ""; position: absolute; top: 88px; left: 25px; width: 92px; height: 7px; pointer-events: none; border-top: 3px solid #8b5a3c; border-radius: 50%; transform: rotate(-2deg); opacity: .72; }
+.planner-title-day { position: relative; display: inline-block; font-style: normal; }
+.planner-title-day::after { content: ""; position: absolute; top: calc(100% + 2px); left: -2px; right: -4px; height: 7px; pointer-events: none; border-top: 3px solid #8b5a3c; border-radius: 50%; transform: rotate(-2deg); opacity: .72; }
 .planner-list-card {
   position: relative;
   min-height: 690px;
