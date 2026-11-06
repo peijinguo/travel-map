@@ -2,6 +2,15 @@ import { useCallback, useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import "../../assets/pages/_hotel.scss";
 
+// Itinerary versions are labelled A, B, C… by position; older saved data
+// still says "版本 1", "版本 2", so convert those on read.
+const versionLabel = (index) => String.fromCharCode(65 + index);
+const normalizeVersionLabel = (label) => {
+  const legacy = /^版本\s*(\d+)$/u.exec(label ?? "");
+  if (legacy) return versionLabel(Number(legacy[1]) - 1);
+  return label || versionLabel(0);
+};
+
 const LODGING_STORAGE_KEY = "yuki-tabi-lodgings-v1";
 const PLANNER_STORAGE_KEY = "yuki-tabi-planner-days-v2";
 const NON_LODGING_NAME_PATTERN = /滑雪場|滑雪场|スキー場|ski\s*(?:area|resort)/iu;
@@ -34,14 +43,15 @@ function loadLodgings() {
     const lodgingItems = Array.isArray(plannerDays)
       ? plannerDays.flatMap((day, dayIndex) => {
           const versions = Array.isArray(day.versions) && day.versions.length
-            ? day.versions.map((version) => ({
+            ? day.versions.map((version, index) => ({
                 ...version,
+                label: versionLabel(index),
                 items:
                   version.id === day.activeVersionId
                     ? day.items
                     : version.items,
               }))
-            : [{ id: "version-1", label: "版本 1", items: day.items ?? [] }];
+            : [{ id: "version-1", label: versionLabel(0), items: day.items ?? [] }];
           return versions.flatMap((version) =>
             (version.items ?? [])
               .filter(
@@ -109,16 +119,16 @@ function Hotel() {
   const [searchParams] = useSearchParams();
   const selectedLodgingId = searchParams.get("lodging");
   const availableVersions = [
-    ...new Set(lodgings.map((lodging) => lodging.stayVersionLabel ?? "版本 1")),
+    ...new Set(lodgings.map((lodging) => normalizeVersionLabel(lodging.stayVersionLabel))),
   ].sort((first, second) =>
     first.localeCompare(second, "zh-Hant", { numeric: true }),
   );
   const requestedVersion = searchParams.get("version");
   const selectedVersion = availableVersions.includes(requestedVersion)
     ? requestedVersion
-    : availableVersions[0] ?? "版本 1";
+    : availableVersions[0] ?? versionLabel(0);
   const versionLodgings = lodgings.filter(
-    (lodging) => (lodging.stayVersionLabel ?? "版本 1") === selectedVersion,
+    (lodging) => normalizeVersionLabel(lodging.stayVersionLabel) === selectedVersion,
   );
   const [selectedLodgingElement, setSelectedLodgingElement] = useState(null);
   const refreshLodgings = useCallback(() => setLodgings(loadLodgings()), []);
@@ -135,7 +145,7 @@ function Hotel() {
       key: `${lodging.stayDayId}:${lodging.stayVersionId ?? "version-1"}`,
       dayId: lodging.stayDayId,
       versionId: lodging.stayVersionId ?? "version-1",
-      label: lodging.stayVersionLabel ?? "版本 1",
+      label: normalizeVersionLabel(lodging.stayVersionLabel),
     });
     group.stayEntries.push({
       key: `${lodging.stayDate}:${lodging.stayDayId}:${lodging.stayVersionId ?? "version-1"}`,
@@ -224,7 +234,7 @@ function Hotel() {
         </ul>
       ) : (
         <div className="hotel-empty">
-          {selectedVersion} 尚未有住宿資料。請先在該版本輸入並定位住宿。
+          版本 {selectedVersion} 尚未有住宿資料。請先在該版本輸入並定位住宿。
         </div>
       )}
     </section>
