@@ -911,7 +911,12 @@ function PlannerDatePicker({ value, onChange }) {
           setOpen((current) => !current);
         }}
       >
-        <span>{value ? value.replaceAll("-", "/") : "選擇日期"}</span>
+        <span>
+          {value ? value.replaceAll("-", "/") : "選擇日期"}
+          {value && (
+            <span className="planner-calendar-weekday">({formatItineraryDate(value, true)})</span>
+          )}
+        </span>
         <span className="planner-calendar-icon" aria-hidden="true" />
       </button>
       {open && (
@@ -2332,9 +2337,6 @@ function Planner() {
                           value={day.date}
                           onChange={(date) => updateDay(day.id, { date })}
                         />
-                        {day.date && (
-                          <em>{formatItineraryDate(day.date, true)}</em>
-                        )}
                       </div>
                     ) : (
                       <b>{formatItineraryDate(day.date)}</b>

@@ -433,6 +433,8 @@
 .planner-calendar { position: relative; width: min(330px, 100%); min-width: 0; }
 .planner-calendar-trigger { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 9px 11px; border: 1.7px solid currentColor; border-radius: 7px 9px 6px 8px; background: rgba(255,255,255,.84); color: #284d63; font-family: inherit; font-size: 17px; font-weight: 800; cursor: pointer; }
 .planner-calendar-trigger > span:first-child { font-size: 17px; font-weight: 800; }
+// The weekday follows the date inside the box, in the same type as the digits.
+.planner-calendar-trigger .planner-calendar-weekday { margin-left: .6em; font: inherit; }
 .planner-calendar-icon { position: relative; width: 18px; height: 17px; flex: 0 0 18px; border: 2px solid #17252c; border-radius: 3px; }
 .planner-calendar-icon::before { content: ""; position: absolute; top: 3px; right: -2px; left: -2px; border-top: 2px solid #17252c; }
 .planner-calendar-icon::after { content: ""; position: absolute; top: -5px; left: 3px; width: 8px; height: 5px; border-right: 2px solid #17252c; border-left: 2px solid #17252c; }
@@ -853,9 +855,6 @@
   .planner-day-sheet.is-active { width: 100%; min-width: 0; flex-basis: calc(100% - 96px); box-sizing: border-box; }
   .planner-date-input { grid-template-columns: minmax(0, 1fr); }
   .planner-date-input em { justify-self: start; }
-  // Beside the delete button the date and weekday still fit on one row.
-  .planner-day-sheet.is-active .planner-date-input { grid-template-columns: minmax(0, 1fr) auto; }
-  .planner-day-sheet.is-active .planner-date-input em { justify-self: end; }
   .planner-calendar { width: 100%; }
   .planner-calendar-popover { padding: clamp(10px, 3.5vw, 14px); }
   .planner-calendar-weekdays,
