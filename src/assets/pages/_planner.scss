@@ -1067,6 +1067,8 @@ img.planner-walking-icon { display: block; width: 34px; height: 34px; max-width:
 .planner-menu-photos:hover { text-decoration: underline; }
 .planner-confirm-actions .is-primary { border-color: #2f5a8f; background: #2f5a8f; color: #fff; }
 .planner-confirm-actions .is-primary:hover { border-color: #214958; background: #214958; }
+.planner-menu-dialog .planner-confirm-actions .is-primary { border-color: #6c7675; background: #6c7675; box-shadow: 0 3px 0 rgba(18,54,83,.18); }
+.planner-menu-dialog .planner-confirm-actions .is-primary:hover { border-color: #56605f; background: #56605f; }
 .planner-menu-link { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; margin: 14px 0 12px; }
 .planner-menu-heading { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .planner-menu-store-icon { flex: 0 0 auto; width: 44px; height: 44px; display: grid; place-items: center; border: 1.5px solid #c9d6dc; border-radius: 9px 11px 8px 10px; background: #fff; }
