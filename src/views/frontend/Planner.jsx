@@ -1222,9 +1222,75 @@ const makeMenuEntry = (name = "", price = "", original = "") => ({
   price,
 });
 
+// Some shops print tax-included prices to the sen, e.g. ハセガワストア's ¥619.92.
 const formatMenuPrice = (price) => {
-  const digits = String(price ?? "").replace(/[^\d]/g, "");
-  return digits ? `¥${Number(digits).toLocaleString("ja-JP")}` : "";
+  const digits = String(price ?? "").replace(/[^\d.]/g, "");
+  const value = Number(digits);
+  return digits && Number.isFinite(value)
+    ? `¥${value.toLocaleString("ja-JP", {
+        minimumFractionDigits: Number.isInteger(value) ? 0 : 2,
+        maximumFractionDigits: 2,
+      })}`
+    : "";
+};
+
+// Menus read from photos of the shop's own menu board, shown for any stop at
+// that shop until the traveller saves a menu of their own.
+const makePresetMenu = (prefix, rows) =>
+  rows.map(([name, original, price], index) => ({
+    id: `${prefix}-${index + 1}`,
+    name,
+    original,
+    price,
+  }));
+
+const PRESET_MENUS = [
+  {
+    pattern: /サク男ともち子|saku\s*o\s*to\s*mochiko/iu,
+    menu: makePresetMenu("sakuo-mochiko", [
+      ["逞強焦糖可麗餅（人氣 No.1）", "強がり焦がし", "980"],
+      ["腮紅草莓可麗餅（人氣 No.2）", "頬紅いちご", "1080"],
+      ["午後生起司可麗餅（人氣 No.3）", "午後のレアチーズ", "980"],
+      ["初戀香蕉可麗餅（人氣 No.4）", "初恋バナナ", "880"],
+    ]),
+  },
+  {
+    // Prices include tax, as listed on the store's menu dated 2025-04-21.
+    pattern: /ハセガワストア|hasegawa\s*store|長谷川商店|长谷川商店/iu,
+    menu: makePresetMenu("hasegawa-store", [
+      ["烤雞肉串便當（小）", "やきとり弁当（小）", "619.92"],
+      ["烤雞肉串便當（中）", "やきとり弁当（中）", "740.88"],
+      ["烤雞肉串便當（大）", "やきとり弁当（大）", "851.04"],
+      ["烤雞肉串便當（迷你）", "やきとり弁当ミニ", "500.04"],
+      ["烤雞肉串便當・蔬菜綜合", "やきとり弁当 野菜ミックス", "610.20"],
+      ["烤雞肉串便當・綜合口味", "やきとり弁当 バラエティ", "740.88"],
+      ["烤雞肉串便當 W（醬汁豬肉＋鹽味豬五花）", "やきとり弁当W", "730.08"],
+      ["雞肉丸便當", "つくね弁当", "610.20"],
+      ["烤便當棒（1 支）", "やき弁棒", "180.36"],
+      ["加點：起司醬", "チーズソース", "60.48"],
+      ["加點：溫泉蛋", "温泉玉子", "51.84"],
+      ["豬舌串", "豚タン", "140.40"],
+      ["豬心串", "豚ハツ", "140.40"],
+      ["豬肝串", "豚レバー", "140.40"],
+      ["豬肉串", "豚精肉", "140.40"],
+      ["豬五花串", "豚カルビ", "140.40"],
+      ["起司豬肉串", "豚チーズ", "180.36"],
+      ["雞肉串", "とり肉", "140.40"],
+      ["雞皮串", "とり皮", "140.40"],
+      ["合鴨肉丸串", "合鴨つくね", "140.40"],
+      ["雞軟骨串", "とり軟骨", "150.12"],
+      ["雞胗串", "とり砂肝", "150.12"],
+      ["雞屁股串", "ぽんぽち", "140.40"],
+      ["蒜味雞腿肉串", "ニンニクとりもも串", "140.40"],
+      ["雞脖子肉串", "せせり串", "140.40"],
+      ["蔬菜串", "野菜串", "180.36"],
+    ]),
+  },
+];
+
+const findPresetMenu = (text = "") => {
+  const headline = String(text).split(/\r?\n/)[0];
+  return PRESET_MENUS.find(({ pattern }) => pattern.test(headline))?.menu;
 };
 
 // Google Maps opens a place on its 菜單 tab only when the URL carries the
@@ -1684,7 +1750,10 @@ function Planner() {
   const [dayPendingDelete, setDayPendingDelete] = useState(null);
   const [menuItemId, setMenuItemId] = useState(null);
   const [cloudMenus, setCloudMenus] = useState({});
-  const getItemMenu = (item) => cloudMenus[item.id] ?? item.menu;
+  const getItemMenu = (item) => {
+    const saved = cloudMenus[item.id] ?? item.menu;
+    return saved?.length ? saved : findPresetMenu(item.text) ?? saved;
+  };
   const initialCloudDataRef = useRef({ days, activeDayId });
   const lastCloudKeyRef = useRef(null);
   const localEditPendingRef = useRef(false);

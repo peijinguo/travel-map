@@ -692,7 +692,7 @@
 .motif-familymart .brand-card, .motif-seveneleven .brand-card { fill: #fff; stroke: #d8e1e4; stroke-width: 1.5; }
 .motif-familymart .familymart-blue { fill: #0078bf; stroke: none; }
 .motif-familymart .familymart-green { fill: #00a26a; stroke: none; }
-.planner-item-category-icon.is-store { width: 40px; flex-basis: 40px; }
+.planner-item-category-icon.is-store { position: relative; top: -10px; width: 40px; flex-basis: 40px; }
 .planner-item-category-icon.is-store .hand-motif { width: 40px; height: 40px; }
 .motif-familymart .familymart-word { fill: #2f6871; stroke: none; font-family: Arial, sans-serif; font-size: 11px; font-weight: 900; letter-spacing: -.7px; }
 .motif-seveneleven .seveneleven-orange { fill: #ee6a36; stroke: none; }
@@ -903,7 +903,7 @@
   .planner-item-category-icon.is-lamb .hand-motif { width: 27px; height: 27px; }
   .planner-item-category-icon.is-chairlift { width: 27px; flex-basis: 27px; }
   .planner-item-category-icon.is-chairlift .hand-motif { width: 27px; height: 27px; }
-  .planner-item-category-icon.is-store { width: 34px; flex-basis: 34px; }
+  .planner-item-category-icon.is-store { top: -8px; width: 34px; flex-basis: 34px; }
   .planner-item-category-icon.is-store .hand-motif { width: 34px; height: 34px; }
   .planner-item-meta > .planner-meta-actions-group,
   .planner-item-meta > .planner-icon-locate {
