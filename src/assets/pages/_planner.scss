@@ -1090,9 +1090,3 @@
 .planner-backup-actions button { padding: 6px 12px; border: 1.5px solid #9eb5c3; border-radius: 999px; background: #fff; color: #123653; font: inherit; font-size: 13px; font-weight: 800; cursor: pointer; }
 .planner-backup-actions button:hover { background: #f2f6f8; }
 .planner-backup-actions .is-danger { border-color: #d9574f; background: #d9574f; color: #fff; }
-
-// Airport stops: a side-view plane with a blue tail and engine.
-.motif-airport .plane-body, .motif-airport .plane-wing { fill: #fff; stroke: #1f2a33; stroke-width: 1.8; stroke-linejoin: round; }
-.motif-airport .plane-tail, .motif-airport .plane-engine { fill: #4f86c6; stroke: #1f2a33; stroke-width: 1.8; stroke-linejoin: round; }
-.motif-airport .plane-cockpit { fill: #1f2a33; stroke: none; }
-.motif-airport .plane-windows { fill: none; stroke: #6f8590; stroke-width: 1.6; stroke-linecap: round; }

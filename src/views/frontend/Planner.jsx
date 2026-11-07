@@ -101,7 +101,11 @@ const getItineraryMotif = (location, itineraryText = "") => {
   if (isLodgingLocation(location)) return "resort";
   // Only the stop's own name, so a note like 「之後去機場」 does not count.
   if (location?.types?.some((type) => type === "airport" || type === "aerodrome") ||
-    /機場|机场|空港|airport/iu.test(headlineOf(noteText, placeName))) return "airport";
+    (/機場|机场|空港|airport/iu.test(headlineOf(noteText, placeName)) &&
+      // Gas stations, car rentals and shops named after the airport are not the airport.
+      !/(?:^|[^a-z])SS(?:[^a-z]|$)|ENEOS|ガソリン|gas\s*station|加油站|レンタカー|rent[\s-]*a?[\s-]*car|car\s*rental|租車|営業所|營業所|ホテル|hotel/iu.test(
+        headlineOf(noteText, placeName),
+      ))) return "airport";
   const placeCuisine = String(location?.cuisine ?? "");
   const placeText = `${noteText} ${placeName}`;
   if (/family\s*mart|ファミリーマート|ファミマ/iu.test(placeText)) return "familymart";
@@ -2739,7 +2743,7 @@ function Planner() {
                                   <b>
                                     {itemMotif && (
                                       <span
-                                        className={`planner-item-category-icon ${["chairlift", "curry"].includes(itemMotif) ? "is-wide" : ""}`}
+                                        className={`planner-item-category-icon ${["chairlift", "curry", "airport"].includes(itemMotif) ? "is-wide" : ""}`}
                                         title={getItineraryMotifLabel(itemMotif)}
                                       >
                                         <HandDrawnMotif type={itemMotif} />
