@@ -6,7 +6,9 @@ import RouteMap from "../../component/RouteMap";
 import { useAuth } from "../../context/AuthContext";
 import {
   loadPlannerCloud,
+  saveMenuCloud,
   savePlannerCloud,
+  subscribeMenusCloud,
   subscribePlannerCloud,
 } from "../../services/firebase";
 import {
@@ -1624,6 +1626,8 @@ function Planner() {
   const [plannerSaveStatus, setPlannerSaveStatus] = useState("");
   const [dayPendingDelete, setDayPendingDelete] = useState(null);
   const [menuItemId, setMenuItemId] = useState(null);
+  const [cloudMenus, setCloudMenus] = useState({});
+  const getItemMenu = (item) => cloudMenus[item.id] ?? item.menu;
   const initialCloudDataRef = useRef({ days, activeDayId });
   const lastCloudKeyRef = useRef(null);
   const localEditPendingRef = useRef(false);
@@ -2213,13 +2217,30 @@ function Planner() {
   const addItem = (text = "") =>
     setItems((current) => [...current, makeItem(text)]);
 
-  const saveItemMenu = (itemId, patch) => {
+  const saveItemMenu = (itemId, menu) => {
     setItems((current) =>
-      current.map((item) => (item.id === itemId ? { ...item, ...patch } : item)),
+      current.map((item) => (item.id === itemId ? { ...item, menu } : item)),
     );
+    setCloudMenus((current) => ({ ...current, [itemId]: menu }));
     setPlannerSaveStatus(cloudKey ? "菜單已儲存，正在同步…" : "菜單已儲存在此裝置");
     setSaveRequest((request) => request + 1);
+    if (cloudKey) {
+      saveMenuCloud(cloudKey, itemId, menu).catch((error) => {
+        console.error("無法同步菜單", error);
+        setPlannerSaveStatus("菜單已儲存在此裝置，雲端同步失敗");
+      });
+    }
   };
+
+  useEffect(() => {
+    setCloudMenus({});
+    if (!cloudKey) return undefined;
+    return subscribeMenusCloud(
+      cloudKey,
+      (menus) => setCloudMenus(menus),
+      (error) => console.error("無法即時接收菜單", error),
+    );
+  }, [cloudKey]);
 
   const moveItem = (id, direction) =>
     setItems((current) => {
@@ -2494,9 +2515,10 @@ function Planner() {
                                             <span className="planner-locate-icon" aria-hidden="true">⌖</span>
                                           )}
                                         </button>
-                                        {isFoodLocation(resolvedLocation) && itemMotif !== "chairlift" && (
+                                        {((isFoodLocation(resolvedLocation) && itemMotif !== "chairlift") ||
+                                          getItemMenu(item)?.length > 0) && (
                                           <button
-                                            className={`planner-locate planner-menu-btn ${item.menu?.length ? "has-menu" : ""}`}
+                                            className={`planner-locate planner-menu-btn ${getItemMenu(item)?.length ? "has-menu" : ""}`}
                                             type="button"
                                             aria-label="菜單"
                                             data-tooltip="菜單"
@@ -2630,9 +2652,9 @@ function Planner() {
             title={title}
             motif={getItineraryMotif(menuLocation, menuText)}
             mapsQuery={[menuLocation?.name ?? title, menuLocation?.displayName].filter(Boolean).join(" ")}
-            initialMenu={menuItem.menu}
+            initialMenu={getItemMenu(menuItem)}
             placeId={menuItem.googlePlaceId ?? findGooglePlaceId(menuText)}
-            onSave={(menu) => saveItemMenu(menuItem.id, { menu })}
+            onSave={(menu) => saveItemMenu(menuItem.id, menu)}
             onClose={() => setMenuItemId(null)}
           />
         );

@@ -89,6 +89,33 @@ export function subscribePlannerCloud(syncSpaceId, onData, onError) {
   );
 }
 
+// Store menus live in their own document, keyed by itinerary item id, so a
+// menu saved on one device reaches everyone in the space at once and a stale
+// itinerary save elsewhere can never overwrite it.
+const menusDoc = (syncSpaceId) =>
+  doc(db, "syncSpaces", syncSpaceId, "appData", "menus");
+
+export async function saveMenuCloud(syncSpaceId, itemId, menu) {
+  if (!db) return;
+  await setDoc(
+    menusDoc(syncSpaceId),
+    {
+      items: { [itemId]: JSON.parse(JSON.stringify(menu ?? [])) },
+      updatedAt: serverTimestamp(),
+    },
+    { merge: true },
+  );
+}
+
+export function subscribeMenusCloud(syncSpaceId, onData, onError) {
+  if (!db) return () => {};
+  return onSnapshot(
+    menusDoc(syncSpaceId),
+    (snapshot) => onData(snapshot.exists() ? snapshot.data().items ?? {} : {}),
+    onError,
+  );
+}
+
 export async function loadResortNoteCloud(syncSpaceId, noteId) {
   if (!db) return null;
   const snapshot = await withSyncTimeout(
