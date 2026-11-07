@@ -1501,6 +1501,8 @@ function TravelSegment({ segment, from, to, note = "" }) {
                 {!prefersFlight && !prefersWalking && !prefersTransit && <small>{estimate.distance}</small>}
               </div>
             </section>
+            {/* A flight only needs its flying time; road links don't apply. */}
+            {!prefersFlight && (
             <div className="planner-route-links">
               {!prefersTransit && (
                 <a href={drivingUrl} target="_blank" rel="noreferrer">開車路線 ↗</a>
@@ -1517,6 +1519,7 @@ function TravelSegment({ segment, from, to, note = "" }) {
                 即時路況 ↗
               </a>
             </div>
+            )}
           </div>
         )}
         {segment?.status === "ready" && (
