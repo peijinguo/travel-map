@@ -3,6 +3,7 @@
 import tempuraShrimpIcon from "../assets/tempura-shrimp-icon-v2.png?inline";
 import resortSignIcon from "../assets/resort-sign-icon.png?inline";
 import gondolaSkiIcon from "../assets/gondola-ski-icon.png?inline";
+import curryPlateIcon from "../assets/curry-plate-icon.png?inline";
 
 const motifColors = {
   mountain: "#78aeca", yotei: "#78aeca", lantern: "#e87543", clock: "#d9a24f", tvTower: "#d95743", apple: "#9ac65c", cherry: "#c54f72",
@@ -17,7 +18,6 @@ const motifs = {
   ramen: <><path className="ramen-bowl" d="M5 26h38c-1 12-8 19-19 19S6 38 5 26z"/><path className="ramen-rim" d="M4 26c6-7 34-7 40 0-6 6-34 6-40 0z"/><path className="ramen-noodles" d="M13 25c0-5 4-5 4-10s-3-5-1-9M18 26c0-5 4-5 4-10s-3-5-1-9M23 26c0-5 4-5 4-10s-3-5-1-9M28 26c0-5 4-5 4-10s-3-5-1-9"/><path className="ramen-pork" d="M30 22c4-5 10-3 11 1 1 4-4 7-9 6-5-1-5-4-2-7z"/><path className="ramen-scallion" d="m10 22 3-3m0 6 4-4m1 5 3-3m-9-4 2 2m4-3 2 2"/><path className="ramen-chili" d="M24 25c2-3 5-3 7 0-1 3-5 4-7 0z"/><path className="ramen-chopsticks" d="m8 6 32 11M10 2l32 11"/></>,
   sushi: <><path className="sushi-rice" d="M7 24c0-7 6-12 14-12h9c8 0 13 5 13 12v10c0 6-5 10-12 10H19C12 44 7 40 7 34z"/><path className="sushi-fish" d="M9 20C12 9 21 4 31 5c8 0 13 5 16 14-12 4-27 5-38 1z"/><path className="sushi-detail" d="M15 13c7 3 17 4 26 1M25 5c2 3 7 5 12 5"/><path className="sushi-nori" d="M20 21h9v23h-9z"/></>,
   tempura: <><path className="tempura-plate" d="M4 35c6 5 34 5 40 0v5c-7 7-33 7-40 0z"/><path className="tempura-paper" d="m9 33 8-10 22 3-7 12z"/><path className="tempura-shrimp" d="M13 33c-3-7 1-17 9-20 6-2 12 1 13 6 1 4-2 7-6 7-4-1-7 2-6 5 1 3 5 4 8 3-4 5-12 5-18-1z"/><path className="tempura-tail" d="m17 16-3-8 6 5 2-7 4 8"/><path className="tempura-batter" d="M17 21c3-3 9-4 13-1M15 27c3-2 6-2 9 0M26 32c2 1 4 1 6 0"/></>,
-  curry: <><path className="curry-rice" d="M4 27C7 12 17 4 25 4s18 8 21 23z"/><path className="curry-sauce" d="M4 27c7-9 15-12 24-8 9 4 14 3 18-2v17c-12 7-30 7-42 0z"/><path className="curry-plate" d="M3 34c9 6 34 6 44 0-2 7-10 10-22 10S5 41 3 34z"/><circle className="curry-pea" cx="19" cy="26" r="2.5"/></>,
   dango: <><path className="dango-stick" d="M13 44 36 4M17 45 40 6"/><circle className="dango-red" cx="34" cy="10" r="7"/><circle className="dango-white" cx="27" cy="23" r="7"/><circle className="dango-green" cx="20" cy="36" r="7"/></>,
   parfait: <><path className="parfait-glass" d="M10 18h28l-6 22H16zM18 40v5m12-5v5M13 45h22"/><path className="parfait-cream" d="M12 18c-1-6 4-10 9-9 1-6 9-8 13-3 6 0 9 6 6 12z"/><circle className="parfait-fruit" cx="25" cy="5" r="4"/><path className="parfait-leaf" d="M25 2c2-4 6-4 8-2-2 3-5 4-8 2z"/><path className="parfait-layer" d="M14 25h20M16 32h16"/></>,
   numanoyaDango: <><g transform="rotate(-24 24 26)"><path className="numanoya-stick" d="M1.5 27.5h45"/><circle className="numanoya-mochi" cx="12" cy="26" r="6.2"/><circle className="numanoya-mochi" cx="20" cy="26.4" r="6.2"/><circle className="numanoya-mochi" cx="28" cy="26" r="6.2"/><circle className="numanoya-mochi" cx="36" cy="26.4" r="6.2"/><path className="numanoya-anko" d="M6.5 25c-1-5 2.5-8.5 8-8.8 6-.4 13-.3 19-.1 5 .2 8.5 3.5 8.2 8.4-.1 1.6-1 2.5-2.2 1.6-1.3-1-2.4 2-4 1.4-1.6-.6-1.8-2.6-3.6-1.6-1.6 1-2.6 3-4.4 2-1.8-1-2.2-2.8-4-1.8-1.6.9-2.4 2.6-4.2 1.6-1.6-.9-2-2.2-3.6-1.4-1.4.7-2.8 1.2-3.4-.2z"/><path className="numanoya-shine" d="M12 19.8c5-1 11-1.1 17-.7M33 19.6c1.6.3 3 1 3.8 2"/></g></>,
@@ -70,7 +70,7 @@ const motifs = {
   hakuba: <><path className="hakuba-mountain" d="M2 38 11 22l6 6L26 7l8 18 5-8 7 21z"/><path className="hakuba-snow" d="m7 30 4-8 6 6 9-21 8 18 5-8 3 9-8 6-8-12-7 13-6-6z"/><path className="hakuba-ground" d="M3 39c12-2 28 2 42-1"/></>,
 };
 
-const imageMotifs = { tempura: tempuraShrimpIcon, resort: resortSignIcon, chairlift: gondolaSkiIcon };
+const imageMotifs = { tempura: tempuraShrimpIcon, resort: resortSignIcon, chairlift: gondolaSkiIcon, curry: curryPlateIcon };
 
 function HandDrawnMotif({ type, className = "" }) {
   if (imageMotifs[type]) {
