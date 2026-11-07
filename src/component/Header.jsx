@@ -265,7 +265,7 @@ function Header() {
                   </div>
                 </div>
                 <label htmlFor="new-sync-code">新增行程</label>
-                <div className="sync-code-input-row">
+                <div className="sync-code-input-row sync-code-add-row">
                   <input
                     id="new-sync-code"
                     value={newSyncCode}

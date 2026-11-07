@@ -150,6 +150,9 @@
 .sync-code-panel form, .sync-code-form { display: grid; gap: 9px; }
 .sync-code-panel label { font: 800 16px/1.2 monospace; }
 .sync-code-input-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+// The trip picker row keeps an empty second column plus its gap, so the add
+// row gives up the same 8px to end flush with the picker above it.
+.sync-code-add-row { margin-right: 8px; }
 .sync-code-input-row input {
   min-width: 0;
   padding: 10px 12px;
