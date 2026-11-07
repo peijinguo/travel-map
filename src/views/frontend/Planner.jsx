@@ -1196,34 +1196,13 @@ function PlannerMenuDialog({
   initialMenu,
   placeId,
   onSave,
-  onSavePlaceId,
   onClose,
 }) {
   const [entries, setEntries] = useState(() =>
     initialMenu?.length ? initialMenu : [makeMenuEntry()],
   );
   const [isEditing, setIsEditing] = useState(!initialMenu?.length);
-  const [isLinkFormOpen, setIsLinkFormOpen] = useState(!placeId);
-  const [linkDraft, setLinkDraft] = useState("");
-  const [linkError, setLinkError] = useState("");
   const listRef = useRef(null);
-
-  const applyLink = (link = linkDraft) => {
-    const nextPlaceId = findGooglePlaceId(link);
-    if (!nextPlaceId) {
-      if (!link.trim()) return;
-      setLinkError(
-        /goo\.gl|app\.goo/i.test(link)
-          ? "短網址讀不到店家資料，請在電腦瀏覽器打開這家店，複製網址列的完整網址。"
-          : "找不到店家資料，請貼上 Google Maps 這家店頁面的完整網址。",
-      );
-      return;
-    }
-    onSavePlaceId(nextPlaceId);
-    setLinkDraft("");
-    setLinkError("");
-    setIsLinkFormOpen(false);
-  };
 
   useEffect(() => {
     const closeOnEscape = (event) => {
@@ -1280,10 +1259,7 @@ function PlannerMenuDialog({
                 <HandDrawnMotif type={motif} />
               </span>
             )}
-            <div>
-              <h2 id="planner-menu-title">{title}</h2>
-              <p>菜單（日文原名＋中文翻譯）</p>
-            </div>
+            <h2 id="planner-menu-title">{title}</h2>
           </div>
           <button type="button" className="planner-menu-close" aria-label="關閉菜單" onClick={onClose}>
             ×
@@ -1372,36 +1348,7 @@ function PlannerMenuDialog({
           <a className="planner-menu-photos" href={mapsUrl} target="_blank" rel="noreferrer">
             {placeId ? "在 Google Maps 看菜單 ↗" : "在 Google Maps 找這家店 ↗"}
           </a>
-          {placeId && !isLinkFormOpen && (
-            <button type="button" onClick={() => setIsLinkFormOpen(true)}>
-              更換店家連結
-            </button>
-          )}
         </div>
-        {isLinkFormOpen && (
-          <div className="planner-menu-link-form">
-            <label htmlFor="planner-menu-link-input">
-              貼上這家店的 Google Maps 網址，之後就能直接開到菜單
-            </label>
-            <input
-              id="planner-menu-link-input"
-              value={linkDraft}
-              placeholder="https://www.google.com/maps/place/…"
-              onChange={(event) => {
-                const link = event.target.value;
-                setLinkDraft(link);
-                setLinkError("");
-                // 貼上完整網址就直接套用，不用再按按鈕。
-                if (findGooglePlaceId(link)) applyLink(link);
-              }}
-              onBlur={() => applyLink()}
-              onKeyDown={(event) => {
-                if (event.key === "Enter") applyLink();
-              }}
-            />
-            {linkError && <small role="alert">{linkError}</small>}
-          </div>
-        )}
         <div className="planner-confirm-actions">
           {isEditing ? (
             <>
@@ -2632,9 +2579,6 @@ function Planner() {
             initialMenu={menuItem.menu}
             placeId={menuItem.googlePlaceId ?? findGooglePlaceId(menuText)}
             onSave={(menu) => saveItemMenu(menuItem.id, { menu })}
-            onSavePlaceId={(googlePlaceId) =>
-              saveItemMenu(menuItem.id, { googlePlaceId })
-            }
             onClose={() => setMenuItemId(null)}
           />
         );

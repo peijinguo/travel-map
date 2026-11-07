@@ -1050,15 +1050,9 @@
 .planner-confirm-actions .is-primary { border-color: #2f5a8f; background: #2f5a8f; color: #fff; }
 .planner-confirm-actions .is-primary:hover { border-color: #214958; background: #214958; }
 .planner-menu-link { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; margin: 14px 0 12px; }
-.planner-menu-link button { padding: 0; border: 0; background: transparent; color: #6b8290; font: inherit; font-size: 13px; font-weight: 700; text-decoration: underline; cursor: pointer; }
-.planner-menu-link-form { display: grid; gap: 6px; margin: 0 0 16px; }
-.planner-menu-link-form label { color: #5d7585; font-size: 13px; font-weight: 700; }
-.planner-menu-link-form input { box-sizing: border-box; min-width: 0; padding: 8px 10px; border: 1.5px solid #9eb5c3; border-radius: 7px 9px 6px 8px; background: #fff; color: #123653; font: inherit; font-size: 14px; }
-.planner-menu-link-form small { color: #c0463e; font-size: 13px; line-height: 1.5; }
 .planner-menu-heading { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .planner-menu-store-icon { flex: 0 0 auto; width: 44px; height: 44px; display: grid; place-items: center; border: 1.5px solid #c9d6dc; border-radius: 9px 11px 8px 10px; background: #fff; }
 .planner-menu-store-icon svg { width: 34px; height: 34px; }
-.planner-menu-heading p { margin: 2px 0 0; color: #8b5a3c; font-size: 13px; font-weight: 800; }
 .planner-menu-list li { display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 9px 0; border-bottom: 1px dashed #d4dee3; }
 .planner-menu-dish-icon svg { display: block; width: 24px; height: 24px; fill: none; stroke: #4b565d; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .planner-menu-list strong { display: block; color: #123653; font-size: 16px; font-weight: 800; line-height: 1.35; }
