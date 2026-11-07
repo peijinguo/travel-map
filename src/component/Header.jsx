@@ -215,7 +215,7 @@ function Header() {
               aria-label="雪旅行程"
             >
               <div className="sync-code-heading">
-                <p>選擇要查看的行程；在其他裝置輸入相同的行程代號，就能一起查看與編輯行程和筆記。</p>
+                <p>選擇要查看的行程；在其他裝置輸入相同的行程名稱，就能一起查看與編輯行程和筆記。</p>
                 <button
                   type="button"
                   aria-label="關閉"
