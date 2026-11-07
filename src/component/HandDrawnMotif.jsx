@@ -2,6 +2,7 @@
 // works in mobile browsers and offline-style previews without a separate image request.
 import tempuraShrimpIcon from "../assets/tempura-shrimp-icon-v2.png?inline";
 import resortSignIcon from "../assets/resort-sign-icon.png?inline";
+import gondolaSkiIcon from "../assets/gondola-ski-icon.png?inline";
 
 const motifColors = {
   mountain: "#78aeca", yotei: "#78aeca", lantern: "#e87543", clock: "#d9a24f", tvTower: "#d95743", apple: "#9ac65c", cherry: "#c54f72",
@@ -27,7 +28,6 @@ const motifs = {
   familymart: <><rect className="brand-card" x="3" y="8" width="42" height="32" rx="4"/><path className="familymart-blue" d="M6 13h36v7H6z"/><path className="familymart-green" d="M6 28h36v7H6z"/><text className="familymart-word" x="24" y="28" textAnchor="middle">FM</text></>,
   seveneleven: <><rect className="brand-card" x="5" y="5" width="38" height="38" rx="5"/><path className="seveneleven-orange" d="M8 9h32v6H8z"/><path className="seveneleven-green" d="M8 33h32v6H8z"/><text className="seveneleven-seven" x="23" y="32" textAnchor="middle">7</text><text className="seveneleven-eleven" x="34" y="31" textAnchor="middle">11</text></>,
   beer: <><path className="beer-body" d="M8 17h27l-2 28H11z"/><path className="beer-handle" d="M35 21h5c5 0 7 4 7 9v2c0 6-3 10-9 10h-4M35 27h4c2 0 3 1 3 4v1c0 3-1 5-4 5h-4"/><path className="beer-foam" d="M7 18C5 11 9 7 15 8c2-6 9-7 13-2 5-3 11 1 10 7 4 2 3 8-1 10-4 2-7 0-9-3-4 5-9 4-12 0-4 3-8 2-9-2z"/><path className="beer-glass" d="M17 25v13M26 25v13"/><circle className="beer-bubble" cx="42" cy="12" r="3"/><circle className="beer-bubble" cx="38" cy="5" r="1.8"/></>,
-  chairlift: <g transform="translate(0 2.5)"><circle className="gondola-sky" cx="34.5" cy="19" r="13"/><path className="gondola-peak" d="M4.8 26.5 14.1 3.5 25.5 24"/><path className="gondola-shade" d="M4.8 26.5 14.1 3.5 15 6 13.4 10.2 16.2 13.4 12 16.2 14.3 18.7V26.5z"/><path className="gondola-peak" d="M20.4 24.5V7.7l3.4-2.6 4.1 6.6 3.1-1 2.8 13.5"/><path className="gondola-line" d="M14.1 3.5 25.5 24M4.8 26.5 14.1 3.5 15 6 13.4 10.2 16.2 13.4 12 16.2 14.3 18.7V26.5M2 26.5h15c1.8 0 2.2 1 2.2 2.4 0 1.4.8 2.2 2.4 2.2h3.6M28.6 31.3l.6 2.3 14.3 2.4M36.7 25.2l3.3.8 1 9.5"/><path className="gondola-line" d="M20.4 24.5V7.7l3.4-2.6 4.1 6.6 3.1-1 2.8 13.5M2.7 22.5C18 22.8 37 19 44.8 8.5M30.2 20.4v3"/><rect className="gondola-cabin" x="24.4" y="21.4" width="11.6" height="9.6" rx="3.2"/><path className="gondola-floor" d="M24.4 27.3h11.6v.5c0 1.8-1.4 3.2-3.2 3.2h-5.2c-1.8 0-3.2-1.4-3.2-3.2z"/><path className="gondola-line" d="M30.2 21.4v5.9M24.4 27.3h11.6"/><rect className="gondola-outline" x="24.4" y="21.4" width="11.6" height="9.6" rx="3.2"/><path className="gondola-line" d="M15.6 30.8H7c-2.4 0-2.4 3.4 0 3.4h16.2c1.3 0 1.9.9 1.9 2.2 0 1.6 1 2.6 2.4 2.6h8.5"/><circle className="gondola-snow" cx="40" cy="1.5" r="1.2"/><circle className="gondola-snow" cx="33.7" cy="3.6" r="1.2"/><circle className="gondola-snow" cx="37" cy="7" r="1.2"/><circle className="gondola-snow" cx="40" cy="16.9" r="1.2"/></g>,
   hotel: <><path className="hotel-building" d="M9 44V10h30v34M6 44h36M14 10V5h20v5"/><path className="hotel-roof-snow" d="M12 10c4-3 7 1 12-1 4-2 8 1 13-1"/><path className="hotel-windows" d="M15 16h6v6h-6zM27 16h6v6h-6zM15 27h6v6h-6zM27 27h6v6h-6z"/><path className="hotel-door" d="M21 44V36h6v8"/><path className="hotel-sign" d="M17 5V2h14v3M21 2h6"/></>,
   mountain: <><path d="M5 38 19 14l6 11 5-8 13 21"/><path d="m14 23 5-4 5 7 5-5 5 7"/><path d="M9 39c8-2 21 2 31-1"/></>,
   yotei: <><path className="yotei-mountain" d="M2 41c8-7 13-19 20-32 1-3 3-3 5 0 7 13 12 25 19 32z"/><path className="yotei-snow" d="M14 26c3-6 6-12 8-17 1-3 3-3 5 0 3 5 5 11 8 17l-6-4-4 5-5-5z"/><path className="yotei-ridges" d="M14 38c3-7 5-12 8-16M34 38c-3-7-5-12-7-16"/><path className="yotei-forest" d="m5 41 4-8 4 8m21 0 4-9 5 9M15 41l3-6 3 6"/><path className="yotei-ground" d="M2 42c12-2 31 2 44-1"/></>,
@@ -69,7 +69,7 @@ const motifs = {
   hakuba: <><path className="hakuba-mountain" d="M2 38 11 22l6 6L26 7l8 18 5-8 7 21z"/><path className="hakuba-snow" d="m7 30 4-8 6 6 9-21 8 18 5-8 3 9-8 6-8-12-7 13-6-6z"/><path className="hakuba-ground" d="M3 39c12-2 28 2 42-1"/></>,
 };
 
-const imageMotifs = { tempura: tempuraShrimpIcon, resort: resortSignIcon };
+const imageMotifs = { tempura: tempuraShrimpIcon, resort: resortSignIcon, chairlift: gondolaSkiIcon };
 
 function HandDrawnMotif({ type, className = "" }) {
   if (imageMotifs[type]) {
