@@ -1035,10 +1035,8 @@
 .planner-menu-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
 .planner-menu-dialog .planner-menu-head h2 { margin: 0; font-size: 19px; line-height: 1.4; }
 .planner-menu-close { flex: 0 0 auto; border: 0; background: transparent; color: #7891a2; font-size: 27px; line-height: 1; cursor: pointer; }
-.planner-menu-list, .planner-menu-edit { min-height: 0; margin: 0 -6px 0 0; padding: 0 6px 0 0; overflow-y: auto; list-style: none; }
-.planner-menu-edit { display: grid; gap: 8px; }
-.planner-menu-edit li { display: grid; grid-template-columns: minmax(0, 1fr) 96px 30px; gap: 6px; align-items: start; padding-bottom: 8px; border-bottom: 1px dashed #d4dee3; }
-.planner-menu-edit input { box-sizing: border-box; width: 100%; min-width: 0; padding: 8px 10px; border: 1.5px solid #9eb5c3; border-radius: 7px 9px 6px 8px; background: #fff; color: #123653; font: inherit; font-size: 15px; font-weight: 700; }
+.planner-menu-list { min-height: 0; margin: 0 -6px 0 0; padding: 0 6px 0 0; overflow-y: auto; list-style: none; }
+.planner-menu-edit-row input { box-sizing: border-box; width: 100%; min-width: 0; padding: 8px 10px; border: 1.5px solid #9eb5c3; border-radius: 7px 9px 6px 8px; background: #fff; color: #123653; font: inherit; font-size: 15px; font-weight: 700; }
 .planner-menu-price-input { position: relative; display: block; }
 .planner-menu-price-input span { position: absolute; top: 50%; left: 9px; color: #6b8290; font-weight: 800; transform: translateY(-50%); pointer-events: none; }
 .planner-menu-price-input input { padding-left: 22px; }
@@ -1060,3 +1058,7 @@
 .planner-menu-list b { color: #2f5a8f; font-size: 15px; font-weight: 800; white-space: nowrap; }
 .planner-menu-names { display: grid; gap: 4px; min-width: 0; }
 .planner-menu-names input + input { padding-block: 6px; font-size: 13px; font-weight: 600; }
+.planner-menu-list.is-editing li { grid-template-columns: minmax(0, 1fr) 30px; gap: 4px; }
+.planner-menu-list.is-editing li.planner-menu-edit-row { grid-template-columns: minmax(0, 1fr) 96px 30px; gap: 6px; align-items: start; }
+.planner-menu-row-button { display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 10px; align-items: center; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.planner-menu-row-button:hover strong { color: #2f5a8f; }

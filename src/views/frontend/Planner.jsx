@@ -1187,6 +1187,24 @@ const findGooglePlaceId = (text = "") => {
 const makeGoogleMenuUrl = (placeId) =>
   `https://www.google.com/maps/place/data=!4m3!3m2!1s${placeId}!10e9`;
 
+function MenuDishRow({ entry }) {
+  return (
+    <>
+      <span className="planner-menu-dish-icon" aria-hidden="true">
+        <DishIcon />
+      </span>
+      <div>
+        <strong>{entry.name || entry.original}</strong>
+        {entry.name && entry.original && <small lang="ja">{entry.original}</small>}
+      </div>
+      <b>{formatMenuPrice(entry.price) || "—"}</b>
+    </>
+  );
+}
+
+const hasMenuText = (entry) =>
+  Boolean(entry.name.trim() || String(entry.original ?? "").trim());
+
 // A store's menu, typed in by hand from its Google Maps menu photos and
 // saved with the itinerary stop so it syncs across devices.
 function PlannerMenuDialog({
@@ -1198,10 +1216,15 @@ function PlannerMenuDialog({
   onSave,
   onClose,
 }) {
-  const [entries, setEntries] = useState(() =>
-    initialMenu?.length ? initialMenu : [makeMenuEntry()],
-  );
+  const [entries, setEntries] = useState(() => {
+    if (initialMenu?.length) return initialMenu;
+    return [makeMenuEntry()];
+  });
   const [isEditing, setIsEditing] = useState(!initialMenu?.length);
+  // 正在輸入的那一列；其他已新增的品項顯示成跟菜單一樣的條列。
+  const [editingId, setEditingId] = useState(() =>
+    initialMenu?.length ? null : entries[0].id,
+  );
   const listRef = useRef(null);
 
   useEffect(() => {
@@ -1212,17 +1235,30 @@ function PlannerMenuDialog({
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, [onClose]);
 
+  const focusEditingRow = () =>
+    requestAnimationFrame(() =>
+      listRef.current?.querySelector("input[data-menu-name]")?.focus(),
+    );
+  // 收起正在輸入的那一列：空白的直接移除。
+  const withoutEmptyEditingRow = (current) =>
+    current.filter((entry) => entry.id !== editingId || hasMenuText(entry));
   const updateEntry = (id, patch) =>
     setEntries((current) =>
       current.map((entry) => (entry.id === id ? { ...entry, ...patch } : entry)),
     );
   const addEntry = () => {
-    setEntries((current) => [...current, makeMenuEntry()]);
-    requestAnimationFrame(() => {
-      const inputs = listRef.current?.querySelectorAll("input[data-menu-name]");
-      inputs?.[inputs.length - 1]?.focus();
-    });
+    const nextEntry = makeMenuEntry();
+    setEntries((current) => [...withoutEmptyEditingRow(current), nextEntry]);
+    setEditingId(nextEntry.id);
+    focusEditingRow();
   };
+  const editEntry = (id) => {
+    setEntries((current) => withoutEmptyEditingRow(current));
+    setEditingId(id);
+    focusEditingRow();
+  };
+  const removeEntry = (id) =>
+    setEntries((current) => current.filter((entry) => entry.id !== id));
   const save = () => {
     const cleaned = entries
       .map((entry) => ({
@@ -1233,15 +1269,23 @@ function PlannerMenuDialog({
       }))
       .filter((entry) => entry.name || entry.original);
     onSave(cleaned);
-    setEntries(cleaned.length ? cleaned : [makeMenuEntry()]);
-    setIsEditing(!cleaned.length);
+    if (cleaned.length) {
+      setEntries(cleaned);
+      setEditingId(null);
+      setIsEditing(false);
+    } else {
+      const blank = makeMenuEntry();
+      setEntries([blank]);
+      setEditingId(blank.id);
+    }
   };
-  const savedEntries = entries.filter(
-    (entry) => entry.name.trim() || String(entry.original ?? "").trim(),
-  );
+  const savedEntries = entries.filter(hasMenuText);
   const mapsUrl = placeId
     ? makeGoogleMenuUrl(placeId)
     : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapsQuery)}`;
+  const submitOnEnter = (event) => {
+    if (event.key === "Enter") addEntry();
+  };
 
   return (
     <div className="planner-confirm-backdrop" onClick={onClose}>
@@ -1266,75 +1310,80 @@ function PlannerMenuDialog({
           </button>
         </div>
         {isEditing ? (
-          <ul className="planner-menu-edit" ref={listRef}>
-            {entries.map((entry) => (
-              <li key={entry.id}>
-                <div className="planner-menu-names">
-                  <input
-                    data-menu-name
-                    value={entry.name}
-                    placeholder="中文品名"
-                    aria-label="中文品名"
-                    onChange={(event) => updateEntry(entry.id, { name: event.target.value })}
-                    onKeyDown={(event) => {
-                      if (event.key === "Enter") addEntry();
+          <ul className="planner-menu-list is-editing" ref={listRef}>
+            {entries.map((entry) =>
+              entry.id === editingId ? (
+                <li key={entry.id} className="planner-menu-edit-row">
+                  <div className="planner-menu-names">
+                    <input
+                      data-menu-name
+                      value={entry.name}
+                      placeholder="中文品名"
+                      aria-label="中文品名"
+                      onChange={(event) => updateEntry(entry.id, { name: event.target.value })}
+                      onKeyDown={submitOnEnter}
+                    />
+                    <input
+                      value={entry.original ?? ""}
+                      placeholder="日文原名"
+                      aria-label="日文原名"
+                      lang="ja"
+                      onChange={(event) => updateEntry(entry.id, { original: event.target.value })}
+                      onKeyDown={submitOnEnter}
+                    />
+                  </div>
+                  <label className="planner-menu-price-input">
+                    <span aria-hidden="true">¥</span>
+                    <input
+                      value={entry.price}
+                      inputMode="numeric"
+                      placeholder="價格"
+                      aria-label="價格（日圓）"
+                      onChange={(event) =>
+                        updateEntry(entry.id, { price: event.target.value.replace(/[^\d]/g, "") })
+                      }
+                      onKeyDown={submitOnEnter}
+                    />
+                  </label>
+                  <button
+                    type="button"
+                    className="planner-menu-remove"
+                    aria-label="刪除這個品項"
+                    onClick={() => {
+                      removeEntry(entry.id);
+                      setEditingId(null);
                     }}
-                  />
-                  <input
-                    value={entry.original ?? ""}
-                    placeholder="日文原名"
-                    aria-label="日文原名"
-                    lang="ja"
-                    onChange={(event) => updateEntry(entry.id, { original: event.target.value })}
-                    onKeyDown={(event) => {
-                      if (event.key === "Enter") addEntry();
-                    }}
-                  />
-                </div>
-                <label className="planner-menu-price-input">
-                  <span aria-hidden="true">¥</span>
-                  <input
-                    value={entry.price}
-                    inputMode="numeric"
-                    placeholder="價格"
-                    aria-label="價格（日圓）"
-                    onChange={(event) =>
-                      updateEntry(entry.id, { price: event.target.value.replace(/[^\d]/g, "") })
-                    }
-                    onKeyDown={(event) => {
-                      if (event.key === "Enter") addEntry();
-                    }}
-                  />
-                </label>
-                <button
-                  type="button"
-                  className="planner-menu-remove"
-                  aria-label={`刪除品項 ${entry.name}`}
-                  onClick={() =>
-                    setEntries((current) =>
-                      current.length > 1
-                        ? current.filter((candidate) => candidate.id !== entry.id)
-                        : [makeMenuEntry()],
-                    )
-                  }
-                >
-                  ×
-                </button>
-              </li>
-            ))}
+                  >
+                    ×
+                  </button>
+                </li>
+              ) : (
+                <li key={entry.id}>
+                  <button
+                    type="button"
+                    className="planner-menu-row-button"
+                    aria-label={`修改 ${entry.name || entry.original}`}
+                    onClick={() => editEntry(entry.id)}
+                  >
+                    <MenuDishRow entry={entry} />
+                  </button>
+                  <button
+                    type="button"
+                    className="planner-menu-remove"
+                    aria-label={`刪除品項 ${entry.name || entry.original}`}
+                    onClick={() => removeEntry(entry.id)}
+                  >
+                    ×
+                  </button>
+                </li>
+              ),
+            )}
           </ul>
         ) : (
           <ul className="planner-menu-list">
             {savedEntries.map((entry) => (
               <li key={entry.id}>
-                <span className="planner-menu-dish-icon" aria-hidden="true">
-                  <DishIcon />
-                </span>
-                <div>
-                  <strong>{entry.name || entry.original}</strong>
-                  {entry.name && entry.original && <small lang="ja">{entry.original}</small>}
-                </div>
-                <b>{formatMenuPrice(entry.price) || "—"}</b>
+                <MenuDishRow entry={entry} />
               </li>
             ))}
           </ul>
