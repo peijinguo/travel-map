@@ -1623,6 +1623,7 @@ function Planner() {
     },
   );
   const dayBoardRef = useRef(null);
+  const dayPickerRef = useRef(null);
   const [draggedDayId, setDraggedDayId] = useState(null);
   const [dragOverDayId, setDragOverDayId] = useState(null);
   const [draggedId, setDraggedId] = useState(null);
@@ -1807,6 +1808,19 @@ function Planner() {
     });
     return () => cancelAnimationFrame(frame);
   }, [activeDayId]);
+
+  // Keep the chosen DAY tab in the middle of the strip.
+  useEffect(() => {
+    const picker = dayPickerRef.current;
+    const tab = picker?.querySelector(".planner-day-tab.is-active");
+    if (!picker || !tab) return;
+    picker.scrollTo({
+      left: tab.offsetLeft - (picker.clientWidth - tab.offsetWidth) / 2,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
+  }, [activeDayId, days.length]);
 
   const activeDay = days.find((day) => day.id === activeDayId) ?? days[0];
   const items = activeDay.items;
@@ -2305,7 +2319,7 @@ function Planner() {
               </h2>
             </div>
           </div>
-          <nav className="planner-day-picker" aria-label="選擇行程天數">
+          <nav className="planner-day-picker" aria-label="選擇行程天數" ref={dayPickerRef}>
             {days.map((day, dayIndex) => {
               const active = day.id === activeDayId;
               return (

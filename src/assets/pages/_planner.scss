@@ -92,8 +92,11 @@
   margin: 14px 2px 4px;
   padding: 2px 0 8px;
   overflow-x: auto;
-  scrollbar-width: thin;
+  // Clicking a DAY centres it, so the strip needs no visible scrollbar.
+  scrollbar-width: none;
+  scroll-behavior: smooth;
 }
+.planner-day-picker::-webkit-scrollbar { display: none; }
 .planner-day-picker button {
   flex: 0 0 auto;
   min-width: 72px;
@@ -431,14 +434,15 @@
 }
 .planner-date-input em { justify-self: end; align-self: stretch; display: flex; align-items: center; padding: 9px 11px; border: 1.7px solid currentColor; border-radius: 7px 9px 6px 8px; background: rgba(255,255,255,.84); color: #284d63; font-family: inherit; font-size: 17px; font-style: normal; font-weight: 700; line-height: 1.2; white-space: nowrap; }
 .planner-calendar { position: relative; width: min(330px, 100%); min-width: 0; }
-.planner-calendar-trigger { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 9px 11px; border: 1.7px solid currentColor; border-radius: 7px 9px 6px 8px; background: rgba(255,255,255,.84); color: #284d63; font-family: inherit; font-size: 17px; font-weight: 800; cursor: pointer; }
+.planner-calendar-trigger { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 9px 11px; border: 1.7px solid #6f8db2; border-radius: 7px 9px 6px 8px; background: rgba(255,255,255,.84); color: #284d63; font-family: inherit; font-size: 17px; font-weight: 800; cursor: pointer; }
 // Same type as the day numbers in the calendar.
 .planner-calendar-trigger > span:first-child { color: #153e56; font-size: 17px; font-weight: 700; }
 // The weekday follows the date inside the box, in the same type as the digits.
 .planner-calendar-trigger .planner-calendar-weekday { margin-left: .6em; font: inherit; }
-.planner-calendar-icon { position: relative; width: 18px; height: 17px; flex: 0 0 18px; border: 2px solid #17252c; border-radius: 3px; }
-.planner-calendar-icon::before { content: ""; position: absolute; top: 3px; right: -2px; left: -2px; border-top: 2px solid #17252c; }
-.planner-calendar-icon::after { content: ""; position: absolute; top: -5px; left: 3px; width: 8px; height: 5px; border-right: 2px solid #17252c; border-left: 2px solid #17252c; }
+// The calendar box and its icon take the active DAY tab's blue.
+.planner-calendar-icon { position: relative; width: 18px; height: 17px; flex: 0 0 18px; border: 2px solid #6f8db2; border-radius: 3px; }
+.planner-calendar-icon::before { content: ""; position: absolute; top: 3px; right: -2px; left: -2px; border-top: 2px solid #6f8db2; }
+.planner-calendar-icon::after { content: ""; position: absolute; top: -5px; left: 3px; width: 8px; height: 5px; border-right: 2px solid #6f8db2; border-left: 2px solid #6f8db2; }
 .planner-calendar-popover { box-sizing: border-box; position: absolute; top: calc(100% + 7px); left: 0; z-index: 30; width: 100%; padding: 14px; border: 1.7px solid #80929c; border-radius: 10px 13px 9px 12px; background: #fff; color: #123653; box-shadow: 0 16px 35px rgba(31,55,68,.22); }
 .planner-calendar-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
 .planner-calendar-head strong { font-size: 18px; }
