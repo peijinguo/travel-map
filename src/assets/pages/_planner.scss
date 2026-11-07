@@ -607,6 +607,8 @@
 .planner-transit-train-icon,
 .planner-flight-plane-icon,
 .planner-walking-icon { width: 27px; height: 27px; overflow: visible; transform: translateY(-4px); }
+// The footsteps picture leaves room around its diagonal trail, so it is drawn larger than its 24px slot.
+img.planner-walking-icon { display: block; width: 34px; height: 34px; max-width: none; margin: -5px; object-fit: contain; transform: none; }
 .planner-transit-train-icon .train-body { fill: #55b8b2; stroke: #284d63; stroke-width: 2.2; stroke-linejoin: round; }
 .planner-flight-plane-icon .plane-body { fill: #a87352; stroke: #284d63; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .planner-transit-train-icon .train-window { fill: #bfe4ef; stroke: #284d63; stroke-width: 1.8; stroke-linejoin: round; }

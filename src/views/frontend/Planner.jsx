@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { snowTowns } from "./Home";
 import HandDrawnMotif from "../../component/HandDrawnMotif";
 import RouteMap from "../../component/RouteMap";
+import walkingStepsIcon from "../../assets/walking-steps-icon.png?inline";
 import { useAuth } from "../../context/AuthContext";
 import {
   listBackupsCloud,
@@ -1198,18 +1199,7 @@ function FlightPlaneIcon() {
 }
 
 function WalkingIcon() {
-  return (
-    <svg className="planner-walking-icon" viewBox="0 0 48 48" aria-hidden="true">
-      <g className="walking-footprint" transform="rotate(-18 16 16)">
-        <ellipse cx="16" cy="22" rx="5.5" ry="9" />
-        <circle cx="9.3" cy="12" r="2.5" /><circle cx="13.5" cy="9" r="2.2" /><circle cx="17.7" cy="8.2" r="2" /><circle cx="21.3" cy="9.7" r="1.7" /><circle cx="24" cy="12.3" r="1.45" />
-      </g>
-      <g className="walking-footprint" transform="rotate(18 31 31)">
-        <ellipse cx="31" cy="37" rx="5.5" ry="9" />
-        <circle cx="24.3" cy="27" r="2.5" /><circle cx="28.5" cy="24" r="2.2" /><circle cx="32.7" cy="23.2" r="2" /><circle cx="36.3" cy="24.7" r="1.7" /><circle cx="39" cy="27.3" r="1.45" />
-      </g>
-    </svg>
-  );
+  return <img className="planner-walking-icon" src={walkingStepsIcon} alt="" aria-hidden="true" />;
 }
 
 // How a stop's note says to reach the next stop: "flight", "walking",
