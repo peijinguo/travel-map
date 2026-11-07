@@ -1034,6 +1034,11 @@
 .planner-menu-btn .menu-icon-handle { fill: #3f5b69; }
 .planner-menu-btn.has-menu { border-color: #2f5a8f; box-shadow: inset 0 0 0 1px #2f5a8f; }
 .planner-menu-btn:hover { border-color: #2f5a8f; }
+@media (max-width: 600px) {
+  // Same 24px square as the other stop buttons on phones.
+  .planner-meta-actions-group .planner-menu-btn { width: 24px; min-width: 24px; }
+  .planner-menu-btn svg { width: 18px; height: 18px; }
+}
 .planner-menu-dialog { width: min(100%, 420px); max-height: min(86vh, 640px); display: flex; flex-direction: column; border-color: #e3e6e8; background: #f3f4f5; }
 .planner-menu-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
 .planner-menu-dialog .planner-menu-head h2 { margin: 0; font-size: 19px; line-height: 1.4; }
