@@ -89,7 +89,7 @@ const makeRouteLine = (coordinates, paths = []) => ({
 const PIN_SPREAD_PX = 56;
 const MAX_FOCUS_ZOOM = 18;
 
-function zoomToSpreadPins(map, coordinate, allCoordinates) {
+function zoomToSpreadPins(map, coordinate, allCoordinates, minZoom = 0, duration = 700) {
   const here = map.project(coordinate);
   const nearest = allCoordinates.reduce((closest, other) => {
     if (other === coordinate) return closest;
@@ -99,12 +99,13 @@ function zoomToSpreadPins(map, coordinate, allCoordinates) {
     return distance > 0.5 ? Math.min(closest, distance) : closest;
   }, Infinity);
   const zoom = map.getZoom();
+  // Distances grow 2x per zoom level, so solve for the level that spreads them.
   const extraZoom =
     nearest < PIN_SPREAD_PX ? Math.log2(PIN_SPREAD_PX / nearest) + 0.3 : 0;
   map.flyTo({
     center: coordinate,
-    zoom: Math.min(Math.max(zoom + extraZoom, zoom), MAX_FOCUS_ZOOM),
-    duration: 700,
+    zoom: Math.min(Math.max(zoom + extraZoom, zoom, minZoom), MAX_FOCUS_ZOOM),
+    duration,
   });
 }
 
@@ -271,7 +272,8 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = nul
     map.getSource(ROUTE_SOURCE_ID)?.setData(makeRouteLine(coordinates, pathsRef.current));
   }, [stopsKey, pathsKey, mapReady]);
 
-  // A clicked STOP card flies the map to its pin and makes the pin bounce.
+  // A clicked STOP tag flies the map to its pin, zoomed in until the pins
+  // around it separate, and makes the pin bounce.
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !mapReady || !focus) return;
@@ -283,7 +285,9 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = nul
     if (top < 0 || bottom > window.innerHeight) {
       container.scrollIntoView({ behavior: "smooth", block: "center" });
     }
-    map.flyTo({ center: marker.getLngLat(), zoom: Math.max(map.getZoom(), 13), duration: 900 });
+    // Zoom into the area too, so pins crowded around this one pull apart.
+    const coordinates = stopsRef.current.map(({ town }) => [town.longitude, town.latitude]);
+    zoomToSpreadPins(map, coordinates[index], coordinates, 13, 900);
     const pin = marker.getElement().querySelector(".planner-route-pin");
     pin.classList.remove("is-bouncing");
     void pin.offsetWidth; // restart the animation on repeated clicks
