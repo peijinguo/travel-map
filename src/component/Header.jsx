@@ -12,7 +12,7 @@ function Header() {
     syncCode,
     syncCodes,
     setSyncCode,
-    removeSyncCode,
+    deleteTrip,
   } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSyncOpen, setIsSyncOpen] = useState(false);
@@ -22,6 +22,30 @@ function Header() {
   const [newSyncCode, setNewSyncCode] = useState("");
   const [syncMessage, setSyncMessage] = useState("");
   const [codePendingRemoval, setCodePendingRemoval] = useState(null);
+  const [isDeletingTrip, setIsDeletingTrip] = useState(false);
+  const [deleteError, setDeleteError] = useState("");
+
+  const confirmDeleteTrip = async () => {
+    const code = codePendingRemoval;
+    setIsDeletingTrip(true);
+    setDeleteError("");
+    try {
+      await deleteTrip(code);
+      const nextCode = syncCodes.find((savedCode) => savedCode !== code);
+      setSyncCodeDraft(code === syncCode ? nextCode ?? syncCode : syncCode);
+      setSyncMessage(`已刪除行程 ${code}`);
+      setCodePendingRemoval(null);
+    } catch (error) {
+      setDeleteError(
+        {
+          "not-connected": "目前沒有連上雲端，無法刪除行程內容。請在正式網站上操作。",
+          "last-trip": "至少需要保留一個行程，請先新增另一個行程再刪除。",
+        }[error?.message] ?? "刪除失敗，請稍後再試一次。",
+      );
+    } finally {
+      setIsDeletingTrip(false);
+    }
+  };
 
   // 點雪旅行程面板以外的地方或按 Esc 時關閉面板。
   useEffect(() => {
@@ -74,15 +98,6 @@ function Header() {
         ? authError || "尚未連上雲端，請稍候再切換一次"
         : "目前使用本機儲存，無法載入雲端行程";
 
-  const removeSavedSyncCode = (code) => {
-    if (!removeSyncCode(code)) {
-      setSyncMessage("至少需要保留一個雪旅行程");
-      return;
-    }
-    const nextCode = syncCodes.find((savedCode) => savedCode !== code);
-    setSyncCodeDraft(nextCode ?? syncCode);
-    setSyncMessage("已從此裝置移除這個行程");
-  };
 
   return (
     <header className="topbar">
@@ -234,9 +249,10 @@ function Header() {
                             <button
                               className="sync-code-option-remove"
                               type="button"
-                              aria-label={`從此裝置移除行程 ${code}`}
+                              aria-label={`刪除行程 ${code}`}
                               onClick={() => {
                                 setIsSyncCodeSelectOpen(false);
+                                setDeleteError("");
                                 setCodePendingRemoval(code);
                               }}
                             >
@@ -302,12 +318,17 @@ function Header() {
               onClick={(event) => event.stopPropagation()}
             >
               <h2 id="sync-code-confirm-title">
-                移除行程
+                刪除行程
                 <small>{codePendingRemoval}</small>
               </h2>
               <p id="sync-code-confirm-message">
-                這個行程會從所有裝置的行程清單移除。行程內容仍保留在雲端，之後重新輸入相同的行程代號就能找回。
+                這個行程的所有天數、行程、菜單和雪場筆記都會從雲端刪除，所有裝置都看不到，刪除後無法復原。
               </p>
+              {deleteError && (
+                <p className="sync-code-confirm-error" role="alert">
+                  {deleteError}
+                </p>
+              )}
               <div className="planner-confirm-actions">
                 <button type="button" autoFocus onClick={() => setCodePendingRemoval(null)}>
                   取消
@@ -315,12 +336,10 @@ function Header() {
                 <button
                   className="is-danger"
                   type="button"
-                  onClick={() => {
-                    removeSavedSyncCode(codePendingRemoval);
-                    setCodePendingRemoval(null);
-                  }}
+                  disabled={isDeletingTrip}
+                  onClick={confirmDeleteTrip}
                 >
-                  移除
+                  {isDeletingTrip ? "刪除中…" : "刪除"}
                 </button>
               </div>
             </section>

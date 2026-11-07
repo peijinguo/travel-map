@@ -10,7 +10,10 @@ import {
 import {
   arrayRemove,
   arrayUnion,
+  collection,
+  deleteDoc,
   doc,
+  getDocs,
   getDoc,
   getFirestore,
   onSnapshot,
@@ -120,6 +123,23 @@ export async function removeTripCode(directoryId, code) {
     tripCodesDoc(directoryId),
     { codes: arrayRemove(code), updatedAt: serverTimestamp() },
     { merge: true },
+  );
+}
+
+// Deletes everything a trip keeps in the cloud: the itinerary, store menus
+// and resort notes. It cannot be undone.
+export async function deleteTripCloud(syncSpaceId) {
+  if (!db) throw new Error("firebase-not-configured");
+  const notes = await withSyncTimeout(
+    getDocs(collection(db, "syncSpaces", syncSpaceId, "notes")),
+  );
+  await withSyncTimeout(
+    Promise.all([
+      deleteDoc(doc(db, "syncSpaces", syncSpaceId, "appData", "planner")),
+      deleteDoc(doc(db, "syncSpaces", syncSpaceId, "appData", "menus")),
+      ...notes.docs.map((note) => deleteDoc(note.ref)),
+    ]),
+    10000,
   );
 }
 

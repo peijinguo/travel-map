@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import {
   addTripCode,
+  deleteTripCloud,
   isFirebaseConfigured,
   observeAuth,
   removeTripCode,
@@ -171,6 +172,17 @@ export function AuthProvider({ children }) {
     return true;
   };
 
+  // Deletes the trip's cloud content, then drops it from every list.
+  const deleteTrip = async (value) => {
+    const code = normalizeSyncCode(value);
+    if (!user) throw new Error("not-connected");
+    if (!syncCodes.some((savedCode) => savedCode !== code)) {
+      throw new Error("last-trip");
+    }
+    await deleteTripCloud(await hashSyncCode(code));
+    removeSyncCode(code);
+  };
+
   const value = useMemo(
     () => ({
       user,
@@ -183,6 +195,7 @@ export function AuthProvider({ children }) {
       syncVersion,
       setSyncCode,
       removeSyncCode,
+      deleteTrip,
     }),
     // The setters read these too, so a new list or directory id must reach them.
     // eslint-disable-next-line react-hooks/exhaustive-deps

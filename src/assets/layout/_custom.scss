@@ -323,3 +323,5 @@ img { max-width: 100%; height: auto; }
 .back-to-top.is-visible { opacity: 1; visibility: visible; transform: translateY(0); }
 .back-to-top:hover, .back-to-top:focus-visible { background: #123653; color: #fff; }
 .back-to-top:focus-visible { outline: 3px solid rgba(18, 54, 83, .35); outline-offset: 3px; }
+.sync-code-confirm .planner-confirm p.sync-code-confirm-error { margin-top: -8px; color: #bf3f39; font-weight: 700; }
+.sync-code-confirm .planner-confirm-actions button:disabled { opacity: .6; cursor: progress; }
