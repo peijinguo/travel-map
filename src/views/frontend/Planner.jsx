@@ -629,10 +629,15 @@ const getGeocodeQueries = (text) => {
       "",
     )
     .trim();
+  // Japanese airports are 「…空港」, so 「函館機場」 is searched as 「函館空港」.
+  const airport = /(?:國際|国際)?(?:機場|机场)$/u.test(original)
+    ? toJapaneseSearchText(original.replace(/(?:國際|国際)?(?:機場|机场)$/u, "空港"))
+    : "";
   return [
     ...new Set(
       [
         original,
+        airport,
         toJapaneseSearchText(original),
         withoutType,
         toJapaneseSearchText(withoutType),
