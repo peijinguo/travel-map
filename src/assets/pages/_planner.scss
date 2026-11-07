@@ -1037,6 +1037,8 @@
 @media (max-width: 600px) {
   // Same 24px square as the other stop buttons on phones.
   .planner-meta-actions-group .planner-menu-btn { width: 24px; min-width: 24px; }
+  // Same single border as its neighbours; the blue border alone marks a menu.
+  .planner-menu-btn.has-menu { box-shadow: none; }
   .planner-menu-btn svg { width: 18px; height: 18px; }
 }
 .planner-menu-dialog { width: min(100%, 420px); max-height: min(86vh, 640px); display: flex; flex-direction: column; border-color: #e3e6e8; background: #f3f4f5; }
