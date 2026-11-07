@@ -89,14 +89,17 @@ function makeStopMarker(map, stop, index, coordinate, offset) {
   marker.className = "planner-route-marker";
   const pin = document.createElement("div");
   pin.className = "planner-route-pin";
-  pin.textContent = String(index + 1);
+  // Number pins by their STOP, not their place among the located stops, so a
+  // stop without a location never shifts the numbers after it.
+  const stopOrder = stop.order ?? index + 1;
+  pin.textContent = String(stopOrder);
   marker.append(pin);
 
   const content = document.createElement("div");
   const stopNumber = document.createElement("strong");
   const stopName = document.createElement("span");
   content.className = "planner-route-popup";
-  stopNumber.textContent = `STOP ${String(index + 1).padStart(2, "0")}`;
+  stopNumber.textContent = `STOP ${String(stopOrder).padStart(2, "0")}`;
   stopName.textContent = stop.town.name;
   content.append(stopNumber, stopName);
 
@@ -134,8 +137,8 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = nul
     Boolean(document.createElement("canvas").getContext("webgl2")),
   );
   const stopsKey = stops
-    .map(({ item, town }) =>
-      [item.id, town.id, town.latitude, town.longitude, town.name].join(":"),
+    .map(({ item, town, order }) =>
+      [item.id, order, town.id, town.latitude, town.longitude, town.name].join(":"),
     )
     .join("|");
   const pathsKey = paths

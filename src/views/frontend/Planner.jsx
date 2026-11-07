@@ -2483,7 +2483,14 @@ function Planner() {
                                 type="button"
                                 draggable
                                 onDragStart={() => setDraggedId(item.id)}
-                                onClick={() => setMapFocus({ itemId: item.id })}
+                                onClick={() => {
+                                  // A stop with no pin yet gets located first.
+                                  if (!plannedStops.some((stop) => stop.item.id === item.id)) {
+                                    locateCurrentItem(item);
+                                    return;
+                                  }
+                                  setMapFocus({ itemId: item.id });
+                                }}
                                 aria-label={`STOP ${String(index + 1).padStart(2, "0")}，點擊在地圖上顯示，拖曳調整順序`}
                                 title="點擊在地圖上顯示・拖曳調整順序"
                               >
