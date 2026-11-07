@@ -90,6 +90,8 @@ const isFoodLocation = (location) =>
 
 const SKI_AREA_PATTERN = /滑雪場|滑雪场|スキー場|スノーパーク|ski\s*(?:area|resort)|snow\s*(?:resort|park)/iu;
 
+const headlineOf = (noteText, placeName) => `${noteText.split("\n")[0]} ${placeName}`;
+
 const getItineraryMotif = (location, itineraryText = "") => {
   const noteText = String(itineraryText);
   const placeName = String(location?.name ?? "");
@@ -97,6 +99,9 @@ const getItineraryMotif = (location, itineraryText = "") => {
   // lodging by Google, so check the stop's own name before the lodging test.
   if (SKI_AREA_PATTERN.test(`${noteText.split(/\r?\n/)[0]} ${placeName}`)) return "chairlift";
   if (isLodgingLocation(location)) return "resort";
+  // Only the stop's own name, so a note like 「之後去機場」 does not count.
+  if (location?.types?.some((type) => type === "airport" || type === "aerodrome") ||
+    /機場|机场|空港|airport/iu.test(headlineOf(noteText, placeName))) return "airport";
   const placeCuisine = String(location?.cuisine ?? "");
   const placeText = `${noteText} ${placeName}`;
   if (/family\s*mart|ファミリーマート|ファミマ/iu.test(placeText)) return "familymart";
@@ -159,6 +164,7 @@ const getItineraryMotifLabel = (motif) =>
   ({
     onsen: "泡湯",
     resort: "住宿",
+    airport: "機場",
     familymart: "FamilyMart",
     seveneleven: "7-Eleven",
     lamb: "烤羊肉",
@@ -2732,7 +2738,7 @@ function Planner() {
                                   <b>
                                     {itemMotif && (
                                       <span
-                                        className={`planner-item-category-icon ${itemMotif === "lamb" ? "is-lamb" : ""} ${itemMotif === "chairlift" ? "is-chairlift" : ""} ${["familymart", "seveneleven", "resort", "chairlift"].includes(itemMotif) ? "is-store" : ""}`}
+                                        className={`planner-item-category-icon ${itemMotif === "lamb" ? "is-lamb" : ""} ${itemMotif === "chairlift" ? "is-chairlift" : ""} ${["familymart", "seveneleven", "resort", "chairlift", "airport"].includes(itemMotif) ? "is-store" : ""}`}
                                         title={getItineraryMotifLabel(itemMotif)}
                                       >
                                         <HandDrawnMotif type={itemMotif} />
