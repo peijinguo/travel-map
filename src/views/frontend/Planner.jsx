@@ -96,7 +96,7 @@ const getItineraryMotif = (location, itineraryText = "") => {
   // A ski area run by a resort hotel (e.g. グリーンピア大沼) is tagged as
   // lodging by Google, so check the stop's own name before the lodging test.
   if (SKI_AREA_PATTERN.test(`${noteText.split(/\r?\n/)[0]} ${placeName}`)) return "chairlift";
-  if (isLodgingLocation(location)) return "onsen";
+  if (isLodgingLocation(location)) return "resort";
   const placeCuisine = String(location?.cuisine ?? "");
   const placeText = `${noteText} ${placeName}`;
   if (/family\s*mart|ファミリーマート|ファミマ/iu.test(placeText)) return "familymart";
@@ -157,7 +157,8 @@ const FOOD_MOTIFS = new Set([
 
 const getItineraryMotifLabel = (motif) =>
   ({
-    onsen: "住宿／泡湯",
+    onsen: "泡湯",
+    resort: "住宿",
     familymart: "FamilyMart",
     seveneleven: "7-Eleven",
     lamb: "烤羊肉",
@@ -2731,7 +2732,7 @@ function Planner() {
                                   <b>
                                     {itemMotif && (
                                       <span
-                                        className={`planner-item-category-icon ${itemMotif === "lamb" ? "is-lamb" : ""} ${itemMotif === "chairlift" ? "is-chairlift" : ""} ${itemMotif === "familymart" || itemMotif === "seveneleven" ? "is-store" : ""}`}
+                                        className={`planner-item-category-icon ${itemMotif === "lamb" ? "is-lamb" : ""} ${itemMotif === "chairlift" ? "is-chairlift" : ""} ${["familymart", "seveneleven", "resort"].includes(itemMotif) ? "is-store" : ""}`}
                                         title={getItineraryMotifLabel(itemMotif)}
                                       >
                                         <HandDrawnMotif type={itemMotif} />

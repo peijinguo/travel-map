@@ -146,7 +146,7 @@ main:has(.home-page) { flex: 1; display: flex; flex-direction: column; }
 .motif-tempura .tempura-shrimp { fill: #e8a44e; stroke: #704f3c; }
 .motif-tempura .tempura-tail { fill: #ef8067; stroke: #704f3c; }
 .motif-tempura .tempura-batter, .motif-tempura .tempura-spark { fill: none; stroke: #704f3c; stroke-width: 1.7; stroke-linecap: round; }
-.hand-motif.motif-tempura { display: block; object-fit: contain; }
+.hand-motif.motif-image { display: block; object-fit: contain; }
 .motif-curry .curry-sauce { fill: #d99a47; stroke: #704f3c; }
 .motif-curry .curry-plate { fill: #eef5f5; stroke: #704f3c; }
 .motif-curry .curry-pea { fill: #8dbb7a; stroke: #704f3c; stroke-width: 1.2; }
