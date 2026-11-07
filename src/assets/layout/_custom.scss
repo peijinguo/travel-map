@@ -173,12 +173,13 @@
 .sync-code-select-trigger > span:last-child { position: relative; width: 26px; height: 26px; display: grid; flex: 0 0 26px; place-items: center; color: transparent; font-size: 0; }
 .sync-code-select-trigger > span:last-child::after { width: 9px; height: 9px; content: ""; border-right: 2px solid #7891a2; border-bottom: 2px solid #7891a2; transform: rotate(45deg) translate(-2px, -2px); }
 .sync-code-options { position: absolute; z-index: 22; top: calc(100% + 4px); right: 0; left: 0; display: grid; gap: 4px; max-height: 220px; margin: 0; padding: 4px; overflow-y: auto; border: 1px solid #9eb5c3; border-radius: 8px; background: #fff; box-shadow: 0 10px 22px rgba(18, 54, 83, .16); list-style: none; }
+// Open in the flow so the list pushes 新增行程 down instead of covering it.
+.sync-code-panel .sync-code-options { position: static; margin-top: 4px; box-shadow: none; }
 .sync-code-options li { display: grid; grid-template-columns: minmax(0, 1fr) 42px 42px; align-items: stretch; overflow: hidden; border: 1px solid #9eb5c3; border-radius: 6px; background: #fff; }
 .sync-code-option { min-width: 0; padding: 11px 12px; border: 0; background: transparent; color: #123653; font: 800 16px/1.2 monospace; letter-spacing: .08em; text-align: left; cursor: pointer; }
 .sync-code-option[aria-selected="true"] { background: #edf4f7; }
 .sync-code-option { display: flex; align-items: baseline; gap: 8px; overflow: hidden; }
-.sync-code-option > span { flex: 0 0 auto; }
-.sync-code-option-name { overflow: hidden; color: #6c7675; font: 400 14px/1.2 "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; letter-spacing: 0; text-overflow: ellipsis; white-space: nowrap; }
+.sync-code-option > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 // Pencil to name a trip, beside the × that deletes it.
 .sync-code-option-rename { display: grid; place-items: center; padding: 0; border: 0; border-left: 1px solid #d6e1e7; background: transparent; color: #7891a2; cursor: pointer; }
 .sync-code-option-rename svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }

@@ -237,7 +237,7 @@ function Header() {
                         setIsSyncCodeSelectOpen((isOpen) => !isOpen)
                       }
                     >
-                      <span>{syncCodeDraft}</span>
+                      <span title={syncCodeDraft}>{tripNames[syncCodeDraft] || syncCodeDraft}</span>
                       <span aria-hidden="true">⌄</span>
                     </button>
                     {isSyncCodeSelectOpen && (
@@ -295,10 +295,8 @@ function Header() {
                                 }
                               }}
                             >
-                              <span>{code}</span>
-                              {tripNames[code] && (
-                                <small className="sync-code-option-name">{tripNames[code]}</small>
-                              )}
+                              {/* A named trip is listed by its name; the code stays as a tooltip. */}
+                              <span title={code}>{tripNames[code] || code}</span>
                             </button>
                             <button
                               className="sync-code-option-rename"

@@ -2318,8 +2318,8 @@ function Planner() {
           <div className="planner-card-title">
             <div>
               <h2>
-                {tripName && <span className="planner-trip-name">{tripName}</span>}
-                <em className="planner-title-day">{days.length} 天行程表</em>
+                {/* A named trip shows its name in place of the day count. */}
+                <em className="planner-title-day">{tripName || `${days.length} 天行程表`}</em>
               </h2>
             </div>
           </div>
