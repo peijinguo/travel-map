@@ -137,6 +137,21 @@ const getItineraryMotif = (location, itineraryText = "") => {
   return "ramen";
 };
 
+const FOOD_MOTIFS = new Set([
+  "numanoyaDango",
+  "crepe",
+  "yakitoriBento",
+  "sushi",
+  "tempura",
+  "beer",
+  "lamb",
+  "steak",
+  "curry",
+  "dango",
+  "parfait",
+  "ramen",
+]);
+
 const getItineraryMotifLabel = (motif) =>
   ({
     onsen: "住宿／泡湯",
@@ -2553,7 +2568,7 @@ function Planner() {
                                   <b>
                                     {itemMotif && (
                                       <span
-                                        className={`planner-item-category-icon ${itemMotif === "lamb" ? "is-lamb" : ""} ${itemMotif === "chairlift" ? "is-chairlift" : ""}`}
+                                        className={`planner-item-category-icon ${itemMotif === "lamb" ? "is-lamb" : ""} ${itemMotif === "chairlift" ? "is-chairlift" : ""} ${itemMotif === "familymart" || itemMotif === "seveneleven" ? "is-store" : ""}`}
                                         title={getItineraryMotifLabel(itemMotif)}
                                       >
                                         <HandDrawnMotif type={itemMotif} />
@@ -2578,6 +2593,9 @@ function Planner() {
                                           )}
                                         </button>
                                         {((isFoodLocation(resolvedLocation) && itemMotif !== "chairlift") ||
+                                          // A shop like ハセガワストア is not tagged as a restaurant
+                                          // on the map, but its food icon shows it sells meals.
+                                          FOOD_MOTIFS.has(itemMotif) ||
                                           getItemMenu(item)?.length > 0) && (
                                           <button
                                             className={`planner-locate planner-menu-btn ${getItemMenu(item)?.length ? "has-menu" : ""}`}
