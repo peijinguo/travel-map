@@ -703,6 +703,9 @@
 .planner-item-meta > .planner-icon-locate.is-locating { width: 80px; }
 .planner-meta-actions-group .planner-locate { box-sizing: border-box; width: 116px; min-height: 38px; display: inline-flex; align-items: center; justify-content: center; border-radius: 5px 7px 4px 6px; }
 .planner-meta-actions-group .planner-icon-locate { position: relative; width: 38px; min-width: 38px; padding-inline: 0; }
+// Icon buttons share the move buttons' border weight.
+.planner-meta-actions-group .planner-icon-locate,
+.planner-item-meta > .planner-icon-locate { border-width: 1.7px; }
 .planner-meta-actions-group .planner-icon-locate.is-locating { width: 80px; }
 :is(.planner-meta-actions-group [data-tooltip], .planner-item-meta > [data-tooltip]) { position: relative; }
 :is(.planner-meta-actions-group [data-tooltip], .planner-item-meta > [data-tooltip])::after {
