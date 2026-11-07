@@ -2510,10 +2510,9 @@ function Planner() {
                                   }
                                   setMapFocus({ itemId: item.id });
                                 }}
-                                aria-label={`STOP ${String(index + 1).padStart(2, "0")}，點擊在地圖上顯示，拖曳調整順序`}
+                                aria-label={`第 ${index + 1} 站，點擊在地圖上顯示，拖曳調整順序`}
                                 title="點擊在地圖上顯示・拖曳調整順序"
                               >
-                                <span>STOP</span>
                                 <span>{String(index + 1).padStart(2, "0")}</span>
                               </button>
                               <div className="planner-item-copy">

@@ -99,7 +99,7 @@ function makeStopMarker(map, stop, index, coordinate, offset) {
   const stopNumber = document.createElement("strong");
   const stopName = document.createElement("span");
   content.className = "planner-route-popup";
-  stopNumber.textContent = `STOP ${String(stopOrder).padStart(2, "0")}`;
+  stopNumber.textContent = String(stopOrder).padStart(2, "0");
   stopName.textContent = stop.town.name;
   content.append(stopNumber, stopName);
 
