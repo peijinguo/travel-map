@@ -46,7 +46,8 @@
   stroke-width: 3.2;
   stroke-linecap: round;
 }
-.brand-mark--image img { width: 100%; height: 100%; }
+// The snowflake sits a little inside its box so it reads lighter than the name.
+.brand-mark--image img { width: 78%; height: 78%; }
 
 .brand-copy { display: grid; gap: 1px; }
 .brand-copy strong { font-size: 29px; font-weight: 900; letter-spacing: .1em; }
