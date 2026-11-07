@@ -201,14 +201,14 @@
 .planner-list-card .planner-card-title h2 { font-size: 26px; }
 .planner-list-card .planner-card-title > div > span { font-size: 14px; }
 .planner-card-title strong {
-  padding: 7px 12px;
+  padding: 9px 11px;
+  border: 1.7px solid currentColor;
   border-radius: 7px 9px 6px 8px;
-  background: #2f5a8fb0;
-  color: #eceff2;
+  background: rgba(255,255,255,.84);
+  color: #284d63;
   font-size: 17px;
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: .025em;
+  font-weight: 700;
+  line-height: 1.2;
   white-space: nowrap;
 }
 .planner-map-stage { min-height: 575px; display: grid; flex: 1; place-items: center; padding: 0; overflow: visible; }
