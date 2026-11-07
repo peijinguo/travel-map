@@ -204,6 +204,13 @@
   font: 800 16px/1.5 monospace;
   letter-spacing: .08em;
 }
+// Explanations and hints stay regular weight; only names and codes are bold.
+.sync-code-heading p,
+.sync-code-panel > p,
+.sync-code-form > span,
+.sync-code-panel form > span,
+.sync-code-warning,
+.sync-code-input-row input::placeholder { font-weight: 400; }
 
 @media (max-width: 760px) {
   .topbar {
