@@ -336,7 +336,7 @@ function Header() {
                     maxLength="32"
                     autoComplete="off"
                     spellCheck="false"
-                    placeholder="行程代號，至少 8 碼英數字"
+                    placeholder="請輸入行程名稱"
                     onChange={(event) => {
                       setNewSyncCode(
                         event.target.value
