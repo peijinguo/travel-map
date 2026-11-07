@@ -341,11 +341,8 @@ function ResortExperienceNote({ resort, storageKey }) {
 
   useEffect(() => {
     if (!authReady || cloudKey) return;
-    setNoteStatus(
-      isFirebaseConfigured
-        ? "無法啟用雲端同步，內容會保存在此裝置"
-        : "內容會保存在此裝置",
-    );
+    // Only a failed cloud setup is worth a note; plain local saving needs none.
+    setNoteStatus(isFirebaseConfigured ? "無法啟用雲端同步，內容會保存在此裝置" : "");
   }, [authReady, cloudKey, isFirebaseConfigured]);
 
   const saveExperienceNote = async (event) => {
