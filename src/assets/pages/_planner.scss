@@ -1025,3 +1025,31 @@
   .planner-route-map { min-height: 0; }
 }
 
+
+/* Store menu: button beside ⌖ on food stops and its dialog. */
+.planner-meta-actions-group .planner-menu-btn { position: relative; width: 38px; min-width: 38px; padding: 0; background: #fff; }
+.planner-menu-btn svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.planner-menu-btn.has-menu { border-color: #2f5a8f; color: #2f5a8f; }
+.planner-menu-btn:hover { border-color: #2f5a8f; color: #2f5a8f; }
+.planner-menu-dialog { width: min(100%, 420px); max-height: min(86vh, 640px); display: flex; flex-direction: column; }
+.planner-menu-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.planner-menu-dialog .planner-menu-head h2 { margin: 0; font-size: 19px; line-height: 1.4; }
+.planner-menu-close { flex: 0 0 auto; border: 0; background: transparent; color: #7891a2; font-size: 27px; line-height: 1; cursor: pointer; }
+.planner-menu-list, .planner-menu-edit { min-height: 0; margin: 0 -6px 0 0; padding: 0 6px 0 0; overflow-y: auto; list-style: none; }
+.planner-menu-list li { display: flex; align-items: baseline; gap: 8px; padding: 8px 0; border-bottom: 1px dashed #d4dee3; font-size: 16px; }
+.planner-menu-list span { font-weight: 700; }
+.planner-menu-list i { flex: 1; }
+.planner-menu-list b { color: #2f5a8f; font-weight: 800; white-space: nowrap; }
+.planner-menu-edit { display: grid; gap: 8px; }
+.planner-menu-edit li { display: grid; grid-template-columns: minmax(0, 1fr) 104px 30px; gap: 6px; align-items: center; }
+.planner-menu-edit input { box-sizing: border-box; width: 100%; min-width: 0; padding: 8px 10px; border: 1.5px solid #9eb5c3; border-radius: 7px 9px 6px 8px; background: #fff; color: #123653; font: inherit; font-size: 15px; font-weight: 700; }
+.planner-menu-price-input { position: relative; display: block; }
+.planner-menu-price-input span { position: absolute; top: 50%; left: 9px; color: #6b8290; font-weight: 800; transform: translateY(-50%); pointer-events: none; }
+.planner-menu-price-input input { padding-left: 22px; }
+.planner-menu-remove { width: 30px; height: 30px; padding: 0; border: 0; background: transparent; color: #d45b4f; font-size: 22px; line-height: 1; cursor: pointer; }
+.planner-menu-add { margin-top: 10px; padding: 9px; border: 1.5px dashed #9eb5c3; border-radius: 9px; background: #fff; color: #28566f; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
+.planner-menu-add:hover { border-color: #2f5a8f; color: #2f5a8f; }
+.planner-menu-photos { align-self: flex-start; margin: 14px 0 16px; color: #2f5a8f; font-size: 14px; font-weight: 800; text-decoration: none; }
+.planner-menu-photos:hover { text-decoration: underline; }
+.planner-confirm-actions .is-primary { border-color: #2f5a8f; background: #2f5a8f; color: #fff; }
+.planner-confirm-actions .is-primary:hover { border-color: #214958; background: #214958; }

@@ -1159,6 +1159,166 @@ function getTravelPath(segment, mode) {
   return path ?? null;
 }
 
+const makeMenuEntry = (name = "", price = "") => ({
+  id: globalThis.crypto?.randomUUID?.() ?? `menu-${Date.now()}-${Math.random()}`,
+  name,
+  price,
+});
+
+const formatMenuPrice = (price) => {
+  const digits = String(price ?? "").replace(/[^\d]/g, "");
+  return digits ? `¥${Number(digits).toLocaleString("ja-JP")}` : "";
+};
+
+// A store's menu, typed in by hand from its Google Maps menu photos and
+// saved with the itinerary stop so it syncs across devices.
+function PlannerMenuDialog({ title, mapsQuery, initialMenu, onSave, onClose }) {
+  const [entries, setEntries] = useState(() =>
+    initialMenu?.length ? initialMenu : [makeMenuEntry()],
+  );
+  const [isEditing, setIsEditing] = useState(!initialMenu?.length);
+  const listRef = useRef(null);
+
+  useEffect(() => {
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [onClose]);
+
+  const updateEntry = (id, patch) =>
+    setEntries((current) =>
+      current.map((entry) => (entry.id === id ? { ...entry, ...patch } : entry)),
+    );
+  const addEntry = () => {
+    setEntries((current) => [...current, makeMenuEntry()]);
+    requestAnimationFrame(() => {
+      const inputs = listRef.current?.querySelectorAll("input[data-menu-name]");
+      inputs?.[inputs.length - 1]?.focus();
+    });
+  };
+  const save = () => {
+    const cleaned = entries
+      .map((entry) => ({ ...entry, name: entry.name.trim(), price: String(entry.price ?? "").trim() }))
+      .filter((entry) => entry.name);
+    onSave(cleaned);
+    setEntries(cleaned.length ? cleaned : [makeMenuEntry()]);
+    setIsEditing(!cleaned.length);
+  };
+  const savedEntries = entries.filter((entry) => entry.name.trim());
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapsQuery)}`;
+
+  return (
+    <div className="planner-confirm-backdrop" onClick={onClose}>
+      <section
+        className="planner-confirm planner-menu-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="planner-menu-title"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="planner-menu-head">
+          <h2 id="planner-menu-title">{title}</h2>
+          <button type="button" className="planner-menu-close" aria-label="關閉菜單" onClick={onClose}>
+            ×
+          </button>
+        </div>
+        {isEditing ? (
+          <ul className="planner-menu-edit" ref={listRef}>
+            {entries.map((entry) => (
+              <li key={entry.id}>
+                <input
+                  data-menu-name
+                  value={entry.name}
+                  placeholder="品項"
+                  aria-label="品項"
+                  onChange={(event) => updateEntry(entry.id, { name: event.target.value })}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") addEntry();
+                  }}
+                />
+                <label className="planner-menu-price-input">
+                  <span aria-hidden="true">¥</span>
+                  <input
+                    value={entry.price}
+                    inputMode="numeric"
+                    placeholder="價格"
+                    aria-label="價格（日圓）"
+                    onChange={(event) =>
+                      updateEntry(entry.id, { price: event.target.value.replace(/[^\d]/g, "") })
+                    }
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter") addEntry();
+                    }}
+                  />
+                </label>
+                <button
+                  type="button"
+                  className="planner-menu-remove"
+                  aria-label={`刪除品項 ${entry.name}`}
+                  onClick={() =>
+                    setEntries((current) =>
+                      current.length > 1
+                        ? current.filter((candidate) => candidate.id !== entry.id)
+                        : [makeMenuEntry()],
+                    )
+                  }
+                >
+                  ×
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <ul className="planner-menu-list">
+            {savedEntries.map((entry) => (
+              <li key={entry.id}>
+                <span>{entry.name}</span>
+                <i aria-hidden="true" />
+                <b>{formatMenuPrice(entry.price) || "—"}</b>
+              </li>
+            ))}
+          </ul>
+        )}
+        {isEditing && (
+          <button type="button" className="planner-menu-add" onClick={addEntry}>
+            ＋ 新增品項
+          </button>
+        )}
+        <a className="planner-menu-photos" href={mapsUrl} target="_blank" rel="noreferrer">
+          在 Google Maps 看菜單照片 ↗
+        </a>
+        <div className="planner-confirm-actions">
+          {isEditing ? (
+            <>
+              <button type="button" onClick={onClose}>
+                取消
+              </button>
+              <button type="button" className="is-primary" onClick={save}>
+                儲存
+              </button>
+            </>
+          ) : (
+            <button type="button" className="is-primary" onClick={() => setIsEditing(true)}>
+              編輯菜單
+            </button>
+          )}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function MenuIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M6 3.5h10.5a1.5 1.5 0 0 1 1.5 1.5v15a.5.5 0 0 1-.5.5H6A1.5 1.5 0 0 1 4.5 19V5A1.5 1.5 0 0 1 6 3.5Z" />
+      <path d="M8.5 8h6M8.5 11.5h6M8.5 15h4" />
+    </svg>
+  );
+}
+
 function TravelSegment({ segment, from, to, note = "" }) {
   const fromName = from.name;
   const toName = to.name;
@@ -1340,6 +1500,7 @@ function Planner() {
   const [saveRequest, setSaveRequest] = useState(0);
   const [plannerSaveStatus, setPlannerSaveStatus] = useState("");
   const [dayPendingDelete, setDayPendingDelete] = useState(null);
+  const [menuItemId, setMenuItemId] = useState(null);
   const initialCloudDataRef = useRef({ days, activeDayId });
   const lastCloudKeyRef = useRef(null);
   const localEditPendingRef = useRef(false);
@@ -1929,6 +2090,14 @@ function Planner() {
   const addItem = (text = "") =>
     setItems((current) => [...current, makeItem(text)]);
 
+  const saveItemMenu = (itemId, menu) => {
+    setItems((current) =>
+      current.map((item) => (item.id === itemId ? { ...item, menu } : item)),
+    );
+    setPlannerSaveStatus(cloudKey ? "菜單已儲存，正在同步…" : "菜單已儲存在此裝置");
+    setSaveRequest((request) => request + 1);
+  };
+
   const moveItem = (id, direction) =>
     setItems((current) => {
       const from = current.findIndex((item) => item.id === id);
@@ -2205,6 +2374,17 @@ function Planner() {
                                             <span className="planner-locate-icon" aria-hidden="true">⌖</span>
                                           )}
                                         </button>
+                                        {isFoodLocation(resolvedLocation) && itemMotif !== "chairlift" && (
+                                          <button
+                                            className={`planner-locate planner-menu-btn ${item.menu?.length ? "has-menu" : ""}`}
+                                            type="button"
+                                            aria-label="菜單"
+                                            data-tooltip="菜單"
+                                            onClick={() => setMenuItemId(item.id)}
+                                          >
+                                            <MenuIcon />
+                                          </button>
+                                        )}
                                       </div>
                                     </>
                                   ) : (
@@ -2317,6 +2497,24 @@ function Planner() {
           </div>
         </aside>
       </section>
+      {menuItemId && (() => {
+        const menuItem = items.find((item) => item.id === menuItemId);
+        if (!menuItem) return null;
+        const menuText = itemDraftsRef.current.get(menuItem.id) ?? menuItem.text;
+        const menuLocation = resolveItemLocation(menuItem, itemDraftsRef.current.get(menuItem.id));
+        const title =
+          menuText.split(/\r?\n/)[0].trim() || menuLocation?.name || "菜單";
+        return (
+          <PlannerMenuDialog
+            key={menuItem.id}
+            title={title}
+            mapsQuery={[menuLocation?.name ?? title, menuLocation?.displayName].filter(Boolean).join(" ")}
+            initialMenu={menuItem.menu}
+            onSave={(menu) => saveItemMenu(menuItem.id, menu)}
+            onClose={() => setMenuItemId(null)}
+          />
+        );
+      })()}
       {dayPendingDelete && (() => {
         const dayIndex = days.findIndex((day) => day.id === dayPendingDelete);
         const day = days[dayIndex];
