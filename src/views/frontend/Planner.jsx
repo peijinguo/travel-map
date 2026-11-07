@@ -119,6 +119,8 @@ const getItineraryMotif = (location, itineraryText = "") => {
   if (/沼の家|numa\s*no\s*ya/iu.test(placeName)) return "numanoyaDango";
   if (/サク男ともち子|saku\s*o\s*to\s*mochiko/iu.test(headline)) return "crepe";
   if (/吉田商店|yoshida\s*shoten|湯咖哩|湯咖喱|汤咖喱|スープカレー|soup\s*curry/iu.test(headline)) return "curry";
+  // After the shop rules, so 「駐車場(…吉田商店)」 keeps its shop's icon.
+  if (/駐車場|停車場|パーキング|parking/iu.test(headline)) return "parking";
   if (/ハセガワストア|hasegawa\s*store|長谷川商店|长谷川商店|やきとり弁当|燒鳥便當|烤雞肉串便當|烤肉串便當|yakitori\s*bento/iu.test(headline)) return "yakitoriBento";
   // Japanese stores commonly write sushi as 「寿し」; recognize it even when
   // the Google place category has not been returned yet.
@@ -172,6 +174,8 @@ const getItineraryMotifLabel = (motif) =>
     resort: "住宿",
     airport: "機場",
     fuel: "加油站",
+    parking: "停車場",
+    curry: "咖哩",
     familymart: "FamilyMart",
     seveneleven: "7-Eleven",
     lamb: "烤羊肉",
