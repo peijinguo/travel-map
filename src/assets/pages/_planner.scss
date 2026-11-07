@@ -1029,9 +1029,9 @@
 /* Store menu: button beside ⌖ on food stops and its dialog. */
 .planner-meta-actions-group .planner-menu-btn { position: relative; width: 38px; min-width: 38px; padding: 0; background: #fff; }
 .planner-menu-btn svg { width: 26px; height: 26px; }
-// On white, the blade and tines take the sky blue the icon used as its ground.
-.planner-menu-btn .menu-icon-metal { fill: #2bc4ef; }
-.planner-menu-btn .menu-icon-handle { fill: #f2c94c; }
+// Same ink as the move arrows beside it: solid handles, outlined white blades.
+.planner-menu-btn .menu-icon-metal { fill: #fff; stroke: #3f5b69; stroke-width: 1.3; stroke-linejoin: round; }
+.planner-menu-btn .menu-icon-handle { fill: #3f5b69; }
 .planner-menu-btn.has-menu { border-color: #2f5a8f; box-shadow: inset 0 0 0 1px #2f5a8f; }
 .planner-menu-btn:hover { border-color: #2f5a8f; }
 .planner-menu-dialog { width: min(100%, 420px); max-height: min(86vh, 640px); display: flex; flex-direction: column; border-color: #e3e6e8; background: #f3f4f5; }
