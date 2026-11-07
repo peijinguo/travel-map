@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
@@ -20,6 +21,7 @@ function Header() {
   const [syncCodeDraft, setSyncCodeDraft] = useState(syncCode);
   const [newSyncCode, setNewSyncCode] = useState("");
   const [syncMessage, setSyncMessage] = useState("");
+  const [codePendingRemoval, setCodePendingRemoval] = useState(null);
 
   // 點雪旅行程面板以外的地方或按 Esc 時關閉面板。
   useEffect(() => {
@@ -29,10 +31,17 @@ function Header() {
       setIsSyncCodeSelectOpen(false);
     };
     const closeOnOutsidePress = (event) => {
+      // The removal dialog sits outside the panel but belongs to it.
+      if (event.target.closest?.(".sync-code-confirm")) return;
       if (!syncRef.current?.contains(event.target)) closeSyncPanel();
     };
     const closeOnEscape = (event) => {
-      if (event.key === "Escape") closeSyncPanel();
+      if (event.key !== "Escape") return;
+      // Esc first dismisses the removal dialog, then the panel.
+      setCodePendingRemoval((code) => {
+        if (!code) closeSyncPanel();
+        return null;
+      });
     };
     document.addEventListener("pointerdown", closeOnOutsidePress);
     document.addEventListener("keydown", closeOnEscape);
@@ -226,7 +235,10 @@ function Header() {
                               className="sync-code-option-remove"
                               type="button"
                               aria-label={`從此裝置移除行程 ${code}`}
-                              onClick={() => removeSavedSyncCode(code)}
+                              onClick={() => {
+                                setIsSyncCodeSelectOpen(false);
+                                setCodePendingRemoval(code);
+                              }}
                             >
                               ×
                             </button>
@@ -275,6 +287,46 @@ function Header() {
           )}
         </div>
       </div>
+      {codePendingRemoval &&
+        createPortal(
+          <div
+            className="planner-confirm-backdrop sync-code-confirm"
+            onClick={() => setCodePendingRemoval(null)}
+          >
+            <section
+              className="planner-confirm"
+              role="alertdialog"
+              aria-modal="true"
+              aria-labelledby="sync-code-confirm-title"
+              aria-describedby="sync-code-confirm-message"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <h2 id="sync-code-confirm-title">
+                移除行程
+                <small>{codePendingRemoval}</small>
+              </h2>
+              <p id="sync-code-confirm-message">
+                這個行程會從所有裝置的行程清單移除。行程內容仍保留在雲端，之後重新輸入相同的行程代號就能找回。
+              </p>
+              <div className="planner-confirm-actions">
+                <button type="button" autoFocus onClick={() => setCodePendingRemoval(null)}>
+                  取消
+                </button>
+                <button
+                  className="is-danger"
+                  type="button"
+                  onClick={() => {
+                    removeSavedSyncCode(codePendingRemoval);
+                    setCodePendingRemoval(null);
+                  }}
+                >
+                  移除
+                </button>
+              </div>
+            </section>
+          </div>,
+          document.body,
+        )}
     </header>
   );
 }
