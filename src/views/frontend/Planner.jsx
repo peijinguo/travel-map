@@ -1431,9 +1431,14 @@ function DishIcon() {
 
 function MenuIcon() {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M6 3.5h10.5a1.5 1.5 0 0 1 1.5 1.5v15a.5.5 0 0 1-.5.5H6A1.5 1.5 0 0 1 4.5 19V5A1.5 1.5 0 0 1 6 3.5Z" />
-      <path d="M8.5 8h6M8.5 11.5h6M8.5 15h4" />
+    <svg viewBox="0 0 24 28" aria-hidden="true">
+      {/* 夾板菜單：外框、夾子與吊環、內頁、MENU 字樣和品項／價格線。 */}
+      <rect x="3" y="4" width="18" height="22.5" rx="2.4" />
+      <rect x="5.3" y="6.3" width="13.4" height="17.9" rx="0.6" />
+      <path d="M8.6 6.3V4.2h6.8v2.1" />
+      <circle cx="12" cy="2.5" r="1.3" />
+      <text x="12" y="13.2" textAnchor="middle">MENU</text>
+      <path d="M8 15.6h8M8 18h4.6M15 18h1M8 20.4h4.6M15 20.4h1M8 22.6h4.6M15 22.6h1" />
     </svg>
   );
 }
