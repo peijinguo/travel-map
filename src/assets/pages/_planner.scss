@@ -408,6 +408,10 @@
 .planner-day-delete:disabled { opacity: .28; cursor: default; }
 .planner-day-delete > span { display: block; line-height: 1; transform: translateY(-5px); }
 .planner-date-field { display: grid; gap: 5px; margin: 0 0 14px; padding: 10px 2px 12px; border-bottom: 2px solid color-mix(in srgb, currentColor 48%, transparent); color: #397293; }
+// The open day is named by its tab above, so its sheet drops the DAY title and
+// lifts the date row level with the delete button, leaving room for it.
+.planner-day-sheet.is-active > .planner-day-select { display: none; }
+.planner-day-sheet.is-active > .planner-date-field { margin-top: -9px; padding: 0 46px 12px 2px; }
 .planner-date-field span, .planner-sheet-heading span { font-size: 14px; font-weight: 900; }
 .planner-date-field input { min-width: 0; width: 100%; padding: 9px 11px; border: 1.7px solid currentColor; border-radius: 7px 9px 6px 8px; outline: none; background: rgba(255,255,255,.84); color: #284d63; font-family: inherit; font-size: 20px; font-weight: 800; }
 .planner-date-field b { overflow: hidden; color: #05456a; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
@@ -851,6 +855,9 @@
   .planner-day-sheet.is-active { width: 100%; min-width: 0; flex-basis: calc(100% - 96px); box-sizing: border-box; }
   .planner-date-input { grid-template-columns: minmax(0, 1fr); }
   .planner-date-input em { justify-self: start; }
+  // Beside the delete button the date and weekday still fit on one row.
+  .planner-day-sheet.is-active .planner-date-input { grid-template-columns: minmax(0, 1fr) auto; }
+  .planner-day-sheet.is-active .planner-date-input em { justify-self: end; }
   .planner-calendar { width: 100%; }
   .planner-calendar-popover { padding: clamp(10px, 3.5vw, 14px); }
   .planner-calendar-weekdays,
