@@ -182,7 +182,7 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = nul
         type: "line",
         source: ROUTE_SOURCE_ID,
         layout: { "line-cap": "round", "line-join": "round" },
-        paint: { "line-color": "#8b5a3c", "line-width": 5, "line-opacity": 0.95 },
+        paint: { "line-color": "#3f4a52", "line-width": 5, "line-opacity": 0.95 },
       });
       setMapReady(true);
     });
