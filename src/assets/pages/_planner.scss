@@ -1027,18 +1027,18 @@
 
 
 /* Store menu: button beside ⌖ on food stops and its dialog. */
-.planner-meta-actions-group .planner-menu-btn { position: relative; width: 38px; min-width: 38px; padding: 0; background: #fff; }
+.planner-meta-actions-group .planner-menu-btn { position: relative; width: 38px; min-width: 38px; padding: 0; border-width: 1.7px; background: #fff; }
 .planner-menu-btn svg { width: 26px; height: 26px; }
 // Same ink as the move arrows beside it: solid handles, outlined white blades.
 .planner-menu-btn .menu-icon-metal { fill: #fff; stroke: #3f5b69; stroke-width: 1.3; stroke-linejoin: round; }
 .planner-menu-btn .menu-icon-handle { fill: #3f5b69; }
-.planner-menu-btn.has-menu { border-color: #2f5a8f; box-shadow: inset 0 0 0 1px #2f5a8f; }
+// One border as thick as the move buttons; the blue alone marks a saved menu.
+.planner-menu-btn.has-menu { border-color: #2f5a8f; }
 .planner-menu-btn:hover { border-color: #2f5a8f; }
 @media (max-width: 600px) {
   // Same 24px square as the other stop buttons on phones.
   .planner-meta-actions-group .planner-menu-btn { width: 24px; min-width: 24px; }
-  // Same single border as its neighbours; the blue border alone marks a menu.
-  .planner-menu-btn.has-menu { box-shadow: none; }
+  .planner-meta-actions-group .planner-menu-btn { border-width: 1.5px; }
   .planner-menu-btn svg { width: 18px; height: 18px; }
 }
 .planner-menu-dialog { width: min(100%, 420px); max-height: min(86vh, 640px); display: flex; flex-direction: column; border-color: #e3e6e8; background: #f3f4f5; }
