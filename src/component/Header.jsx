@@ -56,6 +56,15 @@ function Header() {
       window.removeEventListener("cloud-sync-status", updateSyncMessage);
   }, []);
 
+  // Without a cloud connection a switch only changes the saved code; say why
+  // nothing loads instead of promising data that never comes.
+  const switchedMessage = (loadingMessage) =>
+    user
+      ? loadingMessage
+      : isFirebaseConfigured
+        ? authError || "尚未連上雲端，請稍候再切換一次"
+        : "目前使用本機儲存，無法載入雲端行程";
+
   const removeSavedSyncCode = (code) => {
     if (!removeSyncCode(code)) {
       setSyncMessage("至少需要保留一個雪旅行程");
@@ -207,7 +216,7 @@ function Header() {
                                 setSyncCodeDraft(code);
                                 setIsSyncCodeSelectOpen(false);
                                 if (setSyncCode(code)) {
-                                  setSyncMessage("已切換行程，正在載入資料…");
+                                  setSyncMessage(switchedMessage("已切換行程，正在載入資料…"));
                                 }
                               }}
                             >
@@ -254,7 +263,7 @@ function Header() {
                       }
                       setSyncCodeDraft(newSyncCode);
                       setNewSyncCode("");
-                      setSyncMessage("已加入行程，正在載入資料…");
+                      setSyncMessage(switchedMessage("已加入行程，正在載入資料…"));
                     }}
                   >
                     新增
