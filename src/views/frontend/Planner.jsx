@@ -24,7 +24,6 @@ const GEOCODE_CACHE_KEY = "yuki-tabi-google-geocode-cache-v4";
 const LODGING_STORAGE_KEY = "yuki-tabi-lodgings-v1";
 const ACTIVE_DAY_STORAGE_KEY = "yuki-tabi-planner-active-day-v1";
 const DRAFT_STORAGE_KEY = "yuki-tabi-planner-drafts-v1";
-const FOOD_FAVORITES_STORAGE_KEY = "yuki-tabi-food-favorites-v1";
 // 記住本機行程屬於哪個同步空間；在其他頁面切換同步碼後，行程頁才知道要換資料。
 const PLANNER_SPACE_STORAGE_KEY = "yuki-tabi-planner-space-v1";
 const pendingGeocodes = new Map();
@@ -64,14 +63,6 @@ const FOOD_PLACE_TYPES = new Set([
   "meal_delivery",
 ]);
 
-function loadFoodFavorites() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(FOOD_FAVORITES_STORAGE_KEY) ?? "[]");
-    return Array.isArray(saved) ? saved : [];
-  } catch {
-    return [];
-  }
-}
 const NON_LODGING_LOCATION_PATTERN = /滑雪場|滑雪场|スキー場|ski\s*(?:area|resort)/iu;
 const CHECKOUT_PATTERN = /退房|退宿|チェック[\s-]*アウト|check[\s-]*out/iu;
 const JARTIC_URL = "https://www.jartic.or.jp/";
@@ -1348,35 +1339,12 @@ function Planner() {
   const [cloudLoadedFor, setCloudLoadedFor] = useState(null);
   const [saveRequest, setSaveRequest] = useState(0);
   const [plannerSaveStatus, setPlannerSaveStatus] = useState("");
-  const [foodFavorites, setFoodFavorites] = useState(loadFoodFavorites);
   const [dayPendingDelete, setDayPendingDelete] = useState(null);
   const initialCloudDataRef = useRef({ days, activeDayId });
   const lastCloudKeyRef = useRef(null);
   const localEditPendingRef = useRef(false);
   const itemDraftsRef = useRef(loadItemDrafts());
   const [, setDraftRevision] = useState(0);
-
-  const toggleFoodFavorite = (location, item) => {
-    if (!isFoodLocation(location)) return;
-    const favoriteId = String(location.id ?? location.placeId ?? location.name);
-    setFoodFavorites((current) => {
-      const alreadySaved = current.some((favorite) => favorite.id === favoriteId);
-      const next = alreadySaved
-        ? current.filter((favorite) => favorite.id !== favoriteId)
-        : [
-            ...current,
-            {
-              id: favoriteId,
-              name: location.name ?? item.text.split(/\r?\n/)[0],
-              area: location.displayName ?? activeDay?.label ?? "美食",
-              to: `/planner?day=${encodeURIComponent(activeDayId)}`,
-            },
-          ];
-      localStorage.setItem(FOOD_FAVORITES_STORAGE_KEY, JSON.stringify(next));
-      window.dispatchEvent(new CustomEvent("food-favorites-changed"));
-      return next;
-    });
-  };
 
   useEffect(() => {
     const dayId = searchParams.get("day");
@@ -2237,20 +2205,6 @@ function Planner() {
                                             <span className="planner-locate-icon" aria-hidden="true">⌖</span>
                                           )}
                                         </button>
-
-                                        {isFoodLocation(resolvedLocation) && itemMotif !== "chairlift" && (
-                                          <button
-                                            className={`planner-locate planner-food-favorite-btn ${foodFavorites.some((favorite) => favorite.id === String(resolvedLocation.id ?? resolvedLocation.placeId ?? resolvedLocation.name)) ? "is-favorite" : ""}`}
-                                            type="button"
-                                            aria-label={foodFavorites.some((favorite) => favorite.id === String(resolvedLocation.id ?? resolvedLocation.placeId ?? resolvedLocation.name)) ? "移除美食收藏" : "加入我的最愛"}
-                                            data-tooltip={foodFavorites.some((favorite) => favorite.id === String(resolvedLocation.id ?? resolvedLocation.placeId ?? resolvedLocation.name)) ? "移除美食收藏" : "加入我的最愛"}
-                                            onClick={() => toggleFoodFavorite(resolvedLocation, item)}
-                                          >
-                                            <span aria-hidden="true">
-                                              {foodFavorites.some((favorite) => favorite.id === String(resolvedLocation.id ?? resolvedLocation.placeId ?? resolvedLocation.name)) ? "♥" : "♡"}
-                                            </span>
-                                          </button>
-                                        )}
                                       </div>
                                     </>
                                   ) : (

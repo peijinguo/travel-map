@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { snowTowns } from "../views/frontend/Home";
 import { useAuth } from "../context/AuthContext";
 
 function Header() {
@@ -14,7 +13,6 @@ function Header() {
     setSyncCode,
     removeSyncCode,
   } = useAuth();
-  const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSyncOpen, setIsSyncOpen] = useState(false);
   const syncRef = useRef(null);
@@ -22,9 +20,6 @@ function Header() {
   const [syncCodeDraft, setSyncCodeDraft] = useState(syncCode);
   const [newSyncCode, setNewSyncCode] = useState("");
   const [syncMessage, setSyncMessage] = useState("");
-  const [favorites, setFavorites] = useState([]);
-  const [foodFavorites, setFoodFavorites] = useState([]);
-  const [activeFavoriteTab, setActiveFavoriteTab] = useState("resorts");
 
   // 點雪旅行程面板以外的地方或按 Esc 時關閉面板。
   useEffect(() => {
@@ -47,44 +42,6 @@ function Header() {
     };
   }, [isSyncOpen]);
 
-  const loadFavorites = useCallback(() => {
-    const savedFavorites = snowTowns.flatMap((town) =>
-      town.resorts.flatMap((resort, index) =>
-        localStorage.getItem(`resort-favorite:${town.id}:${index}`) === "true"
-          ? [
-              {
-                townId: town.id,
-                resortIndex: index,
-                townName: town.name,
-                resort,
-              },
-            ]
-          : [],
-      ),
-    );
-    setFavorites(savedFavorites);
-    try {
-      const savedFood = JSON.parse(
-        localStorage.getItem("yuki-tabi-food-favorites-v1") ?? "[]",
-      );
-      setFoodFavorites(Array.isArray(savedFood) ? savedFood : []);
-    } catch {
-      setFoodFavorites([]);
-    }
-  }, []);
-
-  useEffect(() => {
-    loadFavorites();
-    window.addEventListener("storage", loadFavorites);
-    window.addEventListener("resort-favorites-changed", loadFavorites);
-    window.addEventListener("food-favorites-changed", loadFavorites);
-    return () => {
-      window.removeEventListener("storage", loadFavorites);
-      window.removeEventListener("resort-favorites-changed", loadFavorites);
-      window.removeEventListener("food-favorites-changed", loadFavorites);
-    };
-  }, [loadFavorites]);
-
   useEffect(() => {
     const updateSyncMessage = (event) => {
       const messages = {
@@ -98,21 +55,6 @@ function Header() {
     return () =>
       window.removeEventListener("cloud-sync-status", updateSyncMessage);
   }, []);
-
-  const removeFavorite = (favorite) => {
-    localStorage.removeItem(
-      `resort-favorite:${favorite.townId}:${favorite.resortIndex}`,
-    );
-    loadFavorites();
-    window.dispatchEvent(new CustomEvent("resort-favorites-changed"));
-  };
-
-  const removeFoodFavorite = (favorite) => {
-    const next = foodFavorites.filter((item) => item.id !== favorite.id);
-    localStorage.setItem("yuki-tabi-food-favorites-v1", JSON.stringify(next));
-    setFoodFavorites(next);
-    window.dispatchEvent(new CustomEvent("food-favorites-changed"));
-  };
 
   const removeSavedSyncCode = (code) => {
     if (!removeSyncCode(code)) {
@@ -177,10 +119,7 @@ function Header() {
         aria-label={isMobileMenuOpen ? "關閉導覽選單" : "開啟導覽選單"}
         aria-expanded={isMobileMenuOpen}
         aria-controls="mobile-navigation"
-        onClick={() => {
-          setIsFavoritesOpen(false);
-          setIsMobileMenuOpen((open) => !open);
-        }}
+        onClick={() => setIsMobileMenuOpen((open) => !open)}
       >
         <span />
         <span />
@@ -201,7 +140,6 @@ function Header() {
                   : "目前使用本機儲存"
             }
             onClick={() => {
-              setIsFavoritesOpen(false);
               setSyncMessage(authError);
               setSyncCodeDraft(syncCode);
               setIsSyncCodeSelectOpen(false);
@@ -326,118 +264,6 @@ function Header() {
               </div>
             </section>
           )}
-        </div>
-        <div className="header-favorites">
-        <button
-          className="header-action"
-          type="button"
-          aria-label={`我的收藏，共 ${favorites.length + foodFavorites.length} 個項目`}
-          aria-expanded={isFavoritesOpen}
-          aria-controls="header-favorites-panel"
-          onClick={() => {
-            loadFavorites();
-            setIsMobileMenuOpen(false);
-            setIsFavoritesOpen((open) => !open);
-          }}
-        >
-          <span className="header-action-icon" aria-hidden="true">
-            {favorites.length + foodFavorites.length ? "♥" : "♡"}
-          </span>
-          <span className="header-action-label">我的收藏</span>
-          {favorites.length + foodFavorites.length > 0 && (
-            <strong className="favorites-count">{favorites.length + foodFavorites.length}</strong>
-          )}
-        </button>
-
-        {isFavoritesOpen && (
-          <section
-            className="favorites-panel"
-            id="header-favorites-panel"
-            aria-label="收藏的雪場"
-          >
-            <div className="favorites-tabs" role="tablist" aria-label="收藏分類">
-              <button
-                type="button"
-                role="tab"
-                aria-selected={activeFavoriteTab === "resorts"}
-                className={activeFavoriteTab === "resorts" ? "is-active" : ""}
-                onClick={() => setActiveFavoriteTab("resorts")}
-              >
-                雪場 <span>{favorites.length}</span>
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={activeFavoriteTab === "food"}
-                className={activeFavoriteTab === "food" ? "is-active" : ""}
-                onClick={() => setActiveFavoriteTab("food")}
-              >
-                美食 <span>{foodFavorites.length}</span>
-              </button>
-            </div>
-            {activeFavoriteTab === "resorts" ? (
-            favorites.length === 0 ? (
-              <div className="favorites-empty">
-                <span aria-hidden="true">♡</span>
-                <p>還沒有收藏雪場</p>
-                <small>到雪場介紹頁按下「加入我的收藏」吧！</small>
-              </div>
-            ) : (
-              <ul className="favorites-list">
-                {favorites.map((favorite) => (
-                  <li key={`${favorite.townId}-${favorite.resortIndex}`}>
-                    <Link
-                      to={`/resorts/${favorite.townId}/${favorite.resortIndex}`}
-                      onClick={() => setIsFavoritesOpen(false)}
-                    >
-                      <small>{favorite.townName}</small>
-                      <strong>{favorite.resort}</strong>
-                    </Link>
-                    <button
-                      type="button"
-                      aria-label={`移除 ${favorite.resort}`}
-                      onClick={() => removeFavorite(favorite)}
-                    >
-                      ×
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )
-            ) : foodFavorites.length === 0 ? (
-              <div className="favorites-empty">
-                <span aria-hidden="true">♡</span>
-                <p>尚未收藏美食</p>
-                <small>收藏的餐廳與美食會顯示在這裡。</small>
-              </div>
-            ) : (
-              <ul className="favorites-list favorites-food-list">
-                {foodFavorites.map((favorite) => (
-                  <li key={favorite.id}>
-                    {favorite.to ? (
-                      <Link to={favorite.to} onClick={() => setIsFavoritesOpen(false)}>
-                        <small>{favorite.area ?? "美食"}</small>
-                        <strong>{favorite.name}</strong>
-                      </Link>
-                    ) : (
-                      <span className="favorites-food-copy">
-                        <small>{favorite.area ?? "美食"}</small>
-                        <strong>{favorite.name}</strong>
-                      </span>
-                    )}
-                    <button
-                      type="button"
-                      aria-label={`移除 ${favorite.name}`}
-                      onClick={() => removeFoodFavorite(favorite)}
-                    >
-                      ×
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
-        )}
         </div>
       </div>
     </header>
