@@ -209,14 +209,8 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = nul
         id: ROUTE_SOURCE_ID,
         type: "line",
         source: ROUTE_SOURCE_ID,
-        // Round caps would fill the gaps, so dashes use butt caps.
-        layout: { "line-cap": "butt", "line-join": "round" },
-        paint: {
-          "line-color": "#3f4a52",
-          "line-width": 4,
-          "line-opacity": 0.95,
-          "line-dasharray": [2, 1.5],
-        },
+        layout: { "line-cap": "round", "line-join": "round" },
+        paint: { "line-color": "#3f4a52", "line-width": 4, "line-opacity": 0.95 },
       });
       setMapReady(true);
     });
