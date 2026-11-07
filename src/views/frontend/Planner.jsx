@@ -1270,13 +1270,27 @@ const formatMenuPrice = (price) => {
 
 // Menus read from photos of the shop's own menu board, shown for any stop at
 // that shop until the traveller saves a menu of their own.
-const makePresetMenu = (prefix, rows) =>
-  rows.map(([name, original, price], index) => ({
-    id: `${prefix}-${index + 1}`,
-    name,
-    original,
-    price,
-  }));
+// A plain string in `rows` starts a category; the items after it carry it,
+// and the menu shows a heading wherever the category changes.
+const makePresetMenu = (prefix, rows) => {
+  let category = "";
+  const items = [];
+  rows.forEach((row) => {
+    if (typeof row === "string") {
+      category = row;
+      return;
+    }
+    const [name, original, price] = row;
+    items.push({
+      id: `${prefix}-${items.length + 1}`,
+      name,
+      original,
+      price,
+      ...(category && { category }),
+    });
+  });
+  return items;
+};
 
 const PRESET_MENUS = [
   {
@@ -1461,6 +1475,36 @@ const PRESET_MENUS = [
       ["どんどん燒", "どんどん焼", ""],
       ["烤海螺（つぶ貝）", "つぶ焼", ""],
       ["炸起司竹輪", "ちくわチーズ揚", ""],
+    ]),
+  },
+  {
+    // From screenshots of the shop's menu tabs, grouped by its own
+    // categories. Items repeated across tabs (e.g. the Crème Brûlée and
+    // mille-feuille lines) are listed once, under the first tab that shows them.
+    pattern: /angelique|アンジェリーク|アンジェリック/iu,
+    menu: makePresetMenu("angelique-voyage", [
+      "季節限定",
+      ["烤棉花糖可麗餅", "焼きマシュマロ（Roasted marshmallows）", "1100"],
+      ["紅茶柳橙可麗餅", "オレンジ（Tea & orange）", "900"],
+      ["焦糖香蕉千層可麗餅", "キャラメルバナナのミルフィーユ", "950"],
+      ["洋梨千層可麗餅", "洋梨のミルフィーユ", "950"],
+      ["蒙布朗可麗餅", "モンブラン", "1050"],
+      ["蜂蜜優格鳳梨可麗餅", "はちみつヨーグルトとパイン", "950"],
+      ["草莓鮮奶油蛋糕可麗餅", "苺のショートケーキのクレープ", "950"],
+      "定番",
+      ["草莓千層可麗餅", "苺のミルフィーユ", "950"],
+      ["濃厚卡士達千層可麗餅", "濃厚カスタードのミルフィーユ", "800"],
+      ["巧克力千層可麗餅", "ミルフィーユショコラ", "800"],
+      ["草莓烤布蕾可麗餅", "苺のクレームブリュレ", "1050"],
+      ["香蕉烤布蕾可麗餅", "バナナのクレームブリュレ", "950"],
+      ["草莓牛奶可麗餅", "いちごみるく", "900"],
+      ["巧克力草莓可麗餅", "チョコいちご", "900"],
+      ["巧克力香蕉可麗餅", "チョコバナナ", "800"],
+      ["狹山抹茶可麗餅（埼玉狹山茶）", "狭山の抹茶", "900"],
+      "其他",
+      ["Q 彈可麗餅（現烤餅皮＋鮮奶油＋水果）", "もちもちクレープ", "800"],
+      ["巧克力千層薄餅", "ミルクレープ ショコラ", "800"],
+      ["巧克力草莓", "チョコレート 苺", "850"],
     ]),
   },
 ];
@@ -1675,10 +1719,15 @@ function PlannerMenuDialog({
           </ul>
         ) : (
           <ul className="planner-menu-list">
-            {savedEntries.map((entry) => (
-              <li key={entry.id}>
-                <MenuDishRow entry={entry} />
-              </li>
+            {savedEntries.map((entry, index) => (
+              <Fragment key={entry.id}>
+                {entry.category && entry.category !== savedEntries[index - 1]?.category && (
+                  <li className="planner-menu-category">{entry.category}</li>
+                )}
+                <li>
+                  <MenuDishRow entry={entry} />
+                </li>
+              </Fragment>
             ))}
           </ul>
         )}

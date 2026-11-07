@@ -306,7 +306,7 @@ function ResortExperienceNote({ resort, storageKey }) {
         } else if (latestNoteRef.current === experienceNote) {
           setExperienceNote(cloudNote);
         }
-        if (!cancelled) setNoteStatus("已同步至雲端");
+        if (!cancelled) setNoteStatus("");
       })
       .catch((error) => {
         console.error("無法載入雲端筆記", error);
@@ -330,7 +330,7 @@ function ResortExperienceNote({ resort, storageKey }) {
         setExperienceNote((currentNote) =>
           currentNote === cloudNote ? currentNote : cloudNote,
         );
-        setNoteStatus("已同步至雲端");
+        setNoteStatus("");
       },
       (error) => {
         console.error("無法即時接收雲端筆記", error);
@@ -358,7 +358,7 @@ function ResortExperienceNote({ resort, storageKey }) {
     try {
       await saveResortNoteCloud(cloudKey, storageKey, nextNote);
       noteEditPendingRef.current = false;
-      setNoteStatus("已同步至雲端");
+      setNoteStatus("");
     } catch {
       setNoteStatus("已儲存在此裝置，雲端同步失敗");
     }
