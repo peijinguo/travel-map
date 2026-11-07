@@ -556,6 +556,7 @@ const namedPlaces = [
       "喜らく 大沼",
       "喜らく 七飯",
       "喜楽 大沼",
+      "喜楽",
       "大沼 喜らく",
       "Kiraku Onuma",
     ],
@@ -690,16 +691,26 @@ function findKnownLocationForText(text) {
 // normalizeText drops words like スキー場, so 「グリーンピア大沼スキー場」 would
 // equal the hotel 「グリーンピア大沼」. A stop that names a ski area must never
 // take a lodging's fixed pin.
+// Stops are often written 「喜らく餐廳」 or 「晚餐 喜らく」; the meal words are
+// dropped so the name alone still finds its fixed pin instead of a same-named
+// shop elsewhere in Japan.
+const MEAL_WORDS_PATTERN =
+  /餐廳|餐厅|餐館|餐馆|レストラン|早餐|午餐|晚餐|宵夜|用餐|吃飯|吃饭|ランチ|ディナー|restaurant|breakfast|lunch|dinner|[:：]/giu;
+
 function findNamedPlaceForText(text) {
   const query = getLocationQuery(text);
   const normalized = normalizeText(query);
   if (!normalized) return null;
+  const withoutMealWords = normalized.replace(MEAL_WORDS_PATTERN, "");
   const namesSkiArea = SKI_AREA_PATTERN.test(query);
   return (
     namedPlaces.find(
       (place) =>
         !(namesSkiArea && place.types?.includes("lodging")) &&
-        place.aliases.some((alias) => normalized === normalizeText(alias)),
+        place.aliases.some((alias) => {
+          const name = normalizeText(alias);
+          return normalized === name || withoutMealWords === name;
+        }),
     ) ?? null
   );
 }
