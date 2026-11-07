@@ -1027,12 +1027,13 @@
 
 
 /* Store menu: button beside ⌖ on food stops and its dialog. */
-.planner-meta-actions-group .planner-menu-btn { position: relative; width: 38px; min-width: 38px; padding: 0; border-color: #2bc4ef; background: #2bc4ef; }
+.planner-meta-actions-group .planner-menu-btn { position: relative; width: 38px; min-width: 38px; padding: 0; background: #fff; }
 .planner-menu-btn svg { width: 26px; height: 26px; }
-.planner-menu-btn .menu-icon-metal { fill: #fff; }
-.planner-menu-btn .menu-icon-handle { fill: #f7d55c; }
-.planner-menu-btn.has-menu { border-color: #2f5a8f; box-shadow: inset 0 0 0 1.5px #2f5a8f; }
-.planner-menu-btn:hover { border-color: #2f5a8f; background: #1fb4e0; }
+// On white, the blade and tines take the sky blue the icon used as its ground.
+.planner-menu-btn .menu-icon-metal { fill: #2bc4ef; }
+.planner-menu-btn .menu-icon-handle { fill: #f2c94c; }
+.planner-menu-btn.has-menu { border-color: #2f5a8f; box-shadow: inset 0 0 0 1px #2f5a8f; }
+.planner-menu-btn:hover { border-color: #2f5a8f; }
 .planner-menu-dialog { width: min(100%, 420px); max-height: min(86vh, 640px); display: flex; flex-direction: column; border-color: #e3e6e8; background: #f3f4f5; }
 .planner-menu-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
 .planner-menu-dialog .planner-menu-head h2 { margin: 0; font-size: 19px; line-height: 1.4; }
