@@ -386,7 +386,7 @@ function Header() {
                 <small>{codePendingRemoval}</small>
               </h2>
               <p id="sync-code-confirm-message">
-                這個行程的所有天數、行程、菜單和雪場筆記都會從雲端刪除，所有裝置都看不到，刪除後無法復原。
+                這個行程的所有天數、行程、菜單和雪場筆記都會從雲端刪除，所有裝置都看不到。最近 3 天的備份會保留，可以從行程頁的「備份紀錄」還原。
               </p>
               {deleteError && (
                 <p className="sync-code-confirm-error" role="alert">

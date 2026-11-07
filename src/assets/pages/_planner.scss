@@ -1081,3 +1081,18 @@
 .planner-menu-list.is-editing li.planner-menu-edit-row { grid-template-columns: minmax(0, 1fr) 96px 30px; gap: 6px; align-items: start; }
 .planner-menu-row-button { display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 10px; align-items: center; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer; }
 .planner-menu-row-button:hover strong { color: #2f5a8f; }
+
+// Daily backups: opened from below the 儲存 button.
+.planner-backup-open { display: block; margin: 0 auto 10px; padding: 4px 10px; border: 0; background: none; color: #5f7f8f; font: inherit; font-size: 12px; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.planner-backup-open:hover { color: #123653; }
+.planner-backup-dialog { width: min(100%, 420px); }
+.planner-backup-list { display: grid; gap: 10px; margin: 0 0 18px; padding: 0; list-style: none; }
+.planner-backup-list li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px; border: 1.5px solid #dbe5ea; border-radius: 12px; background: #fff; }
+.planner-backup-list li > div:first-child { display: grid; gap: 2px; }
+.planner-backup-list strong { font-size: 16px; font-weight: 900; }
+.planner-backup-list small { color: #718795; font-size: 12px; font-weight: 700; }
+.planner-backup-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 6px; }
+.planner-backup-actions span { color: #bf3f39; font-size: 12px; font-weight: 800; }
+.planner-backup-actions button { padding: 6px 12px; border: 1.5px solid #9eb5c3; border-radius: 999px; background: #fff; color: #123653; font: inherit; font-size: 13px; font-weight: 800; cursor: pointer; }
+.planner-backup-actions button:hover { background: #f2f6f8; }
+.planner-backup-actions .is-danger { border-color: #d9574f; background: #d9574f; color: #fff; }

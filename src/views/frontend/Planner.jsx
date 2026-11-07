@@ -5,7 +5,10 @@ import HandDrawnMotif from "../../component/HandDrawnMotif";
 import RouteMap from "../../component/RouteMap";
 import { useAuth } from "../../context/AuthContext";
 import {
+  listBackupsCloud,
   loadPlannerCloud,
+  replaceMenusCloud,
+  saveDailyBackupCloud,
   saveMenuCloud,
   savePlannerCloud,
   subscribeMenusCloud,
@@ -1222,6 +1225,25 @@ const makeMenuEntry = (name = "", price = "", original = "") => ({
   price,
 });
 
+// The device's own calendar date, 「YYYY-MM-DD」, names each day's backup.
+const getLocalDateKey = (date = new Date()) =>
+  [date.getFullYear(), date.getMonth() + 1, date.getDate()]
+    .map((part) => String(part).padStart(2, "0"))
+    .join("-");
+
+const downloadBackupFile = (backup) => {
+  const { savedAt, ...data } = backup;
+  const blob = new Blob(
+    [JSON.stringify({ ...data, savedAt: savedAt?.toISOString?.() ?? null }, null, 2)],
+    { type: "application/json" },
+  );
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = `雪旅地圖行程備份-${backup.id}.json`;
+  link.click();
+  URL.revokeObjectURL(link.href);
+};
+
 // Some shops print tax-included prices to the sen, e.g. ハセガワストア's ¥619.92.
 const formatMenuPrice = (price) => {
   const digits = String(price ?? "").replace(/[^\d.]/g, "");
@@ -1757,6 +1779,10 @@ function Planner() {
   const initialCloudDataRef = useRef({ days, activeDayId });
   const lastCloudKeyRef = useRef(null);
   const localEditPendingRef = useRef(false);
+  // Set by the 儲存 button so the next successful cloud save also keeps a
+  // copy of the trip as today's backup.
+  const backupRequestedRef = useRef(false);
+  const [backupList, setBackupList] = useState(null);
   const itemDraftsRef = useRef(loadItemDrafts());
   const [, setDraftRevision] = useState(0);
 
@@ -1857,10 +1883,21 @@ function Planner() {
 
   useEffect(() => {
     if (!cloudKey || cloudLoadedFor !== cloudKey || saveRequest === 0) return;
+    const backupRequested = backupRequestedRef.current;
+    backupRequestedRef.current = false;
     savePlannerCloud(cloudKey, { days })
-      .then(() => {
+      .then(async () => {
         localEditPendingRef.current = false;
         setPlannerSaveStatus("已儲存並同步");
+        if (backupRequested) {
+          try {
+            await saveDailyBackupCloud(cloudKey, getLocalDateKey(), { days, menus: cloudMenus });
+            setPlannerSaveStatus("已儲存並同步，今天的備份已更新");
+          } catch (error) {
+            console.error("無法建立備份", error);
+            setPlannerSaveStatus("已儲存並同步，但備份失敗");
+          }
+        }
         window.dispatchEvent(
           new CustomEvent("cloud-sync-status", { detail: "success" }),
         );
@@ -2232,6 +2269,7 @@ function Planner() {
   }, [travelPairsKey]);
 
   const saveAllItemDrafts = () => {
+    backupRequestedRef.current = true;
     const drafts = new Map(itemDraftsRef.current);
     const itemsToLocate = items
       .filter((item) => drafts.has(item.id))
@@ -2355,6 +2393,34 @@ function Planner() {
   };
   const addItem = (text = "") =>
     setItems((current) => [...current, makeItem(text)]);
+
+  const openBackupList = () => {
+    if (!cloudKey) return;
+    setBackupList({ status: "loading", backups: [], restoreId: null });
+    listBackupsCloud(cloudKey)
+      .then((backups) => setBackupList({ status: "ready", backups, restoreId: null }))
+      .catch((error) => {
+        console.error("無法讀取備份", error);
+        setBackupList({ status: "error", backups: [], restoreId: null });
+      });
+  };
+  const restoreBackup = async (backup) => {
+    if (!cloudKey || !Array.isArray(backup?.days) || !backup.days.length) return;
+    const restoredDays = backup.days.map(normalizePlannerDay);
+    localEditPendingRef.current = true;
+    setDays(restoredDays);
+    setActiveDayId(restoredDays[0].id);
+    setCloudMenus(backup.menus ?? {});
+    setBackupList(null);
+    setPlannerSaveStatus(`已還原 ${backup.id} 的備份，正在同步…`);
+    setSaveRequest((request) => request + 1);
+    try {
+      await replaceMenusCloud(cloudKey, backup.menus ?? {});
+    } catch (error) {
+      console.error("無法還原菜單", error);
+      setPlannerSaveStatus("行程已還原，但菜單同步失敗");
+    }
+  };
 
   const saveItemMenu = (itemId, menu) => {
     setItems((current) =>
@@ -2771,6 +2837,15 @@ function Planner() {
                       <span className="planner-save-status" role="status">
                         {plannerSaveStatus}
                       </span>
+                      {cloudKey && (
+                        <button
+                          className="planner-backup-open"
+                          type="button"
+                          onClick={openBackupList}
+                        >
+                          備份紀錄（保留最近 3 天）
+                        </button>
+                      )}
                     </>
                   ) : (
                     <div className="planner-day-preview">
@@ -2808,6 +2883,75 @@ function Planner() {
           />
         );
       })()}
+      {backupList && (
+        <div className="planner-confirm-backdrop" onClick={() => setBackupList(null)}>
+          <section
+            className="planner-confirm planner-backup-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="planner-backup-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <h2 id="planner-backup-title">
+              備份紀錄
+              <small>按「儲存」時自動備份當天的行程，只保留最近 3 天</small>
+            </h2>
+            {backupList.status === "loading" && <p>正在讀取備份…</p>}
+            {backupList.status === "error" && <p>讀取備份失敗，請稍後再試。</p>}
+            {backupList.status === "ready" && !backupList.backups.length && (
+              <p>還沒有備份。按下「儲存」後就會備份今天的行程。</p>
+            )}
+            {backupList.backups.length > 0 && (
+              <ul className="planner-backup-list">
+                {backupList.backups.map((backup) => (
+                  <li key={backup.id}>
+                    <div>
+                      <strong>{backup.id}</strong>
+                      <small>
+                        {backup.savedAt
+                          ? `${backup.savedAt.toLocaleTimeString("zh-TW", { hour: "2-digit", minute: "2-digit" })} 儲存・`
+                          : ""}
+                        {backup.days?.length ?? 0} 天
+                      </small>
+                    </div>
+                    {backupList.restoreId === backup.id ? (
+                      <div className="planner-backup-actions">
+                        <span>目前的行程會被取代</span>
+                        <button
+                          type="button"
+                          onClick={() => setBackupList((current) => ({ ...current, restoreId: null }))}
+                        >
+                          取消
+                        </button>
+                        <button className="is-danger" type="button" onClick={() => restoreBackup(backup)}>
+                          確定還原
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="planner-backup-actions">
+                        <button type="button" onClick={() => downloadBackupFile(backup)}>
+                          下載
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setBackupList((current) => ({ ...current, restoreId: backup.id }))}
+                        >
+                          還原
+                        </button>
+                      </div>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
+            <div className="planner-confirm-actions">
+              <button type="button" autoFocus onClick={() => setBackupList(null)}>
+                關閉
+              </button>
+            </div>
+          </section>
+        </div>
+      )}
       {dayPendingDelete && (() => {
         const dayIndex = days.findIndex((day) => day.id === dayPendingDelete);
         const day = days[dayIndex];

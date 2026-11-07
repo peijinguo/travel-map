@@ -157,6 +157,46 @@ export async function deleteTripCloud(syncSpaceId) {
   );
 }
 
+// One backup per calendar day, keyed 「YYYY-MM-DD」: pressing 儲存 again the
+// same day replaces that day's copy, so the history keeps each day's last save.
+// Only the latest few days are kept; older ones are removed after each save.
+const backupsCollection = (syncSpaceId) =>
+  collection(db, "syncSpaces", syncSpaceId, "backups");
+const BACKUP_DAYS_KEPT = 3;
+
+export async function saveDailyBackupCloud(syncSpaceId, dateKey, data) {
+  if (!db) return;
+  await setDoc(doc(backupsCollection(syncSpaceId), dateKey), {
+    ...JSON.parse(JSON.stringify(data)),
+    savedAt: serverTimestamp(),
+  });
+  const snapshot = await withSyncTimeout(getDocs(backupsCollection(syncSpaceId)), 10000);
+  const stale = snapshot.docs
+    .sort((a, b) => b.id.localeCompare(a.id))
+    .slice(BACKUP_DAYS_KEPT);
+  await Promise.all(stale.map((backup) => deleteDoc(backup.ref)));
+}
+
+export async function listBackupsCloud(syncSpaceId) {
+  if (!db) return [];
+  const snapshot = await withSyncTimeout(getDocs(backupsCollection(syncSpaceId)), 10000);
+  return snapshot.docs
+    .map((backup) => {
+      const data = backup.data();
+      return { ...data, id: backup.id, savedAt: data.savedAt?.toDate?.() ?? null };
+    })
+    .sort((a, b) => b.id.localeCompare(a.id));
+}
+
+// Replaces every store menu at once, for restoring a backup.
+export async function replaceMenusCloud(syncSpaceId, items) {
+  if (!db) return;
+  await setDoc(menusDoc(syncSpaceId), {
+    items: JSON.parse(JSON.stringify(items ?? {})),
+    updatedAt: serverTimestamp(),
+  });
+}
+
 // Store menus live in their own document, keyed by itinerary item id, so a
 // menu saved on one device reaches everyone in the space at once and a stale
 // itinerary save elsewhere can never overwrite it.
