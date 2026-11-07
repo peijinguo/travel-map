@@ -1432,13 +1432,13 @@ function DishIcon() {
 function MenuIcon() {
   return (
     <svg viewBox="0 0 24 28" aria-hidden="true">
-      {/* 夾板菜單：外框、夾子與吊環、內頁、MENU 字樣和品項／價格線。 */}
-      <rect x="3" y="4" width="18" height="22.5" rx="2.4" />
-      <rect x="5.3" y="6.3" width="13.4" height="17.9" rx="0.6" />
-      <path d="M8.6 6.3V4.2h6.8v2.1" />
-      <circle cx="12" cy="2.5" r="1.3" />
-      <text x="12" y="13.2" textAnchor="middle">MENU</text>
-      <path d="M8 15.6h8M8 18h4.6M15 18h1M8 20.4h4.6M15 20.4h1M8 22.6h4.6M15 22.6h1" />
+      {/* 菜單本：翻起的封底、封面，以及上面的叉子和湯匙。 */}
+      <path d="M4.5 7.2 17.3 3a1.1 1.1 0 0 1 1.45 1.05V6.6" />
+      <rect x="3.5" y="6.6" width="17" height="19.4" rx="1.8" />
+      <path d="M7.4 10.5v3.7a1.8 1.8 0 0 0 3.6 0v-3.7M9.2 10.5v3.4" />
+      <rect x="8.4" y="16" width="1.6" height="7" rx="0.8" />
+      <ellipse cx="15.3" cy="12.9" rx="2" ry="2.6" />
+      <rect x="14.5" y="16" width="1.6" height="7" rx="0.8" />
     </svg>
   );
 }
