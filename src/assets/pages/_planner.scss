@@ -94,7 +94,6 @@
   overflow-x: auto;
   // Clicking a DAY centres it, so the strip needs no visible scrollbar.
   scrollbar-width: none;
-  scroll-behavior: smooth;
 }
 .planner-day-picker::-webkit-scrollbar { display: none; }
 .planner-day-picker button {

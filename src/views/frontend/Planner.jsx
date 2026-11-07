@@ -1814,11 +1814,11 @@ function Planner() {
     const picker = dayPickerRef.current;
     const tab = picker?.querySelector(".planner-day-tab.is-active");
     if (!picker || !tab) return;
+    // Jump rather than glide: the day board below scrolls smoothly at the
+    // same moment, and Chrome cancels one smooth scroll when another starts.
     picker.scrollTo({
       left: tab.offsetLeft - (picker.clientWidth - tab.offsetWidth) / 2,
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? "auto"
-        : "smooth",
+      behavior: "instant",
     });
   }, [activeDayId, days.length]);
 
