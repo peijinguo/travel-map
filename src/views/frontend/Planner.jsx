@@ -1999,7 +1999,6 @@ function Planner() {
                 路線地圖
               </h2>
             </div>
-            <strong>{plannedStops.length} 個停靠點</strong>
           </div>
           <div className="planner-map-stage has-route-map">
             <RouteMap stops={plannedStops} paths={routePaths} label={routeMapTitle} focus={mapFocus} />
