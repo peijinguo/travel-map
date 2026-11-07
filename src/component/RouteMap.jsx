@@ -87,7 +87,7 @@ const makeRouteLine = (coordinates, paths = []) => ({
 // Pins this close on screen overlap; a clicked pin zooms in until its nearest
 // neighbour is at least this far away.
 const PIN_SPREAD_PX = 56;
-const MAX_FOCUS_ZOOM = 17;
+const MAX_FOCUS_ZOOM = 18;
 
 function zoomToSpreadPins(map, coordinate, allCoordinates) {
   const here = map.project(coordinate);
