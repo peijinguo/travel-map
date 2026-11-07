@@ -489,7 +489,10 @@
 .planner-list > li > .planner-drag-handle.planner-stop-tag:hover { background: #a67e7e; }
 .planner-list > li:nth-child(odd) { transform: rotate(-.12deg); }
 .planner-list > li:nth-child(even) { transform: rotate(.12deg); }
-.planner-list > li:hover { border-color: #123653; background: #f9f5f6; }
+.planner-list > li:not(.planner-travel-segment) { transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+.planner-list > li:not(.planner-travel-segment):hover { border-color: #123653; background: #fff; box-shadow: 0 8px 18px rgba(18,54,83,.14); }
+.planner-list > li:not(.planner-travel-segment):nth-child(odd):hover { transform: translateY(-3px) rotate(-.12deg); }
+.planner-list > li:not(.planner-travel-segment):nth-child(even):hover { transform: translateY(-3px) rotate(.12deg); }
 .planner-list > li.is-drag-over { border-color: #126bd6; transform: translateY(3px) rotate(-.2deg); box-shadow: 0 4px 0 rgba(18,107,214,.11); }
 .planner-list > li.planner-travel-segment {
   grid-template-columns: minmax(0, 1fr);
