@@ -88,6 +88,8 @@ const makeRouteLine = (coordinates, paths = []) => ({
 // neighbour is at least this far away.
 const PIN_SPREAD_PX = 56;
 const MAX_FOCUS_ZOOM = 18;
+// A clicked STOP tag lands at street level, close enough to read the blocks around it.
+const STOP_FOCUS_ZOOM = 16;
 
 function zoomToSpreadPins(map, coordinate, allCoordinates, minZoom = 0, duration = 700) {
   const here = map.project(coordinate);
@@ -281,7 +283,7 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = nul
     }
     // Zoom into the area too, so pins crowded around this one pull apart.
     const coordinates = stopsRef.current.map(({ town }) => [town.longitude, town.latitude]);
-    zoomToSpreadPins(map, coordinates[index], coordinates, 13, 900);
+    zoomToSpreadPins(map, coordinates[index], coordinates, STOP_FOCUS_ZOOM, 900);
     const pin = marker.getElement().querySelector(".planner-route-pin");
     pin.classList.remove("is-bouncing");
     void pin.offsetWidth; // restart the animation on repeated clicks
