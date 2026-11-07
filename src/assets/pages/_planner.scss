@@ -1031,7 +1031,7 @@
 .planner-menu-btn svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .planner-menu-btn.has-menu { border-color: #2f5a8f; color: #2f5a8f; }
 .planner-menu-btn:hover { border-color: #2f5a8f; color: #2f5a8f; }
-.planner-menu-dialog { width: min(100%, 420px); max-height: min(86vh, 640px); display: flex; flex-direction: column; }
+.planner-menu-dialog { width: min(100%, 420px); max-height: min(86vh, 640px); display: flex; flex-direction: column; border-color: #e3e6e8; background: #f3f4f5; }
 .planner-menu-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
 .planner-menu-dialog .planner-menu-head h2 { margin: 0; font-size: 19px; line-height: 1.4; }
 .planner-menu-close { flex: 0 0 auto; border: 0; background: transparent; color: #7891a2; font-size: 27px; line-height: 1; cursor: pointer; }
