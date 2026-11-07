@@ -1433,17 +1433,13 @@ function DishIcon() {
 
 function MenuIcon() {
   return (
-    <svg viewBox="0 0 24 21" aria-hidden="true">
-      {/* 餐蓋：上方的握把、圓頂與托盤，下面寫著 MENU。 */}
-      <circle cx="12" cy="2.6" r="1.2" />
-      <path d="M4.6 10.4a7.4 6.6 0 0 1 14.8 0" />
-      <path d="M2.8 10.4h18.4" />
-      <g transform="translate(0.8 0)">
-        <path d="M2.5 19.5v-5l2 3 2-3v5" />
-        <path d="M10.5 14.5H8v5h2.5M8 17h2.2" />
-        <path d="M12 19.5v-5l3.2 5v-5" />
-        <path d="M16.7 14.5v3.4a1.6 1.6 0 0 0 3.2 0v-3.4" />
-      </g>
+    <svg viewBox="0 0 24 18" aria-hidden="true">
+      {/* 餐具：左邊的刀、中間的盤子、右邊的湯匙。 */}
+      <path d="M4.6 1.6v14.8a.9.9 0 0 1-1.8 0v-5.8C1.9 10.2 1.6 9 1.6 7.2c0-3 1.2-5.6 3-5.6z" />
+      <circle cx="12" cy="9" r="6.2" />
+      <path d="M8.9 10.8A3.6 3.6 0 1 1 12 12.6" />
+      <ellipse cx="20.8" cy="4.4" rx="1.7" ry="2.8" />
+      <rect x="20" y="7.2" width="1.6" height="10" rx="0.8" />
     </svg>
   );
 }
