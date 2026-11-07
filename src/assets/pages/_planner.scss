@@ -473,7 +473,7 @@
   background: transparent;
   transition: border-color .18s ease, transform .18s ease, box-shadow .18s ease;
 }
-.planner-list { --stop-tag-w: 70px; --stop-gutter: 78px; }
+.planner-list { --stop-tag-w: 46px; --stop-gutter: 46px; }
 .planner-list > li:not(.planner-travel-segment) {
   position: relative;
   margin-left: var(--stop-gutter);
@@ -482,8 +482,9 @@
   background: #fff;
 }
 .planner-list .planner-item-meta b { position: static; }
-.planner-list > li > .planner-drag-handle.planner-stop-tag { position: absolute; top: -0.8px; right: calc(100% + 6px); left: auto; z-index: 1; display: inline-flex; justify-content: center; width: var(--stop-tag-w); margin: 0; font-family: inherit; cursor: grab; align-items: center; height: 52px; padding: 0; border: 1px solid #a67e7e; border-radius: 6px; background: #b88f8f; color: #fff; font-size: 13px; font-weight: 800; letter-spacing: .05em; line-height: 1; white-space: nowrap; box-shadow: 1px 2px 0 rgba(52,67,74,.07); }
+.planner-list > li > .planner-drag-handle.planner-stop-tag { position: absolute; top: -0.8px; right: 100%; left: auto; z-index: 1; display: inline-flex; flex-direction: column; gap: 3px; justify-content: center; width: var(--stop-tag-w); margin: 0; font-family: inherit; cursor: grab; align-items: center; height: 52px; padding: 0; border: 1px solid #a67e7e; border-radius: 6px 0 0 6px; background: #b88f8f; color: #fff; font-size: 11px; font-weight: 800; letter-spacing: .05em; line-height: 1; white-space: nowrap; box-shadow: 1px 2px 0 rgba(52,67,74,.07); }
 .planner-list > li.planner-travel-segment { margin-left: var(--stop-gutter) !important; }
+.planner-list > li > .planner-drag-handle.planner-stop-tag > span:last-child { font-size: 16px; letter-spacing: .02em; }
 .planner-list > li > .planner-drag-handle.planner-stop-tag:active { cursor: grabbing; }
 .planner-list > li > .planner-drag-handle.planner-stop-tag:hover { background: #a67e7e; }
 .planner-list > li:nth-child(odd) { transform: rotate(-.12deg); }
@@ -869,8 +870,9 @@
     padding-right: 4px;
   }
   .planner-list > li > .planner-drag-handle { margin-top: 3px; }
-  .planner-list { --stop-tag-w: 54px; --stop-gutter: 58px; }
-  .planner-list > li > .planner-drag-handle.planner-stop-tag { height: 40px; font-size: 10.5px; letter-spacing: .02em; }
+  .planner-list { --stop-tag-w: 38px; --stop-gutter: 38px; }
+  .planner-list > li > .planner-drag-handle.planner-stop-tag { height: 40px; gap: 1px; font-size: 9px; letter-spacing: .02em; }
+  .planner-list > li > .planner-drag-handle.planner-stop-tag > span:last-child { font-size: 13px; }
   .planner-item-meta > b {
     grid-column: 2;
     grid-row: 1;

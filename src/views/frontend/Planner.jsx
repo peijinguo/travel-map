@@ -2204,7 +2204,8 @@ function Planner() {
                                 aria-label={`STOP ${String(index + 1).padStart(2, "0")}，拖曳調整順序`}
                                 title="拖曳調整順序"
                               >
-                                STOP {String(index + 1).padStart(2, "0")}
+                                <span>STOP</span>
+                                <span>{String(index + 1).padStart(2, "0")}</span>
                               </button>
                               <div className="planner-item-copy">
                                 <div className="planner-item-meta">
