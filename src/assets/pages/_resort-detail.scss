@@ -28,26 +28,6 @@
 .resort-location { margin: 0 0 10px; color: #8fb3c9; font-size: 17px; font-weight: 800; letter-spacing: .12em; }
 .resort-detail-hero h1 { max-width: 820px; margin: 0; font-size: clamp(34px, 4vw, 58px); font-weight: 900; line-height: 1.15; letter-spacing: -.04em; }
 .resort-intro { margin: 18px 0 0; color: #c0d3df; font-size: 17px; }
-.favorite-resort-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  margin-top: 22px;
-  padding: 11px 18px;
-  border: 2px solid #ffd563;
-  border-radius: 999px;
-  background: transparent;
-  color: #fff8dc;
-  font-size: 16px;
-  font-weight: 800;
-  cursor: pointer;
-  transition: color .2s ease, background .2s ease, transform .2s ease;
-}
-.favorite-resort-button span { color: #ef7f9a; font-size: 22px; line-height: 1; }
-.favorite-resort-button:hover { background: rgba(255, 213, 99, .14); transform: translateY(-2px); }
-.favorite-resort-button.is-favorite { background: #ffd563; color: #123653; }
-.favorite-resort-button.is-favorite span { color: #e85d82; }
-.favorite-resort-button:focus-visible { outline: 3px solid rgba(255, 255, 255, .65); outline-offset: 4px; }
 .resort-hero-motif { width: 124px; height: 124px; display: grid; flex: 0 0 124px; place-items: center; border-radius: 32px; background: #fff9ed; color: #283033; transform: rotate(3deg); }
 .resort-hero-motif .hand-motif { width: 82px; height: 82px; }
 .compact-resort-hero {
@@ -85,12 +65,10 @@
 .resort-detail-hero .back-to-map,
 .resort-detail-hero .resort-location,
 .resort-detail-hero .resort-intro,
-.resort-detail-hero .favorite-resort-button,
 .resort-hero-motif { transition: margin .28s ease, font-size .28s ease, line-height .28s ease, width .28s ease, height .28s ease, flex-basis .28s ease, border-radius .28s ease, opacity .2s ease, transform .28s ease; }
 .resort-detail-hero.is-compact { gap: 24px; padding: 18px 30px; border-radius: 22px; box-shadow: 0 14px 34px rgba(18, 54, 83, .18); }
 .resort-detail-hero.is-compact .back-to-map,
-.resort-detail-hero.is-compact .resort-intro,
-.resort-detail-hero.is-compact .favorite-resort-button { display: none; }
+.resort-detail-hero.is-compact .resort-intro { display: none; }
 .resort-detail-hero.is-compact .resort-location { margin-bottom: 4px; font-size: 12px; }
 .resort-detail-hero.is-compact h1 { font-size: clamp(24px, 3vw, 38px); }
 .resort-detail-hero.is-compact .resort-hero-motif { width: 68px; height: 68px; flex-basis: 68px; border-radius: 18px; transform: rotate(3deg) scale(.96); }

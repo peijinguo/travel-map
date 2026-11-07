@@ -1003,12 +1003,10 @@ function ResortDetail() {
   const [forecast, setForecast] = useState(null);
   const [weatherState, setWeatherState] = useState("loading");
   const [snowSapporoResult, setSnowSapporoResult] = useState(null);
-  const [isFavorite, setIsFavorite] = useState(false);
   const [isHeroCompact, setIsHeroCompact] = useState(false);
   const heroRef = useRef(null);
 
   const noteStorageKey = `resort-experience:${townId}:${resortIndex}`;
-  const favoriteStorageKey = `resort-favorite:${townId}:${resortIndex}`;
   const isOfficialMoiwa = resort === "Niseko Moiwa";
   const isOfficialOnze = resort === "Snow Cruise Onze";
   const isZaoOnsen = resort === "藏王溫泉滑雪場";
@@ -1034,19 +1032,6 @@ function ResortDetail() {
     snowSapporoState === "ready" ? snowSapporoResult.weather : null;
 
   useEffect(() => {
-    const syncFavorite = () => {
-      setIsFavorite(localStorage.getItem(favoriteStorageKey) === "true");
-    };
-    syncFavorite();
-    window.addEventListener("storage", syncFavorite);
-    window.addEventListener("resort-favorites-changed", syncFavorite);
-    return () => {
-      window.removeEventListener("storage", syncFavorite);
-      window.removeEventListener("resort-favorites-changed", syncFavorite);
-    };
-  }, [favoriteStorageKey]);
-
-  useEffect(() => {
     const updateCompactHero = () => {
       const heroBottom = heroRef.current?.getBoundingClientRect().bottom ?? Infinity;
       setIsHeroCompact(heroBottom <= 88);
@@ -1055,15 +1040,6 @@ function ResortDetail() {
     window.addEventListener("scroll", updateCompactHero, { passive: true });
     return () => window.removeEventListener("scroll", updateCompactHero);
   }, []);
-
-  const toggleFavorite = () => {
-    setIsFavorite((current) => {
-      const next = !current;
-      localStorage.setItem(favoriteStorageKey, String(next));
-      window.dispatchEvent(new CustomEvent("resort-favorites-changed"));
-      return next;
-    });
-  };
 
   useEffect(() => {
     if (!town || !resort) return undefined;
@@ -1152,15 +1128,6 @@ function ResortDetail() {
           <p className="resort-location">{town.prefecture} · {town.name}</p>
           <h1>{resort}</h1>
           <p className="resort-intro">查看雪道入口、區域即時天氣與未來 7 天降雪預報。</p>
-          <button
-            className={`favorite-resort-button ${isFavorite ? "is-favorite" : ""}`}
-            type="button"
-            aria-pressed={isFavorite}
-            onClick={toggleFavorite}
-          >
-            <span aria-hidden="true">{isFavorite ? "♥" : "♡"}</span>
-            {isFavorite ? "已加入我的收藏" : "加入我的收藏"}
-          </button>
         </div>
         <div className="resort-hero-motif" aria-hidden="true"><HandDrawnMotif type={town.motif} /></div>
       </section>
