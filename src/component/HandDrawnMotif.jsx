@@ -6,6 +6,7 @@ import gondolaSkiIcon from "../assets/gondola-ski-icon.png?inline";
 import curryPlateIcon from "../assets/curry-plate-icon.png?inline";
 import airportPlaneIcon from "../assets/airport-plane-icon.png?inline";
 import parkingSignIcon from "../assets/parking-sign-icon.png?inline";
+import skiTowIcon from "../assets/ski-tow-icon.png?inline";
 
 const motifColors = {
   mountain: "#78aeca", yotei: "#78aeca", lantern: "#e87543", clock: "#d9a24f", tvTower: "#d95743", apple: "#9ac65c", cherry: "#c54f72",
@@ -72,7 +73,7 @@ const motifs = {
   hakuba: <><path className="hakuba-mountain" d="M2 38 11 22l6 6L26 7l8 18 5-8 7 21z"/><path className="hakuba-snow" d="m7 30 4-8 6 6 9-21 8 18 5-8 3 9-8 6-8-12-7 13-6-6z"/><path className="hakuba-ground" d="M3 39c12-2 28 2 42-1"/></>,
 };
 
-const imageMotifs = { tempura: tempuraShrimpIcon, resort: resortSignIcon, chairlift: gondolaSkiIcon, curry: curryPlateIcon, airport: airportPlaneIcon, parking: parkingSignIcon };
+const imageMotifs = { tempura: tempuraShrimpIcon, resort: resortSignIcon, chairlift: gondolaSkiIcon, curry: curryPlateIcon, airport: airportPlaneIcon, parking: parkingSignIcon, skiTow: skiTowIcon };
 
 function HandDrawnMotif({ type, className = "" }) {
   if (imageMotifs[type]) {

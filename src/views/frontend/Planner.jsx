@@ -98,6 +98,8 @@ const getItineraryMotif = (location, itineraryText = "") => {
   const placeName = String(location?.name ?? "");
   // A ski area run by a resort hotel (e.g. グリーンピア大沼) is tagged as
   // lodging by Google, so check the stop's own name before the lodging test.
+  // 臼尻スキー場 runs a rope tow rather than a lift.
+  if (/臼尻|usujiri/iu.test(headlineOf(noteText, placeName))) return "skiTow";
   if (SKI_AREA_PATTERN.test(`${noteText.split(/\r?\n/)[0]} ${placeName}`)) return "chairlift";
   if (isLodgingLocation(location)) return "resort";
   // Only the stop's own name, so a note like 「之後去機場」 does not count.
@@ -187,6 +189,7 @@ const getItineraryMotifLabel = (motif) =>
     numanoyaDango: "沼の家糰子",
     yakitoriBento: "烤雞肉串便當",
     chairlift: "滑雪場",
+    skiTow: "滑雪場",
   })[motif] ?? "吃的";
 
 function saveLodging(location, day, stayItemId = "") {
@@ -2763,7 +2766,7 @@ function Planner() {
                                             <span className="planner-locate-icon" aria-hidden="true">⌖</span>
                                           )}
                                         </button>
-                                        {((isFoodLocation(resolvedLocation) && itemMotif !== "chairlift") ||
+                                        {((isFoodLocation(resolvedLocation) && itemMotif !== "chairlift" && itemMotif !== "skiTow") ||
                                           // A shop like ハセガワストア is not tagged as a restaurant
                                           // on the map, but its food icon shows it sells meals.
                                           FOOD_MOTIFS.has(itemMotif) ||
