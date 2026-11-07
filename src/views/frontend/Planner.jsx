@@ -1929,14 +1929,14 @@ function Planner() {
     savePlannerCloud(cloudKey, { days })
       .then(async () => {
         localEditPendingRef.current = false;
-        setPlannerSaveStatus("已儲存並同步");
+        setPlannerSaveStatus("已儲存");
         if (backupRequested) {
           try {
             await saveDailyBackupCloud(cloudKey, getLocalDateKey(), { days, menus: cloudMenus });
-            setPlannerSaveStatus("已儲存並同步，今天的備份已更新");
+            setPlannerSaveStatus("已儲存，今天的備份已更新");
           } catch (error) {
             console.error("無法建立備份", error);
-            setPlannerSaveStatus("已儲存並同步，但備份失敗");
+            setPlannerSaveStatus("已儲存，但備份失敗");
           }
         }
         window.dispatchEvent(
