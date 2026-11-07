@@ -259,8 +259,15 @@
   .menu-toggle--open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .menu-toggle--open span:nth-child(2) { opacity: 0; }
   .menu-toggle--open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-  .header-login { padding-right: 7px; }
-  .header-login > span { font-size: 24px; }
+  // Same circle as the menu toggle beside it.
+  .header-login {
+    width: 42px;
+    height: 42px;
+    min-height: 42px;
+    justify-content: center;
+    padding: 0;
+  }
+  .header-login > span { font-size: 22px; }
   .header-login strong { display: none; }
   .sync-code-panel { position: fixed; top: 78px; right: 16px; left: 16px; width: auto; }
 }
