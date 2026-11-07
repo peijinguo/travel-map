@@ -1575,7 +1575,6 @@ function RoadConditionSummary({ stops }) {
     <section className="planner-road-summary" aria-labelledby="planner-road-summary-title">
       <div className="planner-road-summary-icon" aria-hidden="true">雪</div>
       <div>
-        <p>MLIT ROAD CONDITIONS</p>
         <h3 id="planner-road-summary-title">沿途道路即時資訊</h3>
         <small>手機開啟時會自動顯示 JARTIC 手機版即時交通資訊</small>
       </div>

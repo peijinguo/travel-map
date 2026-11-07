@@ -371,7 +371,6 @@ function ResortExperienceNote({ resort, storageKey }) {
     <section className="resort-experience-card" aria-labelledby="resort-experience-title">
       <div className="experience-heading">
         <div>
-          <p className="card-kicker">MY EXPERIENCE</p>
           <h2 id="resort-experience-title">雪場體驗</h2>
         </div>
       </div>
@@ -1143,7 +1142,6 @@ function ResortDetail() {
 
       <section className="resort-info-grid" aria-label={`${resort}雪場資訊`}>
         <article className="trail-card resort-info-card">
-          <p className="card-kicker">TRAIL MAP</p>
           <h2>雪道資訊</h2>
           {isSapporoMoiwa ? (
             <>
@@ -1155,7 +1153,6 @@ function ResortDetail() {
               </figure>
               <section className="sapporo-moiwa-course-guide" aria-labelledby="sapporo-moiwa-course-guide-title">
                 <div className="sapporo-moiwa-course-guide-heading">
-                  <p className="card-kicker">COURSE GUIDE</p>
                 </div>
                 <div className="sapporo-moiwa-course-guide-grid">
                   {sapporoMoiwaCourseGuide.map((course) => (
@@ -1229,7 +1226,6 @@ function ResortDetail() {
               <section className="sapporo-moiwa-course-guide greenpia-course-guide" aria-labelledby="greenpia-course-guide-title">
                 <div className="sapporo-moiwa-course-guide-heading">
                   <div>
-                    <p className="card-kicker">COURSE GUIDE</p>
                     <h3 id="greenpia-course-guide-title">雪道資訊</h3>
                   </div>
                   <small>共 {greenpiaOnumaCourses.length} 條雪道</small>
@@ -1274,7 +1270,6 @@ function ResortDetail() {
               <section className="sapporo-moiwa-course-guide zao-sarukura-course-guide" aria-labelledby="zao-sarukura-course-guide-title">
                 <div className="sapporo-moiwa-course-guide-heading">
                   <div>
-                    <p className="card-kicker">COURSE GUIDE</p>
                     <h3 id="zao-sarukura-course-guide-title">雪道資訊</h3>
                   </div>
                   <small>共 6 條雪道</small>
@@ -1308,7 +1303,7 @@ function ResortDetail() {
             <div className="trail-sketch"><CartoonTrailMap resort={resort} /></div>
           )}
           <div className="lift-route-section">
-            <div className="lift-route-heading"><p className="card-kicker">LIFT STATUS</p><h3>纜車運行狀況</h3></div>
+            <div className="lift-route-heading"><h3>纜車運行狀況</h3></div>
             {isKamuiSkiLinks ? (
               <KamuiLiftStatus />
             ) : isSapporoKokusai ? (
@@ -1335,7 +1330,6 @@ function ResortDetail() {
 
         <div className="resort-weather-column">
           <article className="current-weather-card resort-info-card">
-          <p className="card-kicker">CURRENT WEATHER</p>
           <h2>目前天氣</h2>
           {!isTeine && !isOfficialOnze && !isZaoSarukura && !isAppiKogen && (usesSnowSapporo ? snowSapporoState === "loading" : weatherState === "loading") && <p className="weather-message">正在取得最新預報…</p>}
           {!isTeine && !isOfficialOnze && !isZaoSarukura && !isAppiKogen && (usesSnowSapporo ? snowSapporoState === "error" : weatherState === "error") && <p className="weather-message">暫時無法取得天氣資料，請稍後再試。</p>}
@@ -1458,7 +1452,7 @@ function ResortDetail() {
 
           <section className="snow-forecast-card">
             <div className="forecast-heading">
-              <div><p className="card-kicker">7-DAY SNOWFALL</p><h2>未來 7 天降雪量</h2></div>
+              <div><h2>未來 7 天降雪量</h2></div>
               <small>單位：cm</small>
             </div>
             {!isTeine && weatherState === "loading" && <p className="weather-message">正在載入 7 天降雪預報…</p>}
