@@ -106,6 +106,7 @@ const getItineraryMotif = (location, itineraryText = "") => {
       !/(?:^|[^a-z])SS(?:[^a-z]|$)|ENEOS|ガソリン|gas\s*station|加油站|レンタカー|rent[\s-]*a?[\s-]*car|car\s*rental|租車|営業所|營業所|ホテル|hotel/iu.test(
         headlineOf(noteText, placeName),
       ))) return "airport";
+  if (/ENEOS|加油|ガソリン|gas\s*station|(?:^|[^a-z])SS(?:[^a-z]|$)|出光|apollostation|コスモ石油|cosmo\s*oil|エッソ|\besso\b|shell/iu.test(headlineOf(noteText, placeName))) return "fuel";
   const placeCuisine = String(location?.cuisine ?? "");
   const placeText = `${noteText} ${placeName}`;
   if (/family\s*mart|ファミリーマート|ファミマ/iu.test(placeText)) return "familymart";
@@ -170,6 +171,7 @@ const getItineraryMotifLabel = (motif) =>
     onsen: "泡湯",
     resort: "住宿",
     airport: "機場",
+    fuel: "加油站",
     familymart: "FamilyMart",
     seveneleven: "7-Eleven",
     lamb: "烤羊肉",
