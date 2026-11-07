@@ -5,6 +5,7 @@ import {
   isFirebaseConfigured,
   observeAuth,
   removeTripCode,
+  setTripName,
   signInAnonymous,
   subscribeTripCodes,
 } from "../services/firebase";
@@ -13,6 +14,17 @@ const AuthContext = createContext(null);
 const SYNC_CODE_STORAGE_KEY = "travel-map-sync-code";
 const SYNC_CODE_HISTORY_STORAGE_KEY = "travel-map-sync-code-history";
 const TRIP_DIRECTORY_KEY = "__trip-directory__";
+const TRIP_NAMES_STORAGE_KEY = "travel-map-trip-names";
+const MAX_TRIP_NAME_LENGTH = 24;
+
+function getSavedTripNames() {
+  try {
+    const names = JSON.parse(localStorage.getItem(TRIP_NAMES_STORAGE_KEY) ?? "{}");
+    return names && typeof names === "object" && !Array.isArray(names) ? names : {};
+  } catch {
+    return {};
+  }
+}
 
 function createSyncCode() {
   const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -61,6 +73,13 @@ export function AuthProvider({ children }) {
   });
   const [localSyncCodes, setSyncCodes] = useState(() => getSavedSyncCodes(syncCode));
   const [sharedSyncCodes, setSharedSyncCodes] = useState([]);
+  const [localTripNames, setLocalTripNames] = useState(getSavedTripNames);
+  const [sharedTripNames, setSharedTripNames] = useState({});
+  // Names from the cloud win; this device's copy covers offline use.
+  const tripNames = useMemo(
+    () => ({ ...localTripNames, ...sharedTripNames }),
+    [localTripNames, sharedTripNames],
+  );
   const [tripDirectoryId, setTripDirectoryId] = useState(null);
   // Trips added on any device are listed everywhere, after this device's own.
   const syncCodes = useMemo(
@@ -101,7 +120,10 @@ export function AuthProvider({ children }) {
     if (!user || !tripDirectoryId) return undefined;
     return subscribeTripCodes(
       tripDirectoryId,
-      (codes) => setSharedSyncCodes(Array.isArray(codes) ? codes : []),
+      ({ codes, names }) => {
+        setSharedSyncCodes(Array.isArray(codes) ? codes : []);
+        setSharedTripNames(names && typeof names === "object" ? names : {});
+      },
       (error) => console.error("無法讀取共用的行程清單", error),
     );
   }, [user, tripDirectoryId]);
@@ -172,6 +194,33 @@ export function AuthProvider({ children }) {
     return true;
   };
 
+  const renameTrip = (value, name) => {
+    const code = normalizeSyncCode(value);
+    const nextName = String(name ?? "").trim().slice(0, MAX_TRIP_NAME_LENGTH);
+    setLocalTripNames((names) => {
+      const nextNames = { ...names, [code]: nextName };
+      if (!nextName) delete nextNames[code];
+      try {
+        localStorage.setItem(TRIP_NAMES_STORAGE_KEY, JSON.stringify(nextNames));
+      } catch {
+        // The name still shows for this visit.
+      }
+      return nextNames;
+    });
+    setSharedTripNames((names) => {
+      const nextNames = { ...names, [code]: nextName };
+      if (!nextName) delete nextNames[code];
+      return nextNames;
+    });
+    if (user && tripDirectoryId) {
+      // Naming a trip also lists it for everyone, like adding it does.
+      addTripCode(tripDirectoryId, code).catch(() => {});
+      setTripName(tripDirectoryId, code, nextName).catch((error) =>
+        console.error("無法同步行程名稱", error),
+      );
+    }
+  };
+
   // Deletes the trip's cloud content, then drops it from every list.
   const deleteTrip = async (value) => {
     const code = normalizeSyncCode(value);
@@ -196,10 +245,13 @@ export function AuthProvider({ children }) {
       setSyncCode,
       removeSyncCode,
       deleteTrip,
+      tripNames,
+      tripName: tripNames[syncCode] ?? "",
+      renameTrip,
     }),
     // The setters read these too, so a new list or directory id must reach them.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [user, authReady, authError, syncCode, syncCodes, localSyncCodes, tripDirectoryId, syncSpaceId, syncVersion],
+    [user, authReady, authError, syncCode, syncCodes, localSyncCodes, tripDirectoryId, syncSpaceId, syncVersion, tripNames],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -1608,7 +1608,7 @@ function RoadConditionSummary({ stops }) {
 }
 
 function Planner() {
-  const { user, syncSpaceId, syncVersion } = useAuth();
+  const { user, syncSpaceId, syncVersion, tripName } = useAuth();
   const cloudKey = user && syncSpaceId ? syncSpaceId : null;
   const [searchParams] = useSearchParams();
   const linkedVersionAppliedRef = useRef("");
@@ -2315,6 +2315,7 @@ function Planner() {
           <div className="planner-card-title">
             <div>
               <h2>
+                {tripName && <span className="planner-trip-name">{tripName}</span>}
                 <em className="planner-title-day">{days.length} 天行程表</em>
               </h2>
             </div>

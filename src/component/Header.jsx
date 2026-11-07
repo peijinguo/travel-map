@@ -13,6 +13,8 @@ function Header() {
     syncCodes,
     setSyncCode,
     deleteTrip,
+    tripNames,
+    renameTrip,
   } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSyncOpen, setIsSyncOpen] = useState(false);
@@ -22,6 +24,17 @@ function Header() {
   const [newSyncCode, setNewSyncCode] = useState("");
   const [syncMessage, setSyncMessage] = useState("");
   const [codePendingRemoval, setCodePendingRemoval] = useState(null);
+  const [codeBeingRenamed, setCodeBeingRenamed] = useState(null);
+  const [tripNameDraft, setTripNameDraft] = useState("");
+
+  const startRename = (code) => {
+    setCodeBeingRenamed(code);
+    setTripNameDraft(tripNames[code] ?? "");
+  };
+  const saveRename = () => {
+    renameTrip(codeBeingRenamed, tripNameDraft);
+    setCodeBeingRenamed(null);
+  };
   const [isDeletingTrip, setIsDeletingTrip] = useState(false);
   const [deleteError, setDeleteError] = useState("");
 
@@ -229,7 +242,45 @@ function Header() {
                     </button>
                     {isSyncCodeSelectOpen && (
                       <ul className="sync-code-options" role="listbox">
-                        {syncCodes.map((code) => (
+                        {syncCodes.map((code) =>
+                          codeBeingRenamed === code ? (
+                          <li key={code} className="is-renaming">
+                            <input
+                              className="sync-code-name-input"
+                              value={tripNameDraft}
+                              maxLength="24"
+                              autoFocus
+                              placeholder="行程名稱"
+                              aria-label={`行程 ${code} 的名稱`}
+                              onChange={(event) => setTripNameDraft(event.target.value)}
+                              onKeyDown={(event) => {
+                                if (event.key === "Enter") saveRename();
+                                if (event.key === "Escape") {
+                                  // Cancel the rename without closing the panel.
+                                  event.stopPropagation();
+                                  event.nativeEvent.stopImmediatePropagation();
+                                  setCodeBeingRenamed(null);
+                                }
+                              }}
+                            />
+                            <button
+                              className="sync-code-option-rename is-save"
+                              type="button"
+                              aria-label="儲存名稱"
+                              onClick={saveRename}
+                            >
+                              ✓
+                            </button>
+                            <button
+                              className="sync-code-option-remove"
+                              type="button"
+                              aria-label="取消編輯名稱"
+                              onClick={() => setCodeBeingRenamed(null)}
+                            >
+                              ×
+                            </button>
+                          </li>
+                          ) : (
                           <li key={code}>
                             <button
                               className="sync-code-option"
@@ -244,7 +295,21 @@ function Header() {
                                 }
                               }}
                             >
-                              {code}
+                              <span>{code}</span>
+                              {tripNames[code] && (
+                                <small className="sync-code-option-name">{tripNames[code]}</small>
+                              )}
+                            </button>
+                            <button
+                              className="sync-code-option-rename"
+                              type="button"
+                              aria-label={`編輯行程 ${code} 的名稱`}
+                              onClick={() => startRename(code)}
+                            >
+                              <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M4 20h4L19 9l-4-4L4 16z" />
+                                <path d="m13.5 6.5 4 4" />
+                              </svg>
                             </button>
                             <button
                               className="sync-code-option-remove"
@@ -259,7 +324,8 @@ function Header() {
                               ×
                             </button>
                           </li>
-                        ))}
+                          ),
+                        )}
                       </ul>
                     )}
                   </div>

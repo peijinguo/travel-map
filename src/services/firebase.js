@@ -12,6 +12,7 @@ import {
   arrayUnion,
   collection,
   deleteDoc,
+  deleteField,
   doc,
   getDocs,
   getDoc,
@@ -103,8 +104,21 @@ export function subscribeTripCodes(directoryId, onData, onError) {
   if (!db) return () => {};
   return onSnapshot(
     tripCodesDoc(directoryId),
-    (snapshot) => onData(snapshot.exists() ? snapshot.data().codes ?? [] : []),
+    (snapshot) => {
+      const data = snapshot.exists() ? snapshot.data() : {};
+      onData({ codes: data.codes ?? [], names: data.names ?? {} });
+    },
     onError,
+  );
+}
+
+// A trip's display name, shared like its code; an empty name clears it.
+export async function setTripName(directoryId, code, name) {
+  if (!db) return;
+  await setDoc(
+    tripCodesDoc(directoryId),
+    { names: { [code]: name || deleteField() }, updatedAt: serverTimestamp() },
+    { merge: true },
   );
 }
 
@@ -121,7 +135,7 @@ export async function removeTripCode(directoryId, code) {
   if (!db) return;
   await setDoc(
     tripCodesDoc(directoryId),
-    { codes: arrayRemove(code), updatedAt: serverTimestamp() },
+    { codes: arrayRemove(code), names: { [code]: deleteField() }, updatedAt: serverTimestamp() },
     { merge: true },
   );
 }
