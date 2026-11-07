@@ -215,7 +215,14 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = nul
     } else {
       const bounds = new maplibregl.LngLatBounds();
       coordinates.forEach((coordinate) => bounds.extend(coordinate));
-      map.fitBounds(bounds, { padding: 56, maxZoom: 13, animate: false });
+      // Zoom in as far as street level so stops a short walk apart are
+      // spread out instead of piled up; pins rise above their point, so the
+      // top keeps extra room.
+      map.fitBounds(bounds, {
+        padding: { top: 72, right: 48, bottom: 40, left: 48 },
+        maxZoom: 17,
+        animate: false,
+      });
     }
   }, [stopsKey, mapReady]);
 
