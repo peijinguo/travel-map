@@ -123,7 +123,7 @@ function makeStopMarker(map, stop, index, coordinate, offset) {
   return new maplibregl.Marker({ element: marker, anchor: "bottom", offset }).setLngLat(coordinate);
 }
 
-function RouteMap({ stops, paths = [], label = "行程路線地圖" }) {
+function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = null }) {
   const canvasRef = useRef(null);
   const mapRef = useRef(null);
   const markersRef = useRef([]);
@@ -227,6 +227,26 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖" }) {
     const coordinates = stopsRef.current.map(({ town }) => [town.longitude, town.latitude]);
     map.getSource(ROUTE_SOURCE_ID)?.setData(makeRouteLine(coordinates, pathsRef.current));
   }, [stopsKey, pathsKey, mapReady]);
+
+  // A clicked STOP card flies the map to its pin and makes the pin bounce.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !mapReady || !focus) return;
+    const index = stopsRef.current.findIndex(({ item }) => item.id === focus.itemId);
+    const marker = markersRef.current[index];
+    if (!marker) return;
+    const container = map.getContainer();
+    const { top, bottom } = container.getBoundingClientRect();
+    if (top < 0 || bottom > window.innerHeight) {
+      container.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    map.flyTo({ center: marker.getLngLat(), zoom: Math.max(map.getZoom(), 13), duration: 900 });
+    const pin = marker.getElement().querySelector(".planner-route-pin");
+    pin.classList.remove("is-bouncing");
+    void pin.offsetWidth; // restart the animation on repeated clicks
+    pin.classList.add("is-bouncing");
+    pin.addEventListener("animationend", () => pin.classList.remove("is-bouncing"), { once: true });
+  }, [focus, mapReady]);
 
   if (!webglSupported)
     return (

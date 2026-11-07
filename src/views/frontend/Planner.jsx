@@ -1732,6 +1732,7 @@ function Planner() {
     setDragOverDayId(null);
   };
 
+  const [mapFocus, setMapFocus] = useState(null);
   const plannedStops = useMemo(
     () =>
       items
@@ -2001,7 +2002,7 @@ function Planner() {
             <strong>{plannedStops.length} 個停靠點</strong>
           </div>
           <div className="planner-map-stage has-route-map">
-            <RouteMap stops={plannedStops} paths={routePaths} label={routeMapTitle} />
+            <RouteMap stops={plannedStops} paths={routePaths} label={routeMapTitle} focus={mapFocus} />
           </div>
           <p className="planner-map-hint">
           </p>
@@ -2201,8 +2202,9 @@ function Planner() {
                                 type="button"
                                 draggable
                                 onDragStart={() => setDraggedId(item.id)}
-                                aria-label={`STOP ${String(index + 1).padStart(2, "0")}，拖曳調整順序`}
-                                title="拖曳調整順序"
+                                onClick={() => setMapFocus({ itemId: item.id })}
+                                aria-label={`STOP ${String(index + 1).padStart(2, "0")}，點擊在地圖上顯示，拖曳調整順序`}
+                                title="點擊在地圖上顯示・拖曳調整順序"
                               >
                                 <span>STOP</span>
                                 <span>{String(index + 1).padStart(2, "0")}</span>

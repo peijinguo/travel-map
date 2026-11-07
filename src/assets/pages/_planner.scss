@@ -1000,6 +1000,15 @@
 
 .planner-route-marker { cursor: pointer; }
 .planner-route-marker:hover { z-index: 2; }
+.planner-route-pin.is-bouncing, .planner-route-marker:hover .planner-route-pin { animation: planner-pin-bounce .8s ease; }
+.planner-route-marker:hover .planner-route-pin { animation-iteration-count: infinite; }
+.planner-route-pin.is-bouncing { animation-iteration-count: 3; }
+.planner-route-marker:has(.is-bouncing) { z-index: 3; }
+@keyframes planner-pin-bounce {
+  0%, 50%, 80%, 100% { transform: translateY(0); }
+  28% { transform: translateY(-14px); }
+  65% { transform: translateY(-5px); }
+}
 .planner-route-pin { display: grid; width: 32px; height: 40px; padding-bottom: 10px; place-items: center; background: #e53935; clip-path: path("M16 0C7.2 0 0 7.2 0 16c0 11.8 16 24 16 24s16-12.200 16-24C32 7.200 24.800 0 16 0z"); color: #fff; font-size: 14px; font-weight: 800; line-height: 1; cursor: pointer; }
 .has-route-map .maplibregl-popup-content { border-radius: 10px; padding: 8px 12px; }
 
