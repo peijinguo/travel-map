@@ -103,7 +103,9 @@ const getItineraryMotif = (location, itineraryText = "") => {
   if (/臼尻|usujiri/iu.test(headlineOf(noteText, placeName)) ||
     (SKI_AREA_PATTERN.test(fullTextOf(noteText, placeName)) && /t[\s-]*bar|Tバー|ロープトウ|rope\s*tow|拖牽|拖拉/iu.test(noteText))) return "skiTow";
   if (SKI_AREA_PATTERN.test(`${noteText.split(/\r?\n/)[0]} ${placeName}`)) return "chairlift";
-  if (isLodgingLocation(location)) return "resort";
+  // Car rentals, including ones named after the airport they serve.
+  if (/レンタカー|rent[\s-]*a?[\s-]*car|car\s*rental|租車/iu.test(headlineOf(noteText, placeName))) return "rental";
+  if (isLodgingLocation(location)) return "hotel";
   // Only the stop's own name, so a note like 「之後去機場」 does not count.
   if (location?.types?.some((type) => type === "airport" || type === "aerodrome") ||
     (/機場|机场|空港|airport/iu.test(headlineOf(noteText, placeName)) &&
@@ -176,7 +178,8 @@ const FOOD_MOTIFS = new Set([
 const getItineraryMotifLabel = (motif) =>
   ({
     onsen: "泡湯",
-    resort: "住宿",
+    hotel: "住宿",
+    rental: "租車",
     airport: "機場",
     fuel: "加油站",
     parking: "停車場",
@@ -2744,7 +2747,7 @@ function Planner() {
                                   <b>
                                     {itemMotif && (
                                       <span
-                                        className={`planner-item-category-icon ${itemMotif === "chairlift" ? "is-wide" : ""} ${itemMotif === "skiTow" ? "is-small" : ""}`}
+                                        className={`planner-item-category-icon ${itemMotif === "chairlift" ? "is-wide" : ""} ${itemMotif === "skiTow" ? "is-small" : ""} ${["parking", "tempura"].includes(itemMotif) ? "is-compact" : ""}`}
                                         title={getItineraryMotifLabel(itemMotif)}
                                       >
                                         <HandDrawnMotif type={itemMotif} />

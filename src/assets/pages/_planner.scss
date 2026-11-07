@@ -693,6 +693,7 @@ img.planner-walking-icon { display: block; width: 34px; height: 34px; max-width:
 .planner-item-category-icon.is-wide .hand-motif { width: 54px; height: 40px; }
 // The towed skier fills its whole square, so it is drawn a little smaller to match.
 .planner-item-category-icon.is-small .hand-motif { width: 36px; height: 36px; }
+.planner-item-category-icon.is-compact .hand-motif { width: 32px; height: 32px; }
 .motif-familymart .brand-card, .motif-seveneleven .brand-card { fill: #fff; stroke: #d8e1e4; stroke-width: 1.5; }
 .motif-familymart .familymart-blue { fill: #0078bf; stroke: none; }
 .motif-familymart .familymart-green { fill: #00a26a; stroke: none; }
@@ -903,6 +904,7 @@ img.planner-walking-icon { display: block; width: 34px; height: 34px; max-width:
   .planner-item-category-icon .hand-motif { width: 34px; height: 34px; }
   .planner-item-category-icon.is-wide { width: 46px; flex-basis: 46px; }
   .planner-item-category-icon.is-wide .hand-motif { width: 46px; height: 34px; }
+  .planner-item-category-icon.is-compact .hand-motif { width: 27px; height: 27px; }
   .planner-item-category-icon.is-small .hand-motif { width: 31px; height: 31px; }
   .planner-item-meta > .planner-meta-actions-group,
   .planner-item-meta > .planner-icon-locate {
@@ -1108,3 +1110,19 @@ img.planner-walking-icon { display: block; width: 34px; height: 34px; max-width:
 .motif-fuel .fuel-gauge { fill: none; stroke: #1f1f1f; stroke-width: 1.4; stroke-linecap: round; }
 .motif-fuel .fuel-drop { fill: #f9c94b; stroke: #1f1f1f; stroke-width: 1.7; stroke-linejoin: round; }
 .motif-fuel .fuel-drop-shine { fill: none; stroke: #f08a3c; stroke-width: 1.4; stroke-linecap: round; }
+
+// Lodging: a hanging HOTEL sign. Car rentals: a car under a RENT sign.
+.motif-hotel .sign-line { fill: none; stroke: #1f1f1f; stroke-width: 2; stroke-linecap: round; }
+.motif-hotel .sign-bar { fill: #6b6271; stroke: #1f1f1f; stroke-width: 1.8; }
+.motif-hotel .sign-hook { fill: #fff; stroke: #1f1f1f; stroke-width: 1.6; }
+.motif-hotel .sign-board { fill: #f7c95e; stroke: #1f1f1f; stroke-width: 1.9; }
+.motif-hotel .sign-word { fill: #1f1f1f; stroke: none; font-family: Arial Black, Arial, sans-serif; font-size: 8.6px; font-weight: 900; letter-spacing: -.2px; }
+.motif-rental .rent-board { fill: #f7c95e; stroke: #1f1f1f; stroke-width: 1.7; }
+.motif-rental .rent-word { fill: #1f1f1f; stroke: none; font-family: Arial Black, Arial, sans-serif; font-size: 7.4px; font-weight: 900; letter-spacing: .3px; }
+.motif-rental .rent-post { fill: #a0663b; stroke: #1f1f1f; stroke-width: 1.4; }
+.motif-rental .rent-body { fill: #f26d4f; stroke: #1f1f1f; stroke-width: 1.8; stroke-linejoin: round; }
+.motif-rental .rent-window { fill: #6fd0ee; stroke: #1f1f1f; stroke-width: 1.5; stroke-linejoin: round; }
+.motif-rental .rent-line { fill: none; stroke: #1f1f1f; stroke-width: 1.4; stroke-linecap: round; }
+.motif-rental .rent-light { fill: #f7c95e; stroke: #1f1f1f; stroke-width: 1; }
+.motif-rental .rent-bumper { fill: none; stroke: #8a96a3; stroke-width: 2.4; stroke-linecap: round; }
+.motif-rental .rent-wheel { fill: #8a96a3; stroke: #1f1f1f; stroke-width: 1.8; }
