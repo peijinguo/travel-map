@@ -8,6 +8,8 @@ import {
   signOut,
 } from "firebase/auth";
 import {
+  arrayRemove,
+  arrayUnion,
   doc,
   getDoc,
   getFirestore,
@@ -86,6 +88,38 @@ export function subscribePlannerCloud(syncSpaceId, onData, onError) {
     doc(db, "syncSpaces", syncSpaceId, "appData", "planner"),
     (snapshot) => onData(snapshot.exists() ? snapshot.data() : null),
     onError,
+  );
+}
+
+// The trip codes anyone has added, shared so every device lists the same
+// trips. It lives in its own sync space, whose id is a hash like any other.
+const tripCodesDoc = (directoryId) =>
+  doc(db, "syncSpaces", directoryId, "appData", "tripCodes");
+
+export function subscribeTripCodes(directoryId, onData, onError) {
+  if (!db) return () => {};
+  return onSnapshot(
+    tripCodesDoc(directoryId),
+    (snapshot) => onData(snapshot.exists() ? snapshot.data().codes ?? [] : []),
+    onError,
+  );
+}
+
+export async function addTripCode(directoryId, code) {
+  if (!db) return;
+  await setDoc(
+    tripCodesDoc(directoryId),
+    { codes: arrayUnion(code), updatedAt: serverTimestamp() },
+    { merge: true },
+  );
+}
+
+export async function removeTripCode(directoryId, code) {
+  if (!db) return;
+  await setDoc(
+    tripCodesDoc(directoryId),
+    { codes: arrayRemove(code), updatedAt: serverTimestamp() },
+    { merge: true },
   );
 }
 
