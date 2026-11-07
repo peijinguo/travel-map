@@ -84,7 +84,31 @@ const makeRouteLine = (coordinates, paths = []) => ({
   },
 });
 
-function makeStopMarker(map, stop, index, coordinate, offset) {
+// Pins this close on screen overlap; a clicked pin zooms in until its nearest
+// neighbour is at least this far away.
+const PIN_SPREAD_PX = 56;
+const MAX_FOCUS_ZOOM = 17;
+
+function zoomToSpreadPins(map, coordinate, allCoordinates) {
+  const here = map.project(coordinate);
+  const nearest = allCoordinates.reduce((closest, other) => {
+    if (other === coordinate) return closest;
+    const point = map.project(other);
+    const distance = Math.hypot(point.x - here.x, point.y - here.y);
+    // Stops at the same spot are already fanned out by their offsets.
+    return distance > 0.5 ? Math.min(closest, distance) : closest;
+  }, Infinity);
+  const zoom = map.getZoom();
+  const extraZoom =
+    nearest < PIN_SPREAD_PX ? Math.log2(PIN_SPREAD_PX / nearest) + 0.3 : 0;
+  map.flyTo({
+    center: coordinate,
+    zoom: Math.min(Math.max(zoom + extraZoom, zoom), MAX_FOCUS_ZOOM),
+    duration: 700,
+  });
+}
+
+function makeStopMarker(map, stop, index, coordinate, offset, allCoordinates = []) {
   const marker = document.createElement("div");
   marker.className = "planner-route-marker";
   const pin = document.createElement("div");
@@ -119,8 +143,11 @@ function makeStopMarker(map, stop, index, coordinate, offset) {
   marker.addEventListener("click", (event) => {
     event.stopPropagation();
     pinned = !pinned;
-    if (pinned) show();
-    else popup.remove();
+    if (pinned) {
+      show();
+      // Crowded pins: zoom into the area so the neighbours pull apart.
+      zoomToSpreadPins(map, coordinate, allCoordinates);
+    } else popup.remove();
   });
 
   return new maplibregl.Marker({ element: marker, anchor: "bottom", offset }).setLngLat(coordinate);
@@ -214,7 +241,7 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = nul
 
     markersRef.current.forEach((marker) => marker.remove());
     markersRef.current = currentStops.map((stop, index) =>
-      makeStopMarker(map, stop, index, coordinates[index], markerOffsets[index]).addTo(map),
+      makeStopMarker(map, stop, index, coordinates[index], markerOffsets[index], coordinates).addTo(map),
     );
 
     if (!coordinates.length) {
