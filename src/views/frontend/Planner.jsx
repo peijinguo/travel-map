@@ -91,6 +91,7 @@ const isFoodLocation = (location) =>
 
 const SKI_AREA_PATTERN = /滑雪場|滑雪场|スキー場|スノーパーク|ski\s*(?:area|resort)|snow\s*(?:resort|park)/iu;
 
+const fullTextOf = (noteText, placeName) => `${noteText} ${placeName}`;
 const headlineOf = (noteText, placeName) => `${noteText.split("\n")[0]} ${placeName}`;
 
 const getItineraryMotif = (location, itineraryText = "") => {
@@ -98,8 +99,9 @@ const getItineraryMotif = (location, itineraryText = "") => {
   const placeName = String(location?.name ?? "");
   // A ski area run by a resort hotel (e.g. グリーンピア大沼) is tagged as
   // lodging by Google, so check the stop's own name before the lodging test.
-  // 臼尻スキー場 runs a rope tow rather than a lift.
-  if (/臼尻|usujiri/iu.test(headlineOf(noteText, placeName))) return "skiTow";
+  // Ski areas served by a T-bar or rope tow, such as 臼尻スキー場, get the towed skier.
+  if (/臼尻|usujiri/iu.test(headlineOf(noteText, placeName)) ||
+    (SKI_AREA_PATTERN.test(fullTextOf(noteText, placeName)) && /t[\s-]*bar|Tバー|ロープトウ|rope\s*tow|拖牽|拖拉/iu.test(noteText))) return "skiTow";
   if (SKI_AREA_PATTERN.test(`${noteText.split(/\r?\n/)[0]} ${placeName}`)) return "chairlift";
   if (isLodgingLocation(location)) return "resort";
   // Only the stop's own name, so a note like 「之後去機場」 does not count.
@@ -2742,7 +2744,7 @@ function Planner() {
                                   <b>
                                     {itemMotif && (
                                       <span
-                                        className={`planner-item-category-icon ${itemMotif === "chairlift" ? "is-wide" : ""}`}
+                                        className={`planner-item-category-icon ${itemMotif === "chairlift" ? "is-wide" : ""} ${itemMotif === "skiTow" ? "is-small" : ""}`}
                                         title={getItineraryMotifLabel(itemMotif)}
                                       >
                                         <HandDrawnMotif type={itemMotif} />

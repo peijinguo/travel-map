@@ -691,6 +691,8 @@ img.planner-walking-icon { display: block; width: 34px; height: 34px; max-width:
 // The gondola picture is wide, so it gets a wider box to look as big as the rest.
 .planner-item-category-icon.is-wide { width: 54px; flex-basis: 54px; }
 .planner-item-category-icon.is-wide .hand-motif { width: 54px; height: 40px; }
+// The towed skier fills its whole square, so it is drawn a little smaller to match.
+.planner-item-category-icon.is-small .hand-motif { width: 32px; height: 32px; }
 .motif-familymart .brand-card, .motif-seveneleven .brand-card { fill: #fff; stroke: #d8e1e4; stroke-width: 1.5; }
 .motif-familymart .familymart-blue { fill: #0078bf; stroke: none; }
 .motif-familymart .familymart-green { fill: #00a26a; stroke: none; }
@@ -901,6 +903,7 @@ img.planner-walking-icon { display: block; width: 34px; height: 34px; max-width:
   .planner-item-category-icon .hand-motif { width: 34px; height: 34px; }
   .planner-item-category-icon.is-wide { width: 46px; flex-basis: 46px; }
   .planner-item-category-icon.is-wide .hand-motif { width: 46px; height: 34px; }
+  .planner-item-category-icon.is-small .hand-motif { width: 28px; height: 28px; }
   .planner-item-meta > .planner-meta-actions-group,
   .planner-item-meta > .planner-icon-locate {
     grid-column: 3;
