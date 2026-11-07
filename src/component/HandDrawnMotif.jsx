@@ -1,6 +1,6 @@
 // Keep the selected tempura artwork inline so the small itinerary icon also
 // works in mobile browsers and offline-style previews without a separate image request.
-import tempuraShrimpIcon from "../assets/tempura-shrimp-icon-v1.png?inline";
+import tempuraShrimpIcon from "../assets/tempura-shrimp-icon-v2.png?inline";
 
 const motifColors = {
   mountain: "#78aeca", yotei: "#78aeca", lantern: "#e87543", clock: "#d9a24f", tvTower: "#d95743", apple: "#9ac65c", cherry: "#c54f72",
