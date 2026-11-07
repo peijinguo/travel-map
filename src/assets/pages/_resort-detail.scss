@@ -1048,8 +1048,8 @@
 .resort-experience-card textarea:focus { border-color: #3181ad; background: #fff; box-shadow: 0 0 0 4px rgba(49, 129, 173, .12); }
 .experience-actions { min-height: 44px; display: flex; align-items: center; justify-content: flex-end; gap: 18px; margin-top: 4px; }
 .experience-actions span { color: #4d7c67; font-size: 17px; font-weight: 700; }
-.experience-actions button { padding: 12px 22px; border: 0; border-radius: 999px; background: #e96b3d; color: #fff; font: inherit; font-weight: 800; cursor: pointer; transition: transform .2s, background .2s; }
-.experience-actions button:hover { background: #d9592d; transform: translateY(-1px); }
+.experience-actions button { padding: 12px 22px; border: 0; border-radius: 999px; background: #6c7675; color: #fff; font: inherit; font-weight: 800; cursor: pointer; transition: transform .2s, background .2s; }
+.experience-actions button:hover { background: #5a6362; transform: translateY(-1px); }
 .experience-actions button:focus-visible { outline: 3px solid rgba(49, 129, 173, .35); outline-offset: 3px; }
 
 .resort-not-found { min-height: calc(100vh - 88px); display: grid; place-content: center; gap: 18px; text-align: center; }
