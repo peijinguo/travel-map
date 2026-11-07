@@ -1170,14 +1170,52 @@ const formatMenuPrice = (price) => {
   return digits ? `¥${Number(digits).toLocaleString("ja-JP")}` : "";
 };
 
+// Google Maps opens a place on its 菜單 tab only when the URL carries the
+// place's feature id (「0x…:0x…」), which free services do not provide; it
+// is read from a full Google Maps link the traveller pastes instead.
+const GOOGLE_PLACE_ID_PATTERN = /!1s(0x[0-9a-f]+:0x[0-9a-f]+)|ftid=(0x[0-9a-f]+:0x[0-9a-f]+)/i;
+const findGooglePlaceId = (text = "") => {
+  const match = String(text).match(GOOGLE_PLACE_ID_PATTERN);
+  return match ? (match[1] ?? match[2]).toLowerCase() : null;
+};
+const makeGoogleMenuUrl = (placeId) =>
+  `https://www.google.com/maps/place/data=!4m3!3m2!1s${placeId}!10e9`;
+
 // A store's menu, typed in by hand from its Google Maps menu photos and
 // saved with the itinerary stop so it syncs across devices.
-function PlannerMenuDialog({ title, mapsQuery, initialMenu, onSave, onClose }) {
+function PlannerMenuDialog({
+  title,
+  mapsQuery,
+  initialMenu,
+  placeId,
+  onSave,
+  onSavePlaceId,
+  onClose,
+}) {
   const [entries, setEntries] = useState(() =>
     initialMenu?.length ? initialMenu : [makeMenuEntry()],
   );
   const [isEditing, setIsEditing] = useState(!initialMenu?.length);
+  const [isLinkFormOpen, setIsLinkFormOpen] = useState(!placeId);
+  const [linkDraft, setLinkDraft] = useState("");
+  const [linkError, setLinkError] = useState("");
   const listRef = useRef(null);
+
+  const applyLink = () => {
+    const nextPlaceId = findGooglePlaceId(linkDraft);
+    if (!nextPlaceId) {
+      setLinkError(
+        /goo\.gl|app\.goo/i.test(linkDraft)
+          ? "短網址讀不到店家資料，請在電腦瀏覽器打開這家店，複製網址列的完整網址。"
+          : "找不到店家資料，請貼上 Google Maps 這家店頁面的完整網址。",
+      );
+      return;
+    }
+    onSavePlaceId(nextPlaceId);
+    setLinkDraft("");
+    setLinkError("");
+    setIsLinkFormOpen(false);
+  };
 
   useEffect(() => {
     const closeOnEscape = (event) => {
@@ -1207,7 +1245,9 @@ function PlannerMenuDialog({ title, mapsQuery, initialMenu, onSave, onClose }) {
     setIsEditing(!cleaned.length);
   };
   const savedEntries = entries.filter((entry) => entry.name.trim());
-  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapsQuery)}`;
+  const mapsUrl = placeId
+    ? makeGoogleMenuUrl(placeId)
+    : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapsQuery)}`;
 
   return (
     <div className="planner-confirm-backdrop" onClick={onClose}>
@@ -1286,9 +1326,41 @@ function PlannerMenuDialog({ title, mapsQuery, initialMenu, onSave, onClose }) {
             ＋ 新增品項
           </button>
         )}
-        <a className="planner-menu-photos" href={mapsUrl} target="_blank" rel="noreferrer">
-          在 Google Maps 看菜單照片 ↗
-        </a>
+        <div className="planner-menu-link">
+          <a className="planner-menu-photos" href={mapsUrl} target="_blank" rel="noreferrer">
+            {placeId ? "在 Google Maps 看菜單 ↗" : "在 Google Maps 找這家店 ↗"}
+          </a>
+          {placeId && !isLinkFormOpen && (
+            <button type="button" onClick={() => setIsLinkFormOpen(true)}>
+              更換店家連結
+            </button>
+          )}
+        </div>
+        {isLinkFormOpen && (
+          <div className="planner-menu-link-form">
+            <label htmlFor="planner-menu-link-input">
+              貼上這家店的 Google Maps 網址，之後就能直接開到菜單
+            </label>
+            <div>
+              <input
+                id="planner-menu-link-input"
+                value={linkDraft}
+                placeholder="https://www.google.com/maps/place/…"
+                onChange={(event) => {
+                  setLinkDraft(event.target.value);
+                  setLinkError("");
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") applyLink();
+                }}
+              />
+              <button type="button" onClick={applyLink}>
+                套用
+              </button>
+            </div>
+            {linkError && <small role="alert">{linkError}</small>}
+          </div>
+        )}
         <div className="planner-confirm-actions">
           {isEditing ? (
             <>
@@ -2090,9 +2162,9 @@ function Planner() {
   const addItem = (text = "") =>
     setItems((current) => [...current, makeItem(text)]);
 
-  const saveItemMenu = (itemId, menu) => {
+  const saveItemMenu = (itemId, patch) => {
     setItems((current) =>
-      current.map((item) => (item.id === itemId ? { ...item, menu } : item)),
+      current.map((item) => (item.id === itemId ? { ...item, ...patch } : item)),
     );
     setPlannerSaveStatus(cloudKey ? "菜單已儲存，正在同步…" : "菜單已儲存在此裝置");
     setSaveRequest((request) => request + 1);
@@ -2510,7 +2582,11 @@ function Planner() {
             title={title}
             mapsQuery={[menuLocation?.name ?? title, menuLocation?.displayName].filter(Boolean).join(" ")}
             initialMenu={menuItem.menu}
-            onSave={(menu) => saveItemMenu(menuItem.id, menu)}
+            placeId={menuItem.googlePlaceId ?? findGooglePlaceId(menuText)}
+            onSave={(menu) => saveItemMenu(menuItem.id, { menu })}
+            onSavePlaceId={(googlePlaceId) =>
+              saveItemMenu(menuItem.id, { googlePlaceId })
+            }
             onClose={() => setMenuItemId(null)}
           />
         );
