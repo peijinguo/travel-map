@@ -1164,9 +1164,10 @@ function getTravelPath(segment, mode) {
   return path ?? null;
 }
 
-const makeMenuEntry = (name = "", price = "") => ({
+const makeMenuEntry = (name = "", price = "", original = "") => ({
   id: globalThis.crypto?.randomUUID?.() ?? `menu-${Date.now()}-${Math.random()}`,
   name,
+  original,
   price,
 });
 
@@ -1190,6 +1191,7 @@ const makeGoogleMenuUrl = (placeId) =>
 // saved with the itinerary stop so it syncs across devices.
 function PlannerMenuDialog({
   title,
+  motif,
   mapsQuery,
   initialMenu,
   placeId,
@@ -1206,11 +1208,12 @@ function PlannerMenuDialog({
   const [linkError, setLinkError] = useState("");
   const listRef = useRef(null);
 
-  const applyLink = () => {
-    const nextPlaceId = findGooglePlaceId(linkDraft);
+  const applyLink = (link = linkDraft) => {
+    const nextPlaceId = findGooglePlaceId(link);
     if (!nextPlaceId) {
+      if (!link.trim()) return;
       setLinkError(
-        /goo\.gl|app\.goo/i.test(linkDraft)
+        /goo\.gl|app\.goo/i.test(link)
           ? "短網址讀不到店家資料，請在電腦瀏覽器打開這家店，複製網址列的完整網址。"
           : "找不到店家資料，請貼上 Google Maps 這家店頁面的完整網址。",
       );
@@ -1243,13 +1246,20 @@ function PlannerMenuDialog({
   };
   const save = () => {
     const cleaned = entries
-      .map((entry) => ({ ...entry, name: entry.name.trim(), price: String(entry.price ?? "").trim() }))
-      .filter((entry) => entry.name);
+      .map((entry) => ({
+        ...entry,
+        name: entry.name.trim(),
+        original: String(entry.original ?? "").trim(),
+        price: String(entry.price ?? "").trim(),
+      }))
+      .filter((entry) => entry.name || entry.original);
     onSave(cleaned);
     setEntries(cleaned.length ? cleaned : [makeMenuEntry()]);
     setIsEditing(!cleaned.length);
   };
-  const savedEntries = entries.filter((entry) => entry.name.trim());
+  const savedEntries = entries.filter(
+    (entry) => entry.name.trim() || String(entry.original ?? "").trim(),
+  );
   const mapsUrl = placeId
     ? makeGoogleMenuUrl(placeId)
     : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapsQuery)}`;
@@ -1264,7 +1274,17 @@ function PlannerMenuDialog({
         onClick={(event) => event.stopPropagation()}
       >
         <div className="planner-menu-head">
-          <h2 id="planner-menu-title">{title}</h2>
+          <div className="planner-menu-heading">
+            {motif && (
+              <span className="planner-menu-store-icon" aria-hidden="true">
+                <HandDrawnMotif type={motif} />
+              </span>
+            )}
+            <div>
+              <h2 id="planner-menu-title">{title}</h2>
+              <p>菜單（日文原名＋中文翻譯）</p>
+            </div>
+          </div>
           <button type="button" className="planner-menu-close" aria-label="關閉菜單" onClick={onClose}>
             ×
           </button>
@@ -1273,16 +1293,28 @@ function PlannerMenuDialog({
           <ul className="planner-menu-edit" ref={listRef}>
             {entries.map((entry) => (
               <li key={entry.id}>
-                <input
-                  data-menu-name
-                  value={entry.name}
-                  placeholder="品項"
-                  aria-label="品項"
-                  onChange={(event) => updateEntry(entry.id, { name: event.target.value })}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter") addEntry();
-                  }}
-                />
+                <div className="planner-menu-names">
+                  <input
+                    data-menu-name
+                    value={entry.name}
+                    placeholder="中文品名"
+                    aria-label="中文品名"
+                    onChange={(event) => updateEntry(entry.id, { name: event.target.value })}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter") addEntry();
+                    }}
+                  />
+                  <input
+                    value={entry.original ?? ""}
+                    placeholder="日文原名"
+                    aria-label="日文原名"
+                    lang="ja"
+                    onChange={(event) => updateEntry(entry.id, { original: event.target.value })}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter") addEntry();
+                    }}
+                  />
+                </div>
                 <label className="planner-menu-price-input">
                   <span aria-hidden="true">¥</span>
                   <input
@@ -1319,8 +1351,13 @@ function PlannerMenuDialog({
           <ul className="planner-menu-list">
             {savedEntries.map((entry) => (
               <li key={entry.id}>
-                <span>{entry.name}</span>
-                <i aria-hidden="true" />
+                <span className="planner-menu-dish-icon" aria-hidden="true">
+                  <DishIcon />
+                </span>
+                <div>
+                  <strong>{entry.name || entry.original}</strong>
+                  {entry.name && entry.original && <small lang="ja">{entry.original}</small>}
+                </div>
                 <b>{formatMenuPrice(entry.price) || "—"}</b>
               </li>
             ))}
@@ -1346,23 +1383,22 @@ function PlannerMenuDialog({
             <label htmlFor="planner-menu-link-input">
               貼上這家店的 Google Maps 網址，之後就能直接開到菜單
             </label>
-            <div>
-              <input
-                id="planner-menu-link-input"
-                value={linkDraft}
-                placeholder="https://www.google.com/maps/place/…"
-                onChange={(event) => {
-                  setLinkDraft(event.target.value);
-                  setLinkError("");
-                }}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter") applyLink();
-                }}
-              />
-              <button type="button" onClick={applyLink}>
-                套用
-              </button>
-            </div>
+            <input
+              id="planner-menu-link-input"
+              value={linkDraft}
+              placeholder="https://www.google.com/maps/place/…"
+              onChange={(event) => {
+                const link = event.target.value;
+                setLinkDraft(link);
+                setLinkError("");
+                // 貼上完整網址就直接套用，不用再按按鈕。
+                if (findGooglePlaceId(link)) applyLink(link);
+              }}
+              onBlur={() => applyLink()}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") applyLink();
+              }}
+            />
             {linkError && <small role="alert">{linkError}</small>}
           </div>
         )}
@@ -1384,6 +1420,16 @@ function PlannerMenuDialog({
         </div>
       </section>
     </div>
+  );
+}
+
+function DishIcon() {
+  return (
+    <svg viewBox="0 0 24 24">
+      <path d="M3.5 11.5h17a8.5 8.5 0 0 1-17 0Z" />
+      <path d="M8 20h8" />
+      <path d="M9 8.5c0-1.5 1.5-1.5 1.5-3M13.5 8.5c0-1.5 1.5-1.5 1.5-3" />
+    </svg>
   );
 }
 
@@ -2582,6 +2628,7 @@ function Planner() {
           <PlannerMenuDialog
             key={menuItem.id}
             title={title}
+            motif={getItineraryMotif(menuLocation, menuText)}
             mapsQuery={[menuLocation?.name ?? title, menuLocation?.displayName].filter(Boolean).join(" ")}
             initialMenu={menuItem.menu}
             placeId={menuItem.googlePlaceId ?? findGooglePlaceId(menuText)}

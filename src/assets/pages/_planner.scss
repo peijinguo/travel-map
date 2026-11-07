@@ -1036,12 +1036,8 @@
 .planner-menu-dialog .planner-menu-head h2 { margin: 0; font-size: 19px; line-height: 1.4; }
 .planner-menu-close { flex: 0 0 auto; border: 0; background: transparent; color: #7891a2; font-size: 27px; line-height: 1; cursor: pointer; }
 .planner-menu-list, .planner-menu-edit { min-height: 0; margin: 0 -6px 0 0; padding: 0 6px 0 0; overflow-y: auto; list-style: none; }
-.planner-menu-list li { display: flex; align-items: baseline; gap: 8px; padding: 8px 0; border-bottom: 1px dashed #d4dee3; font-size: 16px; }
-.planner-menu-list span { font-weight: 700; }
-.planner-menu-list i { flex: 1; }
-.planner-menu-list b { color: #2f5a8f; font-weight: 800; white-space: nowrap; }
 .planner-menu-edit { display: grid; gap: 8px; }
-.planner-menu-edit li { display: grid; grid-template-columns: minmax(0, 1fr) 104px 30px; gap: 6px; align-items: center; }
+.planner-menu-edit li { display: grid; grid-template-columns: minmax(0, 1fr) 96px 30px; gap: 6px; align-items: start; padding-bottom: 8px; border-bottom: 1px dashed #d4dee3; }
 .planner-menu-edit input { box-sizing: border-box; width: 100%; min-width: 0; padding: 8px 10px; border: 1.5px solid #9eb5c3; border-radius: 7px 9px 6px 8px; background: #fff; color: #123653; font: inherit; font-size: 15px; font-weight: 700; }
 .planner-menu-price-input { position: relative; display: block; }
 .planner-menu-price-input span { position: absolute; top: 50%; left: 9px; color: #6b8290; font-weight: 800; transform: translateY(-50%); pointer-events: none; }
@@ -1057,7 +1053,16 @@
 .planner-menu-link button { padding: 0; border: 0; background: transparent; color: #6b8290; font: inherit; font-size: 13px; font-weight: 700; text-decoration: underline; cursor: pointer; }
 .planner-menu-link-form { display: grid; gap: 6px; margin: 0 0 16px; }
 .planner-menu-link-form label { color: #5d7585; font-size: 13px; font-weight: 700; }
-.planner-menu-link-form > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px; }
 .planner-menu-link-form input { box-sizing: border-box; min-width: 0; padding: 8px 10px; border: 1.5px solid #9eb5c3; border-radius: 7px 9px 6px 8px; background: #fff; color: #123653; font: inherit; font-size: 14px; }
-.planner-menu-link-form > div button { padding: 8px 14px; border: 1.5px solid #2f5a8f; border-radius: 7px 9px 6px 8px; background: #2f5a8f; color: #fff; font: inherit; font-size: 14px; font-weight: 800; cursor: pointer; }
 .planner-menu-link-form small { color: #c0463e; font-size: 13px; line-height: 1.5; }
+.planner-menu-heading { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.planner-menu-store-icon { flex: 0 0 auto; width: 44px; height: 44px; display: grid; place-items: center; border: 1.5px solid #c9d6dc; border-radius: 9px 11px 8px 10px; background: #fff; }
+.planner-menu-store-icon svg { width: 34px; height: 34px; }
+.planner-menu-heading p { margin: 2px 0 0; color: #8b5a3c; font-size: 13px; font-weight: 800; }
+.planner-menu-list li { display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 9px 0; border-bottom: 1px dashed #d4dee3; }
+.planner-menu-dish-icon svg { display: block; width: 24px; height: 24px; fill: none; stroke: #4b565d; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.planner-menu-list strong { display: block; color: #123653; font-size: 16px; font-weight: 800; line-height: 1.35; }
+.planner-menu-list small { display: block; margin-top: 1px; color: #6b8290; font-size: 13px; line-height: 1.35; }
+.planner-menu-list b { color: #2f5a8f; font-size: 15px; font-weight: 800; white-space: nowrap; }
+.planner-menu-names { display: grid; gap: 4px; min-width: 0; }
+.planner-menu-names input + input { padding-block: 6px; font-size: 13px; font-weight: 600; }
