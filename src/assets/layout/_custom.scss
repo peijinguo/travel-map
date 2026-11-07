@@ -141,6 +141,8 @@
   font-weight: 900;
 }
 .header-login img { object-fit: cover; }
+// Drawn like the bold glyph it replaced: currentColor, heavy round strokes.
+.header-login-icon { width: 1.15em; height: 1.15em; fill: none; stroke: currentColor; stroke-width: 2.8; stroke-linecap: round; }
 .header-login strong { font-size: 20px; font-weight: 700; letter-spacing: .05em; white-space: nowrap; }
 .header-sync { position: relative; }
 .sync-code-panel {

@@ -208,7 +208,12 @@ function Header() {
               setIsSyncOpen((open) => !open);
             }}
           >
-            <span aria-hidden="true">↻</span>
+            <span aria-hidden="true">
+              <svg className="header-login-icon" viewBox="0 0 24 24">
+                <circle cx="10.5" cy="10.5" r="6.5" />
+                <path d="m15.5 15.5 5 5" />
+              </svg>
+            </span>
             <strong>
               {user
                 ? "雪旅行程"
