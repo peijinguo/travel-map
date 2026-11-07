@@ -995,11 +995,8 @@
 .planner-confirm-actions .is-danger { border-color: #d9574f; background: #d9574f; color: #fff; }
 .planner-confirm-actions .is-danger:hover { border-color: #bf3f39; background: #bf3f39; }
 
-// Same hover label as the hotel list's 前往官方網站 link.
 .planner-route-marker { cursor: pointer; }
 .planner-route-marker:hover { z-index: 2; }
-.planner-route-marker::after { content: attr(data-tooltip); position: absolute; right: 50%; bottom: calc(100% + 8px); transform: translate(50%, 4px); padding: 6px 10px; border-radius: 8px; background: #2f4a5c; color: #fff; font-family: inherit; font-size: 13px; font-weight: 800; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .15s, transform .15s; }
-.planner-route-marker:hover::after { opacity: 1; transform: translate(50%, 0); }
 .planner-route-pin { display: grid; width: 32px; height: 40px; padding-bottom: 10px; place-items: center; background: #e53935; clip-path: path("M16 0C7.2 0 0 7.2 0 16c0 11.8 16 24 16 24s16-12.200 16-24C32 7.200 24.800 0 16 0z"); color: #fff; font-size: 14px; font-weight: 800; line-height: 1; cursor: pointer; }
 .has-route-map .maplibregl-popup-content { border-radius: 10px; padding: 8px 12px; }
 

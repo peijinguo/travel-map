@@ -84,11 +84,9 @@ const makeRouteLine = (coordinates, paths = []) => ({
   },
 });
 
-function makeStopMarker(stop, index, coordinate, offset) {
-  // The pin is clipped to a teardrop, so the hover label hangs off a wrapper.
+function makeStopMarker(map, stop, index, coordinate, offset) {
   const marker = document.createElement("div");
   marker.className = "planner-route-marker";
-  marker.dataset.tooltip = `第 ${index + 1} 站：${stop.town.name}`;
   const pin = document.createElement("div");
   pin.className = "planner-route-pin";
   pin.textContent = String(index + 1);
@@ -102,9 +100,27 @@ function makeStopMarker(stop, index, coordinate, offset) {
   stopName.textContent = stop.town.name;
   content.append(stopNumber, stopName);
 
-  return new maplibregl.Marker({ element: marker, anchor: "bottom", offset })
-    .setLngLat(coordinate)
-    .setPopup(new maplibregl.Popup({ offset: 40 }).setDOMContent(content));
+  // Hovering shows the stop's card; a click keeps it open until it is closed.
+  const popup = new maplibregl.Popup({ offset: 40 }).setLngLat(coordinate).setDOMContent(content);
+  let pinned = false;
+  const show = () => {
+    if (!popup.isOpen()) popup.addTo(map);
+  };
+  popup.on("close", () => {
+    pinned = false;
+  });
+  marker.addEventListener("mouseenter", show);
+  marker.addEventListener("mouseleave", () => {
+    if (!pinned) popup.remove();
+  });
+  marker.addEventListener("click", (event) => {
+    event.stopPropagation();
+    pinned = !pinned;
+    if (pinned) show();
+    else popup.remove();
+  });
+
+  return new maplibregl.Marker({ element: marker, anchor: "bottom", offset }).setLngLat(coordinate);
 }
 
 function RouteMap({ stops, paths = [], label = "行程路線地圖" }) {
@@ -189,7 +205,7 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖" }) {
 
     markersRef.current.forEach((marker) => marker.remove());
     markersRef.current = currentStops.map((stop, index) =>
-      makeStopMarker(stop, index, coordinates[index], markerOffsets[index]).addTo(map),
+      makeStopMarker(map, stop, index, coordinates[index], markerOffsets[index]).addTo(map),
     );
 
     if (!coordinates.length) {
