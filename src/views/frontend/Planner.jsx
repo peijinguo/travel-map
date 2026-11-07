@@ -542,6 +542,24 @@ const namedPlaces = [
       "Hakodate Yakiniku Horumon Ichiba Ai",
     ],
   },
+  {
+    id: "kiraku-onuma",
+    name: "喜らく",
+    // Mapcode 86 816 518*35；座標取自 Mapion 的店家頁面。
+    latitude: 41.982397,
+    longitude: 140.673773,
+    displayName: "北海道亀田郡七飯町大沼町204-11（大沼公園）",
+    types: ["restaurant", "food", "point_of_interest", "establishment"],
+    cuisine: "食堂 じゅんさいそば 定食",
+    aliases: [
+      "喜らく",
+      "喜らく 大沼",
+      "喜らく 七飯",
+      "喜楽 大沼",
+      "大沼 喜らく",
+      "Kiraku Onuma",
+    ],
+  },
 ];
 
 const initialItems = [
