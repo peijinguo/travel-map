@@ -1,6 +1,6 @@
 // Keep the selected tempura artwork inline so the small itinerary icon also
 // works in mobile browsers and offline-style previews without a separate image request.
-import tempuraShrimpIcon from "../assets/tempura-shrimp-icon-v2.png?inline";
+import tempuraShrimpIcon from "../assets/tempura-shrimp-icon-v3.png?inline";
 import resortSignIcon from "../assets/resort-sign-icon.png?inline";
 import gondolaSkiIcon from "../assets/gondola-ski-icon.png?inline";
 import curryPlateIcon from "../assets/curry-plate-icon.png?inline";
