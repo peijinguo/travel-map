@@ -193,6 +193,17 @@
 .sync-code-apply { justify-self: start; background: #315a71; color: #fff; }
 .sync-code-panel form > span { min-height: 20px; color: #8b5a3c; font-size: 13px; }
 .sync-code-warning { display: block; margin-top: 8px; color: #7891a2; line-height: 1.5; }
+// Every line of text in the panel matches the trip code itself.
+.sync-code-heading p,
+.sync-code-panel > p,
+.sync-code-panel label,
+.sync-code-panel form > span,
+.sync-code-form > span,
+.sync-code-warning,
+.sync-code-input-row input::placeholder {
+  font: 800 16px/1.5 monospace;
+  letter-spacing: .08em;
+}
 
 @media (max-width: 760px) {
   .topbar {
