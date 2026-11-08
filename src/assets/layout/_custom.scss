@@ -50,7 +50,10 @@
 .brand-mark--image img { width: 78%; height: 78%; }
 
 .brand-copy { display: grid; gap: 1px; }
-.brand-copy strong { font-size: 29px; font-weight: 900; letter-spacing: .1em; }
+.brand-copy strong { position: relative; font-size: 29px; font-weight: 900; letter-spacing: .1em; }
+// The same brown brush stroke as under 「DAY 1」 on the route map title.
+.brand-copy strong::after { content: ""; position: absolute; top: calc(100% + 1px); left: -2px; right: 2px; height: 7px; pointer-events: none; border-top: 3px solid #8b5a3c; border-radius: 50%; transform: rotate(-2deg); opacity: .72; }
+.brand:hover, .brand:focus-visible, .brand:hover .brand-copy, .brand:hover strong { text-decoration: none; }
 .brand-copy small { color: #8098a9; font-size: 13px; font-weight: 700; letter-spacing: .25em; }
 
 .topbar .nav {
