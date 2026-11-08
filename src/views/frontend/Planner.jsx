@@ -9,6 +9,7 @@ import {
   listBackupsCloud,
   loadPlannerCloud,
   replaceMenusCloud,
+  reportUnlocatedPlace,
   saveDailyBackupCloud,
   saveMenuCloud,
   savePlannerCloud,
@@ -2709,8 +2710,11 @@ function Planner() {
         }
         setLocationErrors((current) => ({
           ...current,
-          [item.id]: "找不到地點，請改用日文名稱或地址，或貼上 Google Maps 的連結或座標",
+          [item.id]: "暫時找不到地點，已送出自動查詢，約一小時內會補上座標，之後再按一次定位",
         }));
+        reportUnlocatedPlace(getLocationQuery(item.text), item.text).catch((error) =>
+          console.error("無法送出待補地點", error),
+        );
         return;
       }
       if (isLodgingStay(location, item.text)) {

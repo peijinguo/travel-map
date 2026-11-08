@@ -259,3 +259,26 @@ export function subscribeResortNoteCloud(
     onError,
   );
 }
+
+// Stops the free maps could not find are queued here, in the shared trip
+// directory's space, for the scheduled job that looks up their coordinates
+// and adds them to the built-in places. Keyed by a hash of the name, so the
+// same name is queued once however often it is retried.
+const sha256Hex = async (text) => {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+};
+
+export async function reportUnlocatedPlace(query, fullText = query) {
+  if (!db || !auth?.currentUser || !query) return;
+  const directoryId = await sha256Hex("travel-map:__trip-directory__");
+  const key = (await sha256Hex(query)).slice(0, 16);
+  await setDoc(
+    doc(db, "syncSpaces", directoryId, "appData", "unlocatedPlaces"),
+    {
+      places: { [key]: { query, text: fullText.slice(0, 300), reportedAt: serverTimestamp() } },
+      updatedAt: serverTimestamp(),
+    },
+    { merge: true },
+  );
+}
