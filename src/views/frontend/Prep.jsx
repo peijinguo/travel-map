@@ -119,11 +119,13 @@ function Prep() {
       <div className="prep-notebook">
         {/* Spiral loops along the top edge, like a hand-drawn notepad. */}
         <div className="prep-spiral" aria-hidden="true">
-          {Array.from({ length: 9 }, (_, index) => (
+          {/* Each loop is a tab rising out of the top edge with a hole that
+              straddles the edge; y = 25.7 is the page's top border. */}
+          {Array.from({ length: 8 }, (_, index) => (
             <svg key={index} viewBox="0 0 34 40">
-              <path className="prep-spiral-gap" d="M3 30h28" />
-              <path d="M5 31V9.5C5 6 7.5 4 11 4h12c3.5 0 6 2 6 5.5V31" />
-              <circle cx="17" cy="26" r="6.2" />
+              <path className="prep-spiral-gap" d="M5.5 25.7h23" />
+              <path d="M4.5 25.7c1.8-1.2 2.6-3 2.6-5.4V8.4C7.1 5.6 9 3.8 11.8 3.8h10.6c2.8 0 4.7 1.8 4.7 4.6v11.9c0 2.4.8 4.2 2.6 5.4" />
+              <circle cx="17.1" cy="24.4" r="6.4" />
             </svg>
           ))}
         </div>
