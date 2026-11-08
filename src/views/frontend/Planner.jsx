@@ -2127,6 +2127,9 @@ function Planner() {
   const [draggedId, setDraggedId] = useState(null);
   const [dragOverId, setDragOverId] = useState(null);
   const [locating, setLocating] = useState({});
+  // A located stop briefly shows 「✓ 已定位」, since a built-in place resolves
+  // instantly and the map may not visibly change.
+  const [justLocated, setJustLocated] = useState({});
   const [locationErrors, setLocationErrors] = useState({});
   const [travelSegments, setTravelSegments] = useState({});
   const [cloudLoadedFor, setCloudLoadedFor] = useState(null);
@@ -2682,6 +2685,8 @@ function Planner() {
     );
     itemDraftsRef.current.delete(itemId);
     persistItemDrafts(itemDraftsRef.current);
+    setJustLocated((current) => ({ ...current, [itemId]: true }));
+    window.setTimeout(() => setJustLocated((current) => ({ ...current, [itemId]: false })), 1600);
     setPlannerSaveStatus(cloudKey ? "定位完成，正在同步…" : "定位完成");
     setSaveRequest((request) => request + 1);
   };
@@ -3080,7 +3085,7 @@ function Planner() {
                                     <>
                                       <div className="planner-meta-actions-group">
                                         <button
-                                          className={`planner-locate planner-icon-locate ${locating[item.id] ? "is-locating" : ""}`}
+                                          className={`planner-locate planner-icon-locate ${locating[item.id] || justLocated[item.id] ? "is-locating" : ""} ${justLocated[item.id] ? "is-located" : ""}`}
                                           type="button"
                                           aria-label="重新定位"
                                           data-tooltip={locating[item.id] ? undefined : "重新定位"}
@@ -3089,6 +3094,8 @@ function Planner() {
                                         >
                                           {locating[item.id] ? (
                                             "定位中…"
+                                          ) : justLocated[item.id] ? (
+                                            "✓ 已定位"
                                           ) : (
                                             <span className="planner-locate-icon" aria-hidden="true">⌖</span>
                                           )}
@@ -3112,7 +3119,7 @@ function Planner() {
                                     </>
                                   ) : (
                                     <button
-                                      className={`planner-locate planner-icon-locate ${locating[item.id] ? "is-locating" : ""}`}
+                                      className={`planner-locate planner-icon-locate ${locating[item.id] || justLocated[item.id] ? "is-locating" : ""} ${justLocated[item.id] ? "is-located" : ""}`}
                                       type="button"
                                       aria-label="定位"
                                       data-tooltip={locating[item.id] ? undefined : "定位"}
@@ -3121,6 +3128,8 @@ function Planner() {
                                     >
                                       {locating[item.id] ? (
                                         "定位中…"
+                                      ) : justLocated[item.id] ? (
+                                        "✓ 已定位"
                                       ) : (
                                         <span className="planner-locate-icon" aria-hidden="true">⌖</span>
                                       )}

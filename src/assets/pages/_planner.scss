@@ -728,6 +728,7 @@ span.planner-walking-icon { position: relative; display: block; width: 34px; hei
 .planner-meta-actions-group .planner-icon-locate,
 .planner-item-meta > .planner-icon-locate { border-width: 1.7px; }
 .planner-meta-actions-group .planner-icon-locate.is-locating { width: 80px; }
+.planner-icon-locate.is-located { border-color: #3f8a5b; background: #eaf5ee; color: #2f6f47; font-size: 13px; }
 :is(.planner-meta-actions-group [data-tooltip], .planner-item-meta > [data-tooltip]) { position: relative; }
 :is(.planner-meta-actions-group [data-tooltip], .planner-item-meta > [data-tooltip])::after {
   position: absolute;
