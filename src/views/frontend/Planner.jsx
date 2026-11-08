@@ -3519,7 +3519,7 @@ function Planner() {
                         {backup.savedAt
                           ? `${backup.savedAt.toLocaleTimeString("zh-TW", { hour: "2-digit", minute: "2-digit" })} 儲存・`
                           : ""}
-                        {backup.days?.length ?? 0} 天
+                        行程共 {backup.days?.length ?? 0} 天
                       </small>
                     </div>
                     {backupList.restoreId === backup.id ? (
