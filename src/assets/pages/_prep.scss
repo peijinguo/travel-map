@@ -66,7 +66,8 @@ body:has(.prep-page) { background: #fff; }
 .prep-add input { flex: 1; min-width: 0; padding: 4px 0; border: 0; border-bottom: 1.5px dashed transparent; background: transparent; color: $prep-ink; font: inherit; font-size: 19px; font-weight: 600; outline: none; }
 .prep-add input:focus { border-bottom-color: #b9c4ca; }
 .prep-add input::placeholder { color: #a9b3b9; }
-.prep-add button { flex: 0 0 auto; padding: 4px 14px; border: 1.8px solid $prep-red; border-radius: 12px 14px 11px 15px; background: transparent; color: $prep-red; font: inherit; font-size: 16px; font-weight: 700; cursor: pointer; }
+.prep-add button { display: grid; flex: 0 0 auto; place-items: center; width: 40px; height: 36px; padding: 0; border: 1.8px solid $prep-red; border-radius: 12px 14px 11px 15px; background: transparent; color: $prep-red; cursor: pointer; }
+.prep-add button svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; }
 .prep-add button:hover { background: rgba($prep-red, .07); }
 
 @media (max-width: 600px) {

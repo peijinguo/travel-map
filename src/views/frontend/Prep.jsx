@@ -156,7 +156,12 @@ function Prep() {
             placeholder="再寫一項…"
             maxLength={80}
           />
-          <button type="submit">加入</button>
+          <button type="submit" aria-label="加入" data-tooltip="加入">
+            {/* Three list lines with a plus: add to the list. */}
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3.5 6h12M3.5 11.5h12M3.5 17h6M17.5 13v8M13.5 17h8" />
+            </svg>
+          </button>
         </form>
         </div>
       </div>
