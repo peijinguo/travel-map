@@ -805,6 +805,45 @@ const namedPlaces = [
       "Nanae Snow Park",
     ],
   },
+  {
+    id: "kobe-sumibi-yakiniku-buzz-hakodate",
+    name: "神戸炭火焼肉 BUZZ 函館本店",
+    // 地址取自 Tabelog／楽天ぐるなび（湯川町3丁目28-19 1F，湯の川站走路2分鐘）；座標取自國土地理院地址搜尋，與 Mapion 一致。
+    latitude: 41.781132,
+    longitude: 140.792023,
+    displayName: "北海道函館市湯川町3丁目28-19 1F（市電湯の川站附近）",
+    types: ["restaurant", "food", "point_of_interest", "establishment"],
+    cuisine: "焼肉 神戸牛",
+    aliases: [
+      "神戸炭火焼肉 BUZZ 函館本店",
+      "神戸炭火焼肉 BUZZ",
+      "神戸炭火焼肉BUZZ",
+      "BUZZ 函館本店",
+      "Kobe Sumibi Yakiniku BUZZ",
+      "Kobe Sumibi Yakiniku BUZZ 函館本店",
+      "Kobe Sumibi Yakiniku BUZZ Buzz 函館本店",
+      "Kobe Sumibi Yakiniku Buzz Hakodate",
+    ],
+  },
+  {
+    id: "lucky-pierrot-goryokaku-koenmae",
+    name: "ラッキーピエロ 五稜郭公園前店",
+    // 地址取自 icotto／LIVE JAPAN（五稜郭町30-14，五稜郭塔斜對面）；座標取自國土地理院地址搜尋。
+    latitude: 41.794331,
+    longitude: 140.753265,
+    displayName: "北海道函館市五稜郭町30-14（五稜郭塔斜對面）",
+    types: ["restaurant", "food", "point_of_interest", "establishment"],
+    cuisine: "ハンバーガー",
+    aliases: [
+      "ラッキーピエロ 五稜郭公園前店",
+      "ラッキーピエロ五稜郭公園前店",
+      "ラッキーピエロ 五稜郭",
+      "幸運小丑 五稜郭",
+      "幸運小丑漢堡 五稜郭",
+      "Lucky Pierrot Goryokaku",
+      "Lucky Pierrot Goryokaku Koen Mae",
+    ],
+  },
 ];
 
 const initialItems = [
