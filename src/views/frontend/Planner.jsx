@@ -754,6 +754,25 @@ const namedPlaces = [
       "サク男ともち子 可麗餅",
     ],
   },
+  {
+    id: "goryokaku-tourist-parking-hakodate",
+    name: "函館市五稜郭観光駐車場",
+    // 地址取自 odekake7.net 的停車場介紹（五稜郭町27-7）；座標取自國土地理院地址搜尋。
+    latitude: 41.796986,
+    longitude: 140.753189,
+    displayName: "北海道函館市五稜郭町27-7（五稜郭塔走路約2分鐘）",
+    types: ["parking", "point_of_interest", "establishment"],
+    aliases: [
+      "函館市五稜郭観光駐車場",
+      "五稜郭観光駐車場",
+      "函館 五稜郭観光駐車場",
+      "五稜郭 観光駐車場",
+      "五稜郭觀光停車場",
+      "五稜郭停車場",
+      "五稜郭 駐車場",
+      "五稜郭駐車場",
+    ],
+  },
 ];
 
 const initialItems = [
@@ -2658,7 +2677,12 @@ function Planner() {
     const drafts = new Map(itemDraftsRef.current);
     const itemsToLocate = items
       .filter((item) => drafts.has(item.id))
-      .map((item) => ({ ...item, text: drafts.get(item.id) }))
+      .map((item) => ({
+        ...item,
+        text: drafts.get(item.id),
+        // The old pin belongs to the old text.
+        location: drafts.get(item.id) === item.text ? item.location : undefined,
+      }))
       .filter((item) => item.text.trim());
     localEditPendingRef.current = true;
     if (drafts.size) {
@@ -2727,6 +2751,13 @@ function Planner() {
     try {
       const location = await geocodeJapanesePlace(item.text);
       if (!location) {
+        // The search can miss a place it found before (the free maps change and
+        // rate-limit); a stop that already has its pin keeps it.
+        if (item.location) {
+          setJustLocated((current) => ({ ...current, [item.id]: true }));
+          window.setTimeout(() => setJustLocated((current) => ({ ...current, [item.id]: false })), 1600);
+          return;
+        }
         const fallbackTown = findTownForText(item.text);
         if (fallbackTown) {
           applyLocatedItem(item.id, fallbackTown, item.text);
@@ -2770,7 +2801,12 @@ function Planner() {
       itemDraftsRef.current.delete(item.id);
       persistItemDrafts(itemDraftsRef.current);
     }
-    locateItem({ ...item, text: draftText });
+    // An edited stop may now be a different place, so its old pin doesn't count.
+    locateItem({
+      ...item,
+      text: draftText,
+      location: draftText === item.text ? item.location : undefined,
+    });
   };
   const removeItem = (id) => {
     const item = items.find((candidate) => candidate.id === id);
