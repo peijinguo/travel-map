@@ -1,9 +1,9 @@
-// 行前準備: a pale-pink memo card: a deep-pink outline with a white halo, a
-// dashed stitch just inside the outline and a pink rule under each row.
+// 行前準備: a pale-pink memo card drawn in the route-map pins' brown: outline
+// with a white halo, a dashed stitch inside it and a rule under each row.
 $prep-line: 46px;
 $prep-ink: #284d63;
-$prep-red: #c23a5a;
-$prep-pen: #d94a7e;
+$prep-red: #8a6650; // the route-map stop pins
+$prep-pen: $prep-red;
 
 
 // Plain white behind the memo card, like the reference sticker.
@@ -25,7 +25,7 @@ body:has(.prep-page) { background: #fff; }
 
 .prep-sheet { position: relative; }
 // The dashed stitch just inside the card's outline.
-.prep-notebook::before { content: ""; position: absolute; inset: 8px; border: 2.5px dashed #f37f9f; border-radius: 25px; pointer-events: none; }
+.prep-notebook::before { content: ""; position: absolute; inset: 8px; border: 2.5px dashed $prep-red; border-radius: 25px; pointer-events: none; }
 
 .prep-heading { min-height: $prep-line * 2; }
 .prep-heading { padding-left: 4px; }
@@ -51,12 +51,12 @@ body:has(.prep-page) { background: #fff; }
 @keyframes prep-tick { to { stroke-dashoffset: 0; } }
 .prep-check:hover .prep-box-frame { stroke: $prep-pen; }
 
-.prep-remove { flex: 0 0 auto; width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: #c0574f; font-size: 22px; line-height: 1; opacity: .35; cursor: pointer; transition: opacity .15s ease, background .15s ease; }
+.prep-remove { flex: 0 0 auto; width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: $prep-red; font-size: 22px; line-height: 1; opacity: .35; cursor: pointer; transition: opacity .15s ease, background .15s ease; }
 .prep-list li:hover .prep-remove, .prep-remove:focus-visible { opacity: 1; }
-.prep-remove:hover { background: rgba(192, 87, 79, .1); }
+.prep-remove:hover { background: rgba($prep-red, .1); }
 
 .prep-add { display: flex; align-items: center; gap: 10px; min-height: $prep-line; }
-.prep-add .prep-box-frame { stroke: #f0a3b6; stroke-dasharray: 3 3; }
+.prep-add .prep-box-frame { stroke: rgba($prep-red, .5); stroke-dasharray: 3 3; }
 .prep-add input { flex: 1; min-width: 0; padding: 4px 0; border: 0; border-bottom: 1.5px dashed transparent; background: transparent; color: $prep-ink; font: inherit; font-size: 19px; font-weight: 600; outline: none; }
 .prep-add input:focus { border-bottom-color: #b9c4ca; }
 .prep-add input::placeholder { color: #a9b3b9; }
