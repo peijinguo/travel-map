@@ -665,9 +665,9 @@ const namedPlaces = [
   {
     id: "worldnet-rentacar-hakodate-airport",
     name: "ワールドネットレンタカー 函館空港営業所",
-    // 地址取自 skyticket 的營業所頁面；座標取自國土地理院地址搜尋（高松町220番地）。
-    latitude: 41.772385,
-    longitude: 140.798843,
+    // 地址取自 skyticket 的營業所頁面；座標取自 Google Maps 上這家店的圖釘（使用者確認的位置）。
+    latitude: 41.772889,
+    longitude: 140.79937,
     displayName: "北海道函館市高松町220-1（函館機場有免費接駁車，約10分鐘）",
     types: ["car_rental", "point_of_interest", "establishment"],
     aliases: [
