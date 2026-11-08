@@ -2001,7 +2001,9 @@ const PRESET_MENUS = [
     // tab disagree, the 喰スープカレーいろいろ and 選トッピングは? tabs are used;
     // the extra トッピング tab (odd prices such as アスパラ ¥600) is left out.
     // 👍 marks what the shop itself calls its No.1.
-    pattern: /^(?!.*(?:駐車場|停車場|parking)).*(?:吉田商店|yoshida\s*shoten)/iu,
+    // It also matches the 「駐車場(スープカリー喰堂 吉田商店)」 stop, which is how the
+    // trip lists the shop.
+    pattern: /吉田商店|yoshida\s*shoten/iu,
     menu: makePresetMenu("yoshida-shoten", [
       "湯咖哩",
       ["👍 軟嫩雞腿湯咖哩（人氣 No.1）", "やわらかチキンレッグカレー", "1100"],
