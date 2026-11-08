@@ -30,7 +30,7 @@
 .wishlist-wishes small { color: #6b8290; font-size: 13px; line-height: 1.4; }
 .wishlist-caption { position: relative; display: grid; gap: 3px; width: 100%; min-height: 44px; padding: 10px 34px 12px 12px; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer; }
 .wishlist-caption:hover { background: #f3f6f7; }
-.wishlist-caption-empty { color: #8ba0ac; font-weight: 800; }
+.wishlist-caption-empty { color: #8ba0ac; font-size: 16px; font-weight: 900; line-height: 1.35; }
 .wishlist-caption-pen { position: absolute; top: 13px; right: 12px; width: 16px; height: 16px; fill: none; stroke: #7891a2; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .wishlist-caption:hover .wishlist-caption-pen { stroke: #315a71; }
 .wishlist-caption-edit { display: grid; gap: 6px; padding: 10px 12px 12px; }
