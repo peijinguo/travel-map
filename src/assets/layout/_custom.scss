@@ -54,6 +54,23 @@
 // The same brown brush stroke as under 「DAY 1」 on the route map title.
 .brand-copy strong::after { content: ""; position: absolute; top: calc(100% + 1px); left: -2px; right: 2px; height: 7px; pointer-events: none; border-top: 3px solid #8b5a3c; border-radius: 50%; transform: rotate(-2deg); opacity: .72; }
 .brand:hover, .brand:focus-visible, .brand:hover .brand-copy, .brand:hover strong { text-decoration: none; }
+// Hover: the snowflake turns once, the name lifts a touch and the brush line
+// is redrawn from the left, a little darker.
+.brand-mark--image img { transition: transform .7s cubic-bezier(.3, 1.4, .5, 1); }
+.brand-copy strong { transition: transform .25s ease, color .25s ease; }
+.brand-copy strong::after { transform-origin: left center; transition: opacity .25s ease, border-color .25s ease; }
+.brand:hover .brand-mark--image img, .brand:focus-visible .brand-mark--image img { transform: rotate(60deg) scale(1.08); }
+.brand:hover .brand-copy strong, .brand:focus-visible .brand-copy strong { transform: translateY(-2px); color: #1d4a6d; }
+.brand:hover .brand-copy strong::after, .brand:focus-visible .brand-copy strong::after { border-color: #6f4228; opacity: 1; animation: brand-brush-draw .5s ease-out; }
+@keyframes brand-brush-draw {
+  from { transform: rotate(-2deg) scaleX(0); }
+  to { transform: rotate(-2deg) scaleX(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .brand-mark--image img, .brand-copy strong { transition: none; }
+  .brand:hover .brand-mark--image img, .brand:hover .brand-copy strong { transform: none; }
+  .brand:hover .brand-copy strong::after { animation: none; }
+}
 .brand-copy small { color: #8098a9; font-size: 13px; font-weight: 700; letter-spacing: .25em; }
 
 .topbar .nav {
