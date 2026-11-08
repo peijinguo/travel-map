@@ -735,6 +735,25 @@ const namedPlaces = [
       "Onuma Prince Hotel",
     ],
   },
+  {
+    id: "sakuo-to-mochiko-goryokaku",
+    name: "サク男ともち子",
+    // 地址取自店家在 X 的開店公告（五稜郭町30-16 2F，ラッキーピエロ隣）；座標取自國土地理院地址搜尋。
+    latitude: 41.794109,
+    longitude: 140.753098,
+    displayName: "北海道函館市五稜郭町30-16 2F（五稜郭塔附近，ラッキーピエロ隔壁）",
+    types: ["restaurant", "food", "point_of_interest", "establishment"],
+    cuisine: "クレープ スイーツ",
+    aliases: [
+      "サク男ともち子",
+      "サク男 と もち子",
+      "サク男ともち子 函館",
+      "サク男ともち子 五稜郭",
+      "函館 サク男ともち子",
+      "五稜郭 サク男ともち子",
+      "サク男ともち子 可麗餅",
+    ],
+  },
 ];
 
 const initialItems = [
