@@ -33,12 +33,13 @@ const LODGING_TYPES = new Set([
 const KNOWN_LODGING_WEBSITES = [
   { pattern: /グリーンピア大沼|green\s*pia\s*onuma/i, url: "https://www.gp-onuma.com/stay/hotel/" },
   { pattern: /笑\s*函館屋|emi\s*hakodateya/i, url: "https://www.hakodateya.jp/" },
-  { pattern: /函館大沼プリンス|函館大沼王子|hakodate\s*onuma\s*prince/i, url: "https://www.princehotels.co.jp/hakodate/" },
+  { pattern: /大沼\s*(?:プリンス|王子)|onuma\s*prince/i, url: "https://www.princehotels.co.jp/hakodate/" },
   { pattern: /海と灯|ヒューイットリゾート|umi\s*to\s*akari|hewitt\s*resort/i, url: "https://hewitt-resort.com/" },
 ];
 const getLodgingWebsite = (lodging) =>
   KNOWN_LODGING_WEBSITES.find(({ pattern }) =>
-    pattern.test(`${lodging.name ?? ""} ${lodging.displayName ?? ""}`),
+    // NFKC folds half-width kana and split dakuten (フ + ゚) into plain プ.
+    pattern.test(`${lodging.name ?? ""} ${lodging.displayName ?? ""}`.normalize("NFKC")),
   )?.url ||
   lodging.website ||
   "";
