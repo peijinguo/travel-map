@@ -139,6 +139,10 @@ const getItineraryMotif = (location, itineraryText = "") => {
   if (/道の駅|道之驛|道之驿|公路休息站|michi[\s-]*no[\s-]*eki|road(?:side)?\s*station/iu.test(headline)) return "michiNoEki";
   // After the shop rules, so 「駐車場(…吉田商店)」 keeps its shop's icon.
   if (/駐車場|停車場|パーキング|parking/iu.test(headline)) return "parking";
+  // Parks, after parking so 「大沼公園 南駐車場」 stays a car park; shops named
+  // after a park (「五稜郭公園前店」, 「大沼公園インター店」) keep their own icon.
+  if (/公園|公园|(?:^|[^a-z])park(?:[^a-z]|$)/iu.test(headline) &&
+    !/公園前|公園インター|公園駅|公園站|公園通|interchange|店/iu.test(headline)) return "park";
   if (/ハセガワストア|hasegawa\s*store|長谷川商店|长谷川商店|やきとり弁当|燒鳥便當|烤雞肉串便當|烤肉串便當|yakitori\s*bento/iu.test(headline)) return "yakitoriBento";
   // Japanese stores commonly write sushi as 「寿し」; recognize it even when
   // the Google place category has not been returned yet.
@@ -206,6 +210,7 @@ const getItineraryMotifLabel = (motif) =>
     numanoyaDango: "沼の家糰子",
     yakitoriBento: "烤雞肉串便當",
     chairlift: "滑雪場",
+    park: "公園",
     skiTow: "滑雪場",
   })[motif] ?? "吃的";
 
@@ -3306,7 +3311,7 @@ function Planner() {
                                   <b>
                                     {itemMotif && (
                                       <span
-                                        className={`planner-item-category-icon ${itemMotif === "chairlift" ? "is-wide" : ""} ${["skiTow", "rental"].includes(itemMotif) ? "is-small" : ""} ${["parking", "tempura", "michiNoEki"].includes(itemMotif) ? "is-compact" : ""}`}
+                                        className={`planner-item-category-icon ${itemMotif === "chairlift" ? "is-wide" : ""} ${["skiTow", "rental", "park"].includes(itemMotif) ? "is-small" : ""} ${["parking", "tempura", "michiNoEki"].includes(itemMotif) ? "is-compact" : ""}`}
                                         title={getItineraryMotifLabel(itemMotif)}
                                       >
                                         <HandDrawnMotif type={itemMotif} />
