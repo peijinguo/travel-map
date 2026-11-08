@@ -1561,12 +1561,16 @@ const makePresetMenu = (prefix, rows) => {
       category = row;
       return;
     }
-    const [name, original, price] = row;
+    const [rawName, original, price] = row;
+    // A leading 👍 marks one of the shop's most popular items; the menu shows
+    // a thumbs-up in place of the bowl instead of keeping it in the name.
+    const popular = rawName.startsWith("👍");
     items.push({
       id: `${prefix}-${items.length + 1}`,
-      name,
+      name: popular ? rawName.replace(/^👍\s*/u, "") : rawName,
       original,
       price,
+      ...(popular && { popular: true }),
       ...(category && { category }),
     });
   });
@@ -1831,8 +1835,12 @@ const makeGoogleMenuUrl = (placeId) =>
 function MenuDishRow({ entry }) {
   return (
     <>
-      <span className="planner-menu-dish-icon" aria-hidden="true">
-        <DishIcon />
+      <span
+        className={`planner-menu-dish-icon ${entry.popular ? "is-popular" : ""}`}
+        aria-hidden={!entry.popular}
+        title={entry.popular ? "人氣推薦" : undefined}
+      >
+        {entry.popular ? <ThumbsUpIcon /> : <DishIcon />}
       </span>
       <div>
         <strong>{entry.name || entry.original}</strong>
@@ -2078,6 +2086,16 @@ function PlannerMenuDialog({
         </div>
       </section>
     </div>
+  );
+}
+
+// Drawn with the same outline stroke as DishIcon.
+function ThumbsUpIcon() {
+  return (
+    <svg viewBox="0 0 24 24">
+      <path d="M7.5 10.5v9.5" />
+      <path d="M7.5 10.5 11 4c1.7 0 2.7 1.4 2.3 3l-.8 3.5h5.6a2 2 0 0 1 1.9 2.6l-1.9 6.3A2 2 0 0 1 16.2 21H4.5a1 1 0 0 1-1-1v-8.5a1 1 0 0 1 1-1z" />
+    </svg>
   );
 }
 
