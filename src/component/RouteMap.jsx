@@ -88,7 +88,7 @@ const makeRouteLine = (coordinates, paths = []) => ({
 // face the way the trip goes, with a darker wave of fresh prints walking
 // forward from stop to stop.
 const FOOTPRINT_SOURCE_ID = "planner-footprints";
-const STEP_METERS = 14;
+const STEP_METERS = 20;
 const MAX_STEPS_PER_LEG = 4000;
 // Zoomed out, only every 2^k-th step is drawn so the prints stay about one
 // step apart on screen: k = 0 at zoom 17 and grows by one per zoom level.
@@ -174,12 +174,18 @@ function makeFootprintImage(mirrored) {
     context.translate(14, 0);
     context.scale(-1, 1);
   }
-  context.fillStyle = "#4a2f1e";
-  context.beginPath();
-  context.ellipse(7.6, 8.2, 4.4, 6.6, 0.16, 0, Math.PI * 2);
-  context.fill();
-  context.beginPath();
-  context.ellipse(6.4, 19.2, 3.1, 3.6, 0.08, 0, Math.PI * 2);
+  // A white rim keeps the dark print readable on red and orange roads.
+  const drawFoot = () => {
+    context.beginPath();
+    context.ellipse(7.6, 8.2, 4.4, 6.6, 0.16, 0, Math.PI * 2);
+    context.moveTo(9.5, 19.2);
+    context.ellipse(6.4, 19.2, 3.1, 3.6, 0.08, 0, Math.PI * 2);
+  };
+  drawFoot();
+  context.lineWidth = 2.4;
+  context.strokeStyle = "rgba(255, 255, 255, 0.95)";
+  context.stroke();
+  context.fillStyle = "#3a1f10";
   context.fill();
   return { image: context.getImageData(0, 0, canvas.width, canvas.height), pixelRatio: scale };
 }
@@ -192,10 +198,10 @@ const footprintOpacity = (head) =>
     "behind",
     ["-", head, shownStep(k)],
     ["case",
-      ["<", ["var", "behind"], 0], 0.16,
+      ["<", ["var", "behind"], 0], 0.45,
       ["<", ["var", "behind"], STEP_TRAIL],
-      ["-", 1, ["*", ["/", ["var", "behind"], STEP_TRAIL], 0.62]],
-      0.38],
+      ["-", 1, ["*", ["/", ["var", "behind"], STEP_TRAIL], 0.3]],
+      0.7],
   ]);
 
 // Which drawn steps are on screen, in walking order, so the walker only
@@ -371,8 +377,8 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = nul
           "icon-image": byZoom((k) => ["case", isLeftFoot(k), "footprint-left", "footprint-right"]),
           "icon-rotate": ["get", "bearing"],
           "icon-rotation-alignment": "map",
-          "icon-offset": byZoom((k) => ["case", isLeftFoot(k), ["literal", [-4, 0]], ["literal", [4, 0]]]),
-          "icon-size": 0.8,
+          "icon-offset": byZoom((k) => ["case", isLeftFoot(k), ["literal", [-5, 0]], ["literal", [5, 0]]]),
+          "icon-size": 1.05,
           "icon-allow-overlap": true,
           "icon-ignore-placement": true,
           "icon-padding": 0,
