@@ -1207,7 +1207,15 @@ function FlightPlaneIcon() {
 }
 
 function WalkingIcon() {
-  return <img className="planner-walking-icon" src={walkingStepsIcon} alt="" aria-hidden="true" />;
+  // The picture is stacked once per footprint, each copy clipped to one print,
+  // so the prints can appear in walking order and fade out behind.
+  return (
+    <span className="planner-walking-icon" aria-hidden="true">
+      {[1, 2, 3, 4].map((step) => (
+        <img key={step} className={`walking-step walking-step-${step}`} src={walkingStepsIcon} alt="" />
+      ))}
+    </span>
+  );
 }
 
 // How a stop's note says to reach the next stop: "flight", "walking",
