@@ -184,23 +184,35 @@ function makeFootprintImage(mirrored) {
   return { image: context.getImageData(0, 0, canvas.width, canvas.height), pixelRatio: scale };
 }
 
-// One walker follows the stops in order, one drawn print per tick at every
-// zoom level, then starts again from the first stop. Its fresh prints are
-// darkest and fade behind it; the way ahead stays faint.
-const footprintOpacity = (tick, stepCount) =>
-  byZoom((k) => {
-    const lap = Math.ceil(stepCount / 2 ** k) + STEP_TRAIL + STEP_PAUSE;
-    return [
-      "let",
-      "behind",
-      ["-", tick % Math.max(lap, 1), shownStep(k)],
-      ["case",
-        ["<", ["var", "behind"], 0], 0.16,
-        ["<", ["var", "behind"], STEP_TRAIL],
-        ["-", 1, ["*", ["/", ["var", "behind"], STEP_TRAIL], 0.62]],
-        0.38],
-    ];
+// The walker's head is a drawn-step number at the current zoom; prints just
+// behind it are darkest and fade, prints ahead stay faint.
+const footprintOpacity = (head) =>
+  byZoom((k) => [
+    "let",
+    "behind",
+    ["-", head, shownStep(k)],
+    ["case",
+      ["<", ["var", "behind"], 0], 0.16,
+      ["<", ["var", "behind"], STEP_TRAIL],
+      ["-", 1, ["*", ["/", ["var", "behind"], STEP_TRAIL], 0.62]],
+      0.38],
+  ]);
+
+// Which drawn steps are on screen, in walking order, so the walker only
+// walks the part of the route the traveller is looking at.
+const visibleShownSteps = (map, features) => {
+  const zoom = Math.floor(map.getZoom());
+  if (zoom < FOOTPRINT_MIN_ZOOM) return [];
+  const k = Math.max(FOOTPRINT_FULL_ZOOM - Math.min(zoom, FOOTPRINT_FULL_ZOOM), 0);
+  const bounds = map.getBounds();
+  const shown = new Set();
+  features.forEach(({ properties, geometry }) => {
+    if (properties.rank >= k && bounds.contains(geometry.coordinates)) {
+      shown.add(Math.floor(properties.step / 2 ** k));
+    }
   });
+  return [...shown].sort((first, second) => first - second);
+};
 
 // Pins this close on screen overlap; a clicked pin zooms in until its nearest
 // neighbour is at least this far away.
@@ -280,7 +292,8 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = nul
   const markersRef = useRef([]);
   const stopsRef = useRef(stops);
   const pathsRef = useRef(paths);
-  const stepCountRef = useRef(0);
+  const footprintsRef = useRef([]);
+  const visibleStepsRef = useRef([]);
   const tickRef = useRef(0);
   const [mapReady, setMapReady] = useState(false);
   const [webglSupported] = useState(() =>
@@ -364,7 +377,7 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = nul
           "icon-ignore-placement": true,
           "icon-padding": 0,
         },
-        paint: { "icon-opacity": footprintOpacity(0, 0) },
+        paint: { "icon-opacity": footprintOpacity(-1) },
       });
       setMapReady(true);
     });
@@ -421,12 +434,15 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = nul
     map.getSource(ROUTE_SOURCE_ID)?.setData(routeLine);
     const footprints = makeFootprints(routeLine);
     map.getSource(FOOTPRINT_SOURCE_ID)?.setData(footprints);
-    // A changed route starts the walk over from the first stop.
-    stepCountRef.current = footprints.features.length;
+    // A changed route starts the walk over from the first stop on screen.
+    footprintsRef.current = footprints.features;
+    visibleStepsRef.current = visibleShownSteps(map, footprints.features);
     tickRef.current = 0;
   }, [stopsKey, pathsKey, mapReady]);
 
-  // Walk the footprints forward; still for people who ask for less motion.
+  // Walk the footprints forward through the stretch on screen, in stop order,
+  // then start that stretch again; panning or zooming picks the new stretch.
+  // Still for people who ask for less motion.
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !mapReady) return undefined;
@@ -434,17 +450,24 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = nul
       map.setPaintProperty(FOOTPRINT_SOURCE_ID, "icon-opacity", 0.8);
       return undefined;
     }
+    const refreshVisible = () => {
+      visibleStepsRef.current = visibleShownSteps(map, footprintsRef.current);
+      tickRef.current = 0;
+    };
+    map.on("moveend", refreshVisible);
     const timer = window.setInterval(() => {
-      tickRef.current = (tickRef.current + 1) % 1e9;
-      if (mapRef.current === map) {
-        map.setPaintProperty(
-          FOOTPRINT_SOURCE_ID,
-          "icon-opacity",
-          footprintOpacity(tickRef.current, stepCountRef.current),
-        );
-      }
+      if (mapRef.current !== map) return;
+      const steps = visibleStepsRef.current;
+      const lap = steps.length + STEP_TRAIL + STEP_PAUSE;
+      const position = tickRef.current % Math.max(lap, 1);
+      tickRef.current += 1;
+      const head = steps.length ? steps[Math.min(position, steps.length - 1)] + Math.max(position - steps.length + 1, 0) : -1;
+      map.setPaintProperty(FOOTPRINT_SOURCE_ID, "icon-opacity", footprintOpacity(head));
     }, STEP_TICK_MS);
-    return () => window.clearInterval(timer);
+    return () => {
+      window.clearInterval(timer);
+      map.off("moveend", refreshVisible);
+    };
   }, [mapReady]);
 
   // A clicked STOP tag flies the map to its pin, zoomed in until the pins

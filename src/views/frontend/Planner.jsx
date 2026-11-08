@@ -1500,13 +1500,10 @@ function FlightPlaneIcon() {
 }
 
 function WalkingIcon() {
-  // The picture is stacked once per footprint, each copy clipped to one print,
-  // so the prints can appear in walking order and fade out behind.
+  // A still picture of the footsteps (no animation).
   return (
     <span className="planner-walking-icon" aria-hidden="true">
-      {[1, 2, 3, 4].map((step) => (
-        <img key={step} className={`walking-step walking-step-${step}`} src={walkingStepsIcon} alt="" />
-      ))}
+      <img className="walking-steps" src={walkingStepsIcon} alt="" />
     </span>
   );
 }
