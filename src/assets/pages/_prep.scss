@@ -1,31 +1,34 @@
-// 行前準備: a hand-drawn notepad: dark-red outline, spiral loops across the
-// top and a pair of ruled lines under every row.
+// 行前準備: a pink memo card: a deep-pink outline with a white halo, a pink top
+// band, and an inner sheet with a dashed stitch and a pink rule under each row.
 $prep-line: 46px;
 $prep-ink: #284d63;
-$prep-red: #8b3a3a;
-$prep-pen: $prep-red;
+$prep-red: #c23a5a;
+$prep-pen: #d94a7e;
+
 
 .prep-page { width: min(680px, calc(100% - 32px)); margin: 0 auto; padding: 72px 0 80px; }
 
 .prep-notebook {
   position: relative;
-  padding: 34px 26px 30px;
-  border: 2.6px solid $prep-red;
-  border-radius: 4px 9px 6px 11px / 9px 5px 10px 6px;
-  background-color: #fff;
+  padding: 46px 16px 16px;
+  border: 3px solid $prep-red;
+  border-radius: 34px;
+  background-color: #fdd3dc;
+  box-shadow: 0 0 0 7px #fff, 0 4px 18px 6px rgba($prep-red, .12);
   color: $prep-ink;
   // The same type as the itinerary in 行程規劃.
   font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
-  transform: rotate(-.25deg);
 }
 
-.prep-spiral { position: absolute; top: -30.5px; left: 22px; right: 22px; display: flex; justify-content: space-between; pointer-events: none; }
-.prep-spiral svg { width: 42px; height: 49.4px; overflow: visible; fill: none; stroke: $prep-red; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; }
-// White strip that breaks the top border where each loop starts.
-.prep-spiral .prep-spiral-gap { stroke: #fff; stroke-width: 3.8; stroke-linecap: butt; }
-.prep-spiral circle { fill: #fff; }
-.prep-spiral svg:nth-child(odd) { transform: rotate(-2deg); }
-.prep-spiral svg:nth-child(3n) { transform: translateY(1px) rotate(1.5deg); }
+.prep-sheet {
+  position: relative;
+  padding: 26px 24px 22px;
+  border-radius: 26px;
+  background: #fff6f6;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, .55);
+}
+// The dashed stitch just inside the sheet's edge.
+.prep-sheet::before { content: ""; position: absolute; inset: 9px; border: 2.5px dashed #f37f9f; border-radius: 19px; pointer-events: none; }
 
 .prep-heading { min-height: $prep-line * 2; }
 .prep-heading { padding-left: 4px; }
@@ -35,9 +38,8 @@ $prep-pen: $prep-red;
 
 .prep-list { margin: 0; padding: 0; list-style: none; }
 .prep-list li { position: relative; display: flex; align-items: center; min-height: $prep-line; padding-bottom: 8px; }
-// A pair of thin ruled lines under every row, set in from the page edges like the pad.
-.prep-list li::after { content: ""; position: absolute; left: 8px; right: 8px; bottom: 3px; height: 4px; border-top: 1.5px solid rgba(139, 58, 58, .75); border-bottom: 1.5px solid rgba(139, 58, 58, .75); border-radius: 2px; transform: rotate(-.2deg); pointer-events: none; }
-.prep-list li:nth-child(even)::after { transform: rotate(.15deg); left: 10px; right: 6px; }
+// One solid pink rule under every row, set in from the sheet's edges.
+.prep-list li::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: 3px; height: 3px; border-radius: 3px; background: $prep-pen; pointer-events: none; }
 
 .prep-check { display: flex; flex: 1; align-items: center; gap: 10px; min-width: 0; min-height: $prep-line; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; font-size: 19px; font-weight: 600; text-align: left; cursor: pointer; }
 .prep-text { position: relative; min-width: 0; line-height: 1.3; transition: color .25s ease; }
@@ -57,19 +59,18 @@ $prep-pen: $prep-red;
 .prep-remove:hover { background: rgba(192, 87, 79, .1); }
 
 .prep-add { display: flex; align-items: center; gap: 10px; min-height: $prep-line; }
-.prep-add .prep-box-frame { stroke: #b9c4ca; stroke-dasharray: 3 3; }
+.prep-add .prep-box-frame { stroke: #f0a3b6; stroke-dasharray: 3 3; }
 .prep-add input { flex: 1; min-width: 0; padding: 4px 0; border: 0; border-bottom: 1.5px dashed transparent; background: transparent; color: $prep-ink; font: inherit; font-size: 19px; font-weight: 600; outline: none; }
 .prep-add input:focus { border-bottom-color: #b9c4ca; }
 .prep-add input::placeholder { color: #a9b3b9; }
 .prep-add button { flex: 0 0 auto; padding: 4px 14px; border: 1.8px solid $prep-red; border-radius: 12px 14px 11px 15px; background: transparent; color: $prep-red; font: inherit; font-size: 16px; font-weight: 700; cursor: pointer; }
-.prep-add button:hover { background: rgba(139, 58, 58, .07); }
+.prep-add button:hover { background: rgba($prep-red, .07); }
 
 @media (max-width: 600px) {
   .prep-page { width: calc(100% - 24px); padding-top: 52px; }
-  .prep-notebook { padding: 30px 14px 26px; background-position: 0 30px; }
-  .prep-spiral { left: 8px; right: 8px; }
-
-  .prep-spiral svg:nth-child(n + 7) { display: none; }
+  .prep-notebook { padding: 34px 10px 10px; border-radius: 28px; }
+  .prep-sheet { padding: 22px 14px 18px; border-radius: 22px; }
+  .prep-sheet::before { inset: 7px; border-radius: 16px; }
   .prep-heading h1 { font-size: 24px; }
   .prep-check, .prep-add input { font-size: 17px; }
   .prep-remove { opacity: .55; }

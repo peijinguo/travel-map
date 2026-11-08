@@ -117,18 +117,7 @@ function Prep() {
   return (
     <section className="prep-page">
       <div className="prep-notebook">
-        {/* Spiral loops along the top edge, like a hand-drawn notepad. */}
-        <div className="prep-spiral" aria-hidden="true">
-          {/* Each loop is a tab rising out of the top edge with a hole that
-              straddles the edge; y = 25.7 is the page's top border. */}
-          {Array.from({ length: 8 }, (_, index) => (
-            <svg key={index} viewBox="0 0 34 40">
-              <path className="prep-spiral-gap" d="M5.5 25.7h23" />
-              <path d="M4.5 25.7c1.8-1.2 2.6-3 2.6-5.4V8.4C7.1 5.6 9 3.8 11.8 3.8h10.6c2.8 0 4.7 1.8 4.7 4.6v11.9c0 2.4.8 4.2 2.6 5.4" />
-              <circle cx="17.1" cy="24.4" r="6.4" />
-            </svg>
-          ))}
-        </div>
+        <div className="prep-sheet">
         <header className="prep-heading">
           <h1>行前準備</h1>
           <p>
@@ -169,6 +158,7 @@ function Prep() {
           />
           <button type="submit">加入</button>
         </form>
+        </div>
       </div>
     </section>
   );
