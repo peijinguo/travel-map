@@ -28,7 +28,17 @@
 .wishlist-wishes li > div { display: grid; gap: 3px; padding: 10px 12px 12px; }
 .wishlist-wishes strong { color: #123653; font-size: 16px; font-weight: 900; line-height: 1.35; }
 .wishlist-wishes small { color: #6b8290; font-size: 13px; line-height: 1.4; }
-.wishlist-wishes button { position: absolute; top: 8px; right: 8px; width: 30px; height: 30px; border: 0; border-radius: 50%; background: rgba(255,255,255,.92); color: #c23a3a; font-size: 20px; line-height: 1; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.18); }
+.wishlist-caption { position: relative; display: grid; gap: 3px; width: 100%; min-height: 44px; padding: 10px 34px 12px 12px; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.wishlist-caption:hover { background: #f3f6f7; }
+.wishlist-caption-empty { color: #8ba0ac; font-weight: 800; }
+.wishlist-caption-pen { position: absolute; top: 10px; right: 12px; color: #8ba0ac; font-size: 15px; }
+.wishlist-caption-edit { display: grid; gap: 6px; padding: 10px 12px 12px; }
+.wishlist-caption-edit input { width: 100%; padding: 7px 10px; border: 1px solid #b8c9d1; border-radius: 8px; color: #123653; font: inherit; font-size: 15px; }
+.wishlist-caption-edit div { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.wishlist-caption-edit div button { padding: 6px 14px; border: 1px solid #b8c9d1; border-radius: 999px; background: #fff; color: #526875; font: inherit; font-size: 14px; font-weight: 900; cursor: pointer; }
+.wishlist-caption-edit div button.is-primary { border-color: #6c7675; background: #6c7675; color: #fff; }
+.wishlist-caption-edit span { color: #c23a3a; font-size: 13px; }
+.wishlist-delete { position: absolute; top: 8px; right: 8px; width: 30px; height: 30px; border: 0; border-radius: 50%; background: rgba(255,255,255,.92); color: #c23a3a; font-size: 20px; line-height: 1; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.18); }
 .wishlist-confirm-photo { display: block; width: 100%; max-height: 180px; margin: 4px 0 10px; border-radius: 10px; object-fit: cover; }
 @media (max-width: 600px) {
   .wishlist-form { grid-template-columns: 92px minmax(0, 1fr); }

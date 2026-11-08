@@ -8,6 +8,7 @@ import {
   subscribeMenusCloud,
   subscribePlannerCloud,
   subscribeWishesCloud,
+  updateWishCloud,
 } from "../../services/firebase";
 import {
   MenuDishRow,
@@ -135,6 +136,69 @@ function WishForm({ cloudKey }) {
   );
 }
 
+// A card's name and note; tapping them opens two fields to change them.
+function WishCaption({ cloudKey, wish }) {
+  const [editing, setEditing] = useState(false);
+  const [name, setName] = useState(wish.name ?? "");
+  const [note, setNote] = useState(wish.note ?? "");
+  const [status, setStatus] = useState("");
+
+  const startEditing = () => {
+    setName(wish.name ?? "");
+    setNote(wish.note ?? "");
+    setStatus("");
+    setEditing(true);
+  };
+  const save = async (event) => {
+    event.preventDefault();
+    setStatus("儲存中…");
+    try {
+      await updateWishCloud(cloudKey, wish.id, { name: name.trim(), note: note.trim() });
+      setEditing(false);
+    } catch (error) {
+      console.error("無法更新", error);
+      setStatus("儲存失敗，請再試一次");
+    }
+  };
+
+  if (editing) {
+    return (
+      <form className="wishlist-caption-edit" onSubmit={save}>
+        <input
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+          placeholder="名稱"
+          maxLength={60}
+          autoFocus
+        />
+        <input
+          value={note}
+          onChange={(event) => setNote(event.target.value)}
+          placeholder="備註（可不填）"
+          maxLength={120}
+        />
+        <div>
+          <button type="button" onClick={() => setEditing(false)}>取消</button>
+          <button type="submit" className="is-primary">儲存</button>
+          {status && <span role="status">{status}</span>}
+        </div>
+      </form>
+    );
+  }
+  return (
+    <button
+      type="button"
+      className="wishlist-caption"
+      aria-label={`編輯 ${wish.name || "這張圖片"}`}
+      onClick={startEditing}
+    >
+      {wish.name ? <strong>{wish.name}</strong> : <span className="wishlist-caption-empty">＋ 加名稱</span>}
+      {wish.note && <small>{wish.note}</small>}
+      <span className="wishlist-caption-pen" aria-hidden="true">✎</span>
+    </button>
+  );
+}
+
 function Wishlist() {
   const { user, syncSpaceId } = useAuth();
   const cloudKey = user && syncSpaceId ? syncSpaceId : null;
@@ -228,12 +292,10 @@ function Wishlist() {
                 {wish.photo && (
                   <img src={wish.photo} alt={wish.name || "想吃的東西"} loading="lazy" />
                 )}
-                <div>
-                  {wish.name && <strong>{wish.name}</strong>}
-                  {wish.note && <small>{wish.note}</small>}
-                </div>
+                <WishCaption cloudKey={cloudKey} wish={wish} />
                 <button
                   type="button"
+                  className="wishlist-delete"
                   aria-label={`刪除 ${wish.name || "這張圖片"}`}
                   onClick={() => setWishPendingDelete(wish)}
                 >

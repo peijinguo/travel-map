@@ -342,3 +342,11 @@ export async function deleteWishCloud(syncSpaceId, wishId) {
   if (!db) return;
   await deleteDoc(doc(wishesCollection(syncSpaceId), wishId));
 }
+
+// Edits a wish's name or note in place.
+export async function updateWishCloud(syncSpaceId, wishId, changes) {
+  if (!db) throw new Error("firebase-not-configured");
+  await withSyncTimeout(
+    setDoc(doc(wishesCollection(syncSpaceId), wishId), changes, { merge: true }),
+  );
+}
