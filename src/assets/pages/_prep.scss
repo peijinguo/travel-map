@@ -1,5 +1,5 @@
 // 行前準備: a pale-pink memo card drawn in the route-map pins' brown: outline
-// with a white halo, a dashed stitch inside it and a rule under each row.
+// with a dashed stitch inside it and a rule under each row.
 $prep-line: 46px;
 $prep-ink: #284d63;
 $prep-red: #8a6650; // the route-map stop pins
@@ -15,7 +15,7 @@ $prep-pen: $prep-red;
   border: 3px solid $prep-red;
   border-radius: 34px;
   background-color: #fffbfa;
-  box-shadow: 0 0 0 7px #fff, 0 4px 18px 6px rgba($prep-red, .12);
+  box-shadow: 0 4px 18px rgba($prep-red, .1);
   color: $prep-ink;
   // The same type as the itinerary in 行程規劃.
   font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
