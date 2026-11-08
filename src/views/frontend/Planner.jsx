@@ -135,6 +135,8 @@ const getItineraryMotif = (location, itineraryText = "") => {
   if (/沼の家|numa\s*no\s*ya/iu.test(placeName)) return "numanoyaDango";
   if (/サク男ともち子|saku\s*o\s*to\s*mochiko/iu.test(headline)) return "crepe";
   if (/吉田商店|yoshida\s*shoten|湯咖哩|湯咖喱|汤咖喱|スープカレー|soup\s*curry/iu.test(headline)) return "curry";
+  // Roadside stations (道の駅), before parking so 「道の駅 … 駐車場」 keeps this icon.
+  if (/道の駅|道之驛|道之驿|公路休息站|michi[\s-]*no[\s-]*eki|road(?:side)?\s*station/iu.test(headline)) return "michiNoEki";
   // After the shop rules, so 「駐車場(…吉田商店)」 keeps its shop's icon.
   if (/駐車場|停車場|パーキング|parking/iu.test(headline)) return "parking";
   if (/ハセガワストア|hasegawa\s*store|長谷川商店|长谷川商店|やきとり弁当|燒鳥便當|烤雞肉串便當|烤肉串便當|yakitori\s*bento/iu.test(headline)) return "yakitoriBento";
@@ -192,6 +194,7 @@ const getItineraryMotifLabel = (motif) =>
     airport: "機場",
     fuel: "加油站",
     parking: "停車場",
+    michiNoEki: "道の駅",
     curry: "咖哩",
     familymart: "FamilyMart",
     seveneleven: "7-Eleven",
@@ -3231,7 +3234,7 @@ function Planner() {
                                   <b>
                                     {itemMotif && (
                                       <span
-                                        className={`planner-item-category-icon ${itemMotif === "chairlift" ? "is-wide" : ""} ${["skiTow", "rental"].includes(itemMotif) ? "is-small" : ""} ${["parking", "tempura"].includes(itemMotif) ? "is-compact" : ""}`}
+                                        className={`planner-item-category-icon ${itemMotif === "chairlift" ? "is-wide" : ""} ${["skiTow", "rental"].includes(itemMotif) ? "is-small" : ""} ${["parking", "tempura", "michiNoEki"].includes(itemMotif) ? "is-compact" : ""}`}
                                         title={getItineraryMotifLabel(itemMotif)}
                                       >
                                         <HandDrawnMotif type={itemMotif} />
