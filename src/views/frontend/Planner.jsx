@@ -813,8 +813,20 @@ const getNameFragments = (query) => {
   return fragments.filter((fragment) => fragment.length >= 4);
 };
 
+// Names copied from Google Maps often run English and Japanese together
+// (「FamilyMart; Onuma Park Interchange ファミリーマート 大沼公園インター店」);
+// the map knows the place by its Japanese words alone.
+const JAPANESE_WORD_PATTERN = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]/u;
+const getJapanesePart = (query) => {
+  const words = query.split(/\s+/).filter(Boolean);
+  const japaneseWords = words.filter((word) => JAPANESE_WORD_PATTERN.test(word));
+  if (!japaneseWords.length || japaneseWords.length === words.length) return "";
+  return japaneseWords.join(" ").replace(/[|｜;；,，]+$/u, "").trim();
+};
+
 const getGeocodeQueries = (text) => {
   const original = getLocationQuery(text).replace(/長谷川商店|长谷川商店/gu, "ハセガワストア");
+  const japanesePart = getJapanesePart(original);
   const withoutType = original
     .replace(
       /(?:滑雪度假村|滑雪渡假村|滑雪場|滑雪场|雪場|雪场|飯店|酒店|旅館|民宿)$/u,
@@ -829,6 +841,7 @@ const getGeocodeQueries = (text) => {
     ...new Set(
       [
         original,
+        japanesePart,
         airport,
         toJapaneseSearchText(original),
         withoutType,
@@ -935,8 +948,12 @@ function geocodeJapanesePlace(text) {
         website: "",
       };
     }
+    const japanesePart = getJapanesePart(getLocationQuery(text));
     for (const candidate of location ? [] : getGeocodeQueries(text)) {
-      location = await searchJapanPlace(candidate, getLocationQuery(text));
+      // The Japanese part of a mixed name is a complete name on its own, so it
+      // is matched as one rather than as a short fragment of the whole.
+      const fullName = candidate === japanesePart ? japanesePart : getLocationQuery(text);
+      location = await searchJapanPlace(candidate, fullName);
       if (location) break;
     }
     try {
