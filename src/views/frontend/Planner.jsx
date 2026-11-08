@@ -606,6 +606,25 @@ const namedPlaces = [
     ],
   },
   {
+    id: "angelique-voyage-hakodate",
+    name: "Angelique Voyage（アンジェリック ヴォヤージュ）",
+    // 地址取自 MAPPLE、NAVITIME 等店家介紹；座標取自國土地理院地址搜尋（弥生町3番11号，門牌精度）。
+    latitude: 41.767956,
+    longitude: 140.709198,
+    displayName: "北海道函館市弥生町3-11（市電末廣町站附近，元町一帶）",
+    types: ["cafe", "food", "point_of_interest", "establishment"],
+    cuisine: "クレープ スイーツ crepe",
+    aliases: [
+      "Angelique Voyage",
+      "Angelique Voyage 函館",
+      "AngeliqueVoyage",
+      "アンジェリック ヴォヤージュ",
+      "アンジェリックヴォヤージュ",
+      "アンジェリック・ヴォヤージュ",
+      "アンジェリーク ヴォヤージュ",
+    ],
+  },
+  {
     id: "kiraku-onuma",
     name: "喜らく",
     // Mapcode 86 816 518*35；座標取自 Mapion 的店家頁面。
