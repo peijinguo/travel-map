@@ -3075,6 +3075,26 @@ function Planner() {
                                 {locationErrors[item.id] && (
                                   <small className="planner-location-error">
                                     {locationErrors[item.id]}
+                                    {/* Japan Mapcode can't be searched from a link, so copy the
+                                        stop's name for pasting into its search box. */}
+                                    <a
+                                      className="planner-mapcode-search"
+                                      href="https://japanmapcode.com/zh-TW"
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      title="會先複製站名，到網站後貼上搜尋，再把座標貼回這一站"
+                                      onClick={() => {
+                                        try {
+                                          navigator.clipboard
+                                            ?.writeText(getLocationQuery(item.text))
+                                            .catch(() => {});
+                                        } catch {
+                                          // 無法複製時仍開啟網站。
+                                        }
+                                      }}
+                                    >
+                                      到 Japan Mapcode 搜尋 ↗（已複製站名）
+                                    </a>
                                   </small>
                                 )}
                               </div>
