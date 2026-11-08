@@ -142,6 +142,24 @@ function WishCaption({ cloudKey, wish }) {
   const [name, setName] = useState(wish.name ?? "");
   const [note, setNote] = useState(wish.note ?? "");
   const [status, setStatus] = useState("");
+  const formRef = useRef(null);
+
+  // Tapping anywhere outside the fields (or pressing Esc) cancels the edit.
+  useEffect(() => {
+    if (!editing) return undefined;
+    const cancelOutside = (event) => {
+      if (!formRef.current?.contains(event.target)) setEditing(false);
+    };
+    const cancelOnEscape = (event) => {
+      if (event.key === "Escape") setEditing(false);
+    };
+    document.addEventListener("pointerdown", cancelOutside);
+    document.addEventListener("keydown", cancelOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", cancelOutside);
+      document.removeEventListener("keydown", cancelOnEscape);
+    };
+  }, [editing]);
 
   const startEditing = () => {
     setName(wish.name ?? "");
@@ -163,7 +181,7 @@ function WishCaption({ cloudKey, wish }) {
 
   if (editing) {
     return (
-      <form className="wishlist-caption-edit" onSubmit={save}>
+      <form ref={formRef} className="wishlist-caption-edit" onSubmit={save}>
         <input
           value={name}
           onChange={(event) => setName(event.target.value)}
@@ -194,7 +212,11 @@ function WishCaption({ cloudKey, wish }) {
     >
       {wish.name ? <strong>{wish.name}</strong> : <span className="wishlist-caption-empty">＋ 加名稱</span>}
       {wish.note && <small>{wish.note}</small>}
-      <span className="wishlist-caption-pen" aria-hidden="true">✎</span>
+      {/* The same outline pen as renaming a trip in the header. */}
+      <svg className="wishlist-caption-pen" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 20h4L19 9l-4-4L4 16z" />
+        <path d="m13.5 6.5 4 4" />
+      </svg>
     </button>
   );
 }
