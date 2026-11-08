@@ -131,7 +131,7 @@ function makeStopMarker(map, stop, index, coordinate, offset, allCoordinates = [
   content.append(stopNumber, stopName);
 
   // Hovering shows the stop's card; a click keeps it open until it is closed.
-  const popup = new maplibregl.Popup({ offset: 30 }).setLngLat(coordinate).setDOMContent(content);
+  const popup = new maplibregl.Popup({ offset: 25 }).setLngLat(coordinate).setDOMContent(content);
   let pinned = false;
   const show = () => {
     if (!popup.isOpen()) popup.addTo(map);
