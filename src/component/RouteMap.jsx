@@ -109,7 +109,7 @@ const shownStep = (k) => ["floor", ["/", ["get", "step"], 2 ** k]];
 const isLeftFoot = (k) => ["==", ["%", shownStep(k), 2], 0];
 const STEP_WAVE = 36; // steps between the starts of two walking waves
 const STEP_TRAIL = 14; // how many steps behind the wave stay darkened
-const STEP_TICK_MS = 110;
+const STEP_TICK_MS = 340;
 
 const metersBetween = ([lng1, lat1], [lng2, lat2]) => {
   const latScale = Math.cos((((lat1 + lat2) / 2) * Math.PI) / 180);
