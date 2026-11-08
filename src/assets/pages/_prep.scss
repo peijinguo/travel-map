@@ -6,8 +6,6 @@ $prep-red: #8a6650; // the route-map stop pins
 $prep-pen: $prep-red;
 
 
-// Plain white behind the memo card, like the reference sticker.
-body:has(.prep-page) { background: #fff; }
 
 .prep-page { width: min(680px, calc(100% - 32px)); margin: 0 auto; padding: 72px 0 80px; }
 
