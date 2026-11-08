@@ -140,18 +140,22 @@ export async function removeTripCode(directoryId, code) {
   );
 }
 
-// Deletes everything a trip keeps in the cloud: the itinerary, store menus
-// and resort notes. It cannot be undone.
+// Deletes everything a trip keeps in the cloud: the itinerary, store menus,
+// resort notes and the 想吃清單 photos. It cannot be undone.
 export async function deleteTripCloud(syncSpaceId) {
   if (!db) throw new Error("firebase-not-configured");
-  const notes = await withSyncTimeout(
-    getDocs(collection(db, "syncSpaces", syncSpaceId, "notes")),
+  const [notes, wishes] = await withSyncTimeout(
+    Promise.all([
+      getDocs(collection(db, "syncSpaces", syncSpaceId, "notes")),
+      getDocs(collection(db, "syncSpaces", syncSpaceId, "wishes")),
+    ]),
   );
   await withSyncTimeout(
     Promise.all([
       deleteDoc(doc(db, "syncSpaces", syncSpaceId, "appData", "planner")),
       deleteDoc(doc(db, "syncSpaces", syncSpaceId, "appData", "menus")),
       ...notes.docs.map((note) => deleteDoc(note.ref)),
+      ...wishes.docs.map((wish) => deleteDoc(wish.ref)),
     ]),
     10000,
   );
@@ -301,4 +305,40 @@ export function subscribeUnlocatedPlaces(onData, onError) {
     stopped = true;
     unsubscribe();
   };
+}
+
+// Things the traveller wants to eat that aren't on a stop's menu: a name, an
+// optional note and a small JPEG (as a data URL), one document each so a
+// trip can hold many photos without hitting the document size limit.
+const wishesCollection = (syncSpaceId) =>
+  collection(db, "syncSpaces", syncSpaceId, "wishes");
+
+export function subscribeWishesCloud(syncSpaceId, onData, onError) {
+  if (!db) return () => {};
+  return onSnapshot(
+    wishesCollection(syncSpaceId),
+    (snapshot) =>
+      onData(
+        snapshot.docs
+          .map((wish) => {
+            const data = wish.data();
+            return { ...data, id: wish.id, createdAt: data.createdAt?.toMillis?.() ?? Date.now() };
+          })
+          .sort((first, second) => second.createdAt - first.createdAt),
+      ),
+    onError,
+  );
+}
+
+export async function addWishCloud(syncSpaceId, wish) {
+  if (!db) throw new Error("firebase-not-configured");
+  await withSyncTimeout(
+    setDoc(doc(wishesCollection(syncSpaceId)), { ...wish, createdAt: serverTimestamp() }),
+    15000,
+  );
+}
+
+export async function deleteWishCloud(syncSpaceId, wishId) {
+  if (!db) return;
+  await deleteDoc(doc(wishesCollection(syncSpaceId), wishId));
 }
