@@ -30,6 +30,7 @@ const LODGING_TYPES = new Set([
 // OpenStreetMap lacks a website tag for some lodgings; known official sites by name.
 const KNOWN_LODGING_WEBSITES = [
   { pattern: /グリーンピア大沼|green\s*pia\s*onuma/i, url: "https://www.gp-onuma.com/stay/hotel/" },
+  { pattern: /笑\s*函館屋|emi\s*hakodateya/i, url: "https://www.hakodateya.jp/" },
 ];
 const getLodgingWebsite = (lodging) =>
   lodging.website ||
