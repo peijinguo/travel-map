@@ -1,5 +1,5 @@
-// 行前準備: a pink memo card: a deep-pink outline with a white halo, a pink top
-// band, and an inner sheet with a dashed stitch and a pink rule under each row.
+// 行前準備: a pale-pink memo card: a deep-pink outline with a white halo, a
+// dashed stitch just inside the outline and a pink rule under each row.
 $prep-line: 46px;
 $prep-ink: #284d63;
 $prep-red: #c23a5a;
@@ -13,25 +13,19 @@ body:has(.prep-page) { background: #fff; }
 
 .prep-notebook {
   position: relative;
-  padding: 46px 16px 16px;
+  padding: 30px 30px 26px;
   border: 3px solid $prep-red;
   border-radius: 34px;
-  background-color: #fdd3dc;
+  background-color: #fff6f6;
   box-shadow: 0 0 0 7px #fff, 0 4px 18px 6px rgba($prep-red, .12);
   color: $prep-ink;
   // The same type as the itinerary in 行程規劃.
   font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
 }
 
-.prep-sheet {
-  position: relative;
-  padding: 26px 24px 22px;
-  border-radius: 26px;
-  background: #fff6f6;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, .55);
-}
-// The dashed stitch just inside the sheet's edge.
-.prep-sheet::before { content: ""; position: absolute; inset: 9px; border: 2.5px dashed #f37f9f; border-radius: 19px; pointer-events: none; }
+.prep-sheet { position: relative; }
+// The dashed stitch just inside the card's outline.
+.prep-notebook::before { content: ""; position: absolute; inset: 8px; border: 2.5px dashed #f37f9f; border-radius: 25px; pointer-events: none; }
 
 .prep-heading { min-height: $prep-line * 2; }
 .prep-heading { padding-left: 4px; }
@@ -72,9 +66,8 @@ body:has(.prep-page) { background: #fff; }
 
 @media (max-width: 600px) {
   .prep-page { width: calc(100% - 24px); padding-top: 52px; }
-  .prep-notebook { padding: 34px 10px 10px; border-radius: 28px; }
-  .prep-sheet { padding: 22px 14px 18px; border-radius: 22px; }
-  .prep-sheet::before { inset: 7px; border-radius: 16px; }
+  .prep-notebook { padding: 24px 18px 20px; border-radius: 28px; }
+  .prep-notebook::before { inset: 6px; border-radius: 21px; }
   .prep-heading h1 { font-size: 24px; }
   .prep-check, .prep-add input { font-size: 17px; }
   .prep-remove { opacity: .55; }
