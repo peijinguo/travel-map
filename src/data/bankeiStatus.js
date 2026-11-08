@@ -1,6 +1,6 @@
 // 此檔案由 scripts/sync-bankei-status.mjs 自動產生，請勿手動修改。
 export const bankeiStatus = {
-  "updatedAt": "11/08 16:30",
+  "updatedAt": "11/08 16:32",
   "sourceUrl": "https://www.bankei.co.jp/ski/",
   "lifts": [
     {
