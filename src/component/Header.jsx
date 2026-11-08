@@ -158,6 +158,14 @@ function Header() {
           </span>
           住宿資訊
         </NavLink>
+        <NavLink to="/wishlist" onClick={() => setIsMobileMenuOpen(false)}>
+          <span className="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.4a4.2 4.2 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z" />
+            </svg>
+          </span>
+          想吃清單
+        </NavLink>
       </nav>
       <button
         className={`menu-toggle${isMobileMenuOpen ? " menu-toggle--open" : ""}`}

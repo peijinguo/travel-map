@@ -3944,4 +3944,6 @@ function Planner() {
   );
 }
 
+// Shared with the 想吃清單 page.
+export { MenuDishRow, findPresetMenu, getInitialDays, normalizePlannerDay };
 export default Planner;
