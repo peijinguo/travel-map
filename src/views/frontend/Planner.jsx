@@ -606,6 +606,64 @@ const namedPlaces = [
       "Kiraku Onuma",
     ],
   },
+  {
+    id: "yoshida-shoten-hakodate",
+    name: "スープカリー喰堂 吉田商店",
+    // 地址取自 Mapple 的店家頁面；座標取自國土地理院地址搜尋（新川町24番1号）。
+    latitude: 41.776093,
+    longitude: 140.738251,
+    displayName: "北海道函館市新川町24-1（市電千歳町站旁）",
+    types: ["restaurant", "food", "point_of_interest", "establishment"],
+    cuisine: "スープカレー カレー",
+    aliases: [
+      "スープカリー喰堂 吉田商店",
+      "スープカリー喰堂吉田商店",
+      "吉田商店",
+      "吉田商店 函館",
+      "函館 吉田商店",
+      "スープカリー 吉田商店",
+      "駐車場 スープカリー喰堂 吉田商店",
+      "駐車場(スープカリー喰堂 吉田商店)",
+      "吉田商店 駐車場",
+    ],
+  },
+  {
+    id: "eneos-hakodate-airport-ss",
+    name: "ENEOS 函館エアポートSS",
+    // 地址取自 ENEOS 加油站搜尋（高松町130-92）；座標取自 OpenStreetMap 上該處的 ENEOS 加油站。
+    latitude: 41.778178,
+    longitude: 140.807413,
+    displayName: "北海道函館市高松町130-92（函館機場附近）",
+    types: ["gas_station", "point_of_interest", "establishment"],
+    aliases: [
+      "ENEOS 函館エアポートSS",
+      "函館エアポートSS",
+      "ENEOS 函館エアポート",
+      "エネオス 函館エアポートSS",
+      "函館エアポートSS 北海道エネルギー",
+      "Hakodate Airport SS",
+      "Hakodate Airport SS Hokkaido Energy (Ltd.) Hakodate Sales Branch ENEOS 函館エアポートSS",
+    ],
+  },
+  {
+    id: "worldnet-rentacar-hakodate-airport",
+    name: "ワールドネットレンタカー 函館空港営業所",
+    // 地址取自 skyticket 的營業所頁面；座標取自國土地理院地址搜尋（高松町220番地）。
+    latitude: 41.772385,
+    longitude: 140.798843,
+    displayName: "北海道函館市高松町220-1（函館機場有免費接駁車，約10分鐘）",
+    types: ["car_rental", "point_of_interest", "establishment"],
+    aliases: [
+      "ワールドネットレンタカー 函館空港営業所",
+      "ワールドネットレンタカー函館空港営業所",
+      "ワールドネットレンタカー 函館空港",
+      "ワールドネットレンタカー",
+      "Worldnet Car Rental",
+      "Worldnet Car Rental 函館",
+      "Worldnet Car Rental ワールドネットレンタカー 函館空港営業所",
+      "Worldnet Rent a Car Hakodate Airport",
+    ],
+  },
 ];
 
 const initialItems = [
