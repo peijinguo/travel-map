@@ -670,6 +670,8 @@ const namedPlaces = [
       "Worldnet Car Rental",
       "Worldnet Car Rental 函館",
       "Worldnet Car Rental ワールドネットレンタカー 函館空港営業所",
+      "Worldnet Car Rental 函館空港営業所",
+      "Worldnet 函館空港営業所",
       "Worldnet Rent a Car Hakodate Airport",
     ],
   },
@@ -841,7 +843,9 @@ const chineseVariantMap = {
 };
 
 const normalizeText = (text) =>
-  [...text.toLocaleLowerCase()]
+  // A dash standing alone between words (「Worldnet Car Rental ー 函館空港営業所」)
+  // is a separator, not the katakana long vowel.
+  [...text.toLocaleLowerCase().replace(/(^|\s)[ー—–―-](?=\s|$)/gu, "$1")]
     .map((character) => chineseVariantMap[character] ?? character)
     .join("")
     .replace(
@@ -885,7 +889,9 @@ const getNameFragments = (query) => {
 const JAPANESE_WORD_PATTERN = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]/u;
 const getJapanesePart = (query) => {
   const words = query.split(/\s+/).filter(Boolean);
-  const japaneseWords = words.filter((word) => JAPANESE_WORD_PATTERN.test(word));
+  const japaneseWords = words.filter(
+    (word) => JAPANESE_WORD_PATTERN.test(word) && !/^[ー—–―]+$/u.test(word),
+  );
   if (!japaneseWords.length || japaneseWords.length === words.length) return "";
   return japaneseWords.join(" ").replace(/[|｜;；,，]+$/u, "").trim();
 };
@@ -1020,6 +1026,15 @@ function geocodeJapanesePlace(text) {
       // is matched as one rather than as a short fragment of the whole.
       const fullName = candidate === japanesePart ? japanesePart : getLocationQuery(text);
       location = await searchJapanPlace(candidate, fullName);
+      // The Japanese part is often just a branch (「函館空港営業所」), which other
+      // companies share; keep only a place whose whole name the stop spells out.
+      if (
+        location &&
+        candidate === japanesePart &&
+        !normalizeText(getLocationQuery(text)).includes(normalizeText(location.name))
+      ) {
+        location = null;
+      }
       if (location) break;
     }
     try {
