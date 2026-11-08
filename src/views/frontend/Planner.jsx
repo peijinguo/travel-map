@@ -1833,18 +1833,22 @@ const makeGoogleMenuUrl = (placeId) =>
   `https://www.google.com/maps/place/data=!4m3!3m2!1s${placeId}!10e9`;
 
 function MenuDishRow({ entry }) {
+  // Menus saved before the thumbs-up icon kept 👍 in the dish name.
+  const marked = /^👍/u.test(entry.name ?? "");
+  const popular = entry.popular || marked;
+  const name = marked ? entry.name.replace(/^👍\s*/u, "") : entry.name;
   return (
     <>
       <span
-        className={`planner-menu-dish-icon ${entry.popular ? "is-popular" : ""}`}
-        aria-hidden={!entry.popular}
-        title={entry.popular ? "人氣推薦" : undefined}
+        className={`planner-menu-dish-icon ${popular ? "is-popular" : ""}`}
+        aria-hidden={!popular}
+        title={popular ? "人氣推薦" : undefined}
       >
-        {entry.popular ? <ThumbsUpIcon /> : <DishIcon />}
+        {popular ? <ThumbsUpIcon /> : <DishIcon />}
       </span>
       <div>
-        <strong>{entry.name || entry.original}</strong>
-        {entry.name && entry.original && <small lang="ja">{entry.original}</small>}
+        <strong>{name || entry.original}</strong>
+        {name && entry.original && <small lang="ja">{entry.original}</small>}
       </div>
       <b>{formatMenuPrice(entry.price) || "—"}</b>
     </>
