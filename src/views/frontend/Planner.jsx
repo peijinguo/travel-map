@@ -689,6 +689,30 @@ const namedPlaces = [
       "Onuma Park South Parking",
     ],
   },
+  {
+    id: "goryokaku-park-hakodate",
+    name: "五稜郭公園",
+    // 免費地圖搜「五稜郭公園」也會回長野縣佐久市的同名公園；座標取自 OpenStreetMap 的函館五稜郭公園（五稜郭町44）。
+    latitude: 41.7969,
+    longitude: 140.757156,
+    displayName: "北海道函館市五稜郭町44（特別史跡 五稜郭跡）",
+    types: ["park", "tourist_attraction", "point_of_interest", "establishment"],
+    aliases: [
+      "五稜郭公園",
+      "五稜郭",
+      "五稜郭 函館",
+      "函館 五稜郭",
+      "函館五稜郭",
+      "五稜郭公園 函館",
+      "函館 五稜郭公園",
+      "函館五稜郭公園",
+      "五稜郭跡",
+      "特別史跡五稜郭跡",
+      "Goryokaku",
+      "Goryokaku Park",
+      "Fort Goryokaku",
+    ],
+  },
 ];
 
 const initialItems = [
