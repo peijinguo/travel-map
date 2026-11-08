@@ -664,6 +664,31 @@ const namedPlaces = [
       "Worldnet Rent a Car Hakodate Airport",
     ],
   },
+  {
+    id: "onuma-park-south-parking",
+    name: "大沼公園 南駐車場",
+    // Mapcode 86 815 504*56（使用者提供）。
+    latitude: 41.981988,
+    longitude: 140.669779,
+    displayName: "北海道亀田郡七飯町大沼町（大沼公園 南駐車場）",
+    types: ["parking", "point_of_interest", "establishment"],
+    aliases: [
+      "大沼公園 南駐車場",
+      "大沼公園南駐車場",
+      "大沼 南駐車場",
+      "大沼南駐車場",
+      "大沼公園 駐車場",
+      "大沼公園駐車場",
+      "駐車場 大沼公園",
+      "Lake Ōnuma South parking lot",
+      "Lake Onuma South parking lot",
+      "Lake Ōnuma South parking lot 大沼公園 南駐車場",
+      "Lake Onuma South parking lot 大沼公園 南駐車場",
+      "Lake Ōnuma South parking lot. 大沼公園 南駐車場",
+      "Lake Onuma South parking lot. 大沼公園 南駐車場",
+      "Onuma Park South Parking",
+    ],
+  },
 ];
 
 const initialItems = [
