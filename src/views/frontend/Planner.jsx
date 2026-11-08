@@ -1998,20 +1998,37 @@ const findGooglePlaceId = (text = "") => {
 const makeGoogleMenuUrl = (placeId) =>
   `https://www.google.com/maps/place/data=!4m3!3m2!1s${placeId}!10e9`;
 
-function MenuDishRow({ entry }) {
+function MenuDishRow({ entry, liked = false, onToggleLike }) {
   // Menus saved before the thumbs-up icon kept 👍 in the dish name.
   const marked = /^👍/u.test(entry.name ?? "");
   const popular = entry.popular || marked;
   const name = marked ? entry.name.replace(/^👍\s*/u, "") : entry.name;
+  // Tapping the icon marks a dish the traveller wants: a plain dish turns
+  // into a red heart, a recommended one into a coloured thumbs-up.
+  const icon = popular ? <ThumbsUpIcon /> : liked ? <HeartIcon /> : <DishIcon />;
+  const iconClass = `planner-menu-dish-icon ${popular ? "is-popular" : ""} ${liked ? "is-liked" : ""}`;
   return (
     <>
-      <span
-        className={`planner-menu-dish-icon ${popular ? "is-popular" : ""}`}
-        aria-hidden={!popular}
-        title={popular ? "人氣推薦" : undefined}
-      >
-        {popular ? <ThumbsUpIcon /> : <DishIcon />}
-      </span>
+      {onToggleLike ? (
+        <button
+          type="button"
+          className={iconClass}
+          aria-pressed={liked}
+          aria-label={`${liked ? "取消想吃" : "標記想吃"}：${name || entry.original}`}
+          title={popular ? "人氣推薦（點一下標記想吃）" : "點一下標記想吃"}
+          onClick={onToggleLike}
+        >
+          {icon}
+        </button>
+      ) : (
+        <span
+          className={iconClass}
+          aria-hidden={!popular}
+          title={popular ? "人氣推薦" : undefined}
+        >
+          {icon}
+        </span>
+      )}
       <div>
         <strong>{name || entry.original}</strong>
         {name && entry.original && <small lang="ja">{entry.original}</small>}
@@ -2033,6 +2050,8 @@ function PlannerMenuDialog({
   initialMenu,
   presetMenu,
   placeId,
+  likedIds = [],
+  onToggleLike,
   onSave,
   onClose,
 }) {
@@ -2207,7 +2226,11 @@ function PlannerMenuDialog({
                   <li className="planner-menu-category">{entry.category}</li>
                 )}
                 <li>
-                  <MenuDishRow entry={entry} />
+                  <MenuDishRow
+                    entry={entry}
+                    liked={likedIds.includes(entry.id)}
+                    onToggleLike={() => onToggleLike?.(entry.id)}
+                  />
                 </li>
               </Fragment>
             ))}
@@ -2256,6 +2279,14 @@ function PlannerMenuDialog({
         </div>
       </section>
     </div>
+  );
+}
+
+function HeartIcon() {
+  return (
+    <svg viewBox="0 0 24 24">
+      <path d="M12 20.5s-8-4.8-8-10.6A4.4 4.4 0 0 1 12 7.3a4.4 4.4 0 0 1 8 2.6c0 5.8-8 10.6-8 10.6z" />
+    </svg>
   );
 }
 
@@ -3233,6 +3264,22 @@ function Planner() {
     }
   };
 
+  // Dishes the traveller tapped as wanted, kept on the itinerary stop (not in
+  // the menu) so built-in menus stay up to date; synced with the trip.
+  const toggleMenuLike = (itemId, entryId) => {
+    setItems((current) =>
+      current.map((item) => {
+        if (item.id !== itemId) return item;
+        const likes = item.menuLikes ?? [];
+        const menuLikes = likes.includes(entryId)
+          ? likes.filter((id) => id !== entryId)
+          : [...likes, entryId];
+        return { ...item, menuLikes };
+      }),
+    );
+    setSaveRequest((request) => request + 1);
+  };
+
   useEffect(() => {
     setCloudMenus({});
     if (!cloudKey) return undefined;
@@ -3679,6 +3726,8 @@ function Planner() {
             initialMenu={getItemMenu(menuItem)}
             presetMenu={findPresetMenu(menuText)}
             placeId={menuItem.googlePlaceId ?? findGooglePlaceId(menuText)}
+            likedIds={menuItem.menuLikes ?? []}
+            onToggleLike={(entryId) => toggleMenuLike(menuItem.id, entryId)}
             onSave={(menu) => saveItemMenu(menuItem.id, menu)}
             onClose={() => setMenuItemId(null)}
           />
