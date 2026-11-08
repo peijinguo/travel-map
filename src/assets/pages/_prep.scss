@@ -10,18 +10,22 @@ $prep-pen: #2b5a8a;
 .prep-notebook {
   position: relative;
   padding: 26px 22px 34px 74px;
-  border: 1.5px solid #d9cfb8;
-  border-radius: 6px 14px 12px 8px;
-  background-color: #fffdf6;
+  // The same hand-drawn frame as the 行程規劃 cards: dark outline, dashed
+  // inner line and a soft offset shadow.
+  border: 2px solid #34434a;
+  border-radius: 19px 28px 21px 25px;
+  background-color: #fff;
   background-image:
     linear-gradient(90deg, transparent 56px, rgba(217, 87, 79, .55) 56px, rgba(217, 87, 79, .55) 58px, transparent 58px),
     repeating-linear-gradient(transparent 0, transparent calc(#{$prep-line} - 1px), #cfe0ea calc(#{$prep-line} - 1px), #cfe0ea $prep-line);
   background-position: 0 0, 0 22px;
-  box-shadow: 0 1px 0 #efe6d2, 0 3px 0 #f6efe0, 0 5px 0 #e9dfc8, 6px 10px 22px rgba(70, 55, 30, .12);
+  box-shadow: 3px 4px 0 rgba(52, 67, 74, .09), 8px 10px 0 rgba(52, 67, 74, .045);
   color: $prep-ink;
   font-family: "LXGW WenKai TC", "Klee One", "Noto Sans TC", sans-serif;
-  transform: rotate(-.3deg);
 }
+.prep-notebook::before { content: ""; position: absolute; inset: 5px 9px; z-index: 0; pointer-events: none; border: 1px dashed rgba(52, 67, 74, .48); border-radius: 23px 18px 26px 20px; transform: rotate(.13deg); }
+.prep-notebook > * { position: relative; z-index: 1; }
+.prep-notebook > .prep-rings { position: absolute; }
 
 .prep-rings { position: absolute; top: 30px; bottom: 30px; left: 16px; display: flex; flex-direction: column; justify-content: space-between; }
 .prep-rings span { display: block; width: 18px; height: 18px; border-radius: 50%; background: #f1ece0; box-shadow: inset 2px 2px 3px rgba(0, 0, 0, .18); }
