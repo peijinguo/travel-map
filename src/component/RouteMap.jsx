@@ -131,7 +131,7 @@ function makeStopMarker(map, stop, index, coordinate, offset, allCoordinates = [
   content.append(stopNumber, stopName);
 
   // Hovering shows the stop's card; a click keeps it open until it is closed.
-  const popup = new maplibregl.Popup({ offset: 40 }).setLngLat(coordinate).setDOMContent(content);
+  const popup = new maplibregl.Popup({ offset: 30 }).setLngLat(coordinate).setDOMContent(content);
   let pinned = false;
   const show = () => {
     if (!popup.isOpen()) popup.addTo(map);
@@ -212,7 +212,7 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = nul
         type: "line",
         source: ROUTE_SOURCE_ID,
         layout: { "line-cap": "round", "line-join": "round" },
-        paint: { "line-color": "#3f4a52", "line-width": 4, "line-opacity": 0.95 },
+        paint: { "line-color": "#3f5b69", "line-width": 2.5, "line-opacity": 0.95 },
       });
       setMapReady(true);
     });
