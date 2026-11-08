@@ -1,5 +1,5 @@
-// 行前準備: a white memo card drawn in the route-map pins' brown: outline
-// with a dashed stitch inside it and a rule under each row.
+// 行前準備: a memo card in the same frame as the 路線地圖 card, with boxes,
+// rules and × in the route-map pins' brown.
 $prep-line: 46px;
 $prep-ink: #284d63;
 $prep-red: #8a6650; // the route-map stop pins
@@ -12,18 +12,19 @@ $prep-pen: $prep-red;
 .prep-notebook {
   position: relative;
   padding: 30px 30px 26px;
-  border: 3px solid $prep-red;
-  border-radius: 34px;
-  background-color: #fff;
-  box-shadow: 0 4px 18px rgba($prep-red, .1);
+  // The same frame as the 路線地圖 card in 行程規劃.
+  border: 2px solid #34434a;
+  border-radius: 19px 28px 21px 25px;
+  background: repeating-linear-gradient(0deg, rgba(52,67,74,.025) 0 1px, transparent 1px 7px), #fff;
+  box-shadow: 3px 4px 0 rgba(52,67,74,.09), 8px 10px 0 rgba(52,67,74,.045);
   color: $prep-ink;
   // The same type as the itinerary in 行程規劃.
   font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
 }
 
 .prep-sheet { position: relative; }
-// The dashed stitch just inside the card's outline.
-.prep-notebook::before { content: ""; position: absolute; inset: 8px; border: 2.5px dashed $prep-red; border-radius: 25px; pointer-events: none; }
+// The thin dashed line just inside the outline, as on the 路線地圖 card.
+.prep-notebook::before { content: ""; position: absolute; inset: 5px 9px; z-index: 0; pointer-events: none; border: 1px dashed rgba(52,67,74,.48); border-radius: 23px 18px 26px 20px; transform: rotate(.13deg); }
 
 .prep-heading { min-height: $prep-line * 2; }
 .prep-heading { padding-left: 4px; }
@@ -64,8 +65,7 @@ $prep-pen: $prep-red;
 
 @media (max-width: 600px) {
   .prep-page { width: calc(100% - 24px); padding-top: 52px; }
-  .prep-notebook { padding: 24px 18px 20px; border-radius: 28px; }
-  .prep-notebook::before { inset: 6px; border-radius: 21px; }
+  .prep-notebook { padding: 24px 18px 20px; border-radius: 20px; }
   .prep-heading h1 { font-size: 24px; }
   .prep-check, .prep-add input { font-size: 17px; }
   .prep-remove { opacity: .55; }
