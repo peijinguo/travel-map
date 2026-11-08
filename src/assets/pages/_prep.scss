@@ -1,8 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&display=swap');
-
 // 行前準備: a ruled notebook page with a red margin line and binder rings.
 $prep-line: 40px;
-$prep-ink: #2f3e4a;
+$prep-ink: #284d63;
 $prep-pen: #2b5a8a;
 
 .prep-page { width: min(680px, calc(100% - 32px)); margin: 0 auto; padding: 44px 0 80px; }
@@ -21,7 +19,8 @@ $prep-pen: #2b5a8a;
   background-position: 0 0, 0 22px;
   box-shadow: 3px 4px 0 rgba(52, 67, 74, .09), 8px 10px 0 rgba(52, 67, 74, .045);
   color: $prep-ink;
-  font-family: "LXGW WenKai TC", "Klee One", "Noto Sans TC", sans-serif;
+  // The same type as the itinerary in 行程規劃.
+  font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
 }
 .prep-notebook::before { content: ""; position: absolute; inset: 5px 9px; z-index: 0; pointer-events: none; border: 1px dashed rgba(52, 67, 74, .48); border-radius: 23px 18px 26px 20px; transform: rotate(.13deg); }
 .prep-notebook > * { position: relative; z-index: 1; }
@@ -31,14 +30,14 @@ $prep-pen: #2b5a8a;
 .prep-rings span { display: block; width: 18px; height: 18px; border-radius: 50%; background: #f1ece0; box-shadow: inset 2px 2px 3px rgba(0, 0, 0, .18); }
 
 .prep-heading { min-height: $prep-line * 2; }
-.prep-heading h1 { margin: 0; color: $prep-ink; font-family: inherit; font-size: 34px; font-weight: 700; line-height: $prep-line * 1.1; letter-spacing: .08em; }
-.prep-heading p { margin: 0; color: #7a8790; font-size: 18px; line-height: $prep-line * .9; }
+.prep-heading h1 { margin: 0; color: #26383f; font-family: inherit; font-size: 26px; font-weight: 700; line-height: $prep-line * 1.1; letter-spacing: .035em; }
+.prep-heading p { margin: 0; color: #7a8790; font-size: 16px; font-weight: 600; line-height: $prep-line * .9; }
 .prep-status { color: #c0574f; }
 
 .prep-list { margin: 0; padding: 0; list-style: none; }
 .prep-list li { position: relative; display: flex; align-items: center; min-height: $prep-line; }
 
-.prep-check { display: flex; flex: 1; align-items: center; gap: 10px; min-width: 0; min-height: $prep-line; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; font-size: 21px; text-align: left; cursor: pointer; }
+.prep-check { display: flex; flex: 1; align-items: center; gap: 10px; min-width: 0; min-height: $prep-line; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; font-size: 19px; font-weight: 600; text-align: left; cursor: pointer; }
 .prep-text { position: relative; min-width: 0; line-height: 1.3; transition: color .25s ease; }
 // The hand-drawn strike-through: a slightly tilted pen stroke that sweeps in.
 .prep-text::after { content: ""; position: absolute; top: 52%; left: -4px; right: -6px; height: 3px; border-radius: 3px; background: $prep-pen; opacity: .85; transform: rotate(-1.5deg) scaleX(0); transform-origin: left center; transition: transform .35s ease; }
@@ -57,10 +56,10 @@ $prep-pen: #2b5a8a;
 
 .prep-add { display: flex; align-items: center; gap: 10px; min-height: $prep-line; }
 .prep-add .prep-box-frame { stroke: #b9c4ca; stroke-dasharray: 3 3; }
-.prep-add input { flex: 1; min-width: 0; padding: 4px 0; border: 0; border-bottom: 1.5px dashed transparent; background: transparent; color: $prep-ink; font: inherit; font-size: 21px; outline: none; }
+.prep-add input { flex: 1; min-width: 0; padding: 4px 0; border: 0; border-bottom: 1.5px dashed transparent; background: transparent; color: $prep-ink; font: inherit; font-size: 19px; font-weight: 600; outline: none; }
 .prep-add input:focus { border-bottom-color: #b9c4ca; }
 .prep-add input::placeholder { color: #a9b3b9; }
-.prep-add button { flex: 0 0 auto; padding: 4px 14px; border: 1.5px solid $prep-ink; border-radius: 12px 14px 11px 15px; background: transparent; color: $prep-ink; font: inherit; font-size: 18px; font-weight: 700; cursor: pointer; }
+.prep-add button { flex: 0 0 auto; padding: 4px 14px; border: 1.5px solid $prep-ink; border-radius: 12px 14px 11px 15px; background: transparent; color: $prep-ink; font: inherit; font-size: 16px; font-weight: 700; cursor: pointer; }
 .prep-add button:hover { background: rgba(47, 62, 74, .07); }
 
 @media (max-width: 600px) {
@@ -70,8 +69,8 @@ $prep-pen: #2b5a8a;
     repeating-linear-gradient(transparent 0, transparent calc(#{$prep-line} - 1px), #cfe0ea calc(#{$prep-line} - 1px), #cfe0ea $prep-line); }
   .prep-rings { left: 10px; }
   .prep-rings span { width: 14px; height: 14px; }
-  .prep-heading h1 { font-size: 29px; }
-  .prep-check, .prep-add input { font-size: 19px; }
+  .prep-heading h1 { font-size: 24px; }
+  .prep-check, .prep-add input { font-size: 17px; }
   .prep-remove { opacity: .55; }
 }
 
