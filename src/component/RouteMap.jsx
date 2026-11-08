@@ -185,7 +185,7 @@ function makeFootprintImage(mirrored) {
   context.lineWidth = 2.4;
   context.strokeStyle = "rgba(255, 255, 255, 0.95)";
   context.stroke();
-  context.fillStyle = "#3a1f10";
+  context.fillStyle = "#3f5b69"; // the same slate as the stop pins
   context.fill();
   return { image: context.getImageData(0, 0, canvas.width, canvas.height), pixelRatio: scale };
 }
@@ -267,7 +267,7 @@ function makeStopMarker(map, stop, index, coordinate, offset, allCoordinates = [
   content.append(stopNumber, stopName);
 
   // Hovering shows the stop's card; a click keeps it open until it is closed.
-  const popup = new maplibregl.Popup({ offset: 25 }).setLngLat(coordinate).setDOMContent(content);
+  const popup = new maplibregl.Popup({ offset: 35 }).setLngLat(coordinate).setDOMContent(content);
   let pinned = false;
   const show = () => {
     if (!popup.isOpen()) popup.addTo(map);
@@ -354,7 +354,7 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = nul
         source: ROUTE_SOURCE_ID,
         layout: { "line-cap": "round", "line-join": "round" },
         paint: {
-          "line-color": "#4a2f1e",
+          "line-color": "#3f5b69",
           "line-width": 1.6,
           "line-opacity": 0.25,
           "line-dasharray": [0.5, 2.5],
