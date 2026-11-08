@@ -282,3 +282,23 @@ export async function reportUnlocatedPlace(query, fullText = query) {
     { merge: true },
   );
 }
+
+// Places in the queue the lookup job has found carry their coordinates
+// (latitude, longitude, name, displayName); the planner applies them live.
+export function subscribeUnlocatedPlaces(onData, onError) {
+  if (!db) return () => {};
+  let unsubscribe = () => {};
+  let stopped = false;
+  sha256Hex("travel-map:__trip-directory__").then((directoryId) => {
+    if (stopped) return;
+    unsubscribe = onSnapshot(
+      doc(db, "syncSpaces", directoryId, "appData", "unlocatedPlaces"),
+      (snapshot) => onData(snapshot.exists() ? snapshot.data().places ?? {} : {}),
+      onError,
+    );
+  });
+  return () => {
+    stopped = true;
+    unsubscribe();
+  };
+}

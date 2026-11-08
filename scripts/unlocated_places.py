@@ -7,6 +7,8 @@ namedPlaces in src/views/frontend/Planner.jsx, then removes it here.
 
 Usage:
   python scripts/unlocated_places.py list            # JSON: {key: {query, text, attempts}}
+  python scripts/unlocated_places.py resolve KEY LAT LON "NAME" "ADDRESS"
+                                                     # open pages locate it at once
   python scripts/unlocated_places.py remove KEY...   # drop places that were added
   python scripts/unlocated_places.py attempt KEY...  # count a failed lookup
   python scripts/unlocated_places.py add "NAME"      # queue a name by hand (testing)
@@ -104,6 +106,23 @@ def main():
         }
         patch(token, list(entries), {"places": {"mapValue": {"fields": entries}}})
         print(f"counted {len(entries)}")
+    elif command == "resolve" and len(args) >= 4:
+        # Write the coordinates back so open planner pages locate the stop at once.
+        key, latitude, longitude, name, *rest = args
+        places = read_places(token)
+        if key not in places:
+            raise SystemExit(f"no queued place {key}")
+        entry = {
+            "query": {"stringValue": places[key]["query"]},
+            "text": {"stringValue": places[key]["text"]},
+            "attempts": {"integerValue": str(places[key]["attempts"])},
+            "latitude": {"doubleValue": float(latitude)},
+            "longitude": {"doubleValue": float(longitude)},
+            "name": {"stringValue": name},
+            "displayName": {"stringValue": rest[0] if rest else ""},
+        }
+        patch(token, [key], {"places": {"mapValue": {"fields": {key: {"mapValue": {"fields": entry}}}}}})
+        print(f"resolved {key}")
     elif command == "add" and args:
         query = args[0]
         key = hashlib.sha256(query.encode()).hexdigest()[:16]

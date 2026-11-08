@@ -34,7 +34,10 @@ are in Taiwan. Use the other stops in `text` and nearby places already in
    - The street address → GSI:
      `curl -s "https://msearch.gsi.go.jp/address-search/AddressSearch?q=<url-encoded address>"`
      (`[lon, lat]`; only use a result whose title has a 番地/号 number).
-3. If two different candidates remain, or nothing reliable is found, run
+3. As soon as a place's coordinates are settled, write them back so any open
+   planner page locates the stop immediately (its button shows 「定位中…」 until then):
+   `python scripts/unlocated_places.py resolve <key> <lat> <lon> "<name>" "<address>"`
+4. If two different candidates remain, or nothing reliable is found, run
    `python scripts/unlocated_places.py attempt <key>` and move on. Never guess.
 
 ## 3. Add the entry
@@ -73,6 +76,7 @@ Append to the end of `namedPlaces`:
    `feat: auto-add <names> as named places [auto-place]`
    — the `[auto-place]` tag makes `.github/workflows/publish-auto-places.yml`
    publish the site. `git pull --rebase origin main`, then `git push origin main`.
-3. Only after the push succeeds:
-   `python scripts/unlocated_places.py remove <keys added or skipped>`.
+3. Only after the push succeeds, remove the added and skipped keys:
+   `python scripts/unlocated_places.py remove <keys>` (the new site build
+   then locates those stops from `namedPlaces` itself).
 4. Finish with one line per queued name: added (with address) / skipped / failed.

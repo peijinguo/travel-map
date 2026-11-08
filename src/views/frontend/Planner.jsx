@@ -10,6 +10,7 @@ import {
   loadPlannerCloud,
   replaceMenusCloud,
   reportUnlocatedPlace,
+  subscribeUnlocatedPlaces,
   saveDailyBackupCloud,
   saveMenuCloud,
   savePlannerCloud,
@@ -28,6 +29,13 @@ import "../../assets/pages/_planner.scss";
 const STORAGE_KEY = "yuki-tabi-planner-days-v2";
 const LEGACY_STORAGE_KEY = "yuki-tabi-planner-items";
 const GEOCODE_CACHE_KEY = "yuki-tabi-google-geocode-cache-v4";
+const PENDING_LOOKUPS_KEY = "travel-map-pending-lookups";
+const withoutKey = (object, key) => {
+  if (!(key in object)) return object;
+  const copy = { ...object };
+  delete copy[key];
+  return copy;
+};
 const LODGING_STORAGE_KEY = "yuki-tabi-lodgings-v1";
 const ACTIVE_DAY_STORAGE_KEY = "yuki-tabi-planner-active-day-v1";
 const DRAFT_STORAGE_KEY = "yuki-tabi-planner-drafts-v1";
@@ -771,6 +779,25 @@ const namedPlaces = [
       "五稜郭停車場",
       "五稜郭 駐車場",
       "五稜郭駐車場",
+    ],
+  },
+  {
+    id: "hakodate-nanae-snow-park",
+    name: "函館七飯スノーパーク",
+    // 地址取自 rurubu／Mapple（七飯町東大沼666）；座標是山腳纜車站旁的雪場餐廳大樓
+    // （OpenStreetMap node 11804975770），使用者在地圖上指定的位置。
+    latitude: 41.987272,
+    longitude: 140.747872,
+    displayName: "北海道亀田郡七飯町東大沼666（函館七飯滑雪場 山腳大樓）",
+    types: ["point_of_interest", "establishment"],
+    aliases: [
+      "函館七飯スノーパーク",
+      "七飯スノーパーク",
+      "函館七飯滑雪場",
+      "七飯滑雪場",
+      "函館七飯雪場",
+      "Hakodate Nanae Snow Park",
+      "Nanae Snow Park",
     ],
   },
 ];
@@ -2168,6 +2195,15 @@ function Planner() {
   // A located stop briefly shows 「✓ 已定位」, since a built-in place resolves
   // instantly and the map may not visibly change.
   const [justLocated, setJustLocated] = useState({});
+  // Stops the free maps couldn't find wait here, keyed by item id, while their
+  // coordinates are looked up; the locate button shows 「定位中…」 meanwhile.
+  const [pendingLookups, setPendingLookups] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem(PENDING_LOOKUPS_KEY)) ?? {};
+    } catch {
+      return {};
+    }
+  });
   const [locationErrors, setLocationErrors] = useState({});
   const [travelSegments, setTravelSegments] = useState({});
   const [cloudLoadedFor, setCloudLoadedFor] = useState(null);
@@ -2707,11 +2743,11 @@ function Planner() {
     setPlannerSaveStatus(cloudKey ? "已儲存，正在同步…" : "已儲存在此裝置");
     setSaveRequest((request) => request + 1);
   };
-  const applyLocatedItem = (itemId, location, locatedText = "") => {
+  const applyLocatedItem = (itemId, location, locatedText = "", dayId = activeDayId) => {
     localEditPendingRef.current = true;
     setDays((current) =>
       current.map((day) => {
-        if (day.id !== activeDayId) return day;
+        if (day.id !== dayId) return day;
         return syncActiveVersionItems(
           day,
           day.items.map((candidate) =>
@@ -2730,9 +2766,60 @@ function Planner() {
     persistItemDrafts(itemDraftsRef.current);
     setJustLocated((current) => ({ ...current, [itemId]: true }));
     window.setTimeout(() => setJustLocated((current) => ({ ...current, [itemId]: false })), 1600);
+    setPendingLookups((current) => withoutKey(current, itemId));
     setPlannerSaveStatus(cloudKey ? "定位完成，正在同步…" : "定位完成");
     setSaveRequest((request) => request + 1);
   };
+  // Keep waiting lookups across reloads, and apply each one as soon as its
+  // place is known: written back to the queue by the lookup job (live, no
+  // reload needed) or already among the built-in places after an update.
+  useEffect(() => {
+    try {
+      localStorage.setItem(PENDING_LOOKUPS_KEY, JSON.stringify(pendingLookups));
+    } catch {
+      // 無法儲存時只影響重新整理後的「定位中…」顯示。
+    }
+  }, [pendingLookups]);
+  const [lookedUpPlaces, setLookedUpPlaces] = useState({});
+  const hasPendingLookups = Object.keys(pendingLookups).length > 0;
+  useEffect(() => {
+    if (!user || !hasPendingLookups) return undefined;
+    return subscribeUnlocatedPlaces(setLookedUpPlaces, (error) =>
+      console.error("無法讀取待補地點", error),
+    );
+  }, [user, hasPendingLookups]);
+  useEffect(() => {
+    Object.entries(pendingLookups).forEach(([itemId, { query, dayId }]) => {
+      const day = days.find((candidate) => candidate.id === dayId);
+      const item = day?.items.find((candidate) => candidate.id === itemId);
+      // The stop was removed or renamed: stop waiting for it.
+      if (!item || getLocationQuery(item.text) !== query) {
+        setPendingLookups((current) => withoutKey(current, itemId));
+        return;
+      }
+      const found =
+        findNamedPlaceForText(item.text) ??
+        Object.values(lookedUpPlaces).find(
+          (place) => place.query === query && Number.isFinite(place.latitude),
+        );
+      if (!found) return;
+      const location = found.id
+        ? found
+        : {
+            id: `lookup-${found.latitude.toFixed(5)},${found.longitude.toFixed(5)}`,
+            name: found.name || query,
+            latitude: found.latitude,
+            longitude: found.longitude,
+            displayName: found.displayName || "",
+            query,
+            types: found.types ?? [],
+            website: "",
+          };
+      applyLocatedItem(itemId, location, "", dayId);
+    });
+    // applyLocatedItem changes on every render; the inputs above decide when to run.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pendingLookups, lookedUpPlaces, days]);
   const locateItem = async (item) => {
     if (!item.text.trim() || locating[item.id]) return;
     const namedPlace = findNamedPlaceForText(item.text);
@@ -2763,9 +2850,9 @@ function Planner() {
           applyLocatedItem(item.id, fallbackTown, item.text);
           return;
         }
-        setLocationErrors((current) => ({
+        setPendingLookups((current) => ({
           ...current,
-          [item.id]: "暫時找不到地點，已送出自動查詢，約一小時內會補上座標，之後再按一次定位",
+          [item.id]: { query: getLocationQuery(item.text), dayId: activeDayId },
         }));
         reportUnlocatedPlace(getLocationQuery(item.text), item.text).catch((error) =>
           console.error("無法送出待補地點", error),
@@ -3140,14 +3227,14 @@ function Planner() {
                                     <>
                                       <div className="planner-meta-actions-group">
                                         <button
-                                          className={`planner-locate planner-icon-locate ${locating[item.id] || justLocated[item.id] ? "is-locating" : ""} ${justLocated[item.id] ? "is-located" : ""}`}
+                                          className={`planner-locate planner-icon-locate ${locating[item.id] || pendingLookups[item.id] || justLocated[item.id] ? "is-locating" : ""} ${justLocated[item.id] ? "is-located" : ""}`}
                                           type="button"
                                           aria-label="重新定位"
-                                          data-tooltip={locating[item.id] ? undefined : "重新定位"}
+                                          data-tooltip={locating[item.id] || pendingLookups[item.id] ? undefined : "重新定位"}
                                           disabled={locating[item.id]}
                                           onClick={() => locateCurrentItem(item)}
                                         >
-                                          {locating[item.id] ? (
+                                          {locating[item.id] || pendingLookups[item.id] ? (
                                             "定位中…"
                                           ) : justLocated[item.id] ? (
                                             "✓ 已定位"
@@ -3174,14 +3261,14 @@ function Planner() {
                                     </>
                                   ) : (
                                     <button
-                                      className={`planner-locate planner-icon-locate ${locating[item.id] || justLocated[item.id] ? "is-locating" : ""} ${justLocated[item.id] ? "is-located" : ""}`}
+                                      className={`planner-locate planner-icon-locate ${locating[item.id] || pendingLookups[item.id] || justLocated[item.id] ? "is-locating" : ""} ${justLocated[item.id] ? "is-located" : ""}`}
                                       type="button"
                                       aria-label="定位"
-                                      data-tooltip={locating[item.id] ? undefined : "定位"}
+                                      data-tooltip={locating[item.id] || pendingLookups[item.id] ? undefined : "定位"}
                                       disabled={locating[item.id]}
                                       onClick={() => locateCurrentItem(item)}
                                     >
-                                      {locating[item.id] ? (
+                                      {locating[item.id] || pendingLookups[item.id] ? (
                                         "定位中…"
                                       ) : justLocated[item.id] ? (
                                         "✓ 已定位"
