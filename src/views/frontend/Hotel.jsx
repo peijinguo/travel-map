@@ -27,16 +27,20 @@ const LODGING_TYPES = new Set([
   "rv_park",
 ]);
 
-// OpenStreetMap lacks a website tag for some lodgings; known official sites by name.
+// Known official sites by name. They win over OpenStreetMap's website tag,
+// which is missing for some lodgings and wrong for others (海と灯 points at a
+// bike-share site).
 const KNOWN_LODGING_WEBSITES = [
   { pattern: /グリーンピア大沼|green\s*pia\s*onuma/i, url: "https://www.gp-onuma.com/stay/hotel/" },
   { pattern: /笑\s*函館屋|emi\s*hakodateya/i, url: "https://www.hakodateya.jp/" },
+  { pattern: /函館大沼プリンス|函館大沼王子|hakodate\s*onuma\s*prince/i, url: "https://www.princehotels.co.jp/hakodate/" },
+  { pattern: /海と灯|ヒューイットリゾート|umi\s*to\s*akari|hewitt\s*resort/i, url: "https://hewitt-resort.com/" },
 ];
 const getLodgingWebsite = (lodging) =>
-  lodging.website ||
   KNOWN_LODGING_WEBSITES.find(({ pattern }) =>
     pattern.test(`${lodging.name ?? ""} ${lodging.displayName ?? ""}`),
   )?.url ||
+  lodging.website ||
   "";
 
 const formatStayDate = (dateString, dayNumber) => {
