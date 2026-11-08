@@ -1848,6 +1848,7 @@ function PlannerMenuDialog({
   motif,
   mapsQuery,
   initialMenu,
+  presetMenu,
   placeId,
   onSave,
   onClose,
@@ -2050,9 +2051,24 @@ function PlannerMenuDialog({
               </button>
             </>
           ) : (
-            <button type="button" className="is-primary" onClick={() => setIsEditing(true)}>
-              編輯菜單
-            </button>
+            <>
+              {/* A menu saved on the stop hides the shop's built-in one;
+                  clearing it brings the built-in menu back. */}
+              {presetMenu?.length > 0 && entries !== presetMenu && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onSave([]);
+                    setEntries(presetMenu);
+                  }}
+                >
+                  改用內建菜單（{presetMenu.length} 項）
+                </button>
+              )}
+              <button type="button" className="is-primary" onClick={() => setIsEditing(true)}>
+                編輯菜單
+              </button>
+            </>
           )}
         </div>
       </section>
@@ -3468,6 +3484,7 @@ function Planner() {
             motif={getItineraryMotif(menuLocation, menuText)}
             mapsQuery={[menuLocation?.name ?? title, menuLocation?.displayName].filter(Boolean).join(" ")}
             initialMenu={getItemMenu(menuItem)}
+            presetMenu={findPresetMenu(menuText)}
             placeId={menuItem.googlePlaceId ?? findGooglePlaceId(menuText)}
             onSave={(menu) => saveItemMenu(menuItem.id, menu)}
             onClose={() => setMenuItemId(null)}
