@@ -84,6 +84,118 @@ const makeRouteLine = (coordinates, paths = []) => ({
   },
 });
 
+// The route is drawn as a trail of footprints, left and right steps turned to
+// face the way the trip goes, with a darker wave of fresh prints walking
+// forward from stop to stop.
+const FOOTPRINT_SOURCE_ID = "planner-footprints";
+const STEP_METERS = 14;
+const MAX_STEPS_PER_LEG = 4000;
+// Zoomed out, only every 2^k-th step is drawn so the prints stay about one
+// step apart on screen: k = 0 at zoom 17 and grows by one per zoom level.
+const FOOTPRINT_MIN_ZOOM = 11;
+const FOOTPRINT_FULL_ZOOM = 17;
+const skipLevels = Array.from(
+  { length: FOOTPRINT_FULL_ZOOM - FOOTPRINT_MIN_ZOOM + 1 },
+  (_, index) => ({ zoom: FOOTPRINT_MIN_ZOOM + index, k: FOOTPRINT_FULL_ZOOM - FOOTPRINT_MIN_ZOOM - index }),
+);
+// One expression per zoom level, switched by a top-level zoom step.
+const byZoom = (makeExpression) => [
+  "step",
+  ["zoom"],
+  makeExpression(skipLevels[0].k),
+  ...skipLevels.slice(1).flatMap(({ zoom, k }) => [zoom, makeExpression(k)]),
+];
+const shownStep = (k) => ["floor", ["/", ["get", "step"], 2 ** k]];
+const isLeftFoot = (k) => ["==", ["%", shownStep(k), 2], 0];
+const STEP_WAVE = 36; // steps between the starts of two walking waves
+const STEP_TRAIL = 14; // how many steps behind the wave stay darkened
+const STEP_TICK_MS = 110;
+
+const metersBetween = ([lng1, lat1], [lng2, lat2]) => {
+  const latScale = Math.cos((((lat1 + lat2) / 2) * Math.PI) / 180);
+  const dx = (lng2 - lng1) * latScale * 111320;
+  const dy = (lat2 - lat1) * 110540;
+  return Math.hypot(dx, dy);
+};
+const bearingBetween = ([lng1, lat1], [lng2, lat2]) => {
+  const latScale = Math.cos((((lat1 + lat2) / 2) * Math.PI) / 180);
+  return (Math.atan2((lng2 - lng1) * latScale, lat2 - lat1) * 180) / Math.PI;
+};
+
+const makeFootprints = (routeLine) => {
+  const features = [];
+  let step = 0;
+  routeLine.geometry.coordinates.forEach((leg) => {
+    const lengths = leg.slice(1).map((point, index) => metersBetween(leg[index], point));
+    const total = lengths.reduce((sum, length) => sum + length, 0);
+    if (!total) return;
+    const spacing = Math.max(STEP_METERS, total / MAX_STEPS_PER_LEG);
+    let segment = 0;
+    let walked = 0;
+    for (let at = spacing / 2; at < total; at += spacing) {
+      while (segment < lengths.length - 1 && walked + lengths[segment] < at) {
+        walked += lengths[segment];
+        segment += 1;
+      }
+      const [start, end] = [leg[segment], leg[segment + 1]];
+      const ratio = lengths[segment] ? (at - walked) / lengths[segment] : 0;
+      features.push({
+        type: "Feature",
+        properties: {
+          step,
+          // How many times 2 divides the step: a step with rank r is still drawn
+          // when every 2^r-th step is.
+          rank: step ? Math.min(Math.log2(step & -step), 12) : 12,
+          bearing: bearingBetween(start, end),
+        },
+        geometry: {
+          type: "Point",
+          coordinates: [
+            start[0] + (end[0] - start[0]) * ratio,
+            start[1] + (end[1] - start[1]) * ratio,
+          ],
+        },
+      });
+      step += 1;
+    }
+  });
+  return { type: "FeatureCollection", features };
+};
+
+// A small ink footprint pointing up: the ball of the foot, then the heel.
+function makeFootprintImage(mirrored) {
+  const scale = 2;
+  const canvas = document.createElement("canvas");
+  canvas.width = 14 * scale;
+  canvas.height = 24 * scale;
+  const context = canvas.getContext("2d");
+  context.scale(scale, scale);
+  if (mirrored) {
+    context.translate(14, 0);
+    context.scale(-1, 1);
+  }
+  context.fillStyle = "#4a2f1e";
+  context.beginPath();
+  context.ellipse(7.6, 8.2, 4.4, 6.6, 0.16, 0, Math.PI * 2);
+  context.fill();
+  context.beginPath();
+  context.ellipse(6.4, 19.2, 3.1, 3.6, 0.08, 0, Math.PI * 2);
+  context.fill();
+  return { image: context.getImageData(0, 0, canvas.width, canvas.height), pixelRatio: scale };
+}
+
+// Fresh prints at the front of each wave are darkest and fade behind it; the
+// wave moves one drawn print per tick at every zoom level.
+const footprintOpacity = (tick) =>
+  byZoom((k) => [
+    "let",
+    "behind",
+    ["%", ["+", ["-", tick, shownStep(k)], STEP_WAVE * 100000], STEP_WAVE],
+    ["case", ["<", ["var", "behind"], STEP_TRAIL],
+      ["-", 1, ["*", ["/", ["var", "behind"], STEP_TRAIL], 0.62]],
+      0.32],
+  ]);
+
 // Pins this close on screen overlap; a clicked pin zooms in until its nearest
 // neighbour is at least this far away.
 const PIN_SPREAD_PX = 56;
@@ -207,12 +319,44 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = nul
         type: "geojson",
         data: makeRouteLine([]),
       });
+      // A faint dotted guide keeps the route readable when zoomed far out,
+      // where the footprints thin out.
       map.addLayer({
         id: ROUTE_SOURCE_ID,
         type: "line",
         source: ROUTE_SOURCE_ID,
         layout: { "line-cap": "round", "line-join": "round" },
-        paint: { "line-color": "#3f5b69", "line-width": 2.5, "line-opacity": 0.95 },
+        paint: {
+          "line-color": "#4a2f1e",
+          "line-width": ["interpolate", ["linear"], ["zoom"], 8, 2.2, 14, 1.6],
+          "line-opacity": ["interpolate", ["linear"], ["zoom"], 10, 0.7, 13, 0.25],
+          "line-dasharray": [0.5, 2.5],
+        },
+      });
+      map.addImage("footprint-left", makeFootprintImage(false).image, { pixelRatio: 2 });
+      map.addImage("footprint-right", makeFootprintImage(true).image, { pixelRatio: 2 });
+      map.addSource(FOOTPRINT_SOURCE_ID, {
+        type: "geojson",
+        data: makeFootprints(makeRouteLine([])),
+      });
+      map.addLayer({
+        id: FOOTPRINT_SOURCE_ID,
+        type: "symbol",
+        source: FOOTPRINT_SOURCE_ID,
+        // Far out the prints would pile into a smudge; the dotted guide shows the way.
+        minzoom: FOOTPRINT_MIN_ZOOM,
+        filter: byZoom((k) => [">=", ["get", "rank"], k]),
+        layout: {
+          "icon-image": byZoom((k) => ["case", isLeftFoot(k), "footprint-left", "footprint-right"]),
+          "icon-rotate": ["get", "bearing"],
+          "icon-rotation-alignment": "map",
+          "icon-offset": byZoom((k) => ["case", isLeftFoot(k), ["literal", [-4, 0]], ["literal", [4, 0]]]),
+          "icon-size": 0.8,
+          "icon-allow-overlap": true,
+          "icon-ignore-placement": true,
+          "icon-padding": 0,
+        },
+        paint: { "icon-opacity": footprintOpacity(0) },
       });
       setMapReady(true);
     });
@@ -265,8 +409,26 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = nul
     const map = mapRef.current;
     if (!map || !mapReady) return;
     const coordinates = stopsRef.current.map(({ town }) => [town.longitude, town.latitude]);
-    map.getSource(ROUTE_SOURCE_ID)?.setData(makeRouteLine(coordinates, pathsRef.current));
+    const routeLine = makeRouteLine(coordinates, pathsRef.current);
+    map.getSource(ROUTE_SOURCE_ID)?.setData(routeLine);
+    map.getSource(FOOTPRINT_SOURCE_ID)?.setData(makeFootprints(routeLine));
   }, [stopsKey, pathsKey, mapReady]);
+
+  // Walk the footprint waves forward; still for people who ask for less motion.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !mapReady) return undefined;
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      map.setPaintProperty(FOOTPRINT_SOURCE_ID, "icon-opacity", 0.8);
+      return undefined;
+    }
+    let tick = 0;
+    const timer = window.setInterval(() => {
+      tick = (tick + 1) % (STEP_WAVE * 1000);
+      if (mapRef.current === map) map.setPaintProperty(FOOTPRINT_SOURCE_ID, "icon-opacity", footprintOpacity(tick));
+    }, STEP_TICK_MS);
+    return () => window.clearInterval(timer);
+  }, [mapReady]);
 
   // A clicked STOP tag flies the map to its pin, zoomed in until the pins
   // around it separate, and makes the pin bounce.
