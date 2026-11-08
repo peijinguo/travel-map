@@ -177,15 +177,31 @@ function Wishlist() {
       0,
     );
 
-  const removeWish = async (wish) => {
-    if (!window.confirm(`從想吃清單刪除「${wish.name || "這張圖片"}」？`)) return;
+  // The wish waiting on the 確認刪除 dialog, and any error from deleting it.
+  const [wishPendingDelete, setWishPendingDelete] = useState(null);
+  const [deleteError, setDeleteError] = useState("");
+  const closeDeleteDialog = () => {
+    setWishPendingDelete(null);
+    setDeleteError("");
+  };
+  const confirmRemoveWish = async () => {
     try {
-      await deleteWishCloud(cloudKey, wish.id);
+      await deleteWishCloud(cloudKey, wishPendingDelete.id);
+      closeDeleteDialog();
     } catch (error) {
       console.error("無法刪除", error);
-      window.alert("刪除失敗，請檢查網路後再試一次");
+      setDeleteError("刪除失敗，請檢查網路後再試一次。");
     }
   };
+
+  useEffect(() => {
+    if (!wishPendingDelete) return undefined;
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") closeDeleteDialog();
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [wishPendingDelete]);
 
   return (
     <section className="wishlist-page">
@@ -219,7 +235,7 @@ function Wishlist() {
                 <button
                   type="button"
                   aria-label={`刪除 ${wish.name || "這張圖片"}`}
-                  onClick={() => removeWish(wish)}
+                  onClick={() => setWishPendingDelete(wish)}
                 >
                   ×
                 </button>
@@ -251,6 +267,35 @@ function Wishlist() {
       <Link className="wishlist-back" to="/planner">
         回行程規劃
       </Link>
+      {wishPendingDelete && (
+        <div className="planner-confirm-backdrop" onClick={closeDeleteDialog}>
+          <section
+            className="planner-confirm wishlist-confirm"
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="wishlist-confirm-title"
+            aria-describedby="wishlist-confirm-message"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <h2 id="wishlist-confirm-title">確認刪除</h2>
+            {wishPendingDelete.photo && (
+              <img className="wishlist-confirm-photo" src={wishPendingDelete.photo} alt="" />
+            )}
+            <p id="wishlist-confirm-message">
+              {deleteError ||
+                `要從想吃清單刪除「${wishPendingDelete.name || "這張圖片"}」嗎？刪除後無法復原。`}
+            </p>
+            <div className="planner-confirm-actions">
+              <button type="button" autoFocus onClick={closeDeleteDialog}>
+                取消
+              </button>
+              <button className="is-danger" type="button" onClick={confirmRemoveWish}>
+                刪除
+              </button>
+            </div>
+          </section>
+        </div>
+      )}
     </section>
   );
 }

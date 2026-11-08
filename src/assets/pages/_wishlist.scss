@@ -29,6 +29,7 @@
 .wishlist-wishes strong { color: #123653; font-size: 16px; font-weight: 900; line-height: 1.35; }
 .wishlist-wishes small { color: #6b8290; font-size: 13px; line-height: 1.4; }
 .wishlist-wishes button { position: absolute; top: 8px; right: 8px; width: 30px; height: 30px; border: 0; border-radius: 50%; background: rgba(255,255,255,.92); color: #c23a3a; font-size: 20px; line-height: 1; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.18); }
+.wishlist-confirm-photo { display: block; width: 100%; max-height: 180px; margin: 4px 0 10px; border-radius: 10px; object-fit: cover; }
 @media (max-width: 600px) {
   .wishlist-form { grid-template-columns: 92px minmax(0, 1fr); }
   .wishlist-photo-pick { width: 92px; height: 92px; }
