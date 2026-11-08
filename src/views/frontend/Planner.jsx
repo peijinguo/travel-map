@@ -713,6 +713,27 @@ const namedPlaces = [
       "Fort Goryokaku",
     ],
   },
+  {
+    id: "hakodate-onuma-prince-hotel",
+    name: "函館大沼プリンスホテル",
+    // Mapcode 86 842 884*05，取自 japanmapcode.com 的搜尋結果。
+    latitude: 41.994023,
+    longitude: 140.642065,
+    displayName: "北海道亀田郡七飯町西大沼温泉（函館大沼王子大飯店）",
+    types: ["lodging", "point_of_interest", "establishment"],
+    aliases: [
+      "函館大沼プリンスホテル",
+      "大沼プリンスホテル",
+      "函館大沼王子大飯店",
+      "函館大沼王子飯店",
+      "大沼王子大飯店",
+      "大沼王子飯店",
+      "函館大沼王子酒店",
+      "大沼王子酒店",
+      "Hakodate Onuma Prince Hotel",
+      "Onuma Prince Hotel",
+    ],
+  },
 ];
 
 const initialItems = [
@@ -3099,26 +3120,6 @@ function Planner() {
                                 {locationErrors[item.id] && (
                                   <small className="planner-location-error">
                                     {locationErrors[item.id]}
-                                    {/* Japan Mapcode can't be searched from a link, so copy the
-                                        stop's name for pasting into its search box. */}
-                                    <a
-                                      className="planner-mapcode-search"
-                                      href="https://japanmapcode.com/zh-TW"
-                                      target="_blank"
-                                      rel="noreferrer"
-                                      title="會先複製站名，到網站後貼上搜尋，再把座標貼回這一站"
-                                      onClick={() => {
-                                        try {
-                                          navigator.clipboard
-                                            ?.writeText(getLocationQuery(item.text))
-                                            .catch(() => {});
-                                        } catch {
-                                          // 無法複製時仍開啟網站。
-                                        }
-                                      }}
-                                    >
-                                      到 Japan Mapcode 搜尋 ↗（已複製站名）
-                                    </a>
                                   </small>
                                 )}
                               </div>
