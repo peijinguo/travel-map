@@ -1,35 +1,50 @@
-// 行前準備: a ruled notebook page with a red margin line and binder rings.
-$prep-line: 40px;
+// 行前準備: a hand-drawn notepad: dark-red outline, spiral loops across the
+// top and a pair of ruled lines under every row.
+$prep-line: 46px;
 $prep-ink: #284d63;
-$prep-pen: #2b5a8a;
+$prep-red: #8b3a3a;
+$prep-pen: $prep-red;
 
-.prep-page { width: min(680px, calc(100% - 32px)); margin: 0 auto; padding: 44px 0 80px; }
+.prep-page { width: min(680px, calc(100% - 32px)); margin: 0 auto; padding: 64px 0 80px; }
 
 .prep-notebook {
   position: relative;
-  padding: 26px 22px 34px 74px;
-  // The same hand-drawn frame as the 行程規劃 cards: dark outline, dashed
-  // inner line and a soft offset shadow.
-  border: 2px solid #34434a;
-  border-radius: 19px 28px 21px 25px;
+  padding: 34px 26px 30px;
+  border: 2.6px solid $prep-red;
+  border-radius: 4px 9px 6px 11px / 9px 5px 10px 6px;
   background-color: #fff;
-  background-image:
-    linear-gradient(90deg, transparent 56px, rgba(217, 87, 79, .55) 56px, rgba(217, 87, 79, .55) 58px, transparent 58px),
-    repeating-linear-gradient(transparent 0, transparent calc(#{$prep-line} - 1px), #cfe0ea calc(#{$prep-line} - 1px), #cfe0ea $prep-line);
-  background-position: 0 0, 0 22px;
-  box-shadow: 3px 4px 0 rgba(52, 67, 74, .09), 8px 10px 0 rgba(52, 67, 74, .045);
+  // Two thin red lines at the foot of every row, like the ruled pad.
+  background-image: repeating-linear-gradient(
+    transparent 0,
+    transparent calc(#{$prep-line} - 8px),
+    rgba(139, 58, 58, .7) calc(#{$prep-line} - 8px),
+    rgba(139, 58, 58, .7) calc(#{$prep-line} - 6.6px),
+    transparent calc(#{$prep-line} - 6.6px),
+    transparent calc(#{$prep-line} - 3.6px),
+    rgba(139, 58, 58, .7) calc(#{$prep-line} - 3.6px),
+    rgba(139, 58, 58, .7) calc(#{$prep-line} - 2.2px),
+    transparent calc(#{$prep-line} - 2.2px),
+    transparent $prep-line
+  );
+  background-position: 0 34px;
+  background-origin: border-box;
+  background-clip: padding-box;
   color: $prep-ink;
   // The same type as the itinerary in 行程規劃.
   font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  transform: rotate(-.25deg);
 }
-.prep-notebook::before { content: ""; position: absolute; inset: 5px 9px; z-index: 0; pointer-events: none; border: 1px dashed rgba(52, 67, 74, .48); border-radius: 23px 18px 26px 20px; transform: rotate(.13deg); }
-.prep-notebook > * { position: relative; z-index: 1; }
-.prep-notebook > .prep-rings { position: absolute; }
 
-.prep-rings { position: absolute; top: 30px; bottom: 30px; left: 16px; display: flex; flex-direction: column; justify-content: space-between; }
-.prep-rings span { display: block; width: 18px; height: 18px; border-radius: 50%; background: #f1ece0; box-shadow: inset 2px 2px 3px rgba(0, 0, 0, .18); }
+.prep-spiral { position: absolute; top: -27px; left: 18px; right: 18px; display: flex; justify-content: space-between; pointer-events: none; }
+.prep-spiral svg { width: 34px; height: 40px; overflow: visible; fill: none; stroke: $prep-red; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+// White strip that breaks the top border where each loop starts.
+.prep-spiral .prep-spiral-gap { stroke: #fff; stroke-width: 5; }
+.prep-spiral circle { fill: #fff; }
+.prep-spiral svg:nth-child(odd) { transform: rotate(-2deg); }
+.prep-spiral svg:nth-child(3n) { transform: translateY(1px) rotate(1.5deg); }
 
 .prep-heading { min-height: $prep-line * 2; }
+.prep-heading { padding-left: 4px; }
 .prep-heading h1 { margin: 0; color: #26383f; font-family: inherit; font-size: 26px; font-weight: 700; line-height: $prep-line * 1.1; letter-spacing: .035em; }
 .prep-heading p { margin: 0; color: #7a8790; font-size: 16px; font-weight: 600; line-height: $prep-line * .9; }
 .prep-status { color: #c0574f; }
@@ -45,7 +60,7 @@ $prep-pen: #2b5a8a;
 .prep-list li.is-done .prep-text::after { transform: rotate(-1.5deg) scaleX(1); }
 
 .prep-box { flex: 0 0 auto; width: 28px; height: 28px; overflow: visible; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.prep-box-frame { stroke: $prep-ink; stroke-width: 1.8; }
+.prep-box-frame { stroke: $prep-red; stroke-width: 2; }
 .prep-box-tick { stroke: $prep-pen; stroke-width: 2.8; stroke-dasharray: 30; stroke-dashoffset: 30; animation: prep-tick .3s ease-out forwards; }
 @keyframes prep-tick { to { stroke-dashoffset: 0; } }
 .prep-check:hover .prep-box-frame { stroke: $prep-pen; }
@@ -59,16 +74,15 @@ $prep-pen: #2b5a8a;
 .prep-add input { flex: 1; min-width: 0; padding: 4px 0; border: 0; border-bottom: 1.5px dashed transparent; background: transparent; color: $prep-ink; font: inherit; font-size: 19px; font-weight: 600; outline: none; }
 .prep-add input:focus { border-bottom-color: #b9c4ca; }
 .prep-add input::placeholder { color: #a9b3b9; }
-.prep-add button { flex: 0 0 auto; padding: 4px 14px; border: 1.5px solid $prep-ink; border-radius: 12px 14px 11px 15px; background: transparent; color: $prep-ink; font: inherit; font-size: 16px; font-weight: 700; cursor: pointer; }
-.prep-add button:hover { background: rgba(47, 62, 74, .07); }
+.prep-add button { flex: 0 0 auto; padding: 4px 14px; border: 1.8px solid $prep-red; border-radius: 12px 14px 11px 15px; background: transparent; color: $prep-red; font: inherit; font-size: 16px; font-weight: 700; cursor: pointer; }
+.prep-add button:hover { background: rgba(139, 58, 58, .07); }
 
 @media (max-width: 600px) {
-  .prep-page { width: calc(100% - 24px); padding-top: 24px; }
-  .prep-notebook { padding: 20px 12px 28px 54px; background-image:
-    linear-gradient(90deg, transparent 42px, rgba(217, 87, 79, .55) 42px, rgba(217, 87, 79, .55) 44px, transparent 44px),
-    repeating-linear-gradient(transparent 0, transparent calc(#{$prep-line} - 1px), #cfe0ea calc(#{$prep-line} - 1px), #cfe0ea $prep-line); }
-  .prep-rings { left: 10px; }
-  .prep-rings span { width: 14px; height: 14px; }
+  .prep-page { width: calc(100% - 24px); padding-top: 52px; }
+  .prep-notebook { padding: 30px 14px 26px; background-position: 0 30px; }
+  .prep-spiral { left: 8px; right: 8px; }
+  .prep-spiral svg { width: 26px; height: 32px; }
+  .prep-spiral svg:nth-child(n + 8) { display: none; }
   .prep-heading h1 { font-size: 24px; }
   .prep-check, .prep-add input { font-size: 17px; }
   .prep-remove { opacity: .55; }
@@ -78,3 +92,12 @@ $prep-pen: #2b5a8a;
   .prep-text::after { transition: none; }
   .prep-box-tick { animation: none; stroke-dashoffset: 0; }
 }
+
+// Every row sits on its own pair of ruled lines: the title block is exactly two
+// rows, and each item's text rests just above the lines at the foot of its row.
+.prep-heading { box-sizing: border-box; height: $prep-line * 2; min-height: 0; }
+.prep-heading h1 { line-height: $prep-line; }
+.prep-heading p { line-height: $prep-line - 14px; }
+.prep-list li, .prep-add { box-sizing: border-box; min-height: $prep-line; align-items: flex-end; padding-bottom: 9px; }
+.prep-check { min-height: 0; align-items: flex-end; }
+.prep-remove { height: 26px; }

@@ -294,8 +294,8 @@ function Wishlist() {
       <header className="wishlist-heading">
         <h1>想吃清單</h1>
         <p>
-          {dishCount ? `共 ${dishCount} 道。` : "還沒有想吃的東西。"}
-          可以上傳圖片新增，或在行程規劃打開店家的菜單，點菜名旁的圖示。
+          {!dishCount && "還沒有想吃的東西。"}
+          上傳圖片新增，或在行程規劃打開店家的菜單，點菜名旁的圖示。
         </p>
       </header>
       {cloudKey ? (

@@ -117,9 +117,14 @@ function Prep() {
   return (
     <section className="prep-page">
       <div className="prep-notebook">
-        <div className="prep-rings" aria-hidden="true">
-          {Array.from({ length: 7 }, (_, index) => (
-            <span key={index} />
+        {/* Spiral loops along the top edge, like a hand-drawn notepad. */}
+        <div className="prep-spiral" aria-hidden="true">
+          {Array.from({ length: 9 }, (_, index) => (
+            <svg key={index} viewBox="0 0 34 40">
+              <path className="prep-spiral-gap" d="M3 30h28" />
+              <path d="M5 31V9.5C5 6 7.5 4 11 4h12c3.5 0 6 2 6 5.5V31" />
+              <circle cx="17" cy="26" r="6.2" />
+            </svg>
           ))}
         </div>
         <header className="prep-heading">

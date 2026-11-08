@@ -17,6 +17,19 @@ function Header() {
     renameTrip,
   } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  // Pages center things in the space below the header, whose height changes
+  // when the menu wraps onto a second row; publish it as --topbar-height.
+  const topbarRef = useRef(null);
+  useEffect(() => {
+    const topbar = topbarRef.current;
+    if (!topbar) return undefined;
+    const publish = () =>
+      document.documentElement.style.setProperty("--topbar-height", `${topbar.offsetHeight}px`);
+    publish();
+    const observer = new ResizeObserver(publish);
+    observer.observe(topbar);
+    return () => observer.disconnect();
+  }, []);
   const [isSyncOpen, setIsSyncOpen] = useState(false);
   const syncRef = useRef(null);
   const [isSyncCodeSelectOpen, setIsSyncCodeSelectOpen] = useState(false);
@@ -113,7 +126,7 @@ function Header() {
 
 
   return (
-    <header className="topbar">
+    <header ref={topbarRef} className="topbar">
       <Link className="brand" to="/" aria-label="雪旅地圖首頁">
         <span className="brand-mark brand-mark--image" aria-hidden="true">
           <img

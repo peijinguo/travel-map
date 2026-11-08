@@ -324,7 +324,8 @@ main:has(.home-page) { flex: 1; display: flex; flex-direction: column; }
 .map-caption { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); margin: 0; color: #86a0b1; font-size: 10px; white-space: nowrap; }
 .map-caption a { color: #5c8299; text-underline-offset: 2px; }
 
-.resort-panel { position: fixed; top: 50%; right: clamp(20px, 4vw, 72px); z-index: 800; width: clamp(320px, 24vw, 446px); height: auto; max-height: calc(100dvh - 32px); margin: 0; padding: 30px; overflow: hidden; border: 2px solid rgba(255, 255, 255, .78); border-radius: 28px; background: #fff; box-shadow: 0 14px 32px rgba(73, 139, 166, .13), inset 0 1px 0 #fff; transform: translateY(-50%); }
+// Centered in the window below the header (its height comes from Header.jsx).
+.resort-panel { position: fixed; top: calc(50% + var(--topbar-height, 0px) / 2); right: clamp(20px, 4vw, 72px); z-index: 800; width: clamp(320px, 24vw, 446px); height: auto; max-height: calc(100dvh - var(--topbar-height, 0px) - 32px); margin: 0; padding: 30px; overflow-x: hidden; overflow-y: auto; border: 2px solid rgba(255, 255, 255, .78); border-radius: 28px; background: #fff; box-shadow: 0 14px 32px rgba(73, 139, 166, .13), inset 0 1px 0 #fff; transform: translateY(-50%); }
 .resort-panel::before { content: ""; position: absolute; inset: 0 0 auto; height: 7px; background: #b88f8f; }
 .panel-topline { display: flex; justify-content: space-between; color: #829bad; font-size: 17px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
 .town-heading { display: flex; align-items: center; gap: 16px; margin: 19px 0 17px; }
