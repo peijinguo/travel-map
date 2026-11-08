@@ -1,0 +1,60 @@
+name: Publish auto-added places
+
+# The hourly cloud job that fills in stops the planner couldn't locate
+# commits with "[auto-place]" in the message; publish those right away.
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-auto-places
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: contains(github.event.head_commit.message, '[auto-place]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Same build settings as the ski status workflow: the whole .env.local
+      # lives in the ENVLOCAL secret, and without it cloud sync would break.
+      - name: Restore build settings
+        id: build-env
+        shell: bash
+        env:
+          ENV_LOCAL: ${{ secrets.ENVLOCAL }}
+        run: |
+          printf '%s\n' "$ENV_LOCAL" | tr -d '\r' > .env.local
+          if grep -Eq '^VITE_FIREBASE_API_KEY=.+' .env.local; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::The ENVLOCAL secret is missing the Firebase settings; skipped publishing."
+          fi
+
+      - name: Build website
+        if: steps.build-env.outputs.ready == 'true'
+        run: npx vite build
+
+      - name: Publish website
+        if: steps.build-env.outputs.ready == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          npx gh-pages -d dist --dotfiles -r "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
