@@ -92,7 +92,7 @@ const STEP_METERS = 14;
 const MAX_STEPS_PER_LEG = 4000;
 // Zoomed out, only every 2^k-th step is drawn so the prints stay about one
 // step apart on screen: k = 0 at zoom 17 and grows by one per zoom level.
-const FOOTPRINT_MIN_ZOOM = 11;
+const FOOTPRINT_MIN_ZOOM = 5;
 const FOOTPRINT_FULL_ZOOM = 17;
 const skipLevels = Array.from(
   { length: FOOTPRINT_FULL_ZOOM - FOOTPRINT_MIN_ZOOM + 1 },
@@ -349,8 +349,8 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = nul
         layout: { "line-cap": "round", "line-join": "round" },
         paint: {
           "line-color": "#4a2f1e",
-          "line-width": ["interpolate", ["linear"], ["zoom"], 8, 2.2, 14, 1.6],
-          "line-opacity": ["interpolate", ["linear"], ["zoom"], 10, 0.7, 13, 0.25],
+          "line-width": 1.6,
+          "line-opacity": 0.25,
           "line-dasharray": [0.5, 2.5],
         },
       });
@@ -364,7 +364,7 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = nul
         id: FOOTPRINT_SOURCE_ID,
         type: "symbol",
         source: FOOTPRINT_SOURCE_ID,
-        // Far out the prints would pile into a smudge; the dotted guide shows the way.
+        // Below zoom 5 (all of Japan) only the faint dotted guide is drawn.
         minzoom: FOOTPRINT_MIN_ZOOM,
         filter: byZoom((k) => [">=", ["get", "rank"], k]),
         layout: {
