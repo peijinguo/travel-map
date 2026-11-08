@@ -154,6 +154,7 @@ export async function deleteTripCloud(syncSpaceId) {
     Promise.all([
       deleteDoc(doc(db, "syncSpaces", syncSpaceId, "appData", "planner")),
       deleteDoc(doc(db, "syncSpaces", syncSpaceId, "appData", "menus")),
+      deleteDoc(doc(db, "syncSpaces", syncSpaceId, "appData", "prep")),
       ...notes.docs.map((note) => deleteDoc(note.ref)),
       ...wishes.docs.map((wish) => deleteDoc(wish.ref)),
     ]),
@@ -348,5 +349,28 @@ export async function updateWishCloud(syncSpaceId, wishId, changes) {
   if (!db) throw new Error("firebase-not-configured");
   await withSyncTimeout(
     setDoc(doc(wishesCollection(syncSpaceId), wishId), changes, { merge: true }),
+  );
+}
+
+// The 行前準備 checklist: one document per trip holding every item and
+// whether it is done.
+const prepDoc = (syncSpaceId) => doc(db, "syncSpaces", syncSpaceId, "appData", "prep");
+
+export function subscribePrepCloud(syncSpaceId, onData, onError) {
+  if (!db) return () => {};
+  return onSnapshot(
+    prepDoc(syncSpaceId),
+    (snapshot) => onData(snapshot.exists() ? snapshot.data().items ?? null : null),
+    onError,
+  );
+}
+
+export async function savePrepCloud(syncSpaceId, items) {
+  if (!db) return;
+  await withSyncTimeout(
+    setDoc(prepDoc(syncSpaceId), {
+      items: JSON.parse(JSON.stringify(items)),
+      updatedAt: serverTimestamp(),
+    }),
   );
 }

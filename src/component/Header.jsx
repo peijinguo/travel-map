@@ -130,14 +130,15 @@ function Header() {
         id="mobile-navigation"
         aria-label="主要選單"
       >
-        <NavLink to="/" end onClick={() => setIsMobileMenuOpen(false)}>
+        {/* The ski guide is the home page, reached from the logo. */}
+        <NavLink to="/prep" onClick={() => setIsMobileMenuOpen(false)}>
           <span className="nav-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24">
-              <path d="M12 21s6-5.4 6-11a6 6 0 1 0-12 0c0 5.6 6 11 6 11Z" />
-              <circle cx="12" cy="10" r="2.2" />
+              <rect x="5" y="3.5" width="14" height="17" rx="2" />
+              <path d="m8.5 9 1.5 1.5L13 7.5M8.5 15l1.5 1.5L13 13.5M15 9.5h1.5M15 15.5h1.5" />
             </svg>
           </span>
-          雪旅指南
+          行前準備
         </NavLink>
         <NavLink to="/planner" onClick={() => setIsMobileMenuOpen(false)}>
           <span className="nav-icon" aria-hidden="true">

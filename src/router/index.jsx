@@ -5,6 +5,7 @@ import FrontendLayout from "../layout/FrontendLayout";
 import Planner from "../views/frontend/Planner";
 import Hotel from "../views/frontend/Hotel";
 import Wishlist from "../views/frontend/Wishlist";
+import Prep from "../views/frontend/Prep";
 
 export const router = createHashRouter([
     {
@@ -26,6 +27,10 @@ export const router = createHashRouter([
             {
                 path: 'hotel',
                 element: <Hotel />
+            },
+            {
+                path: 'prep',
+                element: <Prep />
             },
             {
                 path: 'wishlist',
