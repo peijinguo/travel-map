@@ -11,61 +11,59 @@
 
 html:has(.hotel-page), html:has(.hotel-page) body { background: #fff; }
 
-// The deer of the snow scene, placed where they stood in the picture (units
-// are the picture's pixels, see _snow-scene.scss). The stag breathes and
-// glances about, the left fawn hops, the right fawn wanders and turns back.
+// The deer of the snow scene (HotelScene.jsx), placed where they stood in the
+// picture (units are the picture's pixels, see _snow-scene.scss). Each walks
+// a little way, turns round and walks back, legs stepping in diagonal pairs,
+// tail wagging and ears flicking now and then.
 .hotel-deer { position: absolute; display: block; }
-.hotel-deer.is-stag {
-  top: calc(var(--u) * 268);
-  left: calc(var(--u) * 58);
-  width: calc(var(--u) * 130);
-  transform-origin: 50% 100%;
-  animation: hotel-stag-breathe 4.6s ease-in-out infinite alternate;
+.hotel-deer.is-stag { top: calc(var(--u) * 268); left: calc(var(--u) * 58); width: calc(var(--u) * 130); --walk: calc(var(--u) * 46); animation: hotel-deer-wander 19s ease-in-out infinite; }
+.hotel-deer.is-fawn-left { top: calc(var(--u) * 350); left: calc(var(--u) * 184); width: calc(var(--u) * 114); --walk: calc(var(--u) * 52); animation: hotel-deer-wander 15s ease-in-out -6s infinite; }
+// This fawn faces left, so it walks the other way first.
+.hotel-deer.is-fawn-right { top: calc(var(--u) * 344); left: calc(var(--u) * 645); width: calc(var(--u) * 124); --walk: calc(var(--u) * -90); animation: hotel-deer-wander 17s ease-in-out -3s infinite; }
+
+.hotel-deer-figure {
+  position: relative;
+  display: block;
+  animation: hotel-deer-bob .45s ease-in-out infinite alternate;
 }
-.hotel-deer.is-fawn-left {
-  top: calc(var(--u) * 350);
-  left: calc(var(--u) * 184);
-  width: calc(var(--u) * 114);
-  transform-origin: 50% 100%;
-  animation: hotel-fawn-hop 5.5s ease-in-out infinite;
+.hotel-deer-body { position: relative; display: block; width: 100%; }
+.hotel-deer-part { position: absolute; inset: 0; width: 100%; }
+
+// Legs 1 and 4 swing together, 2 and 3 against them, like a walking gait.
+.hotel-deer-part.is-leg { animation: hotel-deer-step .9s ease-in-out infinite alternate; }
+.hotel-deer-part.is-leg-2, .hotel-deer-part.is-leg-3 { animation-delay: -.9s; }
+.hotel-deer-part.is-tail { animation: hotel-deer-wag .32s ease-in-out infinite alternate; }
+.hotel-deer-part.is-ear { animation: hotel-deer-ear 3.6s ease-in-out infinite; }
+.hotel-deer-part.is-ear-2 { animation-delay: -.15s; }
+.is-fawn-left .hotel-deer-part.is-ear { animation-duration: 2.9s; }
+.is-fawn-right .hotel-deer-part.is-ear { animation-duration: 4.3s; }
+
+@keyframes hotel-deer-wander {
+  0%, 4% { transform: translateX(0) scaleX(1); }
+  44% { transform: translateX(var(--walk)) scaleX(1); }
+  48%, 52% { transform: translateX(var(--walk)) scaleX(-1); }
+  92% { transform: translateX(0) scaleX(-1); }
+  96%, 100% { transform: translateX(0) scaleX(1); }
 }
-.hotel-deer-walk {
-  position: absolute;
-  top: calc(var(--u) * 344);
-  left: calc(var(--u) * 645);
-  width: calc(var(--u) * 124);
-  animation: hotel-fawn-wander 16s ease-in-out infinite;
+@keyframes hotel-deer-bob {
+  from { transform: translateY(0); }
+  to { transform: translateY(calc(var(--u) * -2.5)); }
 }
-.hotel-deer.is-fawn-right {
-  position: static;
-  width: 100%;
-  transform-origin: 50% 100%;
-  animation: hotel-fawn-step .45s ease-in-out infinite alternate;
+@keyframes hotel-deer-step {
+  from { transform: rotate(-13deg); }
+  to { transform: rotate(13deg); }
 }
-@keyframes hotel-stag-breathe {
-  0% { transform: rotate(-1.2deg) scaleY(1); }
-  50% { transform: rotate(.4deg) scaleY(1.015); }
-  100% { transform: rotate(1.4deg) scaleY(1); }
+@keyframes hotel-deer-wag {
+  from { transform: rotate(-16deg); }
+  to { transform: rotate(18deg); }
 }
-@keyframes hotel-fawn-hop {
-  0%, 62%, 100% { transform: translateY(0) scale(1, 1); }
-  66% { transform: translateY(0) scale(1.04, .94); }
-  72% { transform: translateY(calc(var(--u) * -22)) scale(.97, 1.04); }
-  78% { transform: translateY(0) scale(1.03, .96); }
-  82% { transform: translateY(calc(var(--u) * -10)) scale(.99, 1.02); }
-  87% { transform: translateY(0) scale(1, 1); }
-}
-// The fawn faces left: walk left, pause, turn round, walk back, turn again.
-@keyframes hotel-fawn-wander {
-  0%, 6% { transform: translateX(0) scaleX(1); }
-  42% { transform: translateX(calc(var(--u) * -90)) scaleX(1); }
-  48%, 50% { transform: translateX(calc(var(--u) * -90)) scaleX(-1); }
-  88% { transform: translateX(0) scaleX(-1); }
-  94%, 100% { transform: translateX(0) scaleX(1); }
-}
-@keyframes hotel-fawn-step {
-  from { transform: translateY(0) rotate(-1.5deg); }
-  to { transform: translateY(calc(var(--u) * -3)) rotate(1.5deg); }
+// Still most of the time, then a quick double flick.
+@keyframes hotel-deer-ear {
+  0%, 70%, 100% { transform: rotate(0deg); }
+  75% { transform: rotate(-18deg); }
+  80% { transform: rotate(4deg); }
+  85% { transform: rotate(-14deg); }
+  90% { transform: rotate(0deg); }
 }
 
 .hotel-version-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; }
