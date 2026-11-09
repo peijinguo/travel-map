@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { isLodgingName } from "../../services/freeMaps";
 import "../../assets/pages/_hotel.scss";
+import HotelScene from "../../component/HotelScene";
 
 // Itinerary versions are labelled A, B, C… by position; older saved data
 // still says "版本 1", "版本 2", so convert those on read.
@@ -201,6 +202,7 @@ function Hotel() {
 
   return (
     <section className="hotel-page">
+      <HotelScene />
       {availableVersions.length > 0 && (
         <nav className="hotel-version-nav" aria-label="住宿行程版本">
           {availableVersions.map((version) => (

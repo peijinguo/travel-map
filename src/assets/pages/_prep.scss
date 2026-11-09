@@ -8,31 +8,8 @@ $prep-pen: $prep-red;
 
 
 .prep-page { position: relative; z-index: 0; width: min(680px, calc(100% - 32px)); margin: 0 auto; padding: 72px 0 80px; }
-// A faint pencil snow scene behind the card (PrepScene.jsx). The picture is
-// cut into its corners (the empty, cloudless top-left one is left out), each drawn at 70% of its full-width size in its
-// own corner, so the scene still spans the whole width while its drawings are
-// smaller; the gap in the middle sits behind the card. Gondolas ride the cable,
-// smoke rises from the chimney and snow falls, all behind the card.
-.prep-scene {
-  position: fixed;
-  inset: var(--topbar-height, 72px) 0 0;
-  z-index: -1;
-  overflow: hidden;
-  pointer-events: none;
-  opacity: .5;
-}
-.prep-scene-piece {
-  // Every overlay is placed in the picture's own pixels: 1 unit = 1px of the
-  // 836px-wide half picture, scaled to the piece's real width.
-  --u: calc(100cqw / 836);
-  position: absolute;
-  width: 35%; // half the picture's width x 0.7
-  container-type: inline-size;
-}
-.prep-scene-piece > .prep-scene-art { display: block; width: 100%; height: auto; }
-.prep-scene-piece.is-sky-right { top: 0; right: 0; }
-.prep-scene-piece.is-slopes-left { bottom: 0; left: 0; }
-.prep-scene-piece.is-slopes-right { bottom: 0; right: 0; }
+// The snow scene behind the card is PrepScene.jsx on the shared SnowScene
+// (_snow-scene.scss); only its gondolas and chimney smoke are styled here.
 
 // The lower cable line runs from (334, 0) to the piece's right edge at
 // (836, 159): 527 units long, 17.6° down. The track lies along it and the
@@ -58,7 +35,6 @@ $prep-pen: $prep-red;
   top: calc(var(--u) * -2);
   left: calc(var(--u) * -50);
   width: calc(var(--u) * 92);
-  max-width: none; // the car is a zero-size anchor; a global img max-width would collapse it
   transform: rotate(-17.6deg);
   transform-origin: calc(var(--u) * 50) 0;
   animation: prep-gondola-sway 3.2s ease-in-out infinite alternate;
@@ -93,35 +69,12 @@ $prep-pen: $prep-red;
   100% { transform: translate(calc(var(--u) * 16), calc(var(--u) * -40)) scale(1.2); opacity: 0; }
 }
 
-.prep-snow { position: absolute; inset: 0; }
-.prep-flake {
-  position: absolute;
-  top: -24px;
-  width: var(--size);
-  height: var(--size);
-  animation: prep-snow-fall 15s linear infinite;
-}
-.prep-flake > img, .prep-flake > i {
-  display: block;
-  width: 100%;
-  height: 100%;
-  animation: prep-snow-sway 3.4s ease-in-out infinite alternate;
-}
-.prep-flake > i { border-radius: 50%; background: #8fb0cf; }
-@keyframes prep-snow-fall {
-  from { transform: translateY(0) rotate(0deg); }
-  to { transform: translateY(calc(100vh + 48px)) rotate(200deg); }
-}
-@keyframes prep-snow-sway {
-  from { transform: translateX(-14px); }
-  to { transform: translateX(14px); }
-}
-
+// With reduced motion the scene stands still: spread the two cars apart and
+// show one puff of smoke.
 @media (prefers-reduced-motion: reduce) {
-  .prep-gondola-car, .prep-gondola-car > img, .prep-smoke, .prep-flake, .prep-flake > img, .prep-flake > i { animation: none; }
   .prep-gondola-car.is-second { transform: translateX(calc(var(--u) * 300)); }
   .prep-smoke { opacity: 1; }
-  .prep-smoke.is-second, .prep-snow { display: none; }
+  .prep-smoke.is-second { display: none; }
 }
 html:has(.prep-page), html:has(.prep-page) body { background: #fff; }
 
