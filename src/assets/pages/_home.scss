@@ -17,7 +17,7 @@ body:has(.home-page),
 #root:has(.home-page),
 main:has(.home-page) {
   min-height: 100%;
-  background: #9fafbc;
+  background: #8cabc0; // the middle of the wave picture below
 }
 
 /* the home page fills exactly the space under the header (its height varies as the nav wraps) */
@@ -28,7 +28,18 @@ main:has(.home-page) { flex: 1; display: flex; flex-direction: column; }
   flex: 1;
   /* the scaled map's transform box reaches far below the visible map; clip it so it adds no scroll */
   overflow: clip;
-  background: #9fafbc;
+  position: relative;
+  z-index: 0;
+}
+// The sea around the map: waves along the top and bottom edges, pinned to the
+// screen under the header so both rows of waves stay in view.
+.home-page::before {
+  content: "";
+  position: fixed;
+  inset: var(--topbar-height, 72px) 0 0;
+  z-index: -1;
+  background: #8cabc0 url("../home-bg-waves.webp") center / cover no-repeat;
+  pointer-events: none;
 }
 
 .map-hero {
