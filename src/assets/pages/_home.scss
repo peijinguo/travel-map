@@ -31,15 +31,45 @@ main:has(.home-page) { flex: 1; display: flex; flex-direction: column; }
   position: relative;
   z-index: 0;
 }
-// The sea around the map: waves along the top and bottom edges, pinned to the
-// screen under the header so both rows of waves stay in view.
-.home-page::before {
-  content: "";
+// The sea around the map (HomeWaves.jsx): waves along the top and bottom
+// edges, pinned to the screen under the header so both rows stay in view. The
+// picture covers the screen like background-size: cover, and its white crests
+// and ripples drift over it.
+.home-waves {
   position: fixed;
   inset: var(--topbar-height, 72px) 0 0;
   z-index: -1;
-  background: #8cabc0 url("../home-bg-waves.webp") center / cover no-repeat;
+  overflow: hidden;
   pointer-events: none;
+  container-type: size;
+}
+.home-waves-art {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100cqw, 100cqh * 1915 / 821);
+  aspect-ratio: 1915 / 821;
+  transform: translate(-50%, -50%);
+  container-type: inline-size;
+}
+.home-waves-bg { display: block; width: 100%; height: 100%; }
+// 1 unit = 1px of the picture, scaled to its width on screen.
+.home-wave { --u: calc(100cqw / 1915); position: absolute; max-width: none; height: auto; }
+.home-wave.is-crest { animation: home-wave-crest 7s ease-in-out infinite alternate; }
+.home-wave.is-ripple { animation: home-wave-ripple 4.5s ease-in-out infinite alternate; }
+// Crests roll a little along the swell and shimmer.
+@keyframes home-wave-crest {
+  from { transform: translate(calc(var(--u) * -16), calc(var(--u) * 3)); opacity: .7; }
+  to { transform: translate(calc(var(--u) * 16), calc(var(--u) * -4)); opacity: 1; }
+}
+// Ripples bob and drift sideways.
+@keyframes home-wave-ripple {
+  0% { transform: translate(calc(var(--u) * -14), 0); opacity: .55; }
+  50% { transform: translate(0, calc(var(--u) * -6)); opacity: 1; }
+  100% { transform: translate(calc(var(--u) * 14), 0); opacity: .55; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-wave { animation: none; }
 }
 
 .map-hero {

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import HandDrawnMotif from "../../component/HandDrawnMotif";
+import HomeWaves from "../../component/HomeWaves";
 import { japanPrefecturePaths, municipalityPaths } from "../../municipalityPaths";
 
 // Calibrated to the geographic extent of the source SVG. Town anchors are
@@ -400,6 +401,7 @@ function Home() {
 
   return (
     <div className="home-page">
+      <HomeWaves />
       <section className="map-hero" aria-labelledby="map-title">
         <div className="hero-copy">
           <h1 id="map-title" className="visually-hidden">日本雪場地圖</h1>

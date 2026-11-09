@@ -1,0 +1,126 @@
+{
+ "w": 1915,
+ "h": 821,
+ "waves": [
+  {
+   "file": "home-wave-01",
+   "kind": "crest",
+   "box": [
+    1013,
+    23,
+    1419,
+    97
+   ]
+  },
+  {
+   "file": "home-wave-02",
+   "kind": "crest",
+   "box": [
+    177,
+    64,
+    512,
+    111
+   ]
+  },
+  {
+   "file": "home-wave-03",
+   "kind": "crest",
+   "box": [
+    1676,
+    95,
+    1895,
+    129
+   ]
+  },
+  {
+   "file": "home-wave-04",
+   "kind": "ripple",
+   "box": [
+    1342,
+    115,
+    1520,
+    167
+   ]
+  },
+  {
+   "file": "home-wave-05",
+   "kind": "ripple",
+   "box": [
+    148,
+    125,
+    314,
+    175
+   ]
+  },
+  {
+   "file": "home-wave-06",
+   "kind": "ripple",
+   "box": [
+    74,
+    392,
+    224,
+    442
+   ]
+  },
+  {
+   "file": "home-wave-07",
+   "kind": "ripple",
+   "box": [
+    1680,
+    489,
+    1826,
+    539
+   ]
+  },
+  {
+   "file": "home-wave-08",
+   "kind": "crest",
+   "box": [
+    1428,
+    630,
+    1903,
+    748
+   ]
+  },
+  {
+   "file": "home-wave-09",
+   "kind": "crest",
+   "box": [
+    181,
+    641,
+    549,
+    703
+   ]
+  },
+  {
+   "file": "home-wave-10",
+   "kind": "ripple",
+   "box": [
+    576,
+    645,
+    704,
+    692
+   ]
+  },
+  {
+   "file": "home-wave-11",
+   "kind": "ripple",
+   "box": [
+    1664,
+    717,
+    1810,
+    765
+   ]
+  },
+  {
+   "file": "home-wave-12",
+   "kind": "ripple",
+   "box": [
+    1079,
+    720,
+    1207,
+    758
+   ]
+  }
+ ]
+}
