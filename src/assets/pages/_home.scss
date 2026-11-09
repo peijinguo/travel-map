@@ -51,36 +51,38 @@ main:has(.home-page) { flex: 1; display: flex; flex-direction: column; }
   transform: translate(-50%, -50%);
   container-type: inline-size;
 }
-.home-waves-bg { display: block; width: 100%; height: 100%; }
-// The sea flows away into the distance: copies of the swells shrink toward
-// the middle, fading in as they start and out as they go.
-.home-waves-bg.is-flowing {
+// Each strip is a slice of the picture (padded 16px top and bottom with its
+// edge colours, so a strip never shows a gap when it moves) bobbing up and
+// down; neighbouring strips are a little apart in their swell, so the swell
+// rolls across the sea.
+.home-sea-strip {
+  --u: calc(100cqw / 1915);
   position: absolute;
-  inset: 0;
-  opacity: 0;
-  animation: home-waves-recede 28s linear infinite;
+  top: calc(var(--u) * -16);
+  width: calc(100% / 48 + 1px); // 1px overlap hides seams between strips
+  height: calc(100% + var(--u) * 32);
+  background-repeat: no-repeat;
+  animation: home-sea-swell 6s ease-in-out infinite;
 }
-.home-waves-bg.is-second { animation-delay: -14s; }
-@keyframes home-waves-recede {
-  0% { transform: scale(1.1); opacity: 0; }
-  50% { opacity: .6; }
-  100% { transform: scale(1); opacity: 0; }
+@keyframes home-sea-swell {
+  0%, 100% { transform: translateY(calc(var(--u) * -8)); }
+  50% { transform: translateY(calc(var(--u) * 8)); }
 }
-.home-wave { position: absolute; max-width: none; height: auto; }
-// The white lines stay put while light runs along them like flowing water: a
-// repeating bright band in the mask slides one period per cycle.
+.home-wave { --u: calc(100cqw / 1915); position: absolute; max-width: none; height: auto; }
+// The white lines ride the swell while light runs along them like flowing
+// water: a repeating bright band in the mask slides one period per cycle.
 .home-wave {
   -webkit-mask: linear-gradient(90deg, rgba(0,0,0,.25), #000 50%, rgba(0,0,0,.25)) 0 0 / 50% 100% repeat-x;
   mask: linear-gradient(90deg, rgba(0,0,0,.25), #000 50%, rgba(0,0,0,.25)) 0 0 / 50% 100% repeat-x;
-  animation: home-wave-flow 4.5s linear infinite;
+  animation: home-wave-flow 4.5s linear infinite, home-sea-swell 6s ease-in-out infinite;
 }
-.home-wave.is-ripple { animation-duration: 3s; }
+.home-wave.is-ripple { animation-duration: 3s, 6s; }
 @keyframes home-wave-flow {
   from { -webkit-mask-position: 0 0; mask-position: 0 0; }
   to { -webkit-mask-position: 100% 0; mask-position: 100% 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .home-wave, .home-waves-bg.is-flowing { animation: none; }
+  .home-wave, .home-sea-strip { animation: none; }
 }
 
 .map-hero {
