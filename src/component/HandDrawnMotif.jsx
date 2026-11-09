@@ -1,15 +1,15 @@
 // Keep the selected tempura artwork inline so the small itinerary icon also
 // works in mobile browsers and offline-style previews without a separate image request.
 import tempuraShrimpIcon from "../assets/tempura-shrimp-icon-v4.png?inline";
-import resortSignIcon from "../assets/resort-sign-icon-v2.png?inline";
-import gondolaSkiIcon from "../assets/gondola-ski-icon-v2.png?inline";
-import curryPlateIcon from "../assets/curry-plate-icon-v2.png?inline";
-import airportPlaneIcon from "../assets/airport-plane-icon-v2.png?inline";
-import parkingSignIcon from "../assets/parking-sign-icon-v2.png?inline";
-import skiTowIcon from "../assets/ski-tow-icon-v2.png?inline";
-import rentalCarKeyIcon from "../assets/rental-car-key-icon-v2.png?inline";
+import resortSignIcon from "../assets/resort-sign-icon.png?inline";
+import gondolaSkiIcon from "../assets/gondola-ski-icon.png?inline";
+import curryPlateIcon from "../assets/curry-plate-icon.png?inline";
+import airportPlaneIcon from "../assets/airport-plane-icon.png?inline";
+import parkingSignIcon from "../assets/parking-sign-icon.png?inline";
+import skiTowIcon from "../assets/ski-tow-icon.png?inline";
+import rentalCarKeyIcon from "../assets/rental-car-key-icon.png?inline";
 import michiNoEkiIcon from "../assets/michi-no-eki-icon.png?inline";
-import parkBenchIcon from "../assets/park-icon-v2.png?inline";
+import parkBenchIcon from "../assets/park-icon.png?inline";
 
 const motifColors = {
   mountain: "#78aeca", yotei: "#78aeca", lantern: "#e87543", clock: "#d9a24f", tvTower: "#d95743", apple: "#9ac65c", cherry: "#c54f72",

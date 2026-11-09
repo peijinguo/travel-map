@@ -3645,7 +3645,7 @@ function Planner() {
                                   <b>
                                     {itemMotif && (
                                       <span
-                                        className={`planner-item-category-icon ${itemMotif === "chairlift" ? "is-wide" : ""} ${["skiTow", "rental", "park"].includes(itemMotif) ? "is-small" : ""} ${["parking", "tempura", "michiNoEki"].includes(itemMotif) ? "is-compact" : ""}`}
+                                        className={`planner-item-category-icon ${itemMotif === "chairlift" ? "is-wide" : ""} ${["skiTow", "rental", "park", "tempura"].includes(itemMotif) ? "is-small" : ""} ${["parking", "michiNoEki"].includes(itemMotif) ? "is-compact" : ""}`}
                                         title={getItineraryMotifLabel(itemMotif)}
                                       >
                                         <HandDrawnMotif type={itemMotif} />

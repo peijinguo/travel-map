@@ -695,9 +695,6 @@ span.planner-walking-icon { position: relative; display: block; width: 34px; hei
 // The towed skier fills its whole square, so it is drawn a little smaller to match.
 .planner-item-category-icon.is-small .hand-motif { width: 36px; height: 36px; }
 .planner-item-category-icon.is-compact .hand-motif { width: 32px; height: 32px; }
-// One outline weight for every stop icon: SVG strokes are drawn at a fixed
-// screen width (the PNG icons were redrawn to the same weight, ~1.8px at 40px).
-.planner-item-category-icon svg.hand-motif * { vector-effect: non-scaling-stroke; stroke-width: 1.8px !important; }
 .motif-familymart .brand-card, .motif-seveneleven .brand-card { fill: #fff; stroke: #d8e1e4; stroke-width: 1.5; }
 .motif-familymart .familymart-blue { fill: #0078bf; stroke: none; }
 .motif-familymart .familymart-green { fill: #00a26a; stroke: none; }
@@ -911,7 +908,6 @@ span.planner-walking-icon { position: relative; display: block; width: 34px; hei
   .planner-item-category-icon.is-wide .hand-motif { width: 46px; height: 34px; }
   .planner-item-category-icon.is-compact .hand-motif { width: 27px; height: 27px; }
   .planner-item-category-icon.is-small .hand-motif { width: 31px; height: 31px; }
-  .planner-item-category-icon svg.hand-motif * { stroke-width: 1.55px !important; }
   .planner-item-meta > .planner-meta-actions-group,
   .planner-item-meta > .planner-icon-locate {
     grid-column: 3;
