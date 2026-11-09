@@ -1,27 +1,14 @@
 .wishlist-page { width: min(720px, calc(100% - 32px)); margin: 0 auto; padding: 48px 0 80px; color: #284d63; position: relative; z-index: 0; }
-// The kitchen picture, faint and pinned to the screen under the header behind
-// the list. The whole scene always shows, small as if seen from afar;
-// where it leaves room at the sides, a blurred copy of it keeps the
-// background running the full width.
-.wishlist-page::before,
-.wishlist-page::after {
+// The kitchen picture, faint and filling the screen under the header behind
+// the list.
+.wishlist-page::before {
   content: "";
   position: fixed;
   inset: var(--topbar-height, 72px) 0 0;
-  pointer-events: none;
-}
-.wishlist-page::before {
   z-index: -1;
-  // Seen from farther off: at most 80% of the screen's height (and 88% of
-  // its width), resting on the bottom edge.
-  background: url("../wishlist-bg-kitchen.webp") center bottom / min(88vw, (100vh - var(--topbar-height, 72px)) * .8 * 1670 / 941) auto no-repeat;
-  opacity: .32;
-}
-.wishlist-page::after {
-  z-index: -2;
   background: url("../wishlist-bg-kitchen.webp") center / cover no-repeat;
-  filter: blur(18px);
-  opacity: .2;
+  opacity: .4;
+  pointer-events: none;
 }
 html:has(.wishlist-page), html:has(.wishlist-page) body { background: #fff; }
 .wishlist-heading h1 { margin: 0; font-size: 30px; font-weight: 900; color: #123653; }
