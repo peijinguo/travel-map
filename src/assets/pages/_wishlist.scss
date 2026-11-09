@@ -1,12 +1,14 @@
 .wishlist-page { width: min(720px, calc(100% - 32px)); margin: 0 auto; padding: 48px 0 80px; color: #284d63; position: relative; z-index: 0; }
-// The snowy kitchen picture, faint and pinned to the screen under the header
-// behind the list.
+// The kitchen picture, faint and pinned to the screen under the header behind
+// the list.
 .wishlist-page::before {
   content: "";
   position: fixed;
   inset: var(--topbar-height, 72px) 0 0;
   z-index: -1;
-  background: url("../wishlist-bg-kitchen.webp") center / cover no-repeat;
+  // Always the screen's full width (never enlarged to fill a tall screen),
+  // sitting on the bottom edge.
+  background: url("../wishlist-bg-kitchen.webp") center bottom / 100% auto no-repeat;
   opacity: .32;
   pointer-events: none;
 }
