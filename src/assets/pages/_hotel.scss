@@ -13,8 +13,7 @@ html:has(.hotel-page), html:has(.hotel-page) body { background: #fff; }
 
 // The deer of the snow scene (HotelScene.jsx), placed where they stood in the
 // picture (units are the picture's pixels, see _snow-scene.scss). Each walks
-// a little way, turns round and walks back, legs stepping in diagonal pairs,
-// tail wagging and ears flicking now and then.
+// a little way, turns round and walks back (legs held still), tail wagging and ears flicking now and then.
 .hotel-deer { position: absolute; display: block; animation: hotel-deer-wander var(--cycle) ease-in-out var(--offset) infinite; }
 .hotel-deer.is-stag { top: calc(var(--u) * 268); left: calc(var(--u) * 58); width: calc(var(--u) * 130); --walk: calc(var(--u) * 46); --cycle: 19s; --offset: 0s; }
 .hotel-deer.is-fawn-left { top: calc(var(--u) * 350); left: calc(var(--u) * 184); width: calc(var(--u) * 114); --walk: calc(var(--u) * 52); --cycle: 15s; --offset: -6s; }
@@ -39,9 +38,6 @@ html:has(.hotel-page), html:has(.hotel-page) body { background: #fff; }
 .hotel-deer-body { position: relative; display: block; width: 100%; }
 .hotel-deer-part { position: absolute; inset: 0; width: 100%; }
 
-// Legs 1 and 4 swing together, 2 and 3 against them, like a walking gait.
-.hotel-deer-part.is-leg { animation: hotel-deer-step .9s ease-in-out infinite alternate; }
-.hotel-deer-part.is-leg-2, .hotel-deer-part.is-leg-3 { animation-delay: -.9s; }
 .hotel-deer-part.is-tail { animation: hotel-deer-wag .32s ease-in-out infinite alternate; }
 .hotel-deer-part.is-ear { animation: hotel-deer-ear 3.6s ease-in-out infinite; }
 .hotel-deer-part.is-ear-2 { animation-delay: -.15s; }
@@ -75,10 +71,6 @@ html:has(.hotel-page), html:has(.hotel-page) body { background: #fff; }
 @keyframes hotel-deer-bob {
   from { transform: translateY(0); }
   to { transform: translateY(calc(var(--u) * -2.5)); }
-}
-@keyframes hotel-deer-step {
-  from { transform: rotate(-13deg); }
-  to { transform: rotate(13deg); }
 }
 @keyframes hotel-deer-wag {
   from { transform: rotate(-16deg); }
