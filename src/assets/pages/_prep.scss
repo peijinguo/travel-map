@@ -9,7 +9,7 @@ $prep-pen: $prep-red;
 
 .prep-page { position: relative; z-index: 0; width: min(680px, calc(100% - 32px)); margin: 0 auto; padding: 72px 0 80px; }
 // A faint pencil snow scene behind the card (PrepScene.jsx). The picture is
-// cut into its four corners, each drawn at 70% of its full-width size in its
+// cut into its corners (the empty, cloudless top-left one is left out), each drawn at 70% of its full-width size in its
 // own corner, so the scene still spans the whole width while its drawings are
 // smaller; the gap in the middle sits behind the card. Gondolas ride the cable,
 // smoke rises from the chimney and snow falls, all behind the card.
@@ -30,7 +30,6 @@ $prep-pen: $prep-red;
   container-type: inline-size;
 }
 .prep-scene-piece > .prep-scene-art { display: block; width: 100%; height: auto; }
-.prep-scene-piece.is-sky-left { top: 0; left: 0; }
 .prep-scene-piece.is-sky-right { top: 0; right: 0; }
 .prep-scene-piece.is-slopes-left { bottom: 0; left: 0; }
 .prep-scene-piece.is-slopes-right { bottom: 0; right: 0; }
