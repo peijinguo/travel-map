@@ -6,9 +6,9 @@
   position: fixed;
   inset: var(--topbar-height, 72px) 0 0;
   z-index: -1;
-  // Always the screen's full width (never enlarged to fill a tall screen),
-  // sitting on the bottom edge.
-  background: url("../wishlist-bg-kitchen.webp") center bottom / 100% auto no-repeat;
+  // Three quarters of the screen's width (never enlarged to fill a tall
+  // screen), sitting on the bottom edge.
+  background: url("../wishlist-bg-kitchen.webp") center bottom / 75% auto no-repeat;
   opacity: .32;
   pointer-events: none;
 }
