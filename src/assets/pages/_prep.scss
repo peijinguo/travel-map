@@ -8,20 +8,25 @@ $prep-pen: $prep-red;
 
 
 .prep-page { position: relative; z-index: 0; width: min(680px, calc(100% - 32px)); margin: 0 auto; padding: 72px 0 80px; }
-// A pencil snow scene behind the card, full width: its sky strip just below
-// the top bar and its slopes along the bottom, on white (the picture's paper
-// was white-balanced so it does not look yellow).
+// A faint pencil snow scene behind the card. The picture is cut into its four
+// corners (transparent PNG-style webp) and each is drawn at 70% of its
+// full-width size in its own corner, so the scene still spans the whole width
+// while its drawings are smaller; the gap in the middle sits behind the card.
 .prep-page::before {
+  --piece: 35%; // half the picture's width x 0.7
   content: "";
   position: fixed;
-  inset: 0;
+  inset: var(--topbar-height, 72px) 0 0;
   z-index: -1;
   pointer-events: none;
+  opacity: .5;
   background:
-    url("../prep-bg-sky.webp") center var(--topbar-height, 72px) / 100% auto no-repeat,
-    url("../prep-bg-slopes.webp") bottom center / 100% auto no-repeat,
-    #fff;
+    url("../prep-bg-sky-left.webp") left top / var(--piece) auto no-repeat,
+    url("../prep-bg-sky-right.webp") right top / var(--piece) auto no-repeat,
+    url("../prep-bg-slopes-left.webp") left bottom / var(--piece) auto no-repeat,
+    url("../prep-bg-slopes-right.webp") right bottom / var(--piece) auto no-repeat;
 }
+html:has(.prep-page), html:has(.prep-page) body { background: #fff; }
 
 .prep-notebook {
   position: relative;
