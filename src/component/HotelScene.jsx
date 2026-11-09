@@ -41,41 +41,54 @@ function DeerPart({ src, deer, box, pivot, className }) {
   );
 }
 
+// The deer is drawn twice, once mirrored; turning round crossfades the two
+// while each narrows as if seen end-on, so it never thins to a paper edge.
 function Deer({ name, className }) {
+  return (
+    <span className={`hotel-deer ${className}`}>
+      <span className="hotel-deer-face is-front">
+        <DeerFigure name={name} />
+      </span>
+      <span className="hotel-deer-face is-back">
+        <DeerFigure name={name} />
+      </span>
+    </span>
+  );
+}
+
+function DeerFigure({ name }) {
   const deer = PARTS[name];
   const { full, body } = SPRITES[name];
   return (
-    <span className={`hotel-deer ${className}`}>
-      <span className="hotel-deer-figure">
-        {deer.legs.map(([x0, x1], index) => (
-          <DeerPart
-            key={`leg${index}`}
-            src={full}
-            deer={deer}
-            box={[x0, deer.belly - 4, x1, deer.h]}
-            pivot={[(x0 + x1) / 2, deer.belly]}
-            className={`is-leg is-leg-${index + 1}`}
-          />
-        ))}
+    <span className="hotel-deer-figure">
+      {deer.legs.map(([x0, x1], index) => (
         <DeerPart
+          key={`leg${index}`}
           src={full}
           deer={deer}
-          box={deer.tail}
-          pivot={deer.tail.slice(4)}
-          className="is-tail"
+          box={[x0, deer.belly - 4, x1, deer.h]}
+          pivot={[(x0 + x1) / 2, deer.belly]}
+          className={`is-leg is-leg-${index + 1}`}
         />
-        {deer.ears.map((ear, index) => (
-          <DeerPart
-            key={`ear${index}`}
-            src={full}
-            deer={deer}
-            box={ear}
-            pivot={ear.slice(4)}
-            className={`is-ear is-ear-${index + 1}`}
-          />
-        ))}
-        <img className="hotel-deer-body" src={body} alt="" />
-      </span>
+      ))}
+      <DeerPart
+        src={full}
+        deer={deer}
+        box={deer.tail}
+        pivot={deer.tail.slice(4)}
+        className="is-tail"
+      />
+      {deer.ears.map((ear, index) => (
+        <DeerPart
+          key={`ear${index}`}
+          src={full}
+          deer={deer}
+          box={ear}
+          pivot={ear.slice(4)}
+          className={`is-ear is-ear-${index + 1}`}
+        />
+      ))}
+      <img className="hotel-deer-body" src={body} alt="" />
     </span>
   );
 }
