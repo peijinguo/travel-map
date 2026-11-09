@@ -10,7 +10,7 @@ import fawnRightBody from "../assets/hotel-deer-fawn-right-body.webp";
 import PARTS from "./hotelDeerParts.json";
 
 // The snow scene behind 住宿資訊: the three deer were lifted out of the
-// picture and walk about on their own (see _hotel.scss); SnowScene adds the
+// picture so their ears and tails can move (see _hotel.scss); SnowScene adds the
 // snowfall.
 //
 // Each deer is its body (ears, tail and legs erased) over copies of the whole
@@ -41,26 +41,11 @@ function DeerPart({ src, deer, box, pivot, className }) {
   );
 }
 
-// The deer is drawn twice, once mirrored; turning round crossfades the two
-// while each narrows as if seen end-on, so it never thins to a paper edge.
 function Deer({ name, className }) {
-  return (
-    <span className={`hotel-deer ${className}`}>
-      <span className="hotel-deer-face is-front">
-        <DeerFigure name={name} />
-      </span>
-      <span className="hotel-deer-face is-back">
-        <DeerFigure name={name} />
-      </span>
-    </span>
-  );
-}
-
-function DeerFigure({ name }) {
   const deer = PARTS[name];
   const { full, body } = SPRITES[name];
   return (
-    <span className="hotel-deer-figure">
+    <span className={`hotel-deer ${className}`}>
       {deer.legs.map(([x0, x1], index) => (
         <DeerPart
           key={`leg${index}`}

@@ -11,30 +11,14 @@
 
 html:has(.hotel-page), html:has(.hotel-page) body { background: #fff; }
 
-// The deer of the snow scene (HotelScene.jsx), placed where they stood in the
-// picture (units are the picture's pixels, see _snow-scene.scss). Each walks
-// a little way, turns round and walks back (legs held still), tail wagging and ears flicking now and then.
-.hotel-deer { position: absolute; display: block; animation: hotel-deer-wander var(--cycle) ease-in-out var(--offset) infinite; }
-.hotel-deer.is-stag { top: calc(var(--u) * 268); left: calc(var(--u) * 58); width: calc(var(--u) * 130); --walk: calc(var(--u) * 46); --cycle: 19s; --offset: 0s; }
-.hotel-deer.is-fawn-left { top: calc(var(--u) * 350); left: calc(var(--u) * 184); width: calc(var(--u) * 114); --walk: calc(var(--u) * 52); --cycle: 15s; --offset: -6s; }
-// This fawn faces left, so it walks the other way first.
-.hotel-deer.is-fawn-right { top: calc(var(--u) * 344); left: calc(var(--u) * 645); width: calc(var(--u) * 124); --walk: calc(var(--u) * -90); --cycle: 17s; --offset: -3s; }
+// The deer of the snow scene (HotelScene.jsx), standing where they stood in
+// the picture (units are the picture's pixels, see _snow-scene.scss), tails
+// wagging and ears flicking now and then.
+.hotel-deer { position: absolute; display: block; }
+.hotel-deer.is-stag { top: calc(var(--u) * 268); left: calc(var(--u) * 58); width: calc(var(--u) * 130); }
+.hotel-deer.is-fawn-left { top: calc(var(--u) * 350); left: calc(var(--u) * 184); width: calc(var(--u) * 114); }
+.hotel-deer.is-fawn-right { top: calc(var(--u) * 344); left: calc(var(--u) * 645); width: calc(var(--u) * 124); }
 
-.hotel-deer-face {
-  display: block;
-  transform-origin: 50% 70%;
-  animation: hotel-deer-face-front var(--cycle) linear var(--offset) infinite;
-}
-.hotel-deer-face.is-back {
-  position: absolute;
-  inset: 0;
-  animation-name: hotel-deer-face-back;
-}
-.hotel-deer-figure {
-  position: relative;
-  display: block;
-  animation: hotel-deer-bob .45s ease-in-out infinite alternate;
-}
 .hotel-deer-body { position: relative; display: block; width: 100%; }
 .hotel-deer-part { position: absolute; inset: 0; width: 100%; }
 
@@ -44,34 +28,6 @@ html:has(.hotel-page), html:has(.hotel-page) body { background: #fff; }
 .is-fawn-left .hotel-deer-part.is-ear { animation-duration: 2.9s; }
 .is-fawn-right .hotel-deer-part.is-ear { animation-duration: 4.3s; }
 
-// Walk out, stand while turning round, walk back, turn again.
-@keyframes hotel-deer-wander {
-  0%, 4% { transform: translateX(0); }
-  44%, 52% { transform: translateX(var(--walk)); }
-  92%, 100% { transform: translateX(0); }
-}
-// Turning: the side view narrows (seen nearly end-on, a little darker and
-// taller, the body's depth) and fades into the mirrored one, which widens back
-// out, so the deer turns its body round instead of flipping like a card.
-@keyframes hotel-deer-face-front {
-  0%, 44% { transform: scale(1, 1); opacity: 1; filter: none; animation-timing-function: ease-in; }
-  47.5% { transform: scale(.42, 1.04); opacity: 1; filter: brightness(.86); }
-  48.5% { transform: scale(.4, 1.04); opacity: 0; filter: brightness(.86); }
-  95.5% { transform: scale(.4, 1.04); opacity: 0; filter: brightness(.86); animation-timing-function: ease-out; }
-  96.5% { transform: scale(.42, 1.04); opacity: 1; filter: brightness(.86); }
-  100% { transform: scale(1, 1); opacity: 1; filter: none; }
-}
-@keyframes hotel-deer-face-back {
-  0%, 47.5% { transform: scale(-.4, 1.04); opacity: 0; filter: brightness(.86); animation-timing-function: ease-out; }
-  48.5% { transform: scale(-.42, 1.04); opacity: 1; filter: brightness(.86); }
-  52%, 92% { transform: scale(-1, 1); opacity: 1; filter: none; animation-timing-function: ease-in; }
-  95.5% { transform: scale(-.42, 1.04); opacity: 1; filter: brightness(.86); }
-  96.5%, 100% { transform: scale(-.4, 1.04); opacity: 0; filter: brightness(.86); }
-}
-@keyframes hotel-deer-bob {
-  from { transform: translateY(0); }
-  to { transform: translateY(calc(var(--u) * -2.5)); }
-}
 @keyframes hotel-deer-wag {
   from { transform: rotate(-16deg); }
   to { transform: rotate(18deg); }
@@ -115,9 +71,4 @@ html:has(.hotel-page), html:has(.hotel-page) body { background: #fff; }
   .hotel-page { width: min(100% - 28px, 920px); padding-top: 36px; }
   .hotel-list li { grid-template-columns: 1fr; align-items: flex-start; gap: 14px; min-height: 0; }
   .hotel-list-actions { justify-content: flex-start; min-width: 0; flex-wrap: wrap; }
-}
-
-// Without motion the deer just stands in its own facing.
-@media (prefers-reduced-motion: reduce) {
-  .hotel-deer-face.is-back { display: none; }
 }
