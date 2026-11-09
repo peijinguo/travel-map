@@ -34,7 +34,7 @@ main:has(.home-page) { flex: 1; display: flex; flex-direction: column; }
 // The sea around the map (HomeWaves.jsx): waves along the top and bottom
 // edges, pinned to the screen under the header so both rows stay in view. The
 // picture covers the screen like background-size: cover, and the whole sea
-// flows very slowly to the right.
+// flows very slowly to the left.
 .home-waves {
   position: fixed;
   inset: var(--topbar-height, 72px) 0 0;
@@ -60,8 +60,8 @@ main:has(.home-page) { flex: 1; display: flex; flex-direction: column; }
   animation: home-waves-flow 180s linear infinite;
 }
 @keyframes home-waves-flow {
-  from { transform: translateX(-50%); }
-  to { transform: translateX(0); }
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 .home-waves-panel { position: relative; flex: 0 0 25%; height: 100%; container-type: inline-size; }
 .home-waves-panel.is-mirrored { transform: scaleX(-1); }
@@ -72,12 +72,12 @@ main:has(.home-page) { flex: 1; display: flex; flex-direction: column; }
 .home-wave {
   -webkit-mask: linear-gradient(90deg, rgba(0,0,0,.25), #000 50%, rgba(0,0,0,.25)) 0 0 / 50% 100% repeat-x;
   mask: linear-gradient(90deg, rgba(0,0,0,.25), #000 50%, rgba(0,0,0,.25)) 0 0 / 50% 100% repeat-x;
-  animation: home-wave-flow 4.5s linear infinite;
+  animation: home-wave-flow 4.5s linear infinite reverse;
 }
 .home-wave.is-ripple { animation-duration: 3s; }
-// Mirrored, the light would run backwards; run it the other way so it keeps
-// flowing to the right with the sea.
-.is-mirrored .home-wave { animation-direction: reverse; }
+// Light runs to the left with the sea; mirrored, it would run backwards, so it
+// runs the other way there.
+.is-mirrored .home-wave { animation-direction: normal; }
 @keyframes home-wave-flow {
   from { -webkit-mask-position: 0 0; mask-position: 0 0; }
   to { -webkit-mask-position: 100% 0; mask-position: 100% 0; }
