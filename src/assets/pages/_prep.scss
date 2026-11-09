@@ -11,11 +11,18 @@ $prep-pen: $prep-red;
 
 .prep-notebook {
   position: relative;
-  padding: 30px 30px 26px;
+  // The bottom padding (a share of the width, like the picture's height)
+  // leaves the slopes of the snow scene clear below the list.
+  padding: 30px 30px 24%;
   // The same frame as the 路線地圖 card in 行程規劃.
   border: 2px solid #34434a;
   border-radius: 19px 28px 21px 25px;
-  background: repeating-linear-gradient(0deg, rgba(52,67,74,.025) 0 1px, transparent 1px 7px), #fff;
+  // A pencil snow scene: its sky strip along the top, its slopes along the
+  // bottom, and the paper colour of the picture between them.
+  background:
+    url("../prep-bg-top.webp") top center / 100% auto no-repeat,
+    url("../prep-bg-bottom.webp") bottom center / 100% auto no-repeat,
+    #fbf9f5;
   box-shadow: 3px 4px 0 rgba(52,67,74,.09), 8px 10px 0 rgba(52,67,74,.045);
   color: $prep-ink;
   // The same type as the itinerary in 行程規劃.
@@ -65,7 +72,7 @@ $prep-pen: $prep-red;
 
 @media (max-width: 600px) {
   .prep-page { width: calc(100% - 24px); padding-top: 52px; }
-  .prep-notebook { padding: 24px 18px 20px; border-radius: 20px; }
+  .prep-notebook { padding: 24px 18px 26%; border-radius: 20px; }
   .prep-heading h1 { font-size: 24px; }
   .prep-check, .prep-add input { font-size: 17px; }
   .prep-remove { opacity: .55; }
