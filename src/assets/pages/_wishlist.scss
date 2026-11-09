@@ -1,14 +1,97 @@
 .wishlist-page { width: min(720px, calc(100% - 32px)); margin: 0 auto; padding: 48px 0 80px; color: #284d63; position: relative; z-index: 0; }
-// The kitchen picture, faint and filling the screen under the header behind
-// the list.
-.wishlist-page::before {
-  content: "";
+// The kitchen picture (WishlistScene.jsx), faint and filling the screen under
+// the header behind the list like background-size: cover, with snow falling
+// outside, street lamps glowing and steam rising from the food.
+.wishlist-scene {
   position: fixed;
   inset: var(--topbar-height, 72px) 0 0;
   z-index: -1;
-  background: url("../wishlist-bg-kitchen.webp") center / cover no-repeat;
+  overflow: hidden;
   opacity: .4;
   pointer-events: none;
+  container-type: size;
+}
+.wishlist-scene-art {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100cqw, 100cqh * 1670 / 942);
+  aspect-ratio: 1670 / 942;
+  transform: translate(-50%, -50%);
+  container-type: inline-size;
+}
+.wishlist-scene-bg { display: block; width: 100%; height: 100%; }
+
+// Snow falling past the window glass.
+.wishlist-scene-window { position: absolute; overflow: hidden; }
+.wishlist-scene-window i {
+  position: absolute;
+  top: -8px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 2px rgba(120, 150, 190, .6);
+  animation: wishlist-snow-fall 8s linear infinite, wishlist-snow-sway 2.6s ease-in-out infinite alternate;
+}
+@keyframes wishlist-snow-fall {
+  from { top: -8px; }
+  to { top: 100%; }
+}
+@keyframes wishlist-snow-sway {
+  from { transform: translateX(-6px); }
+  to { transform: translateX(6px); }
+}
+
+// Street lamps: a warm glow that slowly swells, dims, and swells again.
+.wishlist-scene-lamp {
+  position: absolute;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 226, 120, .95) 0%, rgba(255, 214, 90, .55) 35%, rgba(255, 210, 90, 0) 70%);
+  mix-blend-mode: screen;
+  animation: wishlist-lamp 6s ease-in-out infinite;
+}
+@keyframes wishlist-lamp {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  40% { opacity: .9; transform: scale(.96); }
+  50% { opacity: .15; transform: scale(.8); }
+  60% { opacity: .85; transform: scale(.95); }
+  70% { opacity: .3; transform: scale(.85); }
+  80% { opacity: 1; transform: scale(1); }
+}
+
+// Steam: soft wisps rising from a dish, swaying and fading as they go.
+.wishlist-scene-steam { position: absolute; width: 0; height: 0; }
+.wishlist-scene-steam i {
+  --u: calc(100cqw / 1670);
+  position: absolute;
+  left: calc(var(--u) * -15);
+  top: calc(var(--u) * -24);
+  width: calc(var(--u) * 30);
+  height: calc(var(--u) * 42);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, #fff 40%, rgba(150, 178, 205, .95) 78%, rgba(150, 178, 205, 0));
+  filter: blur(calc(var(--u) * 2.5));
+  opacity: 0;
+  animation: wishlist-steam 4.2s ease-out infinite;
+  animation-delay: var(--d, 0s); // each dish starts at its own point
+}
+.wishlist-scene-steam i:nth-child(2) { margin-left: calc(var(--u) * -14); animation-name: wishlist-steam-left; animation-delay: calc(var(--d, 0s) - 1.4s); }
+.wishlist-scene-steam i:nth-child(3) { margin-left: calc(var(--u) * 14); animation-delay: calc(var(--d, 0s) - 2.8s); }
+@keyframes wishlist-steam {
+  0% { transform: translate(0, 0) scale(.5); opacity: 0; }
+  20% { opacity: .85; }
+  60% { transform: translate(calc(var(--u) * 12), calc(var(--u) * -70)) scale(1.1); opacity: .5; }
+  100% { transform: translate(calc(var(--u) * -8), calc(var(--u) * -135)) scale(1.6); opacity: 0; }
+}
+@keyframes wishlist-steam-left {
+  0% { transform: translate(0, 0) scale(.5); opacity: 0; }
+  20% { opacity: .85; }
+  60% { transform: translate(calc(var(--u) * -12), calc(var(--u) * -68)) scale(1.1); opacity: .5; }
+  100% { transform: translate(calc(var(--u) * 8), calc(var(--u) * -130)) scale(1.6); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wishlist-scene * { animation: none !important; }
+  .wishlist-scene-window, .wishlist-scene-steam { display: none; }
 }
 html:has(.wishlist-page), html:has(.wishlist-page) body { background: #fff; }
 .wishlist-heading h1 { margin: 0; font-size: 30px; font-weight: 900; color: #123653; }

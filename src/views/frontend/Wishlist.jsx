@@ -16,6 +16,7 @@ import {
   getInitialDays,
   normalizePlannerDay,
 } from "./Planner";
+import WishlistScene from "../../component/WishlistScene";
 import "../../assets/pages/_wishlist.scss";
 
 // Every dish the traveller tapped as wanted (heart, or coloured thumbs-up) in
@@ -291,6 +292,7 @@ function Wishlist() {
 
   return (
     <section className="wishlist-page">
+      <WishlistScene />
       <header className="wishlist-heading">
         <h1>想吃清單</h1>
         <p>
