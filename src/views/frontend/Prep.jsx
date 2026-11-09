@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { savePrepCloud, subscribePrepCloud } from "../../services/firebase";
 import "../../assets/pages/_prep.scss";
+import PrepScene from "../../component/PrepScene";
 
 // 行前準備: a hand-drawn notebook checklist. Tapping an item ticks its box and
 // strikes it through; items can be added and removed. It syncs with the
@@ -116,6 +117,7 @@ function Prep() {
 
   return (
     <section className="prep-page">
+      <PrepScene />
       <div className="prep-notebook">
         <div className="prep-sheet">
         <header className="prep-heading">
