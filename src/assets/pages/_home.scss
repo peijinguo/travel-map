@@ -33,8 +33,7 @@ main:has(.home-page) { flex: 1; display: flex; flex-direction: column; }
 }
 // The sea around the map (HomeWaves.jsx): waves along the top and bottom
 // edges, pinned to the screen under the header so both rows stay in view. The
-// picture covers the screen like background-size: cover, and the whole sea
-// flows very slowly to the left.
+// picture covers the screen like background-size: cover.
 .home-waves {
   position: fixed;
   inset: var(--topbar-height, 72px) 0 0;
@@ -50,40 +49,38 @@ main:has(.home-page) { flex: 1; display: flex; flex-direction: column; }
   width: max(100cqw, 100cqh * 1915 / 821);
   aspect-ratio: 1915 / 821;
   transform: translate(-50%, -50%);
+  container-type: inline-size;
 }
-// Four copies of the picture (every other one mirrored); sliding by two of
-// them brings the strip back to where it started.
-.home-waves-track {
-  display: flex;
-  width: 400%;
-  height: 100%;
-  animation: home-waves-flow 180s linear infinite;
-}
-@keyframes home-waves-flow {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.home-waves-panel { position: relative; flex: 0 0 25%; height: 100%; container-type: inline-size; }
-.home-waves-panel.is-mirrored { transform: scaleX(-1); }
 .home-waves-bg { display: block; width: 100%; height: 100%; }
+// The sea flows away into the distance: copies of the swells shrink toward
+// the middle, fading in as they start and out as they go.
+.home-waves-bg.is-flowing {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  animation: home-waves-recede 28s linear infinite;
+}
+.home-waves-bg.is-second { animation-delay: -14s; }
+@keyframes home-waves-recede {
+  0% { transform: scale(1.1); opacity: 0; }
+  50% { opacity: .6; }
+  100% { transform: scale(1); opacity: 0; }
+}
 .home-wave { position: absolute; max-width: none; height: auto; }
 // The white lines stay put while light runs along them like flowing water: a
 // repeating bright band in the mask slides one period per cycle.
 .home-wave {
   -webkit-mask: linear-gradient(90deg, rgba(0,0,0,.25), #000 50%, rgba(0,0,0,.25)) 0 0 / 50% 100% repeat-x;
   mask: linear-gradient(90deg, rgba(0,0,0,.25), #000 50%, rgba(0,0,0,.25)) 0 0 / 50% 100% repeat-x;
-  animation: home-wave-flow 4.5s linear infinite reverse;
+  animation: home-wave-flow 4.5s linear infinite;
 }
 .home-wave.is-ripple { animation-duration: 3s; }
-// Light runs to the left with the sea; mirrored, it would run backwards, so it
-// runs the other way there.
-.is-mirrored .home-wave { animation-direction: normal; }
 @keyframes home-wave-flow {
   from { -webkit-mask-position: 0 0; mask-position: 0 0; }
   to { -webkit-mask-position: 100% 0; mask-position: 100% 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .home-wave, .home-waves-track { animation: none; }
+  .home-wave, .home-waves-bg.is-flowing { animation: none; }
 }
 
 .map-hero {
