@@ -72,8 +72,8 @@
   width: calc(var(--u) * 30);
   height: calc(var(--u) * 42);
   border-radius: 50%;
-  background: radial-gradient(closest-side, #fff 40%, rgba(150, 178, 205, .95) 78%, rgba(150, 178, 205, 0));
-  filter: blur(calc(var(--u) * 2.5));
+  background: radial-gradient(closest-side, rgba(178, 192, 208, .8), rgba(178, 192, 208, .45) 60%, rgba(178, 192, 208, 0));
+  filter: blur(calc(var(--u) * 4));
   opacity: 0;
   animation: wishlist-steam 4.2s ease-out infinite;
   animation-delay: var(--d, 0s); // each dish starts at its own point

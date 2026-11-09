@@ -11,25 +11,25 @@ const pct = (value, total) => `${(value / total) * 100}%`;
 // The glass of the big window and of the door, as polygons in picture pixels;
 // the window stops above the tables standing in front of it.
 const WINDOWS = [
-  [[30, 160], [410, 318], [410, 600], [30, 700]],
-  [[1388, 455], [1546, 450], [1546, 790], [1388, 715]],
+  [[30, 110], [400, 182], [400, 515], [30, 620]],
+  [[1372, 335], [1562, 330], [1562, 705], [1380, 618]],
 ];
 
 // Street lamps outside: centre and glow radius.
 const LAMPS = [
-  { x: 133, y: 510, r: 70, delay: 0 },
-  { x: 318, y: 535, r: 40, delay: -2.1 },
-  { x: 400, y: 522, r: 32, delay: -4.3 },
+  { x: 128, y: 415, r: 66, delay: 0 },
+  { x: 315, y: 435, r: 38, delay: -2.1 },
+  { x: 393, y: 420, r: 30, delay: -4.3 },
 ];
 
 // Where steam rises: the top of each hot dish.
 const STEAM = [
-  { x: 482, y: 592 },
-  { x: 970, y: 580 },
-  { x: 1060, y: 585 },
-  { x: 930, y: 506 },
-  { x: 1018, y: 500 },
-  { x: 232, y: 718 },
+  { x: 470, y: 508 },
+  { x: 975, y: 475 },
+  { x: 1065, y: 482 },
+  { x: 940, y: 398 },
+  { x: 1015, y: 388 },
+  { x: 232, y: 628 },
 ];
 
 // A fixed pseudo-random snowfall for each window, the same on every render.
