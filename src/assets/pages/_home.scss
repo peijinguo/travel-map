@@ -33,8 +33,8 @@ main:has(.home-page) { flex: 1; display: flex; flex-direction: column; }
 }
 // The sea around the map (HomeWaves.jsx): waves along the top and bottom
 // edges, pinned to the screen under the header so both rows stay in view. The
-// picture covers the screen like background-size: cover, and its white crests
-// and ripples drift over it.
+// picture covers the screen like background-size: cover, and the whole sea
+// flows very slowly to the right.
 .home-waves {
   position: fixed;
   inset: var(--topbar-height, 72px) 0 0;
@@ -50,11 +50,23 @@ main:has(.home-page) { flex: 1; display: flex; flex-direction: column; }
   width: max(100cqw, 100cqh * 1915 / 821);
   aspect-ratio: 1915 / 821;
   transform: translate(-50%, -50%);
-  container-type: inline-size;
 }
+// Four copies of the picture (every other one mirrored); sliding by two of
+// them brings the strip back to where it started.
+.home-waves-track {
+  display: flex;
+  width: 400%;
+  height: 100%;
+  animation: home-waves-flow 180s linear infinite;
+}
+@keyframes home-waves-flow {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+.home-waves-panel { position: relative; flex: 0 0 25%; height: 100%; container-type: inline-size; }
+.home-waves-panel.is-mirrored { transform: scaleX(-1); }
 .home-waves-bg { display: block; width: 100%; height: 100%; }
-// 1 unit = 1px of the picture, scaled to its width on screen.
-.home-wave { --u: calc(100cqw / 1915); position: absolute; max-width: none; height: auto; }
+.home-wave { position: absolute; max-width: none; height: auto; }
 // The white lines stay put while light runs along them like flowing water: a
 // repeating bright band in the mask slides one period per cycle.
 .home-wave {
@@ -63,12 +75,15 @@ main:has(.home-page) { flex: 1; display: flex; flex-direction: column; }
   animation: home-wave-flow 4.5s linear infinite;
 }
 .home-wave.is-ripple { animation-duration: 3s; }
+// Mirrored, the light would run backwards; run it the other way so it keeps
+// flowing to the right with the sea.
+.is-mirrored .home-wave { animation-direction: reverse; }
 @keyframes home-wave-flow {
   from { -webkit-mask-position: 0 0; mask-position: 0 0; }
   to { -webkit-mask-position: 100% 0; mask-position: 100% 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .home-wave { animation: none; }
+  .home-wave, .home-waves-track { animation: none; }
 }
 
 .map-hero {
