@@ -3593,6 +3593,16 @@ function Planner() {
                   </div>
                   {active ? (
                     <>
+                      {/* Tints every stop icon into the stop-number tag's dusty rose:
+                          dark lines → deep rose, light fills → near white. */}
+                      <svg className="planner-icon-tint-defs" width="0" height="0" aria-hidden="true" focusable="false">
+                        <filter id="planner-stop-icon-tint" colorInterpolationFilters="sRGB">
+                          <feColorMatrix
+                            type="matrix"
+                            values="0.0933 0.314 0.0317 0 0.541  0.122 0.4105 0.0414 0 0.376  0.122 0.4105 0.0414 0 0.376  0 0 0 1 0"
+                          />
+                        </filter>
+                      </svg>
                       <ol className="planner-list">
                         {items.map((item, index) => {
                           const itemDraft = itemDraftsRef.current.get(item.id);

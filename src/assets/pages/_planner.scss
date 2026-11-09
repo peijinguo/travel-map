@@ -695,6 +695,8 @@ span.planner-walking-icon { position: relative; display: block; width: 34px; hei
 // The towed skier fills its whole square, so it is drawn a little smaller to match.
 .planner-item-category-icon.is-small .hand-motif { width: 36px; height: 36px; }
 .planner-item-category-icon.is-compact .hand-motif { width: 32px; height: 32px; }
+.planner-item-category-icon .hand-motif { filter: url(#planner-stop-icon-tint); }
+.planner-icon-tint-defs { position: absolute; width: 0; height: 0; overflow: hidden; pointer-events: none; }
 .motif-familymart .brand-card, .motif-seveneleven .brand-card { fill: #fff; stroke: #d8e1e4; stroke-width: 1.5; }
 .motif-familymart .familymart-blue { fill: #0078bf; stroke: none; }
 .motif-familymart .familymart-green { fill: #00a26a; stroke: none; }
