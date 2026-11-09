@@ -7,7 +7,7 @@
   inset: var(--topbar-height, 72px) 0 0;
   z-index: -1;
   background: url("../wishlist-bg-kitchen.webp") center / cover no-repeat;
-  opacity: .45;
+  opacity: .32;
   pointer-events: none;
 }
 html:has(.wishlist-page), html:has(.wishlist-page) body { background: #fff; }
