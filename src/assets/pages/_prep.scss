@@ -7,22 +7,32 @@ $prep-pen: $prep-red;
 
 
 
-.prep-page { width: min(680px, calc(100% - 32px)); margin: 0 auto; padding: 72px 0 80px; }
+.prep-page { position: relative; z-index: 0; width: min(680px, calc(100% - 32px)); margin: 0 auto; padding: 72px 0 80px; }
+// A pencil snow scene fills the page behind the card. On tall (phone) screens
+// the picture would be cropped to its empty middle, so its sky strip sits at
+// the top and its slopes at the bottom, with the picture's paper colour between.
+.prep-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    url("../prep-bg-sky.webp") center var(--topbar-height, 72px) / 100% auto no-repeat,
+    url("../prep-bg-slopes.webp") bottom center / 100% auto no-repeat,
+    #fbf9f5;
+}
+@media (min-aspect-ratio: 4/3) {
+  .prep-page::before { background: url("../prep-bg.webp") center bottom / cover no-repeat, #fbf9f5; }
+}
 
 .prep-notebook {
   position: relative;
-  // The bottom padding (a share of the width, like the picture's height)
-  // leaves the slopes of the snow scene clear below the list.
-  padding: 30px 30px 24%;
+  padding: 30px 30px 26px;
   // The same frame as the 路線地圖 card in 行程規劃.
   border: 2px solid #34434a;
   border-radius: 19px 28px 21px 25px;
-  // A pencil snow scene: its sky strip along the top, its slopes along the
-  // bottom, and the paper colour of the picture between them.
-  background:
-    url("../prep-bg-top.webp") top center / 100% auto no-repeat,
-    url("../prep-bg-bottom.webp") bottom center / 100% auto no-repeat,
-    #fbf9f5;
+  background: repeating-linear-gradient(0deg, rgba(52,67,74,.025) 0 1px, transparent 1px 7px), #fff;
   box-shadow: 3px 4px 0 rgba(52,67,74,.09), 8px 10px 0 rgba(52,67,74,.045);
   color: $prep-ink;
   // The same type as the itinerary in 行程規劃.
@@ -72,7 +82,7 @@ $prep-pen: $prep-red;
 
 @media (max-width: 600px) {
   .prep-page { width: calc(100% - 24px); padding-top: 52px; }
-  .prep-notebook { padding: 24px 18px 26%; border-radius: 20px; }
+  .prep-notebook { padding: 24px 18px 20px; border-radius: 20px; }
   .prep-heading h1 { font-size: 24px; }
   .prep-check, .prep-add input { font-size: 17px; }
   .prep-remove { opacity: .55; }
