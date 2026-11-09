@@ -23,12 +23,11 @@ const FLAKES = Array.from({ length: FLAKE_COUNT }, (_, index) => {
 });
 
 // One corner of the picture. `width` is the piece's width in the picture's own
-// pixels, so overlays inside it can be placed with calc(var(--u) * px). A
-// piece drawn as inline SVG passes it as children and no `src`.
+// pixels, so overlays inside it can be placed with calc(var(--u) * px).
 export function SnowScenePiece({ corner, width, src, children }) {
   return (
     <div className={`snow-scene-piece is-${corner}`} style={{ "--piece-w": width }}>
-      {src && <img className="snow-scene-art" src={src} alt="" />}
+      <img className="snow-scene-art" src={src} alt="" />
       {children}
     </div>
   );

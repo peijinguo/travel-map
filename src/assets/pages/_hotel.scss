@@ -11,52 +11,25 @@
 
 html:has(.hotel-page), html:has(.hotel-page) body { background: #fff; }
 
-// The snow scene (HotelScene.jsx), drawn like the home map's icons: flat
-// colours with round dark outlines.
-.hotel-scene-art { display: block; width: 100%; height: auto; overflow: visible; }
-.hotel-scene-art path, .hotel-scene-art circle { stroke: #283033; stroke-width: 2.4; stroke-linejoin: round; stroke-linecap: round; }
-.hotel-hill-far { fill: #dfeaf2; }
-.hotel-hill-near { fill: #f7fbfd; }
-.hotel-scene-art .hotel-hill-fill { stroke: none; }
-.hotel-hill-ridge { fill: none; }
-.hotel-scene-art .hotel-deer-belly { stroke: none; }
-// Each picture fades out toward the middle of the screen.
-.is-bottom-left > .hotel-scene-art { -webkit-mask-image: linear-gradient(90deg, #000 72%, transparent); mask-image: linear-gradient(90deg, #000 72%, transparent); }
-.is-bottom-right > .hotel-scene-art { -webkit-mask-image: linear-gradient(270deg, #000 72%, transparent); mask-image: linear-gradient(270deg, #000 72%, transparent); }
-.hotel-pine-green { fill: #72a269; }
-.hotel-pine-trunk { fill: #a97852; }
-.hotel-pine-snow { fill: #fff; }
-.hotel-deer-coat { fill: #c99867; }
-.hotel-deer-light, .hotel-deer-belly { fill: #fff4e2; }
-.hotel-deer-inner { fill: #ef9fae; stroke-width: 1.6; }
-.hotel-deer-hoof, .hotel-deer-ink { fill: #283033; }
-.hotel-deer-antler { fill: none; stroke: #8b5a3c !important; stroke-width: 4.5 !important; }
-.hotel-deer-spots { fill: none; stroke: #fff4e2 !important; stroke-width: 7 !important; }
-.hotel-lodge-wall { fill: #d9a26b; }
-.hotel-lodge-roof { fill: #8b5a3c; }
-.hotel-lodge-snow { fill: #fff; }
-.hotel-lodge-chimney { fill: #b7835e; }
-.hotel-lodge-window { fill: #f7c95e; }
-.hotel-lodge-frame { fill: none; }
-.hotel-lodge-door { fill: #8b5a3c; }
+// The deer of the snow scene (HotelScene.jsx), standing where they stood in
+// the picture (units are the picture's pixels, see _snow-scene.scss), tails
+// wagging and ears flicking now and then.
+.hotel-deer { position: absolute; display: block; }
+.hotel-deer.is-stag { top: calc(var(--u) * 268); left: calc(var(--u) * 58); width: calc(var(--u) * 130); }
+.hotel-deer.is-fawn-left { top: calc(var(--u) * 350); left: calc(var(--u) * 184); width: calc(var(--u) * 114); }
+.hotel-deer.is-fawn-right { top: calc(var(--u) * 344); left: calc(var(--u) * 645); width: calc(var(--u) * 124); }
 
-// Ears flick and tails wag now and then, each deer on its own beat.
-.hotel-deer-ear, .hotel-deer-tail { transform-box: fill-box; }
-.hotel-deer-ear { transform-origin: 90% 85%; animation: hotel-deer-ear 3.6s ease-in-out infinite; }
-.hotel-deer-tail { transform-origin: 100% 60%; animation: hotel-deer-wag 2.6s ease-in-out infinite; }
-.is-fawn-left .hotel-deer-ear { animation-duration: 2.9s; }
-.is-fawn-left .hotel-deer-tail { animation-duration: 3.3s; animation-delay: -1.2s; }
-.is-fawn-right .hotel-deer-ear { animation-duration: 4.3s; }
-.is-fawn-right .hotel-deer-tail { animation-duration: 4.1s; animation-delay: -2.5s; }
+.hotel-deer-body { position: relative; display: block; width: 100%; }
+.hotel-deer-part { position: absolute; inset: 0; width: 100%; }
 
-// Chimney smoke: two puffs rising and fading, half a cycle apart.
-.hotel-smoke circle { fill: #fff; stroke: #9fb3bf; stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; animation: hotel-smoke-rise 5s ease-out infinite; }
-.hotel-smoke circle.is-second { animation-delay: -2.5s; }
-@keyframes hotel-smoke-rise {
-  0% { transform: translate(0, 0) scale(.6); opacity: 0; }
-  15% { opacity: .9; }
-  100% { transform: translate(26px, -90px) scale(1.8); opacity: 0; }
-}
+.hotel-deer-part.is-tail { animation: hotel-deer-wag 2.6s ease-in-out infinite; }
+// Each deer wags on its own beat.
+.is-fawn-left .hotel-deer-part.is-tail { animation-duration: 3.3s; animation-delay: -1.2s; }
+.is-fawn-right .hotel-deer-part.is-tail { animation-duration: 4.1s; animation-delay: -2.5s; }
+.hotel-deer-part.is-ear { animation: hotel-deer-ear 3.6s ease-in-out infinite; }
+.hotel-deer-part.is-ear-2 { animation-delay: -.15s; }
+.is-fawn-left .hotel-deer-part.is-ear { animation-duration: 2.9s; }
+.is-fawn-right .hotel-deer-part.is-ear { animation-duration: 4.3s; }
 
 // Still most of the time, then a short wag.
 @keyframes hotel-deer-wag {
