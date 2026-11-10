@@ -1,7 +1,6 @@
 .wishlist-page { width: min(720px, calc(100% - 32px)); margin: 0 auto; padding: 48px 0 80px; color: #284d63; position: relative; z-index: 0; }
-// The kitchen picture (WishlistScene.jsx), faint and filling the screen under
-// the header behind the list like background-size: cover, with snow falling
-// outside, street lamps glowing and steam rising from the food.
+// The picture (WishlistScene.jsx), faint and spanning the screen under the
+// header behind the list, with snow falling outside the window.
 .wishlist-scene {
   position: fixed;
   inset: var(--topbar-height, 72px) 0 0;
@@ -10,14 +9,16 @@
   opacity: .4;
   pointer-events: none;
   container-type: size;
+  background: #d9e4f7;
 }
+// The whole width of the picture always shows, resting on the bottom edge;
+// any room above it is filled with the sky colour at its top edge.
 .wishlist-scene-art {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: max(100cqw, 100cqh * 2000 / 874);
+  bottom: 0;
+  left: 0;
+  width: 100cqw;
   aspect-ratio: 2000 / 874;
-  transform: translate(-50%, -50%);
   container-type: inline-size;
 }
 .wishlist-scene-bg { display: block; width: 100%; height: 100%; }
