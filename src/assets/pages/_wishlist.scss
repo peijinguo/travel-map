@@ -15,8 +15,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: max(100cqw, 100cqh * 1670 / 942);
-  aspect-ratio: 1670 / 942;
+  width: max(100cqw, 100cqh * 2000 / 874);
+  aspect-ratio: 2000 / 874;
   transform: translate(-50%, -50%);
   container-type: inline-size;
 }
@@ -65,7 +65,7 @@
 // Steam: soft wisps rising from a dish, swaying and fading as they go.
 .wishlist-scene-steam { position: absolute; width: 0; height: 0; }
 .wishlist-scene-steam i {
-  --u: calc(100cqw / 1670);
+  --u: calc(100cqw / 2000);
   position: absolute;
   left: calc(var(--u) * -15);
   top: calc(var(--u) * -24);

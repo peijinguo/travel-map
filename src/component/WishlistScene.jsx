@@ -1,36 +1,27 @@
 import kitchen from "../assets/wishlist-bg-kitchen.webp";
 
-// The kitchen picture behind 想吃清單, filling the screen under the header,
-// with a little life added on top (see _wishlist.scss): snow falls outside
-// the windows, the street lamps slowly brighten and dim, and steam drifts up
-// from the food. Everything is placed in the picture's own pixels (1670 x 942).
-const W = 1670;
-const H = 942;
+// The picture behind 想吃清單 (a café window over a snowy lake), filling the
+// screen under the header, with snow falling outside the window (see
+// _wishlist.scss). The scene can also light street lamps and steam dishes;
+// this picture has none. Everything is placed in the picture's own pixels
+// (2000 x 874).
+const W = 2000;
+const H = 874;
 const pct = (value, total) => `${(value / total) * 100}%`;
 
 // The glass of the big window and of the door, as polygons in picture pixels;
 // the window stops above the tables standing in front of it.
+// The window glass, stepping around the drinks and postcard that stand in
+// front of it on the sill.
 const WINDOWS = [
-  [[30, 5], [395, 95], [398, 478], [30, 590]],
-  [[1386, 288], [1555, 288], [1555, 700], [1386, 650]],
+  [[45, 0], [1955, 0], [1955, 585], [1375, 585], [1375, 555], [1140, 555], [1140, 415], [775, 415], [775, 585], [45, 585]],
 ];
 
 // Street lamps outside: centre and glow radius.
-const LAMPS = [
-  { x: 133, y: 383, r: 62, delay: 0 },
-  { x: 318, y: 410, r: 34, delay: -2.1 },
-  { x: 393, y: 395, r: 26, delay: -4.3 },
-];
+const LAMPS = [];
 
 // Where steam rises: the top of each hot dish.
-const STEAM = [
-  { x: 475, y: 465 },
-  { x: 940, y: 560 },
-  { x: 1045, y: 572 },
-  { x: 940, y: 365 },
-  { x: 1030, y: 362 },
-  { x: 232, y: 612 },
-];
+const STEAM = [];
 
 // A fixed pseudo-random snowfall for each window, the same on every render.
 const flakes = (count, seed) =>
@@ -82,7 +73,7 @@ function WishlistScene() {
       <div className="wishlist-scene-art">
         <img className="wishlist-scene-bg" src={kitchen} alt="" />
         {WINDOWS.map((points, index) => (
-          <WindowSnow key={index} points={points} count={index ? 10 : 34} seed={index * 7} />
+          <WindowSnow key={index} points={points} count={index ? 10 : 70} seed={index * 7} />
         ))}
         {LAMPS.map((lamp, index) => (
           <span
