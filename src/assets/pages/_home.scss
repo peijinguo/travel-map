@@ -437,8 +437,6 @@ main:has(.home-page) { flex: 1; display: flex; flex-direction: column; }
   .hero-copy { display: none; }
   .map-stage { min-height: 0; margin: 0 0 12px; padding: 0; display: block; }
   .japan-map { display: block; width: 100%; max-width: 640px; height: auto; margin: 0 auto; transform: none; filter: drop-shadow(0 10px 14px rgba(77, 55, 43, .12)); }
-  .marker-pop { transform: scale(1.1); }
-  .town-marker:focus-visible .marker-pop, .town-marker.is-active .marker-pop { transform: scale(1.3); }
   .resort-panel { position: relative; top: auto; right: auto; width: auto; margin: 0 14px; max-height: calc(100dvh - 24px); padding: 24px 20px; transform: none; }
   .resort-list { max-height: 235px; }
 }

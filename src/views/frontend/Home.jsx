@@ -392,36 +392,25 @@ const separateMarkerPositions = (towns, minimumDistance = 102) => {
 const markerPositions = separateMarkerPositions(snowTowns);
 
 // Wide screens show the map's own area and let the icons spill out of the svg
-// box. Phones size the svg to hold every icon and its name tag instead: Safari
-// only answers taps inside an svg's box, so icons outside it could not be
-// tapped. To leave the map as big as it can be, phones also pull the icons in
-// closer to Japan.
+// box. Phones size the svg to hold every icon (where it stands on every
+// screen) and its name tag instead: Safari only answers taps inside an svg's
+// box, so icons outside it could not be tapped.
 const DESKTOP_VIEWBOX = "1005.5 1288 570 755";
-const PHONE_OFFSET_SCALE = 0.62;
-const PHONE_ICON_SPACING = 66;
-const phoneMarkerPositions = separateMarkerPositions(
-  snowTowns.map((town) => ({
-    ...town,
-    visualX: (town.visualX ?? 0) * PHONE_OFFSET_SCALE,
-    visualY: (town.visualY ?? 0) * PHONE_OFFSET_SCALE,
-  })),
-  PHONE_ICON_SPACING,
-);
-// Japan's outline, then grown to take in every icon (half an icon around it)
-// and the name tag under it.
+// Japan's outline, grown to take in every icon (half an icon around it) and
+// the name tag under it.
 const PHONE_VIEWBOX = (() => {
   let [x0, y0, x1, y1] = [1104, 1320, 1512, 1814];
   snowTowns.forEach((town) => {
     const anchor = projectLocation(town.latitude, town.longitude);
-    const offset = phoneMarkerPositions.get(town.id);
+    const offset = markerPositions.get(town.id);
     const x = anchor.x + offset.x;
     const y = anchor.y + offset.y;
-    x0 = Math.min(x0, x - 34);
-    x1 = Math.max(x1, x + 34);
-    y0 = Math.min(y0, y - 34);
-    y1 = Math.max(y1, y + 56);
+    x0 = Math.min(x0, x - 32);
+    x1 = Math.max(x1, x + 32);
+    y0 = Math.min(y0, y - 32);
+    y1 = Math.max(y1, y + 52);
   });
-  return [x0 - 4, y0 - 4, x1 - x0 + 8, y1 - y0 + 8].map(Math.round).join(" ");
+  return [x0 - 3, y0 - 3, x1 - x0 + 6, y1 - y0 + 6].map(Math.round).join(" ");
 })();
 const PHONE_QUERY = "(max-width: 760px)";
 
@@ -469,7 +458,7 @@ function Home() {
             </g>
             {renderedTowns.map((town) => {
               const selected = town.id === activeId;
-              const markerPosition = (phone ? phoneMarkerPositions : markerPositions).get(town.id);
+              const markerPosition = markerPositions.get(town.id);
               const visualX = markerPosition?.x ?? town.visualX ?? 0;
               const visualY = markerPosition?.y ?? town.visualY ?? 0;
               const location = projectLocation(town.latitude, town.longitude);
