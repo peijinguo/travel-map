@@ -4,15 +4,16 @@ import background from "../assets/wishlist-bg-sea.webp";
 // screen under the header, with snow falling outside the window (see
 // _wishlist.scss). The scene can also light street lamps and steam dishes;
 // this picture has none. Everything is placed in the picture's own pixels
-// (1122 x 1402).
-const W = 1122;
+// (2524 x 1402). The painting was portrait; its sea, road and table were
+// carried on to the left and right so it can fill a wide screen.
+const W = 2524;
 const H = 1402;
 const pct = (value, total) => `${(value / total) * 100}%`;
 
 // The window glass, stopping at the sill (which slopes down to the right) and
 // stepping around the latte glass standing in front of it.
 const WINDOWS = [
-  [[38, 0], [1122, 0], [1122, 1050], [640, 1001], [640, 862], [465, 862], [465, 983], [38, 940]],
+  [[0, 0], [2524, 0], [2524, 1122], [1322, 1001], [1322, 862], [1147, 862], [1147, 983], [0, 868]],
 ];
 
 // Street lamps outside: centre and glow radius.
@@ -68,11 +69,10 @@ function WindowSnow({ points, count, seed }) {
 function WishlistScene() {
   return (
     <div className="wishlist-scene" aria-hidden="true">
-      <img className="wishlist-scene-fill" src={background} alt="" />
       <div className="wishlist-scene-art">
         <img className="wishlist-scene-bg" src={background} alt="" />
         {WINDOWS.map((points, index) => (
-          <WindowSnow key={index} points={points} count={index ? 10 : 90} seed={index * 7} />
+          <WindowSnow key={index} points={points} count={index ? 10 : 140} seed={index * 7} />
         ))}
         {LAMPS.map((lamp, index) => (
           <span

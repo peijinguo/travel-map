@@ -11,25 +11,15 @@
   container-type: size;
   background: #a9c4ec;
 }
-// The whole height of the picture always shows, centred. A phone, narrower
-// than the picture, crops its sides; a wide screen leaves room either side,
-// filled by a blurred copy of the picture spread across the screen.
-.wishlist-scene-fill {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 70%;
-  filter: blur(28px) saturate(.9);
-  transform: scale(1.12);
-}
+// Covers the whole screen like background-size: cover, kept to the bottom so
+// the table always shows: a phone crops the sides (the latte and plates stay
+// in the middle), a very wide screen crops the sky.
 .wishlist-scene-art {
   position: absolute;
   bottom: 0;
   left: 50%;
-  width: calc(100cqh * 1122 / 1402);
-  aspect-ratio: 1122 / 1402;
+  width: max(100cqw, 100cqh * 2524 / 1402);
+  aspect-ratio: 2524 / 1402;
   transform: translateX(-50%);
   container-type: inline-size;
 }
@@ -78,7 +68,7 @@
 // Steam: soft wisps rising from a dish, swaying and fading as they go.
 .wishlist-scene-steam { position: absolute; width: 0; height: 0; }
 .wishlist-scene-steam i {
-  --u: calc(100cqw / 1122);
+  --u: calc(100cqw / 2524);
   position: absolute;
   left: calc(var(--u) * -15);
   top: calc(var(--u) * -24);
