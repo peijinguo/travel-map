@@ -1,6 +1,6 @@
 .wishlist-page { width: min(720px, calc(100% - 32px)); margin: 0 auto; padding: 48px 0 80px; color: #284d63; position: relative; z-index: 0; }
 // The picture (WishlistScene.jsx), faint and spanning the screen under the
-// header behind the list, with snow falling outside the window.
+// header behind the list, with snow falling over the sky and sea.
 .wishlist-scene {
   position: fixed;
   inset: var(--topbar-height, 72px) 0 0;
@@ -9,23 +9,29 @@
   opacity: .4;
   pointer-events: none;
   container-type: size;
-  background: #a9c4ec;
+  background: #b9cdee;
 }
 // Covers the whole screen like background-size: cover, kept to the bottom so
-// the table always shows: a phone crops the sides (the latte and plates stay
-// in the middle), a very wide screen crops the sky.
+// the table always shows. A landscape screen shows the wide picture, a
+// portrait one the tall picture (WishlistScene.jsx); --ratio is its width
+// over its height.
 .wishlist-scene-art {
   position: absolute;
   bottom: 0;
   left: 50%;
-  width: max(100cqw, 100cqh * 2524 / 1402);
-  aspect-ratio: 2524 / 1402;
+  width: max(100cqw, 100cqh * var(--ratio));
+  aspect-ratio: var(--ratio);
   transform: translateX(-50%);
   container-type: inline-size;
 }
+.wishlist-scene-art.is-tall { display: none; }
+@media (max-aspect-ratio: 1 / 1) {
+  .wishlist-scene-art.is-wide { display: none; }
+  .wishlist-scene-art.is-tall { display: block; }
+}
 .wishlist-scene-bg { display: block; width: 100%; height: 100%; }
 
-// Snow falling past the window glass.
+// Snow falling over the sky and sea.
 .wishlist-scene-window { position: absolute; overflow: hidden; }
 .wishlist-scene-window i {
   position: absolute;
@@ -44,60 +50,9 @@
   to { transform: translateX(6px); }
 }
 
-// Street lamps: a warm glow that slowly swells, goes dark, flickers back and
-// shines again.
-.wishlist-scene-lamp {
-  position: absolute;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 236, 160, .7) 0%, rgba(255, 214, 100, .4) 22%, rgba(255, 205, 100, .12) 45%, rgba(255, 205, 100, 0) 62%);
-  animation: wishlist-lamp 5s ease-in-out infinite;
-}
-@keyframes wishlist-lamp {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  35% { opacity: 1; transform: scale(1.06); }
-  48% { opacity: 0; transform: scale(.6); }
-  58% { opacity: 0; transform: scale(.6); }
-  62% { opacity: .9; transform: scale(.95); }
-  66% { opacity: .1; transform: scale(.7); }
-  70% { opacity: 1; transform: scale(1); }
-  74% { opacity: .25; transform: scale(.8); }
-  80% { opacity: 1; transform: scale(1.02); }
-}
-
-// Steam: soft wisps rising from a dish, swaying and fading as they go.
-.wishlist-scene-steam { position: absolute; width: 0; height: 0; }
-.wishlist-scene-steam i {
-  --u: calc(100cqw / 2524);
-  position: absolute;
-  left: calc(var(--u) * -15);
-  top: calc(var(--u) * -24);
-  width: calc(var(--u) * 30);
-  height: calc(var(--u) * 42);
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(178, 192, 208, .8), rgba(178, 192, 208, .45) 60%, rgba(178, 192, 208, 0));
-  filter: blur(calc(var(--u) * 4));
-  opacity: 0;
-  animation: wishlist-steam 4.2s ease-out infinite;
-  animation-delay: var(--d, 0s); // each dish starts at its own point
-}
-.wishlist-scene-steam i:nth-child(2) { margin-left: calc(var(--u) * -14); animation-name: wishlist-steam-left; animation-delay: calc(var(--d, 0s) - 1.4s); }
-.wishlist-scene-steam i:nth-child(3) { margin-left: calc(var(--u) * 14); animation-delay: calc(var(--d, 0s) - 2.8s); }
-@keyframes wishlist-steam {
-  0% { transform: translate(0, 0) scale(.5); opacity: 0; }
-  20% { opacity: .85; }
-  60% { transform: translate(calc(var(--u) * 12), calc(var(--u) * -70)) scale(1.1); opacity: .5; }
-  100% { transform: translate(calc(var(--u) * -8), calc(var(--u) * -135)) scale(1.6); opacity: 0; }
-}
-@keyframes wishlist-steam-left {
-  0% { transform: translate(0, 0) scale(.5); opacity: 0; }
-  20% { opacity: .85; }
-  60% { transform: translate(calc(var(--u) * -12), calc(var(--u) * -68)) scale(1.1); opacity: .5; }
-  100% { transform: translate(calc(var(--u) * 8), calc(var(--u) * -130)) scale(1.6); opacity: 0; }
-}
 @media (prefers-reduced-motion: reduce) {
   .wishlist-scene * { animation: none !important; }
-  .wishlist-scene-window, .wishlist-scene-steam { display: none; }
+  .wishlist-scene-window { display: none; }
 }
 html:has(.wishlist-page), html:has(.wishlist-page) body { background: #fff; }
 .wishlist-heading h1 { margin: 0; font-size: 30px; font-weight: 900; color: #123653; }

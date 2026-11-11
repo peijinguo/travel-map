@@ -1,28 +1,35 @@
-import background from "../assets/wishlist-bg-sea.webp";
+import wide from "../assets/wishlist-bg-wide.webp";
+import tall from "../assets/wishlist-bg-tall.webp";
 
-// The picture behind 想吃清單 (a café window over a snowy sea), filling the
-// screen under the header, with snow falling outside the window (see
-// _wishlist.scss). The scene can also light street lamps and steam dishes;
-// this picture has none. Everything is placed in the picture's own pixels
-// (2524 x 1402). The painting was portrait; its sea, road and table were
-// carried on to the left and right so it can fill a wide screen.
-const W = 2524;
-const H = 1402;
-const pct = (value, total) => `${(value / total) * 100}%`;
-
-// The window glass, stopping at the sill (which slopes down to the right) and
-// stepping around the latte glass standing in front of it.
-const WINDOWS = [
-  [[0, 0], [2524, 0], [2524, 1122], [1322, 1001], [1322, 862], [1147, 862], [1147, 983], [0, 868]],
+// The picture behind 想吃清單 (coffee and cakes on a table by the snowy sea),
+// filling the screen under the header, with snow falling over the sky and the
+// sea (see _wishlist.scss). A landscape screen gets the wide picture, a
+// portrait one (a phone) the tall one.
+//
+// Each picture's snow area is a polygon in its own pixels: everything above
+// the table, stepping around the latte glass that stands up into the view.
+const SCENES = [
+  {
+    name: "wide",
+    src: wide,
+    w: 1999,
+    h: 1125,
+    snow: [[0, 0], [1999, 0], [1999, 903], [1080, 903], [1080, 722], [925, 722], [925, 903], [0, 903]],
+    count: 140,
+  },
+  {
+    name: "tall",
+    src: tall,
+    w: 633,
+    h: 1125,
+    snow: [[0, 0], [633, 0], [633, 842], [360, 842], [360, 752], [262, 752], [262, 842], [0, 842]],
+    count: 90,
+  },
 ];
 
-// Street lamps outside: centre and glow radius.
-const LAMPS = [];
+const pct = (value, total) => `${(value / total) * 100}%`;
 
-// Where steam rises: the top of each hot dish.
-const STEAM = [];
-
-// A fixed pseudo-random snowfall for each window, the same on every render.
+// A fixed pseudo-random snowfall, the same on every render.
 const flakes = (count, seed) =>
   Array.from({ length: count }, (_, index) => {
     const rand = (n) => Math.abs((Math.sin((index + 1) * n + seed) * 10000) % 1);
@@ -34,7 +41,7 @@ const flakes = (count, seed) =>
     };
   });
 
-function WindowSnow({ points, count, seed }) {
+function Snow({ points, w, h, count, seed }) {
   const xs = points.map(([x]) => x);
   const ys = points.map(([, y]) => y);
   const [x0, x1, y0, y1] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
@@ -43,10 +50,10 @@ function WindowSnow({ points, count, seed }) {
     <div
       className="wishlist-scene-window"
       style={{
-        left: pct(x0, W),
-        top: pct(y0, H),
-        width: pct(x1 - x0, W),
-        height: pct(y1 - y0, H),
+        left: pct(x0, w),
+        top: pct(y0, h),
+        width: pct(x1 - x0, w),
+        height: pct(y1 - y0, h),
         clipPath: `polygon(${clip})`,
       }}
     >
@@ -69,35 +76,16 @@ function WindowSnow({ points, count, seed }) {
 function WishlistScene() {
   return (
     <div className="wishlist-scene" aria-hidden="true">
-      <div className="wishlist-scene-art">
-        <img className="wishlist-scene-bg" src={background} alt="" />
-        {WINDOWS.map((points, index) => (
-          <WindowSnow key={index} points={points} count={index ? 10 : 140} seed={index * 7} />
-        ))}
-        {LAMPS.map((lamp, index) => (
-          <span
-            key={index}
-            className="wishlist-scene-lamp"
-            style={{
-              left: pct(lamp.x - lamp.r, W),
-              top: pct(lamp.y - lamp.r, H),
-              width: pct(lamp.r * 2, W),
-              animationDelay: `${lamp.delay}s`,
-            }}
-          />
-        ))}
-        {STEAM.map((steam, index) => (
-          <span
-            key={index}
-            className="wishlist-scene-steam"
-            style={{ left: pct(steam.x, W), top: pct(steam.y, H), "--d": `${-index * 0.7}s` }}
-          >
-            <i />
-            <i />
-            <i />
-          </span>
-        ))}
-      </div>
+      {SCENES.map((scene, index) => (
+        <div
+          key={scene.name}
+          className={`wishlist-scene-art is-${scene.name}`}
+          style={{ "--ratio": scene.w / scene.h }}
+        >
+          <img className="wishlist-scene-bg" src={scene.src} alt="" />
+          <Snow points={scene.snow} w={scene.w} h={scene.h} count={scene.count} seed={index * 7} />
+        </div>
+      ))}
     </div>
   );
 }
