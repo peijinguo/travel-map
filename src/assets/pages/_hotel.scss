@@ -137,12 +137,13 @@ html:has(.hotel-page), html:has(.hotel-page) body { background: #fff; }
 // Lodging price (LodgingPrice.jsx): total in yen, NT$ a night beside it.
 .lodging-price { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 8px; padding-top: 12px; border-top: 1px dashed #d5e0e5; }
 .lodging-price label { display: flex; align-items: center; gap: 8px; }
-.hotel-list .lodging-price label > span:first-child { color: #526875; font-size: 16px; font-weight: 800; }
+.hotel-list .lodging-price label > span:first-child { color: #526875; font-size: 16px; font-weight: 700; }
 .lodging-price-input { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; border: 1.5px solid #a8c1c9; border-radius: 10px; background: #fff; }
-.lodging-price-input i { color: #66808e; font-style: normal; font-weight: 800; }
-.lodging-price-input input { width: 130px; border: 0; outline: 0; background: transparent; color: #284d63; font-size: 17px; font-weight: 800; }
+.lodging-price-input i { color: #526875; font-size: 16px; font-style: normal; font-weight: 700; }
+.lodging-price-input input { width: 130px; border: 0; outline: 0; background: transparent; color: #526875; font-size: 16px; font-weight: 700; }
 .lodging-price-result { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin: 0; color: #526875; font-size: 16px; font-weight: 700; }
-.lodging-price-result b { color: #b88f8f; font-size: inherit; font-weight: 900; } // same size as 「/ 晚」
+// The price, its label and the box all read like 「/ 晚」.
+.lodging-price-result b { color: inherit; font-size: inherit; font-weight: inherit; }
 .lodging-price-result small { color: #8ba0ac; font-size: 13px; font-weight: 700; }
 
 @media (max-width: 600px) {
