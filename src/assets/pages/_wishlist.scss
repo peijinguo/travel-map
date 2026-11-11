@@ -9,7 +9,7 @@
   opacity: .25;
   pointer-events: none;
   container-type: size;
-  background: #b9cdee;
+  background: #fff;
 }
 // Covers the whole screen like background-size: cover, kept to the bottom so
 // the table always shows. A landscape screen shows the wide picture, a
@@ -37,7 +37,7 @@
   position: absolute;
   top: -8px;
   border-radius: 50%;
-  background: #fff;
+  background: #c3d5e6; // pale snow blue, to show against the white sky
   box-shadow: 0 0 2px rgba(120, 150, 190, .6);
   animation: wishlist-snow-fall 8s linear infinite, wishlist-snow-sway 2.6s ease-in-out infinite alternate;
 }
