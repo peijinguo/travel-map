@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import HandDrawnMotif from "../../component/HandDrawnMotif";
 import HomeWaves from "../../component/HomeWaves";
@@ -391,8 +391,28 @@ const separateMarkerPositions = (towns, minimumDistance = 102) => {
 
 const markerPositions = separateMarkerPositions(snowTowns);
 
+// Wide screens show the map's own area and let the icons spill out of the svg
+// box. Phones size the svg to hold every icon and its name tag instead: Safari
+// only answers taps inside an svg's box, so icons outside it could not be
+// tapped.
+const DESKTOP_VIEWBOX = "1005.5 1288 570 755";
+const PHONE_VIEWBOX = "1088 1152 638 720";
+const PHONE_QUERY = "(max-width: 760px)";
+
+const usePhoneLayout = () => {
+  const [phone, setPhone] = useState(() => window.matchMedia(PHONE_QUERY).matches);
+  useEffect(() => {
+    const query = window.matchMedia(PHONE_QUERY);
+    const update = () => setPhone(query.matches);
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+  return phone;
+};
+
 function Home() {
   const [activeId, setActiveId] = useState("hakuba");
+  const phone = usePhoneLayout();
   const activeTown = snowTowns.find((town) => town.id === activeId) ?? snowTowns[0];
   const renderedTowns = [
     ...snowTowns.filter((town) => town.id !== activeTown.id),
@@ -408,7 +428,7 @@ function Home() {
         </div>
 
         <div className="map-stage">
-          <svg className="japan-map" viewBox="1005.5 1288 570 755" role="img" aria-label="日本雪場互動地圖">
+          <svg className="japan-map" viewBox={phone ? PHONE_VIEWBOX : DESKTOP_VIEWBOX} role="img" aria-label="日本雪場互動地圖">
             <g className="japan-geography" aria-hidden="true">
               {japanPrefecturePaths.flatMap((prefecture) =>
                 prefecture.paths.map((path, index) => (
@@ -435,7 +455,11 @@ function Home() {
                   tabIndex="0"
                   aria-label={`${town.prefecture}${town.name}，${town.resorts.length} 座雪場`}
                   aria-pressed={selected}
-                  onMouseEnter={() => setActiveId(town.id)}
+                  // Only a real mouse previews on hover; on a touch screen the
+                  // tap itself picks the town.
+                  onPointerEnter={(event) => {
+                    if (event.pointerType === "mouse") setActiveId(town.id);
+                  }}
                   onFocus={() => setActiveId(town.id)}
                   onClick={() => setActiveId(town.id)}
                   onKeyDown={(event) => {
