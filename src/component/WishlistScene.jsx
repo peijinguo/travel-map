@@ -68,6 +68,7 @@ function WindowSnow({ points, count, seed }) {
 function WishlistScene() {
   return (
     <div className="wishlist-scene" aria-hidden="true">
+      <img className="wishlist-scene-fill" src={background} alt="" />
       <div className="wishlist-scene-art">
         <img className="wishlist-scene-bg" src={background} alt="" />
         {WINDOWS.map((points, index) => (
