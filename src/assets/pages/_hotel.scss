@@ -83,35 +83,37 @@ html:has(.hotel-page), html:has(.hotel-page) body { background: #fff; }
 .hotel-section-title { margin: 0 0 14px; color: #284d63; font-size: 22px; font-weight: 900; }
 .hotel-section-title + .hotel-version-nav { margin-top: -2px; }
 
-// The flight cards (FlightCards.jsx), drawn like a boarding pass sketch.
-.flight-cards { display: grid; gap: 16px; margin-bottom: 36px; }
-.flight-card { padding: 20px 22px 14px; border: 3px solid #3a3f42; border-radius: 22px; background: #fffdf8; box-shadow: 4px 5px 0 rgba(40, 77, 99, .1); color: #3a3f42; }
-.flight-card-top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
-.flight-kind { padding: 3px 12px; border: 2px solid #3a3f42; border-radius: 8px; background: #f2a39a; font-size: 18px; font-weight: 900; }
-.flight-card.is-return .flight-kind { background: #9fd3ec; }
-.flight-date { font-size: 18px; font-weight: 800; }
-.flight-no { margin-left: auto; font-size: 18px; font-weight: 900; }
-.flight-route { display: grid; grid-template-columns: auto minmax(70px, 1fr) auto; align-items: center; gap: 12px; margin: 16px 0 12px; }
+// The flight cards (FlightCards.jsx), in the same card as the lodgings below.
+.flight-cards { display: grid; gap: 14px; margin-bottom: 36px; }
+.flight-empty { margin-bottom: 36px; }
+.flight-card { position: relative; display: grid; gap: 14px; padding: 22px 80px 22px 22px; border: 1.5px solid #a8c1c9; border-radius: 14px; background: #fff; box-shadow: 4px 5px 0 rgba(40,77,99,.08); color: #284d63; }
+.flight-card.is-editing { padding-right: 22px; }
+.flight-card-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
+.flight-kind { padding: 3px 12px; border-radius: 999px; background: #b88f8f; color: #fff; font-size: 15px; font-weight: 900; }
+.flight-card.is-return .flight-kind { background: #6c7675; }
+.flight-no { font-size: 24px; font-weight: 900; }
+.flight-date { color: #b88f8f; font-size: 17px; font-weight: 800; }
+.flight-route { display: grid; grid-template-columns: auto minmax(60px, 1fr) auto; align-items: center; gap: 14px; }
 .flight-end { display: grid; gap: 2px; }
 .flight-end.is-arrive { text-align: right; }
-.flight-end strong { font-family: "DM Mono", ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: 38px; font-weight: 700; letter-spacing: .04em; line-height: 1.1; }
-.flight-end b { font-size: 18px; font-weight: 900; }
-.flight-end small { color: #8a8f91; font-size: 14px; }
-.flight-path { display: grid; justify-items: center; gap: 4px; min-width: 0; }
-.flight-duration { display: inline-flex; align-items: center; gap: 4px; color: #6f7477; font-size: 14px; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
-.flight-duration svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
-.flight-line { position: relative; width: 100%; height: 30px; display: grid; place-items: center; }
-.flight-line::before { content: ""; position: absolute; inset: 50% 0 auto; height: 2px; background: #3a3f42; }
-.flight-plane { position: relative; width: 50px; height: 30px; padding: 0 4px; background: #fffdf8; fill: #fff; stroke: #3a3f42; stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round; }
-.flight-note { color: #e07b72; font-size: 13px; font-weight: 800; white-space: nowrap; }
-.flight-card.is-return .flight-note { color: #5aa9d6; }
-.flight-card-foot { display: flex; justify-content: flex-end; padding-top: 10px; border-top: 1px dashed #e2ddd2; }
-.flight-card button { padding: 6px 16px; border: 1.5px solid #6c7675; border-radius: 999px; background: #6c7675; color: #fff; font-size: 15px; font-weight: 800; cursor: pointer; }
-.flight-card button.is-quiet { background: #fff; color: #526875; }
-.flight-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 14px; margin: 14px 0; }
+.flight-end strong { font-size: 30px; font-weight: 900; letter-spacing: .02em; line-height: 1.15; }
+.flight-end b { color: #284d63; font-size: 17px; font-weight: 800; }
+.flight-end small { color: #66808e; font-size: 14px; }
+.flight-path { display: grid; justify-items: center; gap: 2px; min-width: 0; }
+.flight-duration { color: #66808e; font-size: 14px; font-weight: 800; white-space: nowrap; }
+.flight-line { position: relative; width: 100%; height: 28px; display: grid; place-items: center; }
+.flight-line::before { content: ""; position: absolute; inset: 50% 0 auto; border-top: 1.5px dashed #a8c1c9; }
+.flight-plane { position: relative; width: 44px; height: 28px; padding: 0 4px; background: #fff; fill: #fff; stroke: #6c7675; stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round; }
+.flight-note { color: #8ba0ac; font-size: 13px; font-weight: 800; white-space: nowrap; }
+.flight-edit { position: absolute; top: 50%; right: 22px; width: 46px; height: 46px; display: grid; place-items: center; padding: 0; border: 1px solid #6c7675; border-radius: 50%; background: #6c7675; color: #fff; cursor: pointer; transform: translateY(-50%); }
+.flight-edit:hover { border-color: #5a6362; background: #5a6362; }
+.flight-edit svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.flight-form-actions button { padding: 8px 16px; border: 1px solid #6c7675; border-radius: 999px; background: #6c7675; color: #fff; font-size: 15px; font-weight: 900; cursor: pointer; }
+.flight-form-actions button.is-quiet { background: #fff; color: #526875; }
+.flight-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 14px; }
 .flight-form label { display: grid; gap: 4px; }
-.flight-form label span { color: #6f7477; font-size: 13px; font-weight: 800; }
-.flight-form input { min-width: 0; padding: 8px 10px; border: 1.5px solid #c9d3d6; border-radius: 10px; font-size: 16px; }
+.flight-form label span { color: #66808e; font-size: 13px; font-weight: 800; }
+.flight-form input { min-width: 0; padding: 8px 10px; border: 1.5px solid #a8c1c9; border-radius: 10px; color: #284d63; font-size: 16px; }
 .flight-form-actions { display: flex; justify-content: flex-end; gap: 8px; }
 
 // Lodging price (LodgingPrice.jsx): total in yen, NT$ a night beside it.
@@ -126,13 +128,15 @@ html:has(.hotel-page), html:has(.hotel-page) body { background: #fff; }
 .lodging-price-result small { color: #8ba0ac; font-size: 13px; font-weight: 700; }
 
 @media (max-width: 600px) {
-  .flight-card { padding: 16px 14px 12px; border-radius: 18px; }
-  .flight-kind, .flight-date, .flight-no { font-size: 15px; }
-  .flight-no { margin-left: 0; }
-  .flight-route { gap: 6px; }
-  .flight-end strong { font-size: 26px; }
+  .flight-card { padding: 18px 16px; }
+  .flight-no { font-size: 20px; }
+  .flight-date { font-size: 15px; }
+  .flight-route { gap: 8px; }
+  .flight-end strong { font-size: 24px; }
   .flight-end b { font-size: 14px; }
   .flight-end small { font-size: 12px; }
-  .flight-plane { width: 40px; }
+  .flight-plane { width: 36px; }
+  .flight-edit { top: 16px; right: 16px; width: 38px; height: 38px; transform: none; }
+  .flight-card:not(.is-editing) .flight-card-top { padding-right: 46px; }
   .flight-form { grid-template-columns: 1fr; }
 }
