@@ -1,20 +1,18 @@
-import kitchen from "../assets/wishlist-bg-kitchen.webp";
+import background from "../assets/wishlist-bg-sea.webp";
 
-// The picture behind 想吃清單 (a café window over a snowy lake), filling the
+// The picture behind 想吃清單 (a café window over a snowy sea), filling the
 // screen under the header, with snow falling outside the window (see
 // _wishlist.scss). The scene can also light street lamps and steam dishes;
 // this picture has none. Everything is placed in the picture's own pixels
-// (2000 x 874).
-const W = 2000;
-const H = 874;
+// (1122 x 1402).
+const W = 1122;
+const H = 1402;
 const pct = (value, total) => `${(value / total) * 100}%`;
 
-// The glass of the big window and of the door, as polygons in picture pixels;
-// the window stops above the tables standing in front of it.
-// The window glass, stepping around the drinks and postcard that stand in
-// front of it on the sill.
+// The window glass, stopping at the sill (which slopes down to the right) and
+// stepping around the latte glass standing in front of it.
 const WINDOWS = [
-  [[45, 0], [1955, 0], [1955, 585], [1375, 585], [1375, 555], [1140, 555], [1140, 415], [775, 415], [775, 585], [45, 585]],
+  [[38, 0], [1122, 0], [1122, 1050], [640, 1001], [640, 862], [465, 862], [465, 983], [38, 940]],
 ];
 
 // Street lamps outside: centre and glow radius.
@@ -71,9 +69,9 @@ function WishlistScene() {
   return (
     <div className="wishlist-scene" aria-hidden="true">
       <div className="wishlist-scene-art">
-        <img className="wishlist-scene-bg" src={kitchen} alt="" />
+        <img className="wishlist-scene-bg" src={background} alt="" />
         {WINDOWS.map((points, index) => (
-          <WindowSnow key={index} points={points} count={index ? 10 : 70} seed={index * 7} />
+          <WindowSnow key={index} points={points} count={index ? 10 : 90} seed={index * 7} />
         ))}
         {LAMPS.map((lamp, index) => (
           <span

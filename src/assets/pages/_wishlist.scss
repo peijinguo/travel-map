@@ -9,16 +9,18 @@
   opacity: .4;
   pointer-events: none;
   container-type: size;
-  background: #d9e4f7;
+  background: #a9c4ec;
 }
-// The whole width of the picture always shows, resting on the bottom edge;
-// any room above it is filled with the sky colour at its top edge.
+// Covers the screen like background-size: cover. A wide screen crops the
+// picture top and bottom, mostly sky: 15% of the crop comes off the bottom,
+// so the sea, the latte and both plates still show. A phone shows it whole.
 .wishlist-scene-art {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100cqw;
-  aspect-ratio: 2000 / 874;
+  bottom: calc((100cqh - max(100cqw, 100cqh * 1122 / 1402) * 1402 / 1122) * .15);
+  left: 50%;
+  width: max(100cqw, 100cqh * 1122 / 1402);
+  aspect-ratio: 1122 / 1402;
+  transform: translateX(-50%);
   container-type: inline-size;
 }
 .wishlist-scene-bg { display: block; width: 100%; height: 100%; }
@@ -66,7 +68,7 @@
 // Steam: soft wisps rising from a dish, swaying and fading as they go.
 .wishlist-scene-steam { position: absolute; width: 0; height: 0; }
 .wishlist-scene-steam i {
-  --u: calc(100cqw / 2000);
+  --u: calc(100cqw / 1122);
   position: absolute;
   left: calc(var(--u) * -15);
   top: calc(var(--u) * -24);
