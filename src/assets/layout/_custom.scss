@@ -110,9 +110,10 @@
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.topbar .nav a::after { content: ""; position: absolute; right: 0; bottom: 3px; left: 0; height: 2px; border-radius: 2px; background: #126bd6; transform: scaleX(0); transition: transform .2s ease; }
-.topbar .nav a:hover, .topbar .nav a.active { color: #123653; }
-.topbar .nav a:hover .nav-icon, .topbar .nav a.active .nav-icon { color: #126bd6; }
+.topbar .nav a::after { content: ""; position: absolute; right: 0; bottom: 3px; left: 0; height: 2px; border-radius: 2px; background: #b88f8f; transform: scaleX(0); transition: transform .2s ease; }
+// The current page and the hovered one, in muted Morandi tones.
+.topbar .nav a:hover, .topbar .nav a.active { color: #5f5653; }
+.topbar .nav a:hover .nav-icon, .topbar .nav a.active .nav-icon { color: #b88f8f; }
 .topbar .nav a:hover::after, .topbar .nav a.active::after { transform: scaleX(1); }
 
 .menu-toggle {
@@ -286,7 +287,7 @@
   }
   .topbar .nav a:hover,
   .topbar .nav a.active {
-    background: #eef6fb;
+    background: #f2ebe8;
   }
   .topbar .nav a::after { display: none; }
   .brand-mark { width: 43px; height: 43px; flex-basis: 43px; border-radius: 13px 13px 13px 5px; }

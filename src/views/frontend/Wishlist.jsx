@@ -436,18 +436,6 @@ function Wishlist() {
                 {wish.photo && (
                   <img src={wish.photo} alt={wish.name || "想吃的東西"} loading="lazy" />
                 )}
-                {draggingId === wish.id && (
-                  // A closed hand holding the card while it is moved.
-                  <span className="wishlist-grab-hand" aria-hidden="true">
-                    <svg viewBox="0 0 24 24">
-                      <path d="M18 11.5V9a2 2 0 0 0-4 0v1.4" />
-                      <path d="M14 10V8a2 2 0 0 0-4 0v2" />
-                      <path d="M10 9.9V9a2 2 0 0 0-4 0v5" />
-                      <path d="M6 14a2 2 0 0 0-4 0" />
-                      <path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-4a8 8 0 0 1-8-8" />
-                    </svg>
-                  </span>
-                )}
                 <WishCaption cloudKey={cloudKey} wish={wish} />
                 <button
                   type="button"

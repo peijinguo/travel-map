@@ -129,14 +129,8 @@ html:has(.wishlist-page), html:has(.wishlist-page) body { background: #fff; }
 // Long-press to move (Wishlist.jsx): no text selection or image menu while
 // holding, and the held card lifts.
 .wishlist-wishes li { -webkit-touch-callout: none; user-select: none; transition: transform .15s ease, box-shadow .15s ease; }
-.wishlist-wishes li.is-dragging { z-index: 2; transform: translateY(-10px) scale(1.05); box-shadow: 0 22px 34px rgba(40,77,99,.28); border-color: #6c7675; cursor: grabbing; }
-@media (hover: hover) { .wishlist-wishes li { cursor: grab; } }
-.wishlist-grab-hand { position: absolute; top: 38%; left: 50%; z-index: 3; width: 52px; height: 52px; display: grid; place-items: center; transform: translate(-50%, -50%); animation: wishlist-grab .25s ease-out; pointer-events: none; }
-.wishlist-grab-hand svg { width: 52px; height: 52px; fill: #fff; stroke: #284d63; stroke-width: 1.6; filter: drop-shadow(0 3px 5px rgba(40,77,99,.35)); stroke-linecap: round; stroke-linejoin: round; }
-@keyframes wishlist-grab {
-  from { opacity: 0; transform: translate(-50%, -30%) scale(.7); }
-  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-}
+.wishlist-wishes li.is-dragging { z-index: 2; transform: translateY(-10px) scale(1.05); box-shadow: 0 22px 34px rgba(40,77,99,.28); border-color: #6c7675; }
+
 .wishlist-wishes li > div { display: grid; gap: 3px; padding: 10px 12px 12px; }
 .wishlist-wishes strong { color: #123653; font-size: 16px; font-weight: 900; line-height: 1.35; }
 .wishlist-wishes small { color: #6b8290; font-size: 13px; line-height: 1.4; }
