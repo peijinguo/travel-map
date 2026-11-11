@@ -425,9 +425,7 @@ function Wishlist() {
       )}
       {wishes.length > 0 && (
         <section className="wishlist-day">
-          <h2>
-            自己加的<small>長按可移動</small>
-          </h2>
+          <h2>自己加的</h2>
           <ul className="wishlist-wishes">
             {orderedWishes.map((wish) => (
               <li

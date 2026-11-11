@@ -288,6 +288,24 @@ export async function reportUnlocatedPlace(query, fullText = query) {
   );
 }
 
+// The trip's flights (code and date), for the flight sync job
+// (scripts/sync-flight-status.mjs), which fetches Taoyuan Airport's live
+// status for exactly these flights. Keyed "BR132|2026-11-24".
+export async function reportTrackedFlights(flights) {
+  if (!db || !auth?.currentUser || !flights.length) return;
+  const directoryId = await sha256Hex("travel-map:__trip-directory__");
+  await setDoc(
+    doc(db, "syncSpaces", directoryId, "appData", "trackedFlights"),
+    {
+      flights: Object.fromEntries(
+        flights.map(({ flight, date }) => [`${flight}|${date}`, { flight, date, reportedAt: serverTimestamp() }]),
+      ),
+      updatedAt: serverTimestamp(),
+    },
+    { merge: true },
+  );
+}
+
 // Places in the queue the lookup job has found carry their coordinates
 // (latitude, longitude, name, displayName); the planner applies them live.
 export function subscribeUnlocatedPlaces(onData, onError) {

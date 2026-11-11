@@ -106,8 +106,7 @@ html:has(.hotel-page), html:has(.hotel-page) body { background: #fff; }
 .flight-plane { position: relative; width: 44px; height: 28px; padding: 0 4px; background: #fff; fill: #fff; stroke: #6c7675; stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round; }
 .flight-note { color: #8ba0ac; font-size: 13px; font-weight: 800; white-space: nowrap; }
 .flight-official { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; margin: 0; padding-top: 12px; border-top: 1px dashed #d5e0e5; color: #66808e; font-size: 14px; font-weight: 700; }
-.flight-official.is-live span { color: #284d63; font-weight: 900; }
-.flight-official a { color: #b88f8f; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+.flight-official.is-live { color: #284d63; font-weight: 900; }
 .flight-edit { position: absolute; top: 50%; right: 22px; width: 46px; height: 46px; display: grid; place-items: center; padding: 0; border: 1px solid #6c7675; border-radius: 50%; background: #6c7675; color: #fff; cursor: pointer; transform: translateY(-50%); }
 .flight-edit:hover { border-color: #5a6362; background: #5a6362; }
 .flight-edit svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }

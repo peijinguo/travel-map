@@ -3,14 +3,54 @@
 //
 // - schedule: every flight between Taoyuan and Japan, by flight number: which
 //   way it flies, the Taoyuan terminal, its usual time and the Japanese airport.
-// - live: the flights listed in src/data/trackedFlights.json, on their own
-//   date, once the board shows that date: gate, check-in counter, baggage
-//   belt, estimated time and status.
+// - live: the trips' flights, on their own date, once the board shows that
+//   date: gate, check-in counter, baggage belt, estimated time and status.
+//   The flights come from the 機票住宿 page, which saves each trip's flight
+//   codes and dates to Firebase (reportTrackedFlights in
+//   src/services/firebase.js), plus src/data/trackedFlights.json.
+import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync } from "node:fs";
 
 const SOURCE = "https://www.taoyuan-airport.com/uploads/flightx/a_flight_v4.txt";
 const OUTPUT = new URL("../src/data/flightStatus.js", import.meta.url);
-const TRACKED = JSON.parse(readFileSync(new URL("../src/data/trackedFlights.json", import.meta.url), "utf8"));
+
+// The site's public Firebase web key and an anonymous sign-in, as the page
+// itself uses (see scripts/unlocated_places.py); no secrets needed.
+const API_KEY = "AIzaSyAglWZlcTSZWxr6ic-aafjAYvYaTzIyYMc";
+const PROJECT = "travel-map-9c5c2";
+const DIRECTORY_ID = createHash("sha256").update("travel-map:__trip-directory__").digest("hex");
+
+async function tripFlights() {
+  try {
+    const signUp = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ returnSecureToken: true }),
+    }).then((response) => response.json());
+    const response = await fetch(
+      `https://firestore.googleapis.com/v1/projects/${PROJECT}/databases/(default)/documents/syncSpaces/${DIRECTORY_ID}/appData/trackedFlights`,
+      { headers: { Authorization: `Bearer ${signUp.idToken}` } },
+    );
+    if (!response.ok) return [];
+    const fields = (await response.json()).fields?.flights?.mapValue?.fields ?? {};
+    return Object.values(fields).map(({ mapValue }) => ({
+      flight: mapValue?.fields?.flight?.stringValue ?? "",
+      date: mapValue?.fields?.date?.stringValue ?? "",
+    }));
+  } catch (error) {
+    console.warn("Could not read the trips' flights:", error.message);
+    return [];
+  }
+}
+
+const listed = JSON.parse(readFileSync(new URL("../src/data/trackedFlights.json", import.meta.url), "utf8"));
+const TRACKED = [
+  ...new Map(
+    [...listed, ...(await tripFlights())]
+      .filter(({ flight, date }) => /^[A-Z0-9]{3,7}$/u.test(flight) && /^\d{4}-\d{2}-\d{2}$/u.test(date))
+      .map(({ flight, date }) => [`${flight}|${date}`, { flight, date }]),
+  ).values(),
+];
 
 const JAPAN = new Set([
   "KIX", "NRT", "HND", "CTS", "NGO", "FUK", "OKA", "HKD", "SDJ", "KOJ", "TAK", "OKJ",

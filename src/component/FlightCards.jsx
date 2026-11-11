@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { loadPlannerCloud, subscribePlannerCloud } from "../services/firebase";
+import { loadPlannerCloud, reportTrackedFlights, subscribePlannerCloud } from "../services/firebase";
 import { flightLive, flightSchedule } from "../data/flightStatus";
 import TRACKED_FLIGHTS from "../data/trackedFlights.json";
 
@@ -63,14 +63,6 @@ const japanTerminal = (airport, code) => {
   if (["CTS", "FUK", "OKA"].includes(airport)) return "國際線航廈";
   return "";
 };
-// Where to check a flight on its airline's own site.
-const statusLink = (code) =>
-  code.startsWith("BR")
-    ? "https://booking.evaair.com/flyeva/eva/b2c/flight-status.aspx?lang=zh-tw"
-    : code.startsWith("JX")
-      ? "https://www.starlux-airlines.com/zh-TW/flight-status"
-      : `https://www.google.com/search?q=${encodeURIComponent(`${code} 航班動態`)}`;
-
 // The official Taoyuan board's word on this flight, laid over the card.
 function withOfficial(flight) {
   const code = (flight.flightNo ?? "").toUpperCase().replace(/\s/gu, "");
@@ -195,30 +187,22 @@ const FIELDS = [
   ["note", "備註"],
 ];
 
-// The line under a card: live status from the day before the flight, else
-// the official timetable, and a link to the airline's own flight status.
+// The line under a card, from the day before the flight: Taoyuan Airport's
+// live status, gate, check-in counter or baggage belt.
 function OfficialStatus({ flight }) {
-  const { official, code } = flight;
-  if (!official) return null;
-  const live = official.live;
-  const verb = official.way === "D" ? "起飛" : "抵達";
-  const parts = live
-    ? [
-        live.status,
-        live.estimatedTime && live.estimatedTime !== live.time ? `預計 ${live.estimatedTime} ${verb}` : "",
-        live.counter && official.way === "D" ? `報到櫃檯 ${live.counter}` : "",
-        live.gate ? `登機門 ${live.gate}` : "",
-        live.belt && official.way === "A" ? `行李轉盤 ${live.belt}` : "",
-      ]
-    : [`桃園機場時刻表 ${official.time} ${verb}`, "前一天起顯示即時動態"];
-  return (
-    <p className={`flight-official ${live ? "is-live" : ""}`}>
-      <span>{parts.filter(Boolean).join("・")}</span>
-      <a href={statusLink(code)} target="_blank" rel="noreferrer">
-        航空公司官網 ↗
-      </a>
-    </p>
-  );
+  const live = flight.official?.live;
+  if (!live) return null;
+  const departing = flight.official.way === "D";
+  const parts = [
+    live.status,
+    live.estimatedTime && live.estimatedTime !== live.time
+      ? `預計 ${live.estimatedTime} ${departing ? "起飛" : "抵達"}`
+      : "",
+    live.counter && departing ? `報到櫃檯 ${live.counter}` : "",
+    live.gate ? `登機門 ${live.gate}` : "",
+    live.belt && !departing ? `行李轉盤 ${live.belt}` : "",
+  ];
+  return <p className="flight-official is-live">{parts.filter(Boolean).join("・")}</p>;
 }
 
 function FlightCard({ flight, onSave }) {
@@ -323,6 +307,22 @@ function FlightCards() {
       stop();
     };
   }, [cloudKey]);
+
+  // Tell the flight sync which flights this trip has, so it fetches their live
+  // status (the timetable covers every Taoyuan–Japan flight already).
+  const tripFlightKey = flightsFromDays(days)
+    .map(({ flightNo, date }) => `${(flightNo ?? "").toUpperCase().replace(/\s/gu, "")}|${date}`)
+    .filter((key) => /^[A-Z0-9]{3,7}\|\d{4}-\d{2}-\d{2}$/u.test(key))
+    .join(",");
+  useEffect(() => {
+    // Wait for the page's (anonymous) sign-in, which Firebase needs.
+    if (!tripFlightKey || !user) return;
+    const flights = tripFlightKey.split(",").map((key) => {
+      const [flight, date] = key.split("|");
+      return { flight, date };
+    });
+    reportTrackedFlights(flights).catch((error) => console.error("無法回報航班", error));
+  }, [tripFlightKey, user]);
 
   const flights = flightsFromDays(days).map((flight) =>
     withOfficial({ ...flight, ...edits[editKey(flight)], id: flight.id }),
