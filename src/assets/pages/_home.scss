@@ -431,34 +431,16 @@ main:has(.home-page) { flex: 1; display: flex; flex-direction: column; }
 }
 
 // Phones: the map fills the width with every icon inside the svg (see
-// Home.jsx), and the town's slopes sit in a sheet along the bottom of the
-// screen, so a tap on the map shows its answer right away.
+// Home.jsx), and the town's card follows below it.
 @media (max-width: 760px) {
-  .map-hero { --sheet-height: 42dvh; display: block; min-height: 0; padding: 8px 12px 0; }
+  .map-hero { display: flex; flex-direction: column; align-items: stretch; min-height: 0; padding: 8px 4px 14px; }
   .hero-copy { display: none; }
-  .map-stage { min-height: 0; margin: 0; padding: 0 0 calc(var(--sheet-height) + 8px); display: block; }
-  .japan-map { display: block; width: 100%; max-width: 520px; height: auto; max-height: calc(100dvh - var(--topbar-height, 72px) - var(--sheet-height) - 8px); margin: 0 auto; transform: none; filter: drop-shadow(0 10px 14px rgba(77, 55, 43, .12)); }
-  .resort-panel {
-    position: fixed; top: auto; right: 0; bottom: 0; left: 0;
-    width: auto; max-height: var(--sheet-height);
-    padding: 18px 18px calc(12px + env(safe-area-inset-bottom));
-    // the pink bar along the top, as a border so it stays put while the list scrolls
-    border-width: 7px 0 0; border-color: #b88f8f; border-radius: 22px 22px 0 0;
-    box-shadow: 0 -10px 28px rgba(18, 54, 83, .16);
-    transform: none;
-    overscroll-behavior: contain;
-  }
-  .resort-panel::before { display: none; }
-  .panel-topline { font-size: 12px; letter-spacing: .14em; }
-  .town-heading { gap: 12px; margin: 10px 0 8px; }
-  .town-illustration { width: 48px; height: 48px; flex-basis: 48px; }
-  .town-illustration .hand-motif { width: 40px; height: 40px; }
-  .town-heading h2 { font-size: 28px; }
-  .town-heading p { margin-top: 2px; font-size: 15px; }
-  .resort-list { max-height: none; margin: 6px 0 0; padding: 4px 0 0; overflow: visible; }
-  .resort-list li { grid-template-columns: 28px 1fr; gap: 8px; min-height: 44px; font-size: 16px; }
-  .resort-list li > span { font-size: 13px; }
-  .resort-list li a { padding: 10px 0; }
+  .map-stage { min-height: 0; margin: 0 0 12px; padding: 0; display: block; }
+  .japan-map { display: block; width: 100%; max-width: 640px; height: auto; margin: 0 auto; transform: none; filter: drop-shadow(0 10px 14px rgba(77, 55, 43, .12)); }
+  .marker-pop { transform: scale(1.1); }
+  .town-marker:focus-visible .marker-pop, .town-marker.is-active .marker-pop { transform: scale(1.3); }
+  .resort-panel { position: relative; top: auto; right: auto; width: auto; margin: 0 14px; max-height: calc(100dvh - 24px); padding: 24px 20px; transform: none; }
+  .resort-list { max-height: 235px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
