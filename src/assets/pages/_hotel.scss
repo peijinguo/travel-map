@@ -103,7 +103,23 @@ html:has(.hotel-page), html:has(.hotel-page) body { background: #fff; }
 .flight-duration { color: #66808e; font-size: 14px; font-weight: 800; white-space: nowrap; }
 .flight-line { position: relative; width: 100%; height: 28px; display: grid; place-items: center; }
 .flight-line::before { content: ""; position: absolute; inset: 50% 0 auto; border-top: 1.5px dashed #a8c1c9; }
-.flight-plane { position: relative; width: 44px; height: 28px; padding: 0 4px; background: #fff; fill: #fff; stroke: #6c7675; stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round; }
+.flight-plane { position: absolute; top: 0; left: 0; width: 44px; height: 28px; padding: 0 4px; background: #fff; fill: #fff; stroke: #6c7675; stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round; animation: flight-fly 5s ease-in-out infinite, flight-bob 1.2s ease-in-out infinite alternate; }
+.flight-card.is-return .flight-plane { animation-delay: -2.5s, -.6s; }
+// The plane flies from the departure side to the arrival side, fading in
+// and out at the ends, and bobs a little on the way.
+@keyframes flight-fly {
+  0% { left: 0; opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { left: calc(100% - 44px); opacity: 0; }
+}
+@keyframes flight-bob {
+  from { transform: translateY(-2px) rotate(-3deg); }
+  to { transform: translateY(2px) rotate(2deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flight-plane { left: calc(50% - 22px); animation: none; }
+}
 .flight-note { color: #8ba0ac; font-size: 13px; font-weight: 800; white-space: nowrap; }
 .flight-official { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; margin: 0; padding-top: 12px; border-top: 1px dashed #d5e0e5; color: #66808e; font-size: 14px; font-weight: 700; }
 .flight-official.is-live { color: #284d63; font-weight: 900; }
@@ -138,6 +154,7 @@ html:has(.hotel-page), html:has(.hotel-page) body { background: #fff; }
   .flight-end b { font-size: 14px; }
   .flight-end small { font-size: 12px; }
   .flight-plane { width: 36px; }
+  @keyframes flight-fly { 0% { left: 0; opacity: 0; } 12%, 88% { opacity: 1; } 100% { left: calc(100% - 36px); opacity: 0; } }
   .flight-edit { top: 16px; right: 16px; width: 38px; height: 38px; transform: none; }
   .flight-card:not(.is-editing) .flight-card-top { padding-right: 46px; }
   .flight-form { grid-template-columns: 1fr; }
