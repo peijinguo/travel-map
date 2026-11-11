@@ -111,8 +111,9 @@
   stroke-linejoin: round;
 }
 .topbar .nav a::after { content: ""; position: absolute; right: 0; bottom: 3px; left: 0; height: 2px; border-radius: 2px; background: #b88f8f; transform: scaleX(0); transition: transform .2s ease; }
-// The current page and the hovered one, in muted Morandi tones.
-.topbar .nav a:hover, .topbar .nav a.active { color: #5f5653; }
+// The current page and the hovered one: the text keeps its colour, the
+// highlight and icon are in muted Morandi tones.
+.topbar .nav a:hover, .topbar .nav a.active { color: #123653; }
 .topbar .nav a:hover .nav-icon, .topbar .nav a.active .nav-icon { color: #b88f8f; }
 .topbar .nav a:hover::after, .topbar .nav a.active::after { transform: scaleX(1); }
 
