@@ -129,7 +129,7 @@ html:has(.wishlist-page), html:has(.wishlist-page) body { background: #fff; }
 // Long-press to move (Wishlist.jsx): no text selection or image menu while
 // holding, and the held card lifts.
 .wishlist-wishes li { -webkit-touch-callout: none; user-select: none; transition: transform .15s ease, box-shadow .15s ease; }
-.wishlist-wishes li.is-dragging { z-index: 2; transform: translateY(-10px) scale(1.05); box-shadow: 0 22px 34px rgba(40,77,99,.28); border-color: #6c7675; }
+.wishlist-wishes li.is-dragging { z-index: 2; transform: translateY(-10px) scale(1.05); box-shadow: 0 22px 34px rgba(40,77,99,.28); border-color: #6c7675; cursor: grabbing; }
 
 .wishlist-wishes li > div { display: grid; gap: 3px; padding: 10px 12px 12px; }
 .wishlist-wishes strong { color: #123653; font-size: 16px; font-weight: 900; line-height: 1.35; }
