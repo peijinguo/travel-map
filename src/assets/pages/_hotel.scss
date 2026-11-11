@@ -142,8 +142,9 @@ html:has(.hotel-page), html:has(.hotel-page) body { background: #fff; }
 .lodging-price-input i { color: #526875; font-size: 16px; font-style: normal; font-weight: 700; }
 .lodging-price-input input { width: 130px; border: 0; outline: 0; background: transparent; color: #526875; font-size: 16px; font-weight: 700; }
 .lodging-price-result { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin: 0; color: #526875; font-size: 16px; font-weight: 700; }
-// The price, its label and the box all read like 「/ 晚」.
-.lodging-price-result b { color: inherit; font-size: inherit; font-weight: inherit; }
+// The price, its label and the box are the size of 「/ 晚」; the price keeps
+// its own dusty pink.
+.lodging-price-result b { color: #b88f8f; font-size: inherit; font-weight: inherit; }
 .lodging-price-result small { color: #8ba0ac; font-size: 13px; font-weight: 700; }
 
 @media (max-width: 600px) {
