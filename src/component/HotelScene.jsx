@@ -9,7 +9,7 @@ import fawnRight from "../assets/hotel-deer-fawn-right.webp";
 import fawnRightBody from "../assets/hotel-deer-fawn-right-body.webp";
 import PARTS from "./hotelDeerParts.json";
 
-// The snow scene behind 住宿資訊: the three deer were lifted out of the
+// The snow scene behind 機票住宿: the three deer were lifted out of the
 // picture so their ears and tails can move (see _hotel.scss); SnowScene adds the
 // snowfall.
 //

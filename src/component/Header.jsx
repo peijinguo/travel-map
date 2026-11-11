@@ -170,7 +170,7 @@ function Header() {
               <path d="M10 20v-5h4v5" />
             </svg>
           </span>
-          住宿資訊
+          機票住宿
         </NavLink>
         <NavLink to="/wishlist" onClick={() => setIsMobileMenuOpen(false)}>
           <span className="nav-icon" aria-hidden="true">

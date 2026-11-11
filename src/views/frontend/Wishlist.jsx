@@ -222,6 +222,106 @@ function WishCaption({ cloudKey, wish }) {
   );
 }
 
+// The traveller's own wishes in their chosen order: ones never moved (newly
+// added) first, newest on top, then the rest by the order they were dragged to.
+const sortWishes = (wishes) =>
+  [...wishes].sort((first, second) => {
+    const a = Number.isFinite(first.order) ? first.order : -Infinity;
+    const b = Number.isFinite(second.order) ? second.order : -Infinity;
+    return a === b ? second.createdAt - first.createdAt : a - b;
+  });
+
+const LONG_PRESS_MS = 400;
+const PRESS_SLOP_PX = 8;
+
+// Press and hold a card, then drag it to a new place in the grid. A quick
+// swipe still scrolls the page; only a held press picks the card up.
+function useLongPressSort(items, onCommit) {
+  const [dragOrder, setDragOrder] = useState(null);
+  const [draggingId, setDraggingId] = useState(null);
+  const press = useRef(null);
+  const orderRef = useRef(null);
+
+  useEffect(() => {
+    // While a card is held, the finger moves the card, not the page.
+    const blockScroll = (event) => {
+      if (press.current?.dragging) event.preventDefault();
+    };
+    document.addEventListener("touchmove", blockScroll, { passive: false });
+    return () => document.removeEventListener("touchmove", blockScroll);
+  }, []);
+
+  const finish = (commit) => {
+    const current = press.current;
+    if (!current) return;
+    clearTimeout(current.timer);
+    press.current = null;
+    if (current.dragging) {
+      // Swallow the click that ends the drag, so it does not open the caption.
+      const swallow = (event) => {
+        event.stopPropagation();
+        event.preventDefault();
+      };
+      window.addEventListener("click", swallow, { capture: true, once: true });
+      setTimeout(() => window.removeEventListener("click", swallow, { capture: true }), 0);
+      if (commit && orderRef.current) onCommit(orderRef.current);
+    }
+    orderRef.current = null;
+    setDragOrder(null);
+    setDraggingId(null);
+  };
+
+  const bind = (id) => ({
+    "data-wish-id": id,
+    onPointerDown: (event) => {
+      if (event.button !== 0 || event.target.closest("button, input, textarea")) return;
+      const { clientX, clientY } = event;
+      press.current = {
+        id,
+        startX: clientX,
+        startY: clientY,
+        dragging: false,
+        timer: setTimeout(() => {
+          if (!press.current) return;
+          press.current.dragging = true;
+          orderRef.current = items.map((item) => item.id);
+          setDragOrder(orderRef.current);
+          setDraggingId(id);
+          navigator.vibrate?.(15);
+        }, LONG_PRESS_MS),
+      };
+    },
+    onPointerMove: (event) => {
+      const current = press.current;
+      if (!current) return;
+      if (!current.dragging) {
+        if (Math.hypot(event.clientX - current.startX, event.clientY - current.startY) > PRESS_SLOP_PX) {
+          finish(false);
+        }
+        return;
+      }
+      const target = document
+        .elementsFromPoint(event.clientX, event.clientY)
+        .find((element) => element.dataset?.wishId && element.dataset.wishId !== current.id);
+      if (!target) return;
+      const order = orderRef.current.filter((itemId) => itemId !== current.id);
+      const targetIndex = order.indexOf(target.dataset.wishId);
+      const fromIndex = orderRef.current.indexOf(current.id);
+      const toIndex = orderRef.current.indexOf(target.dataset.wishId);
+      order.splice(targetIndex + (fromIndex < toIndex ? 1 : 0), 0, current.id);
+      orderRef.current = order;
+      setDragOrder(order);
+    },
+    onPointerUp: () => finish(true),
+    onPointerCancel: () => finish(false),
+    onContextMenu: (event) => event.preventDefault(),
+  });
+
+  const byId = new Map(items.map((item) => [item.id, item]));
+  const ordered = dragOrder ? dragOrder.map((itemId) => byId.get(itemId)).filter(Boolean) : items;
+  return { ordered, draggingId, bind };
+}
+
 function Wishlist() {
   const { user, syncSpaceId } = useAuth();
   const cloudKey = user && syncSpaceId ? syncSpaceId : null;
@@ -256,6 +356,22 @@ function Wishlist() {
     };
   }, [cloudKey]);
 
+  const sortedWishes = sortWishes(wishes);
+  const { ordered: orderedWishes, draggingId, bind: bindWish } = useLongPressSort(
+    sortedWishes,
+    (order) => {
+      const byId = new Map(wishes.map((wish) => [wish.id, wish]));
+      // Show the new order at once, then save each card whose place changed.
+      setWishes(order.map((id, index) => ({ ...byId.get(id), order: index })));
+      order.forEach((id, index) => {
+        if (byId.get(id)?.order !== index) {
+          updateWishCloud(cloudKey, id, { order: index }).catch((error) =>
+            console.error("無法儲存順序", error),
+          );
+        }
+      });
+    },
+  );
   const wishlist = collectWishlist(days, cloudMenus);
   const dishCount =
     wishes.length +
@@ -309,10 +425,16 @@ function Wishlist() {
       )}
       {wishes.length > 0 && (
         <section className="wishlist-day">
-          <h2>自己加的</h2>
+          <h2>
+            自己加的<small>長按可移動</small>
+          </h2>
           <ul className="wishlist-wishes">
-            {wishes.map((wish) => (
-              <li key={wish.id}>
+            {orderedWishes.map((wish) => (
+              <li
+                key={wish.id}
+                className={draggingId === wish.id ? "is-dragging" : undefined}
+                {...bindWish(wish.id)}
+              >
                 {wish.photo && (
                   <img src={wish.photo} alt={wish.name || "想吃的東西"} loading="lazy" />
                 )}

@@ -442,7 +442,8 @@ main:has(.home-page) { flex: 1; display: flex; flex-direction: column; }
     position: fixed; top: auto; right: 0; bottom: 0; left: 0;
     width: auto; max-height: var(--sheet-height);
     padding: 18px 18px calc(12px + env(safe-area-inset-bottom));
-    border-width: 0; border-radius: 22px 22px 0 0;
+    // the pink bar along the top, as a border so it stays put while the list scrolls
+    border-width: 7px 0 0; border-color: #b88f8f; border-radius: 22px 22px 0 0;
     box-shadow: 0 -10px 28px rgba(18, 54, 83, .16);
     transform: none;
     overscroll-behavior: contain;

@@ -3,6 +3,8 @@ import { Link, useSearchParams } from "react-router-dom";
 import { isLodgingName } from "../../services/freeMaps";
 import "../../assets/pages/_hotel.scss";
 import HotelScene from "../../component/HotelScene";
+import FlightCards from "../../component/FlightCards";
+import LodgingPrice from "../../component/LodgingPrice";
 
 // Itinerary versions are labelled A, B, C… by position; older saved data
 // still says "版本 1", "版本 2", so convert those on read.
@@ -203,6 +205,9 @@ function Hotel() {
   return (
     <section className="hotel-page">
       <HotelScene />
+      <h2 className="hotel-section-title">機票</h2>
+      <FlightCards />
+      <h2 className="hotel-section-title">住宿</h2>
       {availableVersions.length > 0 && (
         <nav className="hotel-version-nav" aria-label="住宿行程版本">
           {availableVersions.map((version) => (
@@ -245,6 +250,10 @@ function Hotel() {
                       </Link>
                     ))}
                 </div>
+                <LodgingPrice
+                  priceKey={`${selectedVersion}:${lodging.id || lodging.name}`}
+                  nights={new Set(lodging.stayEntries.map((entry) => entry.key)).size}
+                />
               </div>
               <div className="hotel-list-actions">
                 {getLodgingWebsite(lodging) ? (
