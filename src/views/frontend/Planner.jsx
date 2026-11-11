@@ -1224,9 +1224,8 @@ function formatItineraryDate(dateString, weekdayOnly = false) {
   if (!dateString) return weekdayOnly ? "" : "尚未設定";
   const date = new Date(`${dateString}T00:00:00`);
   if (Number.isNaN(date.getTime())) return weekdayOnly ? "" : dateString;
-  const weekday = new Intl.DateTimeFormat("zh-TW", { weekday: "long" }).format(
-    date,
-  );
+  // Just the day's character: 「三」, not 「星期三」.
+  const weekday = "日一二三四五六"[date.getDay()];
   if (weekdayOnly) return weekday;
   return `${date.getMonth() + 1} 月 ${date.getDate()} 日（${weekday}）`;
 }

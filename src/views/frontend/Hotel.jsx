@@ -51,7 +51,7 @@ const formatStayDate = (dateString, dayNumber) => {
   if (!dateString) return `入住日期尚未設定 DAY ${dayNumber ?? "?"}`;
   const date = new Date(`${dateString}T00:00:00`);
   if (Number.isNaN(date.getTime())) return `${dateString} DAY ${dayNumber ?? "?"}`;
-  const weekday = new Intl.DateTimeFormat("zh-TW", { weekday: "long" }).format(date);
+  const weekday = "日一二三四五六"[date.getDay()];
   const ymd = [
     date.getFullYear(),
     String(date.getMonth() + 1).padStart(2, "0"),

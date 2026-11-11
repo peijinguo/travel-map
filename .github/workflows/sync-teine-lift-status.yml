@@ -37,12 +37,15 @@ jobs:
         run: |
           node scripts/sync-teine-lift-status.mjs
           node scripts/sync-bankei-status.mjs
+          # Taoyuan Airport's flight board for 機票住宿; a failure there must
+          # not hold up the ski status.
+          node scripts/sync-flight-status.mjs || echo "::warning::Flight status sync failed."
 
       - name: Detect status changes
         id: changes
         shell: bash
         run: |
-          if git diff --quiet -- src/data/teineLiftStatus.js src/data/bankeiStatus.js; then
+          if git diff --quiet -- src/data/teineLiftStatus.js src/data/bankeiStatus.js src/data/flightStatus.js; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "Official status has not changed."
           else
@@ -54,7 +57,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/data/teineLiftStatus.js src/data/bankeiStatus.js
+          git add src/data/teineLiftStatus.js src/data/bankeiStatus.js src/data/flightStatus.js
           git commit -m "chore: sync ski resort live status"
           git pull --rebase origin main
           git push

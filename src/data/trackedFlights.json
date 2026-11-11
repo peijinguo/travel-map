@@ -1,0 +1,4 @@
+[
+  { "flight": "BR132", "date": "2026-11-24", "card": { "arriveTime": "11:55" } },
+  { "flight": "BR131", "date": "2026-11-29", "card": { "departTime": "12:55" } }
+]

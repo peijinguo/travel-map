@@ -1,12 +1,20 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { loadPlannerCloud, subscribePlannerCloud } from "../services/firebase";
+import { flightLive, flightSchedule } from "../data/flightStatus";
+import TRACKED_FLIGHTS from "../data/trackedFlights.json";
 
 // The outbound and return flights at the top of 機票住宿, read from the trip
 // in 行程規劃: a stop counts as a flight when its note names a flight number
 // or says 航班 / 搭機 / 飛機; the first flight of the trip is 去程 and the last
-// 回程. Each card can still be edited; an edit is kept on this device and
-// applies while that flight (its number and date) stays in the trip.
+// 回程; with none in the trip, the flights in src/data/trackedFlights.json.
+//
+// Taoyuan Airport's official flight board (synced into src/data/flightStatus.js
+// every 15 minutes by .github/workflows/sync-teine-lift-status.yml) then fills
+// in the Taoyuan side: terminal and scheduled time, and from the day before the
+// flight its gate, counter, estimated time and status. Official data wins over
+// the trip's notes. Each card can still be edited; an edit is kept on this
+// device and applies while that flight (its number and date) stays in the trip.
 const PLANNER_STORAGE_KEY = "yuki-tabi-planner-days-v2";
 const EDIT_STORAGE_KEY = "yuki-tabi-flight-edits-v1";
 
@@ -27,6 +35,62 @@ const AIRLINES = [
   [/國泰|Cathay|\bCX\d/iu, "國泰航空"],
 ];
 const KIND_LABELS = { outbound: "去程", return: "回程" };
+
+const TAOYUAN = "台北桃園 TPE";
+const AIRPORT_NAMES = {
+  KIX: "大阪關西", NRT: "東京成田", HND: "東京羽田", CTS: "札幌新千歲", NGO: "名古屋中部",
+  FUK: "福岡", OKA: "沖繩那霸", HKD: "函館", SDJ: "仙台", KOJ: "鹿兒島", TAK: "高松",
+  OKJ: "岡山", HIJ: "廣島", KMJ: "熊本", FSZ: "靜岡", IBR: "茨城", AOJ: "青森", KMQ: "小松",
+  TOY: "富山", UKB: "神戶", MYJ: "松山", KIJ: "新潟", ISG: "石垣", MMY: "宮古", AKJ: "旭川",
+  NGS: "長崎", OIT: "大分",
+};
+const AIRLINE_BY_CODE = {
+  BR: "長榮航空", CI: "中華航空", JX: "星宇航空", IT: "台灣虎航", MM: "樂桃航空",
+  GK: "捷星日本", JL: "日本航空", NH: "全日空", CX: "國泰航空", AE: "華信航空",
+};
+const ZH_NUMBER = { 1: "一", 2: "二", 3: "三" };
+// The Japanese end's terminal, where it is clear-cut.
+const japanTerminal = (airport, code) => {
+  const airline = code.slice(0, 2);
+  if (airport === "KIX") return airline === "MM" ? "第二航廈" : "第一航廈";
+  if (airport === "HND") return "第三航廈";
+  if (airport === "NRT") {
+    if (["BR", "NH"].includes(airline)) return "第一航廈";
+    if (["CI", "JL", "CX", "JX"].includes(airline)) return "第二航廈";
+    if (["MM", "GK"].includes(airline)) return "第三航廈";
+    return "";
+  }
+  if (["CTS", "FUK", "OKA"].includes(airport)) return "國際線航廈";
+  return "";
+};
+// Where to check a flight on its airline's own site.
+const statusLink = (code) =>
+  code.startsWith("BR")
+    ? "https://booking.evaair.com/flyeva/eva/b2c/flight-status.aspx?lang=zh-tw"
+    : code.startsWith("JX")
+      ? "https://www.starlux-airlines.com/zh-TW/flight-status"
+      : `https://www.google.com/search?q=${encodeURIComponent(`${code} 航班動態`)}`;
+
+// The official Taoyuan board's word on this flight, laid over the card.
+function withOfficial(flight) {
+  const code = (flight.flightNo ?? "").toUpperCase().replace(/\s/gu, "");
+  const schedule = flightSchedule[code];
+  const live = flightLive[`${code}|${flight.date}`];
+  if (!code || (!schedule && !live)) return { ...flight, code, official: null };
+  const [way, terminal, time, airport] = live
+    ? [live.way, live.terminal, live.time, live.airport]
+    : schedule;
+  const taoyuanTerminal = ZH_NUMBER[terminal] ? `第${ZH_NUMBER[terminal]}航廈` : "";
+  const japan = AIRPORT_NAMES[airport] ? `${AIRPORT_NAMES[airport]} ${airport}` : airport;
+  const japanSide = japanTerminal(airport, code);
+  const official = { way, time, live };
+  const airline = flight.airline || AIRLINE_BY_CODE[code.slice(0, 2)] || "";
+  return way === "D"
+    ? { ...flight, code, airline, official, from: TAOYUAN, fromTerminal: taoyuanTerminal, departTime: time,
+        to: japan, toTerminal: japanSide || flight.toTerminal }
+    : { ...flight, code, airline, official, to: TAOYUAN, toTerminal: taoyuanTerminal, arriveTime: time,
+        from: japan, fromTerminal: japanSide || flight.fromTerminal };
+}
 
 const readJson = (key, fallback) => {
   try {
@@ -69,7 +133,22 @@ function flightsFromDays(days) {
       });
     });
   });
-  if (!flights.length) return [];
+  if (!flights.length) {
+    return TRACKED_FLIGHTS.map((tracked, index) => ({
+      id: index ? "return" : "outbound",
+      date: tracked.date,
+      flightNo: tracked.flight,
+      airline: "",
+      departTime: "",
+      arriveTime: "",
+      from: "",
+      fromTerminal: "",
+      to: "",
+      toTerminal: "",
+      note: "直飛",
+      ...tracked.card,
+    }));
+  }
   const outbound = { ...flights[0], id: "outbound" };
   if (flights.length === 1) return [outbound];
   return [outbound, { ...flights[flights.length - 1], id: "return" }];
@@ -115,6 +194,32 @@ const FIELDS = [
   ["toTerminal", "抵達航廈"],
   ["note", "備註"],
 ];
+
+// The line under a card: live status from the day before the flight, else
+// the official timetable, and a link to the airline's own flight status.
+function OfficialStatus({ flight }) {
+  const { official, code } = flight;
+  if (!official) return null;
+  const live = official.live;
+  const verb = official.way === "D" ? "起飛" : "抵達";
+  const parts = live
+    ? [
+        live.status,
+        live.estimatedTime && live.estimatedTime !== live.time ? `預計 ${live.estimatedTime} ${verb}` : "",
+        live.counter && official.way === "D" ? `報到櫃檯 ${live.counter}` : "",
+        live.gate ? `登機門 ${live.gate}` : "",
+        live.belt && official.way === "A" ? `行李轉盤 ${live.belt}` : "",
+      ]
+    : [`桃園機場時刻表 ${official.time} ${verb}`, "前一天起顯示即時動態"];
+  return (
+    <p className={`flight-official ${live ? "is-live" : ""}`}>
+      <span>{parts.filter(Boolean).join("・")}</span>
+      <a href={statusLink(code)} target="_blank" rel="noreferrer">
+        航空公司官網 ↗
+      </a>
+    </p>
+  );
+}
 
 function FlightCard({ flight, onSave }) {
   const [draft, setDraft] = useState(null);
@@ -185,6 +290,7 @@ function FlightCard({ flight, onSave }) {
           {flight.toTerminal && <small>{flight.toTerminal}</small>}
         </div>
       </div>
+      <OfficialStatus flight={flight} />
       <button
         type="button"
         className="flight-edit"
@@ -218,14 +324,14 @@ function FlightCards() {
     };
   }, [cloudKey]);
 
-  const flights = flightsFromDays(days).map((flight) => ({
-    ...flight,
-    ...edits[editKey(flight)],
-    id: flight.id,
-  }));
+  const flights = flightsFromDays(days).map((flight) =>
+    withOfficial({ ...flight, ...edits[editKey(flight)], id: flight.id }),
+  );
 
   const save = (original, updated) => {
-    const next = { ...edits, [editKey(original)]: updated };
+    // Keep only what was typed, not the official data laid over it.
+    const { official, code, ...typed } = updated;
+    const next = { ...edits, [editKey(original)]: typed };
     setEdits(next);
     try {
       localStorage.setItem(EDIT_STORAGE_KEY, JSON.stringify(next));
