@@ -142,7 +142,7 @@ html:has(.hotel-page), html:has(.hotel-page) body { background: #fff; }
 .lodging-price-input i { color: #66808e; font-style: normal; font-weight: 800; }
 .lodging-price-input input { width: 130px; border: 0; outline: 0; background: transparent; color: #284d63; font-size: 17px; font-weight: 800; }
 .lodging-price-result { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin: 0; color: #526875; font-size: 16px; font-weight: 700; }
-.lodging-price-result b { color: #b88f8f; font-size: 22px; font-weight: 900; }
+.lodging-price-result b { color: #b88f8f; font-size: inherit; font-weight: 900; } // same size as 「/ 晚」
 .lodging-price-result small { color: #8ba0ac; font-size: 13px; font-weight: 700; }
 
 @media (max-width: 600px) {
