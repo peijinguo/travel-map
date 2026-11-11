@@ -30,27 +30,32 @@
 .snow-scene-piece img { max-width: none; }
 
 .snow-scene-snow { position: absolute; inset: 0; }
+// The same flakes as 想吃清單 (_wishlist.scss): small round dots with a soft
+// blue edge, drifting side to side as they fall. These pages are white, so
+// the dots are a pale snow blue instead of white.
 .snow-scene-flake {
   position: absolute;
-  top: -24px;
+  top: -8px;
   width: var(--size);
   height: var(--size);
-  animation: snow-scene-fall 15s linear infinite;
+  animation: snow-scene-fall 9s linear infinite;
 }
-.snow-scene-flake > img, .snow-scene-flake > i {
+.snow-scene-flake > i {
   display: block;
   width: 100%;
   height: 100%;
-  animation: snow-scene-sway 3.4s ease-in-out infinite alternate;
+  border-radius: 50%;
+  background: #c3d5e6;
+  box-shadow: 0 0 2px rgba(120, 150, 190, .6);
+  animation: snow-scene-sway var(--sway, 2.6s) ease-in-out infinite alternate;
 }
-.snow-scene-flake > i { border-radius: 50%; background: #8fb0cf; }
 @keyframes snow-scene-fall {
-  from { transform: translateY(0) rotate(0deg); }
-  to { transform: translateY(calc(100vh + 48px)) rotate(200deg); }
+  from { transform: translateY(0); }
+  to { transform: translateY(calc(100vh + 16px)); }
 }
 @keyframes snow-scene-sway {
-  from { transform: translateX(-14px); }
-  to { transform: translateX(14px); }
+  from { transform: translateX(-6px); }
+  to { transform: translateX(6px); }
 }
 
 @media (prefers-reduced-motion: reduce) {

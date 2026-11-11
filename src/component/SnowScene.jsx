@@ -1,4 +1,3 @@
-import snowflake from "../assets/prep-snowflake.webp";
 import "../assets/pages/_snow-scene.scss";
 
 // A faint pencil snow scene fixed behind a page's content, with falling snow.
@@ -6,19 +5,17 @@ import "../assets/pages/_snow-scene.scss";
 // children: <SnowScenePiece corner="bottom-left" width={835}>…</SnowScenePiece>.
 
 // A heavy snowfall, laid out by a fixed pseudo-random sequence so it looks the
-// same on every render. left: % of the screen width, size: px, fall and
-// delay: seconds; every third flake is a drawn snowflake, the rest are dots.
-const FLAKE_COUNT = 60;
+// same on every render: small round flakes like the ones on 想吃清單.
+// left: % of the screen width, size: px, fall and delay: seconds.
+const FLAKE_COUNT = 90;
 const FLAKES = Array.from({ length: FLAKE_COUNT }, (_, index) => {
   const r = (n) => (Math.sin((index + 1) * n) * 10000) % 1;
   const rand = (n) => Math.abs(r(n));
-  const icon = index % 3 === 0;
   return {
     left: Math.round(rand(12.9898) * 1000) / 10,
-    size: Math.round(icon ? 14 + rand(78.233) * 10 : 5 + rand(39.346) * 5),
-    fall: Math.round((8 + rand(4.123) * 8) * 10) / 10,
-    delay: Math.round(rand(93.989) * 160) / 10,
-    icon,
+    size: Math.round(3 + rand(39.346) * 4),
+    fall: Math.round((6 + rand(4.123) * 6) * 10) / 10,
+    delay: Math.round(rand(93.989) * 120) / 10,
   };
 });
 
@@ -49,9 +46,10 @@ function SnowScene({ children }) {
               // Negative delays start each flake part-way down, so the screen
               // is already snowing when the page opens.
               animationDelay: `${-flake.delay}s`,
+              "--sway": `${(flake.fall / 3).toFixed(1)}s`,
             }}
           >
-            {flake.icon ? <img src={snowflake} alt="" /> : <i />}
+            <i />
           </span>
         ))}
       </div>
