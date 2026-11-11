@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { saveLodgingPriceCloud, subscribeLodgingPricesCloud } from "../services/firebase";
 
 // The price row on a 機票住宿 lodging card: type the stay's total in yen and
-// it shows NT$ a night at today's exchange rate. Prices are kept on this
-// device, apart from the lodgings (which are rebuilt from the planner).
+// it shows NT$ a night at today's exchange rate. On a synced trip the prices
+// are shared with everyone on it (any phone or computer); without one they are
+// kept on this device.
 const PRICE_STORAGE_KEY = "yuki-tabi-lodging-prices-v1";
 const RATE_STORAGE_KEY = "yuki-tabi-jpy-twd-rate-v1";
 const RATE_URL = "https://open.er-api.com/v6/latest/JPY";
@@ -59,13 +62,45 @@ function useJpyRate() {
 
 const formatNumber = (value) => Math.round(value).toLocaleString("zh-TW");
 
+// Cloud field names cannot hold dots or slashes.
+const cloudField = (key) => key.replace(/[./\[\]*~`]/gu, "_");
+
 function LodgingPrice({ priceKey, nights }) {
+  const { user, syncSpaceId } = useAuth();
+  const cloudKey = user && syncSpaceId ? syncSpaceId : null;
   const rate = useJpyRate();
   const [total, setTotal] = useState(() => readJson(PRICE_STORAGE_KEY, {})[priceKey] ?? "");
+
+  // The trip's shared price for this stay, kept up to date as others type.
+  useEffect(() => {
+    if (!cloudKey) return undefined;
+    return subscribeLodgingPricesCloud(
+      cloudKey,
+      (prices) => {
+        const shared = prices[cloudField(priceKey)];
+        const local = readJson(PRICE_STORAGE_KEY, {})[priceKey];
+        // A price typed on this device before prices were shared: share it.
+        if (!shared && local) {
+          saveLodgingPriceCloud(cloudKey, cloudField(priceKey), local).catch(() => {});
+          const rest = readJson(PRICE_STORAGE_KEY, {});
+          delete rest[priceKey];
+          writeJson(PRICE_STORAGE_KEY, rest);
+        }
+        setTotal(shared ?? local ?? "");
+      },
+      (error) => console.error("無法同步住宿價格", error),
+    );
+  }, [cloudKey, priceKey]);
 
   const update = (value) => {
     const digits = value.replace(/[^\d]/g, "");
     setTotal(digits);
+    if (cloudKey) {
+      saveLodgingPriceCloud(cloudKey, cloudField(priceKey), digits).catch((error) =>
+        console.error("無法儲存住宿價格", error),
+      );
+      return;
+    }
     const prices = readJson(PRICE_STORAGE_KEY, {});
     if (digits) prices[priceKey] = digits;
     else delete prices[priceKey];

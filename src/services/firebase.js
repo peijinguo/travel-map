@@ -392,3 +392,29 @@ export async function savePrepCloud(syncSpaceId, items) {
     }),
   );
 }
+
+// Lodging prices on 機票住宿 (total yen per stay), shared by everyone on the
+// trip. One field per stay, so two people typing different stays never
+// overwrite each other.
+const lodgingPricesDoc = (syncSpaceId) =>
+  doc(db, "syncSpaces", syncSpaceId, "appData", "lodgingPrices");
+
+export function subscribeLodgingPricesCloud(syncSpaceId, onData, onError) {
+  if (!db) return () => {};
+  return onSnapshot(
+    lodgingPricesDoc(syncSpaceId),
+    (snapshot) => onData(snapshot.exists() ? snapshot.data().prices ?? {} : {}),
+    onError,
+  );
+}
+
+export async function saveLodgingPriceCloud(syncSpaceId, key, total) {
+  if (!db) return;
+  await withSyncTimeout(
+    setDoc(
+      lodgingPricesDoc(syncSpaceId),
+      { prices: { [key]: total || deleteField() }, updatedAt: serverTimestamp() },
+      { merge: true },
+    ),
+  );
+}
