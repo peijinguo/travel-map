@@ -140,7 +140,8 @@ html:has(.hotel-page), html:has(.hotel-page) body { background: #fff; }
 .hotel-list .lodging-price label > span:first-child { color: #526875; font-size: 16px; font-weight: 700; }
 .lodging-price-input { display: inline-flex; align-items: center; gap: 3px; padding: 4px 10px; border: 1.5px solid #a8c1c9; border-radius: 10px; background: #fff; }
 .lodging-price-input i { color: #526875; font-size: 16px; font-style: normal; font-weight: 700; }
-.lodging-price-input input { width: 92px; border: 0; outline: 0; background: transparent; color: #526875; font-size: 16px; font-weight: 700; }
+.lodging-price-input input { width: 64px; min-width: 56px; field-sizing: content; border: 0; outline: 0; background: transparent; color: #526875; font-size: 16px; font-weight: 700; }
+@supports (field-sizing: content) { .lodging-price-input input { width: auto; } }
 .lodging-price-result { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin: 0; color: #b88f8f; font-size: 16px; font-weight: 700; }
 // The price, its label and the box are the size of 「/ 晚」; the price keeps
 // its own dusty pink.

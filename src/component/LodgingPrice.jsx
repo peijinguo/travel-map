@@ -143,7 +143,7 @@ function LodgingPrice({ priceKey, nights }) {
           <i aria-hidden="true">¥</i>
           <input
             inputMode="numeric"
-            placeholder="輸入住宿總價"
+            placeholder="總價"
             value={total ? Number(total).toLocaleString("en-US") : ""}
             onChange={(event) => update(event.target.value)}
             aria-label="住宿總價（日圓）"
