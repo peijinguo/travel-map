@@ -89,8 +89,7 @@ html:has(.hotel-page), html:has(.hotel-page) body { background: #fff; }
 .flight-card { position: relative; display: grid; gap: 14px; padding: 22px 80px 22px 22px; border: 1.5px solid #a8c1c9; border-radius: 14px; background: #fff; box-shadow: 4px 5px 0 rgba(40,77,99,.08); color: #284d63; }
 .flight-card.is-editing { padding-right: 22px; }
 .flight-card-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
-.flight-kind { padding: 3px 12px; border-radius: 999px; background: #b88f8f; color: #fff; font-size: 15px; font-weight: 900; }
-.flight-card.is-return .flight-kind { background: #6c7675; }
+.flight-kind { padding: 3px 12px; border-radius: 999px; background: #6c7675; color: #fff; font-size: 15px; font-weight: 900; }
 .flight-no { font-size: 24px; font-weight: 900; }
 .flight-date { color: #b88f8f; font-size: 17px; font-weight: 800; }
 .flight-route { display: grid; grid-template-columns: auto minmax(60px, 1fr) auto; align-items: center; gap: 14px; }
