@@ -32,7 +32,8 @@ function extractStatus(html) {
 
   const readStatus = (officialName, openLabel, closedLabel) => {
     const escapedName = officialName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const match = text.match(new RegExp(`${escapedName}\\s*([○△×])(?:\\s*(OPEN|CLOSE|運行中|一時運休中|運休中))?`, "i"));
+    const namePattern = escapedName.replace(/^(\d+)\s*/, "$1\\s*");
+    const match = text.match(new RegExp(`${namePattern}\\s*([○△×])(?:\\s*(OPEN|CLOSE|運行中|一時運休中|運休中))?`, "i"));
     if (!match) throw new Error(`找不到 ${officialName} 的官網狀態`);
     const status = match[1] === "○" ? openLabel : match[1] === "△" ? "部分開放" : closedLabel;
     return { officialName, mark: match[1], status };

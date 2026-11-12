@@ -26,9 +26,10 @@ const number = (value) => {
 };
 
 function extractForecast(html) {
-  const dates = [...html.matchAll(/data-column-head="" data-date="(\d{4}-\d{2}-\d{2})"/g)]
-    .map((match) => match[1]);
-  if (dates.length < 6) throw new Error("預報日期不足 6 天");
+  const dayHeads = [...html.matchAll(/<td[^>]*colspan="(\d+)"[^>]*data-column-head="" data-date="(\d{4}-\d{2}-\d{2})"/g)]
+    .map((match) => ({ span: Number(match[1]), date: match[2] }));
+  if (dayHeads.length < 6) throw new Error("預報日期不足 6 天");
+  const periodCount = dayHeads.slice(0, 6).reduce((sum, day) => sum + day.span, 0);
 
   const phrases = rowCells(html, "phrases");
   const snow = rowCells(html, "snow").map(number);
@@ -36,20 +37,23 @@ function extractForecast(html) {
   const min = rowCells(html, "temperature-min").map(number);
   const wind = [...(html.match(/<tr class="[^"]*" data-row="wind">([\s\S]*?)<\/tr>/)?.[1] ?? "")
     .matchAll(/data-speed="([\d.]+)"/g)].map((match) => Number(match[1]));
-  if ([phrases, snow, max, min, wind].some((row) => row.length < 18))
+  if ([phrases, snow, max, min, wind].some((row) => row.length < periodCount))
     throw new Error("預報時段資料不完整");
 
-  const issuedAt = text(html.match(/<span class="location-issued__value"><b>([\s\S]*?)<\/b>/)?.[1] ?? "");
+  const issuedAt = text(html.match(/<span class="(?:location-subheader-issued|location-issued)__value"><b>([\s\S]*?)<\/b>/)?.[1] ?? "");
   if (!issuedAt) throw new Error("找不到預報發布時間");
 
-  const days = dates.slice(0, 6).map((date, dayIndex) => {
-    const start = dayIndex * 3;
-    return {
+  let start = 0;
+  const days = dayHeads.slice(0, 6).map(({ date, span }) => {
+    const end = start + span;
+    const day = {
       date,
-      snowfall: snow.slice(start, start + 3).reduce((sum, value) => sum + value, 0),
-      min: Math.min(...min.slice(start, start + 3)),
-      max: Math.max(...max.slice(start, start + 3)),
+      snowfall: snow.slice(start, end).reduce((sum, value) => sum + value, 0),
+      min: Math.min(...min.slice(start, end)),
+      max: Math.max(...max.slice(start, end)),
     };
+    start = end;
+    return day;
   });
   const seventh = new Date(`${days.at(-1).date}T12:00:00Z`);
   seventh.setUTCDate(seventh.getUTCDate() + 1);

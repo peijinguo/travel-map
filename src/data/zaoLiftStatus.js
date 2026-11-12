@@ -227,7 +227,7 @@ export const zaoLiftStatuses = [
   },
   {
     "number": 23,
-    "name": "横倉第１ペアＡ",
+    "name": "横倉ペア",
     "start": [
       140.3948,
       38.16117
@@ -235,36 +235,6 @@ export const zaoLiftStatuses = [
     "end": [
       140.40004,
       38.15757
-    ],
-    "officialStatus": "シーズン終了",
-    "openTime": "",
-    "closeTime": ""
-  },
-  {
-    "number": 25,
-    "name": "横倉第２ペア",
-    "start": [
-      140.40029,
-      38.15813
-    ],
-    "end": [
-      140.40319,
-      38.15329
-    ],
-    "officialStatus": "シーズン終了",
-    "openTime": "",
-    "closeTime": ""
-  },
-  {
-    "number": 26,
-    "name": "アストリア第１ペア",
-    "start": [
-      140.39718,
-      38.15857
-    ],
-    "end": [
-      140.40172,
-      38.15359
     ],
     "officialStatus": "シーズン終了",
     "openTime": "",
