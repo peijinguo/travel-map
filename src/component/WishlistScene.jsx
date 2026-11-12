@@ -77,16 +77,23 @@ function Snow({ points, w, h, count, seed }) {
   );
 }
 
-// The sea band redrawn through a slowly drifting ripple, so the water moves.
+// The sea band redrawn through a ripple pattern that sways slowly sideways and
+// bobs up and down, like a gentle swell, instead of changing shape. The
+// pattern is drawn wider and taller than the band so its edges never show.
+const EASE = ".45 0 .55 1;.45 0 .55 1";
 function Sea({ src, w, h, sea: [top, bottom], id }) {
+  const pad = 120;
+  const region = { x: -pad, y: top - pad / 2, width: w + pad * 2, height: bottom - top + pad };
   return (
     <svg className="wishlist-scene-sea" viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none">
       <defs>
-        <filter id={`${id}-ripple`} x="0" y={top - 8} width={w} height={bottom - top + 16} filterUnits="userSpaceOnUse">
-          <feTurbulence type="fractalNoise" baseFrequency="0.004 0.09" numOctaves="2" seed="3" result="noise">
-            <animate attributeName="baseFrequency" dur="9s" repeatCount="indefinite" values="0.004 0.09;0.006 0.11;0.004 0.09" />
-          </feTurbulence>
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="7" xChannelSelector="R" yChannelSelector="G" />
+        <filter id={`${id}-ripple`} {...region} filterUnits="userSpaceOnUse">
+          <feTurbulence {...region} type="fractalNoise" baseFrequency="0.0035 0.06" numOctaves="2" seed="3" result="noise" />
+          <feOffset in="noise" result="swell">
+            <animate attributeName="dx" dur="18s" repeatCount="indefinite" values="0;-90;0" calcMode="spline" keyTimes="0;.5;1" keySplines={EASE} />
+            <animate attributeName="dy" dur="6s" repeatCount="indefinite" values="0;12;0" calcMode="spline" keyTimes="0;.5;1" keySplines={EASE} />
+          </feOffset>
+          <feDisplacementMap in="SourceGraphic" in2="swell" scale="5" xChannelSelector="R" yChannelSelector="G" />
         </filter>
         <clipPath id={`${id}-band`}>
           <rect x="0" y={top} width={w} height={bottom - top} />
