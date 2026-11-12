@@ -3,11 +3,13 @@ import tall from "../assets/wishlist-bg-tall.webp";
 
 // The picture behind 想吃清單 (coffee and cakes on a table by the snowy sea),
 // filling the screen under the header, with snow falling over the sky and the
-// sea (see _wishlist.scss). A landscape screen gets the wide picture, a
+// sea (see _wishlist.scss), and the sea itself rippling. A landscape screen gets the wide picture, a
 // portrait one (a phone) the tall one.
 //
 // Each picture's snow area is a polygon in its own pixels: everything above
 // the table, stepping around the latte glass that stands up into the view.
+// The sea is the band of open water between the horizon and the railing,
+// [top, bottom] in the picture's pixels, which ripples (see Sea below).
 const SCENES = [
   {
     name: "wide",
@@ -16,6 +18,7 @@ const SCENES = [
     h: 1125,
     snow: [[0, 0], [1999, 0], [1999, 903], [1080, 903], [1080, 722], [925, 722], [925, 903], [0, 903]],
     count: 140,
+    sea: [598, 674],
   },
   {
     name: "tall",
@@ -24,6 +27,7 @@ const SCENES = [
     h: 1125,
     snow: [[0, 0], [633, 0], [633, 842], [360, 842], [360, 752], [262, 752], [262, 842], [0, 842]],
     count: 90,
+    sea: [616, 668],
   },
 ];
 
@@ -73,6 +77,28 @@ function Snow({ points, w, h, count, seed }) {
   );
 }
 
+// The sea band redrawn through a slowly drifting ripple, so the water moves.
+function Sea({ src, w, h, sea: [top, bottom], id }) {
+  return (
+    <svg className="wishlist-scene-sea" viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none">
+      <defs>
+        <filter id={`${id}-ripple`} x="0" y={top - 8} width={w} height={bottom - top + 16} filterUnits="userSpaceOnUse">
+          <feTurbulence type="fractalNoise" baseFrequency="0.004 0.09" numOctaves="2" seed="3" result="noise">
+            <animate attributeName="baseFrequency" dur="9s" repeatCount="indefinite" values="0.004 0.09;0.006 0.11;0.004 0.09" />
+          </feTurbulence>
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="7" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+        <clipPath id={`${id}-band`}>
+          <rect x="0" y={top} width={w} height={bottom - top} />
+        </clipPath>
+      </defs>
+      <g clipPath={`url(#${id}-band)`}>
+        <image href={src} width={w} height={h} filter={`url(#${id}-ripple)`} />
+      </g>
+    </svg>
+  );
+}
+
 function WishlistScene() {
   return (
     <div className="wishlist-scene" aria-hidden="true">
@@ -83,6 +109,7 @@ function WishlistScene() {
           style={{ "--ratio": scene.w / scene.h }}
         >
           <img className="wishlist-scene-bg" src={scene.src} alt="" />
+          <Sea src={scene.src} w={scene.w} h={scene.h} sea={scene.sea} id={`wishlist-sea-${scene.name}`} />
           <Snow points={scene.snow} w={scene.w} h={scene.h} count={scene.count} seed={index * 7} />
         </div>
       ))}

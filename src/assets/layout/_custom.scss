@@ -12,7 +12,7 @@
   background: rgba(255, 255, 255, .96);
   backdrop-filter: blur(12px);
   color: #123653;
-  font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif;
 }
 
 .brand {
@@ -208,7 +208,7 @@
 .sync-code-option-rename:hover, .sync-code-option-rename:focus-visible { background: #edf4f7; color: #315a71; }
 .sync-code-option-rename.is-save { color: #315a71; font-size: 18px; font-weight: 900; }
 .sync-code-options li.is-renaming { border-color: #476a82; }
-.sync-code-name-input { min-width: 0; padding: 9px 12px; border: 0; outline: none; background: #fff; color: #123653; font: 700 16px/1.2 "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.sync-code-name-input { min-width: 0; padding: 9px 12px; border: 0; outline: none; background: #fff; color: #123653; font: 700 16px/1.2 "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .sync-code-option-remove { position: relative; border: 0; border-left: 1px solid #d6e1e7; background: transparent; color: #7891a2; font-size: 0; line-height: 1; cursor: pointer; }
 .sync-code-option-remove::before, .sync-code-option-remove::after { position: absolute; top: 50%; left: 50%; width: 11px; height: 2px; content: ""; background: #7891a2; transform-origin: center; }
 .sync-code-option-remove::before { transform: translate(-50%, -50%) rotate(45deg); }
@@ -317,6 +317,8 @@
   .menu-toggle--open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .menu-toggle--open span:nth-child(2) { opacity: 0; }
   .menu-toggle--open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  // Hovered, the menu and search circles take the same tint as the current page in the menu (e.g. 行程規劃).
+  .menu-toggle:hover, .menu-toggle:focus-visible, .header-login:hover, .header-login:focus-visible { background: #e7edf0; }
   // Same circle as the menu toggle beside it.
   .header-login {
     width: 42px;
@@ -349,7 +351,7 @@ img { max-width: 100%; height: auto; }
   border-radius: 50%;
   background: #fff;
   color: #123653;
-  font-family: "DM Sans", "Noto Sans TC", sans-serif;
+  font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", sans-serif;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: .06em;

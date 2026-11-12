@@ -3,7 +3,7 @@
   padding: 54px clamp(24px, 6vw, 96px) 80px;
   background: #f8f7f2;
   color: #123653;
-  font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif;
 }
 
 .resort-detail-hero {
@@ -119,7 +119,7 @@
 .official-trail-map figcaption a { color: #2f6f91; font-size: 14px; font-weight: 800; text-decoration: none; }
 .official-trail-map figcaption a:hover { text-decoration: underline; }
 .cartoon-trail-map { width: 100%; height: 100%; display: block; }
-.kamoi-trail-map { font-family: "DM Sans", "Noto Sans JP", "Noto Sans TC", sans-serif; }
+.kamoi-trail-map { font-family: "DM Sans", "Noto Sans JP", "Noto Sans TC", "Noto Sans JP", sans-serif; }
 .kamoi-ridge { fill: none; stroke: #293e46; stroke-width: 6; stroke-linecap: round; }
 .kamoi-forest { fill: url(#kamoi-trees); opacity: .92; }
 .kamoi-slope { fill: url(#kamoi-snow); stroke: #4e6670; stroke-width: 3; }
@@ -144,7 +144,7 @@
 .lift-route-heading .card-kicker { margin: 0 0 8px; }
 .lift-route-heading h3 { margin: 0; color: #123653; font-size: 30px; font-weight: 900; }
 .lift-route-sketch { height: clamp(240px, 29vw, 340px); margin-top: 16px; overflow: hidden; border: 1px solid #d5e8ee; border-radius: 20px; background: #e8f6fa; }
-.lift-route-map { width: 100%; height: 100%; display: block; font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.lift-route-map { width: 100%; height: 100%; display: block; font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .lift-route-ridge { fill: #d6e8ec; stroke: #9ab9c3; stroke-width: 2; }
 .lift-route-base { fill: #f8fcfd; stroke: #c5dfe6; stroke-width: 2; }
 .lift-route-line line { stroke: #e96b3d; stroke-width: 4; stroke-dasharray: 9 6; stroke-linecap: round; }
@@ -301,7 +301,7 @@
 .kokusai-live-lift-status [role="tabpanel"] .kamui-lift-closed { padding: 7px 11px; font-size: 14px; }
 .kokusai-live-lift-status [role="tabpanel"] .kokusai-lift-number { width: 38px; height: 38px; flex-basis: 38px; font-size: 15px; }
 .kokusai-live-lift-status [role="tabpanel"] .kokusai-course-level { width: 50px; flex-basis: 50px; font-size: 14px; }
-.hirafu-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.hirafu-trail-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .hirafu-back-ridge { fill: #c7e0e8; stroke: #8aadb9; stroke-width: 2; }
 .hirafu-forest, .hirafu-tree-island { fill: url(#hirafu-trees); }
 .hirafu-forest { opacity: .96; }
@@ -330,7 +330,7 @@
 .hirafu-official-link rect { fill: rgba(11,53,84,.9); stroke: #fff; stroke-width: 1.5; }
 .hirafu-official-link text { fill: #fff; font-size: 9px; font-weight: 900; letter-spacing: .04em; }
 .hirafu-official-link:hover rect { fill: #ef8a65; }
-.niseko-village-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.niseko-village-trail-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .niseko-back-ridge { fill: #bdd9e4; stroke: #7eabbc; stroke-width: 2; }
 .niseko-forest, .niseko-village-forest { fill: url(#niseko-village-trees); }
 .niseko-slope { fill: url(#niseko-village-snow); stroke: #789dab; stroke-width: 2.5; }
@@ -365,7 +365,7 @@
 .niseko-village-legend .is-orange { stroke: #e87835; }
 .niseko-village-legend .is-red { stroke: #d9413d; }
 .niseko-village-note { fill: #597887; font-size: 9px; font-weight: 900; letter-spacing: .06em; }
-.niseko-united-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.niseko-united-trail-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .niseko-united-ridge { fill: #bedde8; stroke: #7ca9ba; stroke-width: 2; }
 .niseko-united-forest, .niseko-united-tree-island { fill: url(#niseko-united-trees); }
 .niseko-united-zone { fill: url(#niseko-united-snow); stroke: #7199aa; stroke-width: 2.4; }
@@ -387,7 +387,7 @@
 .niseko-united-legend .is-green { stroke: #1c9d65; }.niseko-united-legend .is-red { stroke: #d9413d; }.niseko-united-legend .is-black { stroke: #283b44; }
 .niseko-united-note { fill: #597887; font-size: 8px; font-weight: 900; letter-spacing: .06em; }
 .niseko-official-map-link { display: block; }
-.niseko-official-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.niseko-official-trail-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .niseko-official-dimmer { fill: rgba(235, 246, 250, .72); }
 .niseko-official-title rect, .niseko-official-focus-label rect { fill: rgba(255,255,255,.95); stroke: #294f63; stroke-width: 2; }
 .niseko-official-title text { fill: #174c6a; font-size: 17px; font-weight: 900; letter-spacing: .06em; }
@@ -406,7 +406,7 @@
 .trail-base { fill: #fff7e6; stroke: #334e5d; stroke-width: 2.3; stroke-linecap: round; stroke-linejoin: round; }
 .trail-base text { fill: #587787; stroke: none; font-size: 11px; font-weight: 900; letter-spacing: .12em; }
 .trail-legend text { fill: #587787; font-size: 12px; font-weight: 800; }
-.santa-present-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.santa-present-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .real-map-back-ridge { fill: #d6e8ee; stroke: #9bbbc8; stroke-width: 2; }
 .real-map-forest { fill: url(#santa-trees); opacity: .94; }
 .real-map-snowfield { fill: url(#santa-snow); stroke: #90adba; stroke-width: 2.5; }
@@ -430,7 +430,7 @@
 .santa-compact-legend .legend-course-name { font-size: 9px; font-weight: 800; }
 .real-map-north path { fill: #e96b3d; stroke: #354d59; stroke-width: 2; }
 .real-map-north text { fill: #354d59; font-size: 12px; font-weight: 900; }
-.kurodake-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.kurodake-trail-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .kurodake-back-ridge { fill: #bddce8; stroke: #88afbf; stroke-width: 2; }
 .kurodake-mountain { fill: url(#kurodake-snow); stroke: #678d9f; stroke-width: 2.5; }
 .kurodake-snow-face { fill: #f8fcfe; stroke: #a6c2ce; stroke-width: 2; }
@@ -465,7 +465,7 @@
 .kurodake-route-label line { stroke-width: 4; stroke-linecap: round; }
 .kurodake-route-label.is-dashed line { stroke-dasharray: 5 4; }
 .kurodake-route-label text { fill: #294e62; font-size: 10px; font-weight: 900; }
-.nakayama-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.nakayama-trail-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .nakayama-back-hill { fill: #c4dbe3; stroke: #83a8b5; stroke-width: 2; }
 .nakayama-forest { fill: url(#nakayama-trees); opacity: .96; }
 .nakayama-run { fill: url(#nakayama-snow); stroke: #769aa8; stroke-width: 2.5; }
@@ -494,11 +494,11 @@
 .nakayama-slope-tag.is-beginner rect { stroke: #58a66c; }
 .nakayama-slope-tag.is-beginner text { fill: #438654; }
 .nakayama-course-length { fill: #617f8e; font-size: 12px; font-weight: 900; paint-order: stroke; stroke: #fff; stroke-width: 4px; }
-.profiled-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.profiled-trail-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .profile-map-title rect { fill: rgba(255, 255, 255, .94); stroke: #354d59; stroke-width: 2; }
 .profile-map-title text { fill: #123653; font-size: 17px; font-weight: 900; }
 .profile-map-title .profile-map-stats { fill: #668396; font-size: 12px; font-weight: 800; }
-.fus-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.fus-trail-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .fus-back-ridge { fill: #c4dadc; stroke: #8eaaae; stroke-width: 2; }
 .fus-forest { fill: url(#fus-trees); stroke: #517873; stroke-width: 2; }
 .fus-snowfield { fill: url(#fus-snow); stroke: #789ba5; stroke-width: 2.4; }
@@ -523,7 +523,7 @@
 .fus-legend text { fill: #36586a; font-size: 10.5px; font-weight: 900; }
 .fus-guide text { fill: #36586a; font-size: 9.5px; font-weight: 900; }
 .fus-guide .fus-guide-stat { fill: #718b99; font-size: 8.8px; }
-.moiwa-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.moiwa-trail-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .moiwa-back-ridge { fill: #bfd9e3; stroke: #88aab8; stroke-width: 2; }
 .moiwa-forest { fill: url(#moiwa-trees); stroke: #486f63; stroke-width: 2; }
 .moiwa-south-panel { fill: rgba(231, 245, 250, .94); stroke: #4f7483; stroke-width: 2.4; }
@@ -550,7 +550,7 @@
 .moiwa-legend text { fill: #36586a; font-size: 10.5px; font-weight: 900; }
 .moiwa-guide text { fill: #36586a; font-size: 9.5px; font-weight: 900; }
 .moiwa-guide .moiwa-guide-stat { fill: #718b99; font-size: 8.8px; }
-.niseko-moiwa-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.niseko-moiwa-trail-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .niseko-moiwa-ridge { fill: #bfdbe5; stroke: #85aab9; stroke-width: 2; }
 .niseko-moiwa-forest { fill: url(#niseko-moiwa-trees); opacity: .96; }
 .niseko-moiwa-ski-area { fill: url(#niseko-moiwa-snow); stroke: #739ba9; stroke-width: 2.4; }
@@ -575,7 +575,7 @@
 .niseko-moiwa-legend .advanced { stroke: #25272b; }
 .niseko-moiwa-guide text { fill: #36586a; font-size: 10px; font-weight: 900; }
 .niseko-moiwa-guide .stat { fill: #748d99; font-size: 8px; }
-.bankei-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.bankei-trail-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .bankei-back-ridge { fill: #bfd9e3; stroke: #88aab8; stroke-width: 2; }
 .bankei-forest { fill: url(#bankei-trees); stroke: #486f63; stroke-width: 2; }
 .bankei-east-snow, .bankei-center-snow, .bankei-west-snow { fill: url(#bankei-snow); stroke: #789ba9; stroke-width: 2.3; }
@@ -599,7 +599,7 @@
 .bankei-legend text { fill: #36586a; font-size: 10px; font-weight: 900; }
 .bankei-guide text { fill: #36586a; font-size: 10.5px; font-weight: 900; }
 .bankei-guide .bankei-guide-stat { fill: #718b99; font-size: 9.5px; }
-.kokusai-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.kokusai-trail-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .kokusai-back-ridge { fill: #bfd8e2; stroke: #89aab7; stroke-width: 2; }
 .kokusai-forest { fill: url(#kokusai-trees); stroke: #486e64; stroke-width: 2; }
 .kokusai-snowfield, .kokusai-right-field { fill: url(#kokusai-snow); stroke: #759aa9; stroke-width: 2.3; }
@@ -627,7 +627,7 @@
 .kokusai-legend text { fill: #36586a; font-size: 10.5px; font-weight: 900; }
 .kokusai-guide text { fill: #36586a; font-size: 10.5px; font-weight: 900; }
 .kokusai-guide .kokusai-guide-stat { fill: #718b99; font-size: 10.5px; }
-.teine-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.teine-trail-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .teine-back-ridge { fill: #bcd7e2; stroke: #86a9b8; stroke-width: 2; }
 .teine-forest { fill: url(#teine-trees); stroke: #477565; stroke-width: 2; }
 .teine-highland, .teine-olympia, .teine-connector { fill: url(#teine-snow); stroke: #739baa; stroke-width: 2.4; }
@@ -653,7 +653,7 @@
 .teine-legend text { fill: #36586a; font-size: 10.5px; font-weight: 900; }
 .teine-guide text { fill: #36586a; font-size: 10.5px; font-weight: 900; }
 .teine-guide .teine-guide-stat { fill: #718b99; font-size: 10.5px; }
-.tengu-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.tengu-trail-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .tengu-far-mountain { fill: #b9d1e1; stroke: #8faaba; stroke-width: 2; }
 .tengu-yotei { fill: #8ca8bf; stroke: #637f94; stroke-width: 1.6; }
 .tengu-yotei-snow { fill: #fff; stroke: #7793a8; stroke-width: 1; }
@@ -682,7 +682,7 @@
 .tengu-legend text { fill: #36586a; font-size: 11px; font-weight: 900; }
 .tengu-guide text { fill: #36586a; font-size: 10.5px; font-weight: 900; }
 .tengu-guide .tengu-guide-stat { fill: #718b99; font-size: 10.5px; }
-.asari-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.asari-trail-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .asari-back-ridge { fill: #087fb0; stroke: #08739e; stroke-width: 2; }
 .asari-mountain { fill: #6f9bcf; stroke: #557fab; stroke-width: 2.4; }
 .asari-upper-snow, .asari-mid-snow, .asari-lower-snow { fill: url(#asari-snow); stroke: #7099aa; stroke-width: 2.2; }
@@ -709,7 +709,7 @@
 .asari-legend text { fill: #36586a; font-size: 12.5px; font-weight: 900; }
 .asari-specs > g text { fill: #3e5d6d; font-size: 12px; font-weight: 900; }
 .asari-specs > g .asari-spec-stat { fill: #718b99; font-size: 11.5px; }
-.onze-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.onze-trail-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .onze-sea { fill: #54b7d2; opacity: .58; }
 .onze-back-ridge { fill: #c5e2e9; stroke: #83aab7; stroke-width: 2; }
 .onze-forest { fill: url(#onze-trees); opacity: .95; }
@@ -742,7 +742,7 @@
 .onze-specs text { fill: #3c5c6d; font-size: 10.5px; font-weight: 800; }
 .onze-specs .onze-spec-name { font-weight: 900; }
 .onze-specs .onze-spec-stat { fill: #718b99; font-size: 8.5px; }
-.kamui-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.kamui-trail-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .kamui-back-ridge { fill: #d2e7ee; stroke: #94b5c4; stroke-width: 2; }
 .kamui-forest { fill: url(#kamui-forest); opacity: .94; }
 .kamui-snow-mass { fill: url(#kamui-snow); stroke: #81a9ba; stroke-width: 2.5; }
@@ -769,8 +769,8 @@
 .kamui-course-index .kamui-index-title { fill: #d4262d; font-size: 14px; font-weight: 900; letter-spacing: .08em; }
 .kamui-course-index .kamui-index-divider { stroke: #b8ccd5; stroke-width: 1; }
 .kamui-course-index .kamui-index-stats { fill: #607f8f; font-size: 9px; font-weight: 900; }
-.inosawa-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
-.canmore-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.inosawa-trail-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
+.canmore-trail-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .canmore-back-ridge { fill: #bfd9e3; stroke: #83a8b7; stroke-width: 2; }
 .canmore-forest { fill: url(#canmore-trees); opacity: .96; }
 .canmore-snowfield { fill: url(#canmore-snow); stroke: #739cab; stroke-width: 2.5; }
@@ -797,7 +797,7 @@
 .canmore-guide line { stroke-width: 5; stroke-linecap: round; }
 .canmore-guide text { fill: #345568; font-size: 9px; font-weight: 900; }
 .canmore-guide .canmore-guide-stat { fill: #7a919d; font-size: 8px; }
-.asahidake-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.asahidake-trail-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .asahidake-back-ridge { fill: #bdd9e4; stroke: #83a8b8; stroke-width: 2; }
 .asahidake-mountain { fill: url(#asahidake-snow); stroke: #6d93a4; stroke-width: 2.5; }
 .asahidake-snow-face { fill: #f8fcfe; stroke: #a3bfca; stroke-width: 2; }
@@ -826,7 +826,7 @@
 .asahidake-guide line { stroke-width: 6; stroke-linecap: round; }
 .asahidake-guide text { fill: #31566a; font-size: 10px; font-weight: 900; }
 .asahidake-guide .guide-slope { fill: #7b919c; font-size: 8px; }
-.furano-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.furano-trail-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .furano-back-ridge { fill: #c2dce6; stroke: #86aab8; stroke-width: 2; }
 .furano-forest { fill: url(#furano-trees); opacity: .96; }
 .furano-zone-snow, .kitanomine-zone-snow { fill: url(#furano-snow); stroke: #719aaa; stroke-width: 2.5; }
@@ -855,7 +855,7 @@
 .furano-legend .advanced { stroke: #282f33; }
 .furano-legend text { fill: #345669; font-size: 10px; font-weight: 900; }
 .furano-legend .furano-legend-note { fill: #718b98; font-size: 9px; }
-.shokanbetsu-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.shokanbetsu-trail-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .shokanbetsu-back-ridge { fill: #c4dde6; stroke: #88aab7; stroke-width: 2; }
 .shokanbetsu-forest { fill: url(#shokanbetsu-trees); opacity: .96; }
 .shokanbetsu-left-slope, .shokanbetsu-right-slope { fill: url(#shokanbetsu-snow); stroke: #739ba9; stroke-width: 2.5; }
@@ -886,7 +886,7 @@
 .shokanbetsu-guide line { stroke-width: 5; stroke-linecap: round; stroke-dasharray: 3 4; }
 .shokanbetsu-guide text { fill: #345669; font-size: 9px; font-weight: 900; }
 .shokanbetsu-guide .guide-stat { fill: #79909c; font-size: 8px; }
-.tohma-trail-map { font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+.tohma-trail-map { font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; }
 .tohma-back-hill { fill: #c7e0e8; stroke: #8aadb9; stroke-width: 2; }
 .tohma-forest { fill: url(#tohma-trees); opacity: .96; }
 .tohma-main-slope { fill: url(#tohma-snow); stroke: #729ba9; stroke-width: 2.5; }
@@ -1077,8 +1077,14 @@
   .resort-info-card, .snow-forecast-card { padding: 24px 20px; }
   .weather-metrics { grid-template-columns: 1fr; }
   .snowfall-chart { gap: 5px; }
-  .moiwa-forecast-grid { overflow-x: auto; }
-  .moiwa-forecast-day { min-width: 104px; }
+  // All five days in one row on a phone, no sideways scrolling.
+  .moiwa-forecast-grid { overflow: hidden; }
+  .moiwa-forecast-day { min-width: 0; gap: 6px; min-height: 0; padding: 12px 2px 10px; }
+  .moiwa-forecast-day > strong { font-size: 13px; }
+  .moiwa-forecast-day p { font-size: 11px; white-space: normal; }
+  .moiwa-forecast-day p b { font-size: 14px; }
+  .moiwa-forecast-day small { font-size: 10px; line-height: 1.3; }
+  .moiwa-forecast-day em { padding: 3px 5px; font-size: 10px; white-space: nowrap; }
   .snowfall-track { padding-inline: 2px; }
   .snowfall-day small { font-size: 12px; }
   .trail-sketch { height: 330px; }

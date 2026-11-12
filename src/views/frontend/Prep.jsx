@@ -123,7 +123,23 @@ function Prep() {
         <header className="prep-heading">
           <h1>行前準備</h1>
           <p>
-            {items.length ? `完成 ${doneCount} / ${items.length}` : "清單是空的，在下面寫上要準備的東西"}
+            {items.length ? (
+              <span
+                className="prep-progress"
+                role="progressbar"
+                aria-label="準備進度"
+                aria-valuemin={0}
+                aria-valuemax={items.length}
+                aria-valuenow={doneCount}
+              >
+                <span>{doneCount} / {items.length}</span>
+                <span className="prep-progress-bar">
+                  <i style={{ width: `${(doneCount / items.length) * 100}%` }} />
+                </span>
+              </span>
+            ) : (
+              "清單是空的，在下面寫上要準備的東西"
+            )}
             {status && <span className="prep-status"> · {status}</span>}
           </p>
         </header>

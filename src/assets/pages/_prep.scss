@@ -88,7 +88,7 @@ html:has(.prep-page), html:has(.prep-page) body { background: #fff; }
   box-shadow: 3px 4px 0 rgba(52,67,74,.09), 8px 10px 0 rgba(52,67,74,.045);
   color: $prep-ink;
   // The same type as the itinerary in 行程規劃.
-  font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif;
 }
 
 .prep-sheet { position: relative; }
@@ -99,6 +99,12 @@ html:has(.prep-page), html:has(.prep-page) body { background: #fff; }
 .prep-heading { padding-left: 4px; }
 .prep-heading h1 { margin: 0; color: #26383f; font-family: inherit; font-size: 26px; font-weight: 700; line-height: $prep-line * 1.1; letter-spacing: .035em; }
 .prep-heading p { margin: 0; color: #7a8790; font-size: 16px; font-weight: 600; line-height: $prep-line * .9; }
+// Ticked / total, then a pill that fills as things get ticked, in the sheet's top-right corner.
+.prep-heading { position: relative; }
+.prep-heading p:has(.prep-progress) { position: absolute; top: 0; right: 4px; display: flex; align-items: center; height: $prep-line; }
+.prep-progress { display: inline-flex; align-items: center; gap: 10px; vertical-align: middle; font-size: 14px; }
+.prep-progress-bar { position: relative; display: block; width: 120px; height: 12px; overflow: hidden; border: 2px solid #7a8790; border-radius: 999px; background: #fff; }
+.prep-progress-bar i { position: absolute; inset: 0 auto 0 0; border-radius: inherit; background: #8a6b55; transition: width .3s ease; }
 .prep-status { color: #c0574f; }
 
 .prep-list { margin: 0; padding: 0; list-style: none; }
@@ -148,6 +154,7 @@ html:has(.prep-page), html:has(.prep-page) body { background: #fff; }
 // Every row sits on its own pair of ruled lines: the title block is exactly two
 // rows, and each item's text rests just above the lines at the foot of its row.
 .prep-heading { box-sizing: border-box; height: $prep-line * 2; min-height: 0; }
+.prep-heading:has(.prep-progress) { height: $prep-line; }
 .prep-heading h1 { line-height: $prep-line; }
 .prep-heading p { line-height: $prep-line - 14px; }
 .prep-list li, .prep-add { box-sizing: border-box; min-height: $prep-line; align-items: flex-end; padding-bottom: 9px; }

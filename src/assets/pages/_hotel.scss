@@ -54,7 +54,7 @@ html:has(.hotel-page), html:has(.hotel-page) body { background: #fff; }
 .hotel-version-nav a.is-active { border-color: #6c7675; background: #6c7675; color: #fff; }
 
 .hotel-list { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
-.hotel-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 28px; min-height: 146px; padding: 22px; border: 1.5px solid #a8c1c9; border-radius: 14px; background: #fff; box-shadow: 4px 5px 0 rgba(40,77,99,.08); }
+.hotel-list li { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 28px; min-height: 146px; padding: 22px; border: 1.5px solid #a8c1c9; border-radius: 14px; background: #fff; box-shadow: 4px 5px 0 rgba(40,77,99,.08); }
 .hotel-list li.hotel-list-item-selected { border-color: #e96b3d; box-shadow: 0 0 0 4px rgba(233,107,61,.16), 4px 5px 0 rgba(40,77,99,.08); }
 .hotel-list li > div { display: grid; gap: 6px; min-width: 0; }
 .hotel-list strong { font-size: 24px; }
@@ -138,14 +138,16 @@ html:has(.hotel-page), html:has(.hotel-page) body { background: #fff; }
 .lodging-price { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 8px; padding-top: 12px; border-top: 1px dashed #d5e0e5; }
 .lodging-price label { display: flex; align-items: center; gap: 8px; }
 .hotel-list .lodging-price label > span:first-child { color: #526875; font-size: 16px; font-weight: 700; }
-.lodging-price-input { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; border: 1.5px solid #a8c1c9; border-radius: 10px; background: #fff; }
+.lodging-price-input { display: inline-flex; align-items: center; gap: 3px; padding: 4px 10px; border: 1.5px solid #a8c1c9; border-radius: 10px; background: #fff; }
 .lodging-price-input i { color: #526875; font-size: 16px; font-style: normal; font-weight: 700; }
-.lodging-price-input input { width: 130px; border: 0; outline: 0; background: transparent; color: #526875; font-size: 16px; font-weight: 700; }
+.lodging-price-input input { width: 92px; border: 0; outline: 0; background: transparent; color: #526875; font-size: 16px; font-weight: 700; }
 .lodging-price-result { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin: 0; color: #b88f8f; font-size: 16px; font-weight: 700; }
 // The price, its label and the box are the size of 「/ 晚」; the price keeps
 // its own dusty pink.
 .lodging-price-result b { color: #b88f8f; font-size: inherit; font-weight: inherit; }
 .lodging-price-result small { color: #8ba0ac; font-size: 13px; font-weight: 700; }
+.hotel-list .lodging-rate { position: absolute; top: 10px; right: 16px; margin: 0; color: #8ba0ac; font-size: 13px; font-weight: 700; }
+.hotel-list li:has(.lodging-rate) { padding-top: 34px; }
 
 @media (max-width: 600px) {
   .flight-card { padding: 18px 16px; }

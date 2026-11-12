@@ -30,6 +30,8 @@
   .wishlist-scene-art.is-tall { display: block; }
 }
 .wishlist-scene-bg { display: block; width: 100%; height: 100%; }
+// The rippling sea, laid exactly over the picture (WishlistScene.jsx).
+.wishlist-scene-sea { position: absolute; inset: 0; width: 100%; height: 100%; }
 
 // Snow falling over the sky and sea.
 .wishlist-scene-window { position: absolute; overflow: hidden; }
@@ -52,7 +54,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .wishlist-scene * { animation: none !important; }
-  .wishlist-scene-window { display: none; }
+  .wishlist-scene-window, .wishlist-scene-sea { display: none; }
 }
 html:has(.wishlist-page), html:has(.wishlist-page) body { background: #fff; }
 .wishlist-heading h1 { margin: 0; font-size: 30px; font-weight: 900; color: #123653; }
