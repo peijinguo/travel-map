@@ -431,6 +431,9 @@ function Home() {
   // until one is clicked, hovering previews each town. Clicking the pinned
   // town again lets hovering take over again.
   const [pinnedId, setPinnedId] = useState(null);
+  // The town under the mouse is drawn last so it sits on top, even while
+  // another town is pinned to the card.
+  const [hoverId, setHoverId] = useState(null);
   const preview = (id) => {
     if (!pinnedId) setActiveId(id);
   };
@@ -440,9 +443,13 @@ function Home() {
   };
   const phone = usePhoneLayout();
   const activeTown = snowTowns.find((town) => town.id === activeId) ?? snowTowns[0];
+  const hoverTown = hoverId && hoverId !== activeTown.id
+    ? snowTowns.find((town) => town.id === hoverId)
+    : null;
   const renderedTowns = [
-    ...snowTowns.filter((town) => town.id !== activeTown.id),
+    ...snowTowns.filter((town) => town.id !== activeTown.id && town !== hoverTown),
     activeTown,
+    ...(hoverTown ? [hoverTown] : []),
   ];
 
   return (
@@ -484,8 +491,11 @@ function Home() {
                   // Only a real mouse previews on hover; on a touch screen the
                   // tap itself picks the town.
                   onPointerEnter={(event) => {
-                    if (event.pointerType === "mouse") preview(town.id);
+                    if (event.pointerType !== "mouse") return;
+                    setHoverId(town.id);
+                    preview(town.id);
                   }}
+                  onPointerLeave={() => setHoverId((id) => (id === town.id ? null : id))}
                   onFocus={() => preview(town.id)}
                   onClick={() => pick(town.id)}
                   onKeyDown={(event) => {
