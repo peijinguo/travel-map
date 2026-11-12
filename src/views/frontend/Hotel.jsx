@@ -216,7 +216,7 @@ function Hotel() {
               className={version === selectedVersion ? "is-active" : undefined}
               to={`/hotel?version=${encodeURIComponent(version)}`}
             >
-              版本 {version}
+              {version}
             </Link>
           ))}
         </nav>
