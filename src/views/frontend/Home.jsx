@@ -505,7 +505,7 @@ function Home() {
               const selected = town.id === activeId;
               return (
                 <g
-                  className={`town-marker town-marker-${town.id} ${selected ? "is-active" : ""}`}
+                  className={`town-marker town-marker-${town.id} ${selected ? "is-active" : ""} ${town === hoverTown ? "has-hover-copy" : ""}`}
                   key={town.id}
                   role="button"
                   tabIndex="0"

@@ -388,6 +388,9 @@ main:has(.home-page) { flex: 1; display: flex; flex-direction: column; }
 // The on-top copy of the hovered town while another town is pinned: it only
 // shows, so the real marker underneath keeps receiving the mouse.
 .town-marker.is-hover-copy, .town-marker.is-hover-copy * { pointer-events: none !important; }
+// The real marker under the copy turns see-through (it still takes the mouse),
+// so its own hover pop does not show as a ghost behind the copy.
+.town-marker.has-hover-copy > * { opacity: 0; transition: none; }
 .town-marker.is-hover-copy .marker-pop { animation: marker-copy-pop .2s ease; }
 .town-marker.is-hover-copy .marker-label { animation: marker-copy-label .2s ease; }
 @keyframes marker-copy-pop { from { transform: scale(1); } to { transform: scale(1.55); } }
