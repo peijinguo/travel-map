@@ -427,6 +427,17 @@ const usePhoneLayout = () => {
 
 function Home() {
   const [activeId, setActiveId] = useState("hakuba");
+  // A clicked town stays on the card while the mouse passes over other towns;
+  // until one is clicked, hovering previews each town. Clicking the pinned
+  // town again lets hovering take over again.
+  const [pinnedId, setPinnedId] = useState(null);
+  const preview = (id) => {
+    if (!pinnedId) setActiveId(id);
+  };
+  const pick = (id) => {
+    setActiveId(id);
+    setPinnedId((pinned) => (pinned === id ? null : id));
+  };
   const phone = usePhoneLayout();
   const activeTown = snowTowns.find((town) => town.id === activeId) ?? snowTowns[0];
   const renderedTowns = [
@@ -473,14 +484,14 @@ function Home() {
                   // Only a real mouse previews on hover; on a touch screen the
                   // tap itself picks the town.
                   onPointerEnter={(event) => {
-                    if (event.pointerType === "mouse") setActiveId(town.id);
+                    if (event.pointerType === "mouse") preview(town.id);
                   }}
-                  onFocus={() => setActiveId(town.id)}
-                  onClick={() => setActiveId(town.id)}
+                  onFocus={() => preview(town.id)}
+                  onClick={() => pick(town.id)}
                   onKeyDown={(event) => {
                     if (event.key === "Enter" || event.key === " ") {
                       event.preventDefault();
-                      setActiveId(town.id);
+                      pick(town.id);
                     }
                   }}
                 >
