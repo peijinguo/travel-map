@@ -385,6 +385,13 @@ main:has(.home-page) { flex: 1; display: flex; flex-direction: column; }
   .town-marker:hover .marker-leader { opacity: .95; stroke-width: 1.6; }
   .town-marker:hover .marker-label { opacity: 1; transform: translate(0, 25px); }
 }
+// The on-top copy of the hovered town while another town is pinned: it only
+// shows, so the real marker underneath keeps receiving the mouse.
+.town-marker.is-hover-copy, .town-marker.is-hover-copy * { pointer-events: none !important; }
+.town-marker.is-hover-copy .marker-pop { animation: marker-copy-pop .2s ease; }
+.town-marker.is-hover-copy .marker-label { animation: marker-copy-label .2s ease; }
+@keyframes marker-copy-pop { from { transform: scale(1); } to { transform: scale(1.55); } }
+@keyframes marker-copy-label { from { opacity: 0; } to { opacity: 1; } }
 .map-caption { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); margin: 0; color: #86a0b1; font-size: 10px; white-space: nowrap; }
 .map-caption a { color: #5c8299; text-underline-offset: 2px; }
 

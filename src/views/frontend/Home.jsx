@@ -431,8 +431,9 @@ function Home() {
   // until one is clicked, hovering previews each town. Clicking the pinned
   // town again lets hovering take over again.
   const [pinnedId, setPinnedId] = useState(null);
-  // The town under the mouse is drawn last so it sits on top, even while
-  // another town is pinned to the card.
+  // While another town is pinned, the town under the mouse gets a copy drawn
+  // on top of every marker. Moving the hovered marker itself in the DOM would
+  // drop its :hover and pointer state, so it stays put and the copy shows.
   const [hoverId, setHoverId] = useState(null);
   const preview = (id) => {
     if (!pinnedId) setActiveId(id);
@@ -447,10 +448,36 @@ function Home() {
     ? snowTowns.find((town) => town.id === hoverId)
     : null;
   const renderedTowns = [
-    ...snowTowns.filter((town) => town.id !== activeTown.id && town !== hoverTown),
+    ...snowTowns.filter((town) => town.id !== activeTown.id),
     activeTown,
-    ...(hoverTown ? [hoverTown] : []),
   ];
+  const markerArt = (town) => {
+    const markerPosition = markerPositions.get(town.id);
+    const visualX = markerPosition?.x ?? town.visualX ?? 0;
+    const visualY = markerPosition?.y ?? town.visualY ?? 0;
+    const location = projectLocation(town.latitude, town.longitude);
+    return (
+      <>
+        {(municipalityPaths[town.id] ?? []).map((path, index) => (
+          <path className="municipality-shape" d={path} fillRule="evenodd" key={`${town.id}-boundary-${index}`} />
+        ))}
+        <g className="marker-position" transform={`translate(${location.x} ${location.y})`}>
+          {(visualX !== 0 || visualY !== 0) && (
+            <line className="marker-leader" x1="0" y1="0" x2={visualX} y2={visualY} />
+          )}
+          <g className="marker-visual" transform={`translate(${visualX} ${visualY})`}>
+            <g className="marker-pop">
+              <HandDrawnMotif type={town.motif} className="marker-motif" />
+              <g className="marker-label" transform="translate(0 25)">
+                <rect x="-34" y="0" width="68" height="23" rx="11.5" />
+                <text x="0" y="15" textAnchor="middle">{town.name}</text>
+              </g>
+            </g>
+          </g>
+        </g>
+      </>
+    );
+  };
 
   return (
     <div className="home-page">
@@ -476,10 +503,6 @@ function Home() {
             </g>
             {renderedTowns.map((town) => {
               const selected = town.id === activeId;
-              const markerPosition = markerPositions.get(town.id);
-              const visualX = markerPosition?.x ?? town.visualX ?? 0;
-              const visualY = markerPosition?.y ?? town.visualY ?? 0;
-              const location = projectLocation(town.latitude, town.longitude);
               return (
                 <g
                   className={`town-marker town-marker-${town.id} ${selected ? "is-active" : ""}`}
@@ -505,26 +528,15 @@ function Home() {
                     }
                   }}
                 >
-                  {(municipalityPaths[town.id] ?? []).map((path, index) => (
-                    <path className="municipality-shape" d={path} fillRule="evenodd" key={`${town.id}-boundary-${index}`} />
-                  ))}
-                  <g className="marker-position" transform={`translate(${location.x} ${location.y})`}>
-                    {(visualX !== 0 || visualY !== 0) && (
-                      <line className="marker-leader" x1="0" y1="0" x2={visualX} y2={visualY} />
-                    )}
-                    <g className="marker-visual" transform={`translate(${visualX} ${visualY})`}>
-                      <g className="marker-pop">
-                        <HandDrawnMotif type={town.motif} className="marker-motif" />
-                        <g className="marker-label" transform="translate(0 25)">
-                          <rect x="-34" y="0" width="68" height="23" rx="11.5" />
-                          <text x="0" y="15" textAnchor="middle">{town.name}</text>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
+                  {markerArt(town)}
                 </g>
               );
             })}
+            {hoverTown && (
+              <g className={`town-marker town-marker-${hoverTown.id} is-active is-hover-copy`} aria-hidden="true" key={`copy-${hoverTown.id}`}>
+                {markerArt(hoverTown)}
+              </g>
+            )}
           </svg>
         </div>
 
