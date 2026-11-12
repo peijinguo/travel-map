@@ -113,7 +113,7 @@ function LodgingPrice({ priceKey, nights }) {
   return (
     <div className="lodging-price">
       <label>
-        <span>總價</span>
+        <span>{nights} 晚總價</span>
         <span className="lodging-price-input">
           <i aria-hidden="true">¥</i>
           <input
@@ -130,11 +130,11 @@ function LodgingPrice({ priceKey, nights }) {
           <>
             <b>NT${formatNumber(perNight)}</b> / 晚
             <small>
-              {nights} 晚・匯率 {rate.rate.toFixed(4)}
+              匯率 {rate.rate.toFixed(4)}
             </small>
           </>
         ) : (
-          <small>{yen && !rate ? "匯率讀取中…" : `${nights} 晚，輸入總價換算台幣/晚`}</small>
+          <small>{yen && !rate ? "匯率讀取中…" : "輸入總價換算台幣/晚"}</small>
         )}
       </p>
     </div>
