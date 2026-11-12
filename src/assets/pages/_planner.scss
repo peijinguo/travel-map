@@ -451,7 +451,7 @@
 .planner-calendar-weekdays span { padding: 4px 0; color: #657b87; font-size: 15px; font-weight: 800; }
 .planner-calendar-days button, .planner-calendar-days > span { width: 100%; min-width: 0; min-height: 35px; }
 .planner-calendar-days button { border: 0; border-radius: 8px; background: transparent; color: #153e56; font-family: inherit; font-size: 17px; font-weight: 700; cursor: pointer; }
-.planner-calendar-days button:hover { background: #eaf3f7; }
+.planner-calendar-days button:hover { background: #e7edf0; } // same tint as the current page in the menu
 .planner-calendar-days button.is-selected { background: #6c7675; color: #eceff2; }
 .planner-calendar-actions { display: flex; justify-content: flex-end; margin-top: 11px; padding-top: 10px; border-top: 1px solid #dbe3e7; }
 .planner-calendar-actions button { padding: 5px 8px; border: 0; background: transparent; color: #123653; font-family: inherit; font-size: 15px; font-weight: 800; cursor: pointer; }
