@@ -185,7 +185,7 @@ function makeFootprintImage(mirrored) {
   context.lineWidth = 2.4;
   context.strokeStyle = "rgba(255, 255, 255, 0.95)";
   context.stroke();
-  context.fillStyle = "#5d6b73"; // slate grey, apart from the navy pins
+  context.fillStyle = "#7d898f"; // a lighter grey than the stop pins
   context.fill();
   return { image: context.getImageData(0, 0, canvas.width, canvas.height), pixelRatio: scale };
 }
@@ -354,7 +354,7 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = nul
         source: ROUTE_SOURCE_ID,
         layout: { "line-cap": "round", "line-join": "round" },
         paint: {
-          "line-color": "#24506e",
+          "line-color": "#6c7675",
           "line-width": 2,
           "line-opacity": 0.55,
           "line-dasharray": [1, 4.5],
