@@ -91,7 +91,8 @@ html:has(.prep-page), html:has(.prep-page) body { background: #fff; }
   font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif;
 }
 
-// Snow piled along the top edge, with a few drips over the frame.
+// Snow piled along the top edge, with a few drips over the frame (the 想吃清單
+// form has the same).
 .prep-notebook::after { content: ""; position: absolute; top: -20px; left: -5px; right: -5px; z-index: 2; height: 42px; pointer-events: none; background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 30' preserveAspectRatio='none'><path fill='%23fff' stroke='%2334434a' stroke-width='2' vector-effect='non-scaling-stroke' stroke-linejoin='round' d='M5 17C4 9 13 6 22 7C40 2 60 4 78 6C100 1 130 2 150 5C175 1 205 2 228 5C255 0 290 2 312 5C340 1 365 3 380 6C391 6 397 11 395 17C390 20 380 19 372 19C366 19 365 27 358 27C351 27 352 19 344 19L300 19C291 19 289 24 282 24C275 24 276 19 268 19L200 19C192 19 191 29 183 29C175 29 176 19 168 19L110 19C102 19 101 25 94 25C87 25 88 19 80 19L30 19C20 19 9 22 5 17Z'/></svg>") center / 100% 100% no-repeat; }
 .prep-notebook { padding-top: 42px; }
 .prep-sheet { position: relative; }
