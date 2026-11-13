@@ -127,7 +127,7 @@ function Header() {
 
   return (
     <header ref={topbarRef} className="topbar">
-      <Link className="brand" to="/" aria-label="雪旅地圖首頁">
+      <Link className="brand" to="/" aria-label="雪旅地圖首頁" onClick={() => setIsMobileMenuOpen(false)}>
         <span className="brand-mark brand-mark--image" aria-hidden="true">
           <img
             src={`${import.meta.env.BASE_URL}assets/logo-options/logo-snowflake.svg`}

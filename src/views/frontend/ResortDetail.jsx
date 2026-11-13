@@ -225,10 +225,11 @@ const appiCourseStatusLayers = [
   top: `${top}%`,
   width: `${width}%`,
 }));
-// Forecast days are Japan dates; today's column reads 今天 (Today) instead of
-// its weekday.
+// The column for the viewer's own date (by their device clock) reads 今天
+// (Today) instead of its weekday.
 const forecastDayLabel = (date, locale = "zh-TW") => {
-  const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Tokyo" }).format(new Date());
+  const now = new Date();
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
   if (date === today) return locale === "en" ? "Today" : "今天";
   return new Intl.DateTimeFormat(locale, { weekday: "short" }).format(new Date(`${date}T12:00:00`));
 };
