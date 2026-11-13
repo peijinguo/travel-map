@@ -2,7 +2,7 @@
 // rules and × in the route-map pins' brown.
 $prep-line: 46px;
 $prep-ink: #284d63;
-$prep-red: #8a6650; // the route-map stop pins
+$prep-red: #4f7f9c; // a soft slate blue, near the route map's pins
 $prep-pen: $prep-red;
 
 
@@ -108,7 +108,7 @@ html:has(.prep-page), html:has(.prep-page) body { background: #fff; }
 .prep-heading p:has(.prep-progress) { position: absolute; top: 0; right: 4px; display: flex; align-items: center; height: $prep-line; }
 .prep-progress { display: inline-flex; align-items: center; gap: 10px; vertical-align: middle; font-size: 14px; }
 .prep-progress-bar { position: relative; display: block; width: 120px; height: 12px; overflow: hidden; border: 2px solid #7a8790; border-radius: 999px; background: #fff; }
-.prep-progress-bar i { position: absolute; inset: 0 auto 0 0; border-radius: inherit; background: #8a6b55; transition: width .3s ease; }
+.prep-progress-bar i { position: absolute; inset: 0 auto 0 0; border-radius: inherit; background: $prep-red; transition: width .3s ease; }
 .prep-status { color: #c0574f; }
 
 .prep-list { margin: 0; padding: 0; list-style: none; }
@@ -116,7 +116,7 @@ html:has(.prep-page), html:has(.prep-page) body { background: #fff; }
 // One solid pink rule under every row, set in from the sheet's edges.
 // A hand-drawn line under each item: a wavering stroke, each row a little
 // off from the next so they do not line up like a ruler.
-.prep-list li::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: 2px; height: 6px; pointer-events: none; background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 8' preserveAspectRatio='none'><path fill='none' stroke='%238a6650' stroke-width='2.6' stroke-linecap='round' vector-effect='non-scaling-stroke' d='M2 4.6C40 3.2 70 5.4 110 4.2S180 2.8 220 4.4 300 5.6 340 3.8 380 3.6 398 4.8'/></svg>") center / 100% 100% no-repeat; transform-origin: left center; }
+.prep-list li::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: 2px; height: 6px; pointer-events: none; background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 8' preserveAspectRatio='none'><path fill='none' stroke='%234f7f9c' stroke-width='2.6' stroke-linecap='round' vector-effect='non-scaling-stroke' d='M2 4.6C40 3.2 70 5.4 110 4.2S180 2.8 220 4.4 300 5.6 340 3.8 380 3.6 398 4.8'/></svg>") center / 100% 100% no-repeat; transform-origin: left center; }
 .prep-list li:nth-child(3n + 1)::after { left: 8px; right: 16px; transform: rotate(-.35deg); }
 .prep-list li:nth-child(3n + 2)::after { left: 13px; right: 6px; transform: rotate(.3deg) scaleY(.85); }
 .prep-list li:nth-child(3n)::after { left: 6px; right: 11px; transform: rotate(-.1deg) scaleX(-1) scaleY(1.1); transform-origin: center; }
