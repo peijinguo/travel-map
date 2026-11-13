@@ -1155,7 +1155,6 @@ function ResortDetail() {
           <Link className="back-to-map" to="/">← 返回地圖</Link>
           <p className="resort-location">{town.prefecture} · {town.name}</p>
           <h1>{resort}</h1>
-          <p className="resort-intro">查看雪道入口、區域即時天氣與未來 7 天降雪預報。</p>
         </div>
         <div className="resort-hero-motif" aria-hidden="true"><HandDrawnMotif type={town.motif} /></div>
       </section>
