@@ -141,12 +141,12 @@ html:has(.hotel-page), html:has(.hotel-page) body { background: #fff; }
 .lodging-price-input i { color: #526875; font-size: 16px; font-style: normal; font-weight: 700; }
 .lodging-price-input input { width: 64px; min-width: 56px; field-sizing: content; border: 0; outline: 0; background: transparent; color: #526875; font-size: 16px; font-weight: 700; }
 @supports (field-sizing: content) { .lodging-price-input input { width: auto; } }
-// The free-cancellation date, on its own line under the total: a box like the
-// total's, opening the 行程規劃 calendar.
+// The free-cancellation date, on its own line under the total: plain text in
+// the total's type that opens the 行程規劃 calendar when tapped.
 .lodging-price .lodging-cancel { display: flex; flex-basis: 100%; align-items: center; gap: 8px; color: #526875; font-size: 16px; font-weight: 700; }
 .hotel-list .lodging-cancel > span { color: inherit; font-size: inherit; }
 .lodging-cancel .lodging-cancel-calendar { width: auto; }
-.hotel-list .lodging-cancel-calendar .planner-calendar-trigger { width: auto; gap: 8px; padding: 4px 10px; border: 1.5px solid #a8c1c9; border-radius: 10px; background: #fff; }
+.hotel-list .lodging-cancel-calendar .planner-calendar-trigger { width: auto; gap: 8px; padding: 0; border: 0; border-radius: 0; background: transparent; }
 .hotel-list .lodging-cancel-calendar .planner-calendar-trigger > span:first-child { color: #526875; font-size: 16px; font-weight: 700; line-height: 1.5; }
 .hotel-list .lodging-cancel-calendar .planner-calendar-weekday { margin-left: .3em; color: inherit; font: inherit; }
 .hotel-list .lodging-cancel-calendar .planner-calendar-icon { transform: scale(.85); }
