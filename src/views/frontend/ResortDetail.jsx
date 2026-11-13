@@ -55,21 +55,46 @@ const weatherKind = (code) => {
   return "mixed";
 };
 
-// Small drawn weather pictures in place of the 晴 / 雲 / 雨 characters.
-const WEATHER_ICON_LABELS = { sun: "晴", cloud: "多雲", rain: "雨", snow: "雪", mixed: "晴時多雲" };
+// Small drawn weather pictures, with little faces, in place of the 晴 / 雲 / 雨
+// characters.
+const WEATHER_ICON_LABELS = { sun: "晴", cloud: "多雲", rain: "雨", snow: "雪", sleet: "雨夾雪", mixed: "晴時多雲" };
 const cloudPath = "M9 25h17a6 6 0 0 0 0-12 8 8 0 0 0-15-2 6 6 0 0 0-2 14z";
+// Eyes, smile and blush, centred on (x, y).
+const IconFace = ({ x, y, size = 1 }) => (
+  <g className="weather-icon-face" transform={`translate(${x} ${y}) scale(${size})`}>
+    <circle cx="-2.6" cy="-1" r=".95" />
+    <circle cx="2.6" cy="-1" r=".95" />
+    <path d="M-1.3 1.1q1.3 1.2 2.6 0" />
+    <ellipse className="weather-icon-blush" cx="-4.4" cy="1.2" rx="1.2" ry=".7" />
+    <ellipse className="weather-icon-blush" cx="4.4" cy="1.2" rx="1.2" ry=".7" />
+  </g>
+);
 function WeatherIcon({ kind }) {
+  const sunny = kind === "sun" || kind === "mixed";
+  const cloudShift = kind === "mixed" ? [3, 5] : kind === "cloud" ? [0, 2] : [0, 0];
   return (
     <svg className={`weather-icon weather-icon-${kind}`} viewBox="0 0 36 36" role="img" aria-label={WEATHER_ICON_LABELS[kind]}>
-      {(kind === "sun" || kind === "mixed") && (
+      {sunny && (
         <g className="weather-icon-sun" transform={kind === "mixed" ? "translate(-5 -5) scale(.8)" : undefined}>
-          <circle cx="18" cy="18" r="7" />
           <path d="M18 3v4M18 29v4M3 18h4M29 18h4M7.4 7.4l2.8 2.8M25.8 25.8l2.8 2.8M7.4 28.6l2.8-2.8M25.8 10.2l2.8-2.8" />
+          <circle cx="18" cy="18" r="8" />
+          {kind === "sun" && <IconFace x={18} y={18.5} />}
         </g>
       )}
-      {kind !== "sun" && <path className="weather-icon-cloud" d={cloudPath} transform={kind === "mixed" ? "translate(3 5)" : kind === "cloud" ? "translate(0 2)" : undefined} />}
+      {kind !== "sun" && (
+        <g transform={`translate(${cloudShift[0]} ${cloudShift[1]})`}>
+          <path className="weather-icon-cloud" d={cloudPath} />
+          <IconFace x={18} y={19.5} size={.9} />
+        </g>
+      )}
       {kind === "rain" && <path className="weather-icon-rain" d="M12 29l-1.5 3M18 29l-1.5 3M24 29l-1.5 3" />}
       {kind === "snow" && <path className="weather-icon-snow" d="M12 29.5v3M10.7 31h2.6M18 29.5v3M16.7 31h2.6M24 29.5v3M22.7 31h2.6" />}
+      {kind === "sleet" && (
+        <>
+          <path className="weather-icon-rain" d="M12 29l-1.5 3M24 29l-1.5 3" />
+          <path className="weather-icon-snow" d="M18 29.5v3M16.7 31h2.6" />
+        </>
+      )}
     </svg>
   );
 }
@@ -1427,7 +1452,7 @@ function ResortDetail() {
                 <div><strong>SEASON CLOSED</strong><p>官方公告：2026 年 3 月 29 日已結束本季營運。</p></div>
               </div>
               <div className="current-weather-main">
-                <span aria-hidden="true">🌧️</span>
+                <span><WeatherIcon kind="sleet" /></span>
                 <strong>4°</strong>
                 <p>濕雪</p>
               </div>

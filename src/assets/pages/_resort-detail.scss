@@ -1026,6 +1026,9 @@
 .weather-icon-cloud { fill: #fff; stroke: #6f8fa3; stroke-width: 2.2; }
 .weather-icon-rain { stroke: #3d8fc2; stroke-width: 2.4; }
 .weather-icon-snow { stroke: #5aa6d6; stroke-width: 1.8; }
+.weather-icon-face circle { fill: #3d4a52; stroke: none; }
+.weather-icon-face path { stroke: #3d4a52; stroke-width: .9; }
+.weather-icon-face .weather-icon-blush { fill: #f4a3a8; stroke: none; opacity: .8; }
 .moiwa-weather-icon { display: grid; width: 42px; height: 42px; place-items: center; border-radius: 12px; background: #eef7fb; font-size: 24px; }
 .moiwa-forecast-day p { margin: 0; font-size: 14px; white-space: nowrap; }
 .moiwa-forecast-day p b { color: #173f54; font-size: 17px; }
