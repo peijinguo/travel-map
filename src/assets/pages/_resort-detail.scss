@@ -1038,7 +1038,7 @@
 .snowfall-day { height: 100%; display: grid; grid-template-rows: 22px 1fr 28px 22px; gap: 7px; text-align: center; }
 .snowfall-day > span { color: #688497; font-size: 16px; font-weight: 800; }
 .snowfall-track { display: flex; align-items: flex-end; justify-content: center; min-height: 120px; padding: 0 8px; border-bottom: 2px solid #dbe7ed; }
-.snowfall-track i { width: min(42px, 75%); min-height: 3px; border-radius: 9px 9px 2px 2px; background: linear-gradient(#7dc8eb, #3181ad); }
+.snowfall-track i { width: min(42px, 75%); min-height: 3px; border-radius: 9px 9px 2px 2px; background: linear-gradient(#a3b2b8, #6c7675); }
 .snowfall-day strong { color: #123653; font-size: 21px; }
 .snowfall-day small { color: #8ca2af; font-size: 15px; }
 .weather-source { margin: 24px 0 0; color: #8ca2af; font-size: 15px; text-align: right; }
