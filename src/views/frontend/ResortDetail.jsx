@@ -47,13 +47,32 @@ const weatherLabels = {
   99: "強雷雨伴冰雹",
 };
 
-const weatherSymbol = (code) => {
-  if ([71, 73, 75, 77, 85, 86].includes(code)) return "❄";
-  if ([51, 53, 55, 61, 63, 65, 80, 81, 82].includes(code)) return "雨";
-  if ([0, 1].includes(code)) return "晴";
-  if ([2, 3, 45, 48].includes(code)) return "雲";
-  return "天";
+const weatherKind = (code) => {
+  if ([71, 73, 75, 77, 85, 86].includes(code)) return "snow";
+  if ([51, 53, 55, 61, 63, 65, 80, 81, 82].includes(code)) return "rain";
+  if ([0, 1].includes(code)) return "sun";
+  if ([2, 3, 45, 48].includes(code)) return "cloud";
+  return "mixed";
 };
+
+// Small drawn weather pictures in place of the 晴 / 雲 / 雨 characters.
+const WEATHER_ICON_LABELS = { sun: "晴", cloud: "多雲", rain: "雨", snow: "雪", mixed: "晴時多雲" };
+const cloudPath = "M9 25h17a6 6 0 0 0 0-12 8 8 0 0 0-15-2 6 6 0 0 0-2 14z";
+function WeatherIcon({ kind }) {
+  return (
+    <svg className={`weather-icon weather-icon-${kind}`} viewBox="0 0 36 36" role="img" aria-label={WEATHER_ICON_LABELS[kind]}>
+      {(kind === "sun" || kind === "mixed") && (
+        <g className="weather-icon-sun" transform={kind === "mixed" ? "translate(-5 -5) scale(.8)" : undefined}>
+          <circle cx="18" cy="18" r="7" />
+          <path d="M18 3v4M18 29v4M3 18h4M29 18h4M7.4 7.4l2.8 2.8M25.8 25.8l2.8 2.8M7.4 28.6l2.8-2.8M25.8 10.2l2.8-2.8" />
+        </g>
+      )}
+      {kind !== "sun" && <path className="weather-icon-cloud" d={cloudPath} transform={kind === "mixed" ? "translate(3 5)" : kind === "cloud" ? "translate(0 2)" : undefined} />}
+      {kind === "rain" && <path className="weather-icon-rain" d="M12 29l-1.5 3M18 29l-1.5 3M24 29l-1.5 3" />}
+      {kind === "snow" && <path className="weather-icon-snow" d="M12 29.5v3M10.7 31h2.6M18 29.5v3M16.7 31h2.6M24 29.5v3M22.7 31h2.6" />}
+    </svg>
+  );
+}
 
 const zaoTrailMapUrl =
   "https://zaomountainresort.com/wp-content/uploads/2025/12/ed53c4ff5e3d9f4e6125d52781bc7b50-scaled.jpg";
@@ -196,6 +215,14 @@ const appiCourseStatusLayers = [
   top: `${top}%`,
   width: `${width}%`,
 }));
+// Forecast days are Japan dates; today's column reads 今天 (Today) instead of
+// its weekday.
+const forecastDayLabel = (date, locale = "zh-TW") => {
+  const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Tokyo" }).format(new Date());
+  if (date === today) return locale === "en" ? "Today" : "今天";
+  return new Intl.DateTimeFormat(locale, { weekday: "short" }).format(new Date(`${date}T12:00:00`));
+};
+
 const SNOW_SAPPORO_WEATHER_API =
   "https://snowsapporo.com/tw/wp-json/wp/v2/pages/11";
 const snowSapporoResorts = {
@@ -231,17 +258,17 @@ const snowSapporoWeatherLabel = (weather) => {
   return weather || "天氣變化";
 };
 
-const snowSapporoWeatherSymbol = (weather) => {
+const snowSapporoWeatherKind = (weather) => {
   const normalized = weather.toLocaleLowerCase();
-  if (normalized.includes("雪")) return "❄";
-  if (normalized.includes("雨")) return "雨";
-  if (normalized.includes("晴")) return "晴";
-  if (normalized.includes("曇") || normalized.includes("雲")) return "雲";
-  if (normalized.includes("snow")) return "❄";
-  if (normalized.includes("rain")) return "雨";
-  if (normalized.includes("cloud")) return "雲";
-  if (normalized.includes("clear") || normalized.includes("sun")) return "晴";
-  return "天";
+  if (normalized.includes("雪")) return "snow";
+  if (normalized.includes("雨")) return "rain";
+  if (normalized.includes("晴")) return "sun";
+  if (normalized.includes("曇") || normalized.includes("雲")) return "cloud";
+  if (normalized.includes("snow")) return "snow";
+  if (normalized.includes("rain")) return "rain";
+  if (normalized.includes("cloud")) return "cloud";
+  if (normalized.includes("clear") || normalized.includes("sun")) return "sun";
+  return "mixed";
 };
 
 function parseSnowSapporoWeather(html, sourceName) {
@@ -1048,6 +1075,8 @@ function ResortDetail() {
       timezone: "Asia/Tokyo",
       forecast_days: "7",
     });
+    // A connection that never answers would leave the cards loading forever.
+    const timer = setTimeout(() => controller.abort(new Error("Weather request timed out")), 15000);
 
     fetch(`https://api.open-meteo.com/v1/forecast?${query}`, { signal: controller.signal })
       .then((response) => {
@@ -1060,9 +1089,13 @@ function ResortDetail() {
       })
       .catch((error) => {
         if (error.name !== "AbortError") setWeatherState("error");
-      });
+      })
+      .finally(() => clearTimeout(timer));
 
-    return () => controller.abort();
+    return () => {
+      clearTimeout(timer);
+      controller.abort();
+    };
   }, [town, resort, isOfficialMoiwa]);
 
   useEffect(() => {
@@ -1334,7 +1367,7 @@ function ResortDetail() {
           {isTeine ? (
             <>
               <div className="current-weather-main">
-                <span>{snowSapporoWeatherSymbol(teineSnowForecast.current.weather)}</span>
+                <span><WeatherIcon kind={snowSapporoWeatherKind(teineSnowForecast.current.weather)} /></span>
                 <strong>{Math.round(teineSnowForecast.current.temperature)}°</strong>
                 <p>{teineSnowForecast.current.weather}</p>
               </div>
@@ -1409,7 +1442,7 @@ function ResortDetail() {
           ) : usesSnowSapporo && snowSapporoState === "ready" && snowSapporoWeather ? (
             <>
               <div className="current-weather-main">
-                <span>{snowSapporoWeatherSymbol(snowSapporoWeather.weather)}</span>
+                <span><WeatherIcon kind={snowSapporoWeatherKind(snowSapporoWeather.weather)} /></span>
                 <strong>{Math.round(snowSapporoWeather.temperature)}°</strong>
                 <p>{snowSapporoWeatherLabel(snowSapporoWeather.weather)}</p>
               </div>
@@ -1425,7 +1458,7 @@ function ResortDetail() {
           ) : weatherState === "ready" && forecast?.current && (
             <>
               <div className="current-weather-main">
-                <span>{weatherSymbol(forecast.current.weather_code)}</span>
+                <span><WeatherIcon kind={weatherKind(forecast.current.weather_code)} /></span>
                 <strong>{Math.round(forecast.current.temperature_2m)}°</strong>
                 <p>{weatherLabels[forecast.current.weather_code] ?? "天氣變化"}</p>
               </div>
@@ -1457,7 +1490,7 @@ function ResortDetail() {
             {isTeine && (
               <div className="snowfall-chart">
                 {teineSnowForecast.days.map((day) => {
-                  const label = new Intl.DateTimeFormat("zh-TW", { weekday: "short" }).format(new Date(`${day.date}T12:00:00`));
+                  const label = forecastDayLabel(day.date);
                   const snowfall = day.snowfall;
                   return (
                     <div className="snowfall-day" key={day.date}>
@@ -1470,11 +1503,11 @@ function ResortDetail() {
                 })}
               </div>
             )}
-            {isOfficialMoiwa && weatherState === "ready" && <div className="official-forecast"><div className="moiwa-forecast-grid">{daily.slice(0, 5).map((day) => <div className="moiwa-forecast-day" key={day.date}><strong>{new Intl.DateTimeFormat("en", { weekday: "short" }).format(new Date(`${day.date}T12:00:00`))}</strong><span className="moiwa-weather-icon">{weatherSymbol(day.code)}</span><p><b>{Math.round(day.max)}°</b> <i>{Math.round(day.min)}°</i></p><small>風速 {Math.round(day.wind)} km/h</small><em>{day.snowfall.toFixed(1)} cm</em></div>)}</div><a href="https://niseko-moiwa.jp/slope/" target="_blank" rel="noreferrer">查看 Niseko Moiwa 官方 Snow Forecast ↗</a></div>}
+            {isOfficialMoiwa && weatherState === "ready" && <div className="official-forecast"><div className="moiwa-forecast-grid">{daily.slice(0, 5).map((day) => <div className="moiwa-forecast-day" key={day.date}><strong>{forecastDayLabel(day.date, "en")}</strong><span className="moiwa-weather-icon"><WeatherIcon kind={weatherKind(day.code)} /></span><p><b>{Math.round(day.max)}°</b> <i>{Math.round(day.min)}°</i></p><small>風速 {Math.round(day.wind)} km/h</small><em>{day.snowfall.toFixed(1)} cm</em></div>)}</div><a href="https://niseko-moiwa.jp/slope/" target="_blank" rel="noreferrer">查看 Niseko Moiwa 官方 Snow Forecast ↗</a></div>}
             {!isTeine && !isOfficialMoiwa && weatherState === "ready" && (
               <div className="snowfall-chart">
                 {daily.map((day) => {
-                  const label = new Intl.DateTimeFormat("zh-TW", { weekday: "short" }).format(new Date(`${day.date}T12:00:00`));
+                  const label = forecastDayLabel(day.date);
                   return (
                     <div className="snowfall-day" key={day.date}>
                       <span>{label}</span>
