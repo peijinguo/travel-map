@@ -997,7 +997,7 @@
 }
 .trail-card > p:not(.card-kicker) { color: #668396; font-size: 15px; line-height: 1.7; }
 .current-weather-main { display: grid; grid-template-columns: 65px auto 1fr; align-items: center; gap: 14px; margin: 32px 0 24px; }
-.current-weather-main > span { width: 60px; height: 60px; display: grid; place-items: center; border-radius: 18px; background: #e9f5fb; color: #3181ad; font-size: 27px; font-weight: 900; }
+.current-weather-main > span { width: 60px; height: 60px; display: grid; place-items: center; background: transparent; color: #3181ad; font-size: 27px; font-weight: 900; }
 .current-weather-main strong { font-size: 58px; line-height: 1; }
 .current-weather-main p { margin: 0; color: #668396; font-size: 21px; font-weight: 700; }
 .weather-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0 0 28px; }
@@ -1020,6 +1020,7 @@
 .moiwa-forecast-day:last-child { border-right: 0; }
 .moiwa-forecast-day > strong { color: #123653; font-size: 15px; }
 .weather-icon { width: 70%; height: 70%; overflow: visible; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.current-weather-main .weather-icon { width: 100%; height: 100%; }
 .weather-icon-sun circle { fill: #ffd25e; stroke: #e0a020; stroke-width: 2; }
 .weather-icon-sun path { stroke: #e0a020; stroke-width: 2.4; }
 .weather-icon-cloud { fill: #fff; stroke: #6f8fa3; stroke-width: 2.2; }
