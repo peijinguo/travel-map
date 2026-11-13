@@ -411,7 +411,7 @@ main:has(.home-page) { flex: 1; display: flex; flex-direction: column; }
 .resort-list li { display: grid; grid-template-columns: 36px 1fr; gap: 10px; align-items: center; min-height: 54px; border-bottom: 1px dashed #dce7ed; color: #365a70; font-size: 20px; line-height: 1.4; font-weight: 600; }
 .resort-list li > span { color: #9eb0bb; font-size: 15px; font-weight: 700; }
 .resort-list li a { display: block; padding: 10px 0; color: inherit; font-family: "DM Sans", "Noto Sans TC", "Noto Sans JP", "Microsoft JhengHei", sans-serif; font-weight: 700; text-decoration: none; transition: color .2s ease, transform .2s ease; }
-.resort-list li a:hover, .resort-list li a:focus-visible { color: #e96b3d; transform: translateX(3px); outline: none; }
+.resort-list li a:hover, .resort-list li a:focus-visible { color: #2f6487; transform: translateX(3px); outline: none; }
 .panel-button { width: 100%; height: 56px; display: flex; align-items: center; justify-content: space-between; padding: 0 19px; border: 0; border-radius: 14px; background: #123653; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer; transition: transform .2s ease, background .2s ease; }
 .panel-button:hover { background: #126bd6; transform: translateY(-2px); }
 .panel-button span { font-size: 20px; }
