@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import PlannerDatePicker from "./PlannerDatePicker";
 import { saveLodgingPriceCloud, subscribeLodgingPricesCloud } from "../services/firebase";
 
 // The price row on a 機票住宿 lodging card: type the stay's total in yen and
@@ -158,15 +159,10 @@ function LodgingPrice({ priceKey, nights }) {
           />
         </span>
       </label>
-      <label className="lodging-cancel">
-        <input
-          type="date"
-          value={cancelBy}
-          onChange={(event) => saveCancelBy(event.target.value)}
-          aria-label="免費取消期限"
-        />
+      <div className="lodging-cancel">
+        <PlannerDatePicker className="lodging-cancel-calendar" value={cancelBy} onChange={saveCancelBy} placeholder="選擇日期" />
         <span>前免費取消</span>
-      </label>
+      </div>
       <p className="lodging-price-result">
         {perNight ? (
           <>
