@@ -141,6 +141,10 @@ html:has(.hotel-page), html:has(.hotel-page) body { background: #fff; }
 .lodging-price-input i { color: #526875; font-size: 16px; font-style: normal; font-weight: 700; }
 .lodging-price-input input { width: 64px; min-width: 56px; field-sizing: content; border: 0; outline: 0; background: transparent; color: #526875; font-size: 16px; font-weight: 700; }
 @supports (field-sizing: content) { .lodging-price-input input { width: auto; } }
+// The free-cancellation date, on its own line under the total.
+.lodging-price .lodging-cancel { flex-basis: 100%; color: #526875; font-size: 16px; font-weight: 700; }
+.hotel-list .lodging-cancel span { color: inherit; font-size: inherit; }
+.lodging-cancel input { padding: 4px 10px; border: 1.5px solid #a8c1c9; border-radius: 10px; background: #fff; color: #526875; font: inherit; }
 .lodging-price-result { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin: 0; color: #526875; font-size: 16px; font-weight: 700; }
 // The price, its label and the box are the size of 「/ 晚」; the price keeps
 // the same slate as the 總價 label.

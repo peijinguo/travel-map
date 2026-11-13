@@ -85,47 +85,55 @@ const formatNumber = (value) => Math.round(value).toLocaleString("zh-TW");
 // Cloud field names cannot hold dots or slashes.
 const cloudField = (key) => key.replace(/[./\[\]*~`]/gu, "_");
 
-function LodgingPrice({ priceKey, nights }) {
+// One value of a stay shared on the trip (or kept on this device without one):
+// the yen total, or the free-cancellation date.
+function useLodgingValue(key) {
   const { user, syncSpaceId } = useAuth();
   const cloudKey = user && syncSpaceId ? syncSpaceId : null;
-  const rate = useJpyRate();
-  const [total, setTotal] = useState(() => readJson(PRICE_STORAGE_KEY, {})[priceKey] ?? "");
+  const [value, setValue] = useState(() => readJson(PRICE_STORAGE_KEY, {})[key] ?? "");
 
-  // The trip's shared price for this stay, kept up to date as others type.
+  // The trip's shared value for this stay, kept up to date as others type.
   useEffect(() => {
     if (!cloudKey) return undefined;
     return subscribeLodgingPricesCloud(
       cloudKey,
       (prices) => {
-        const shared = prices[cloudField(priceKey)];
-        const local = readJson(PRICE_STORAGE_KEY, {})[priceKey];
-        // A price typed on this device before prices were shared: share it.
+        const shared = prices[cloudField(key)];
+        const local = readJson(PRICE_STORAGE_KEY, {})[key];
+        // A value typed on this device before it was shared: share it.
         if (!shared && local) {
-          saveLodgingPriceCloud(cloudKey, cloudField(priceKey), local).catch(() => {});
+          saveLodgingPriceCloud(cloudKey, cloudField(key), local).catch(() => {});
           const rest = readJson(PRICE_STORAGE_KEY, {});
-          delete rest[priceKey];
+          delete rest[key];
           writeJson(PRICE_STORAGE_KEY, rest);
         }
-        setTotal(shared ?? local ?? "");
+        setValue(shared ?? local ?? "");
       },
-      (error) => console.error("無法同步住宿價格", error),
+      (error) => console.error("無法同步住宿資料", error),
     );
-  }, [cloudKey, priceKey]);
+  }, [cloudKey, key]);
 
-  const update = (value) => {
-    const digits = value.replace(/[^\d]/g, "");
-    setTotal(digits);
+  const save = (next) => {
+    setValue(next);
     if (cloudKey) {
-      saveLodgingPriceCloud(cloudKey, cloudField(priceKey), digits).catch((error) =>
-        console.error("無法儲存住宿價格", error),
+      saveLodgingPriceCloud(cloudKey, cloudField(key), next).catch((error) =>
+        console.error("無法儲存住宿資料", error),
       );
       return;
     }
     const prices = readJson(PRICE_STORAGE_KEY, {});
-    if (digits) prices[priceKey] = digits;
-    else delete prices[priceKey];
+    if (next) prices[key] = next;
+    else delete prices[key];
     writeJson(PRICE_STORAGE_KEY, prices);
   };
+  return [value, save];
+}
+
+function LodgingPrice({ priceKey, nights }) {
+  const rate = useJpyRate();
+  const [total, saveTotal] = useLodgingValue(priceKey);
+  const [cancelBy, saveCancelBy] = useLodgingValue(`${priceKey}|cancel`);
+  const update = (value) => saveTotal(value.replace(/[^\d]/g, ""));
 
   const yen = Number(total);
   const perNight = yen && nights && rate?.rate ? (yen * rate.rate) / nights : null;
@@ -149,6 +157,15 @@ function LodgingPrice({ priceKey, nights }) {
             aria-label="住宿總價（日圓）"
           />
         </span>
+      </label>
+      <label className="lodging-cancel">
+        <input
+          type="date"
+          value={cancelBy}
+          onChange={(event) => saveCancelBy(event.target.value)}
+          aria-label="免費取消期限"
+        />
+        <span>前免費取消</span>
       </label>
       <p className="lodging-price-result">
         {perNight ? (
