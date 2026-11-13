@@ -185,7 +185,7 @@ function makeFootprintImage(mirrored) {
   context.lineWidth = 2.4;
   context.strokeStyle = "rgba(255, 255, 255, 0.95)";
   context.stroke();
-  context.fillStyle = "#2f6487"; // a lighter navy than the stop pins
+  context.fillStyle = "#5d6b73"; // slate grey, apart from the navy pins
   context.fill();
   return { image: context.getImageData(0, 0, canvas.width, canvas.height), pixelRatio: scale };
 }

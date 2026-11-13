@@ -1518,17 +1518,21 @@ function ResortDetail() {
                 })}
               </div>
             )}
-            <p className="weather-source">
-              {isTeine
-                ? "降雪資料由 Snow-Forecast 的 Sapporo Teine 682 m 預報提供。"
-                : isAppiKogen
-                ? `目前天氣由安比高原官方網站提供；${forecastSourceNote}`
-                : isZaoSarukura
-                ? `目前天氣與雪場狀態由藏王猿倉官方網站提供；${forecastSourceNote}`
-                : usesSnowSapporo
-                ? `目前天氣由 Snow Sapporo 提供；${forecastSourceNote}`
-                : forecastSourceNote}
-            </p>
+            {/* The source note folds into an ⓘ in the corner, like the map's credits. */}
+            <details className="weather-source">
+              <summary aria-label="資料來源">i</summary>
+              <p>
+                {isTeine
+                  ? "降雪資料由 Snow-Forecast 的 Sapporo Teine 682 m 預報提供。"
+                  : isAppiKogen
+                  ? `目前天氣由安比高原官方網站提供；${forecastSourceNote}`
+                  : isZaoSarukura
+                  ? `目前天氣與雪場狀態由藏王猿倉官方網站提供；${forecastSourceNote}`
+                  : usesSnowSapporo
+                  ? `目前天氣由 Snow Sapporo 提供；${forecastSourceNote}`
+                  : forecastSourceNote}
+              </p>
+            </details>
           </section>
         </div>
 

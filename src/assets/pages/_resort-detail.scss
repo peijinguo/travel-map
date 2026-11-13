@@ -1042,7 +1042,13 @@
 .snowfall-track i { width: min(42px, 75%); min-height: 3px; border-radius: 9px 9px 2px 2px; background: linear-gradient(#a3b2b8, #6c7675); }
 .snowfall-day strong { color: #123653; font-size: 21px; }
 .snowfall-day small { color: #8ca2af; font-size: 15px; }
-.weather-source { margin: 24px 0 0; color: #8ca2af; font-size: 15px; text-align: right; }
+// The source note: an ⓘ in the card's bottom-right corner (like the route
+// map's credits) that opens to the text.
+.snow-forecast-card { position: relative; padding-bottom: 46px !important; }
+.weather-source { position: absolute; right: 14px; bottom: 14px; display: flex; flex-direction: row-reverse; align-items: center; gap: 8px; max-width: calc(100% - 28px); margin: 0; color: #6c7f8a; font-size: 13px; }
+.weather-source summary { display: grid; flex: 0 0 auto; width: 22px; height: 22px; place-items: center; border-radius: 50%; background: #123653; color: #fff; font: italic 900 13px/1 Georgia, serif; list-style: none; cursor: pointer; }
+.weather-source summary::-webkit-details-marker { display: none; }
+.weather-source p { margin: 0; padding: 5px 10px; border-radius: 11px; background: rgba(255, 255, 255, .94); box-shadow: 0 2px 8px rgba(18, 54, 83, .12); line-height: 1.4; text-align: right; }
 
 .resort-experience-card { grid-column: 1 / -1; padding: 36px; border: 1px solid #dce8ee; border-radius: 28px; background: #fff; box-shadow: 0 18px 50px rgba(45, 91, 117, .08); }
 .experience-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; margin-bottom: 26px; }
