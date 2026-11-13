@@ -57,7 +57,7 @@ const formatStayDate = (dateString, dayNumber) => {
     String(date.getMonth() + 1).padStart(2, "0"),
     String(date.getDate()).padStart(2, "0"),
   ].join("/");
-  return `${ymd}（${weekday}）DAY ${dayNumber ?? "?"} 入住`;
+  return `${ymd} (${weekday}) DAY ${dayNumber ?? "?"} 入住`;
 };
 
 function loadLodgings() {

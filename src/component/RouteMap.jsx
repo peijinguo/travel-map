@@ -346,8 +346,8 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = nul
         type: "geojson",
         data: makeRouteLine([]),
       });
-      // A faint dotted guide keeps the route readable when zoomed far out,
-      // where the footprints thin out.
+      // A dashed line along the whole route, under the footprints; it keeps
+      // the route readable when zoomed far out, where the footprints thin out.
       map.addLayer({
         id: ROUTE_SOURCE_ID,
         type: "line",
@@ -355,9 +355,9 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = nul
         layout: { "line-cap": "round", "line-join": "round" },
         paint: {
           "line-color": "#4a2f1e",
-          "line-width": 1.6,
-          "line-opacity": 0.25,
-          "line-dasharray": [0.5, 2.5],
+          "line-width": 2,
+          "line-opacity": 0.55,
+          "line-dasharray": [2, 2],
         },
       });
       map.addImage("footprint-left", makeFootprintImage(false).image, { pixelRatio: 2 });
