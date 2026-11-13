@@ -1079,8 +1079,8 @@ function ResortDetail() {
   useEffect(() => {
     if (!town || !resort) return undefined;
     const controller = new AbortController();
-    // Open-Meteo first, MET Norway when it does not answer (see the service).
-    fetchResortForecast(town.latitude, town.longitude, controller.signal)
+    // Snow-Forecast first, then Open-Meteo, then MET Norway (see the service).
+    fetchResortForecast(town.latitude, town.longitude, controller.signal, `${townId}/${resortIndex}`)
       .then((data) => {
         setForecast(data);
         setWeatherState("ready");
@@ -1090,7 +1090,7 @@ function ResortDetail() {
       });
 
     return () => controller.abort();
-  }, [town, resort, isOfficialMoiwa]);
+  }, [town, resort, isOfficialMoiwa, townId, resortIndex]);
 
   useEffect(() => {
     if (!snowSapporoConfig) return undefined;
@@ -1133,6 +1133,11 @@ function ResortDetail() {
     );
   }
 
+  // Where the snowfall chart's numbers come from, for the note under it.
+  const forecastSourceNote =
+    forecast?.source === "snow-forecast"
+      ? `降雪預報由 Snow-Forecast 的山腰${forecast.elevation ? ` ${forecast.elevation} m ` : ""}預報提供（發布：${forecast.issuedAt}）。`
+      : "降雪預報由 Open-Meteo 提供。";
   const daily = forecast?.daily?.time?.map((date, dayIndex) => ({
     date,
     code: forecast.daily.weather_code[dayIndex],
@@ -1454,7 +1459,7 @@ function ResortDetail() {
               <div className="current-weather-main">
                 <span><WeatherIcon kind={weatherKind(forecast.current.weather_code)} /></span>
                 <strong>{Math.round(forecast.current.temperature_2m)}°</strong>
-                <p>{weatherLabels[forecast.current.weather_code] ?? "天氣變化"}</p>
+                <p>{forecast.current.label ?? weatherLabels[forecast.current.weather_code] ?? "天氣變化"}</p>
               </div>
               <dl className="weather-metrics">
                 <div><dt>體感</dt><dd>{Math.round(forecast.current.apparent_temperature)}°C</dd></div>
@@ -1476,7 +1481,7 @@ function ResortDetail() {
 
           <section className="snow-forecast-card">
             <div className="forecast-heading">
-              <div><h2>未來 7 天降雪量</h2></div>
+              <div><h2>未來 {isTeine ? 7 : daily?.length || 7} 天降雪量</h2></div>
               <small>單位：cm</small>
             </div>
             {!isTeine && weatherState === "loading" && <p className="weather-message">正在載入 7 天降雪預報…</p>}
@@ -1517,11 +1522,12 @@ function ResortDetail() {
               {isTeine
                 ? "降雪資料由 Snow-Forecast 的 Sapporo Teine 682 m 預報提供。"
                 : isAppiKogen
-                ? "目前天氣由安比高原官方網站提供；7 天降雪預報由 Open-Meteo 提供。"
+                ? `目前天氣由安比高原官方網站提供；${forecastSourceNote}`
                 : isZaoSarukura
-                ? "目前天氣與雪場狀態由藏王猿倉官方網站提供；7 天降雪預報由 Open-Meteo 提供。"
+                ? `目前天氣與雪場狀態由藏王猿倉官方網站提供；${forecastSourceNote}`
                 : usesSnowSapporo
-                }
+                ? `目前天氣由 Snow Sapporo 提供；${forecastSourceNote}`
+                : forecastSourceNote}
             </p>
           </section>
         </div>

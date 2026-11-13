@@ -37,6 +37,10 @@ jobs:
         run: |
           node scripts/sync-teine-lift-status.mjs
           node scripts/sync-bankei-status.mjs
+          # Snow-Forecast's mountain forecasts for the resort pages (each kept
+          # for 3 hours, so most runs skip it).
+          node scripts/sync-teine-snow-forecast.mjs || echo "::warning::Teine forecast sync failed."
+          node scripts/sync-snow-forecasts.mjs || echo "::warning::Snow-Forecast sync failed."
           # Taoyuan Airport's flight board for 機票住宿; a failure there must
           # not hold up the ski status.
           node scripts/sync-flight-status.mjs || echo "::warning::Flight status sync failed."
@@ -45,7 +49,7 @@ jobs:
         id: changes
         shell: bash
         run: |
-          if git diff --quiet -- src/data/teineLiftStatus.js src/data/bankeiStatus.js src/data/flightStatus.js; then
+          if git diff --quiet -- src/data/teineLiftStatus.js src/data/bankeiStatus.js src/data/flightStatus.js src/data/teineSnowForecast.js src/data/snowForecasts.js; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "Official status has not changed."
           else
@@ -57,7 +61,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/data/teineLiftStatus.js src/data/bankeiStatus.js src/data/flightStatus.js
+          git add src/data/teineLiftStatus.js src/data/bankeiStatus.js src/data/flightStatus.js src/data/teineSnowForecast.js src/data/snowForecasts.js
           git commit -m "chore: sync ski resort live status"
           git pull --rebase origin main
           git push

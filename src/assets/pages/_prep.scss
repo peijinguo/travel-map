@@ -114,7 +114,12 @@ html:has(.prep-page), html:has(.prep-page) body { background: #fff; }
 .prep-list { margin: 0; padding: 0; list-style: none; }
 .prep-list li { position: relative; display: flex; align-items: center; min-height: $prep-line; padding-bottom: 8px; }
 // One solid pink rule under every row, set in from the sheet's edges.
-.prep-list li::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: 3px; height: 3px; border-radius: 3px; background: $prep-pen; pointer-events: none; }
+// A hand-drawn line under each item: a wavering stroke, each row a little
+// off from the next so they do not line up like a ruler.
+.prep-list li::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: 2px; height: 6px; pointer-events: none; background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 8' preserveAspectRatio='none'><path fill='none' stroke='%238a6650' stroke-width='2.6' stroke-linecap='round' vector-effect='non-scaling-stroke' d='M2 4.6C40 3.2 70 5.4 110 4.2S180 2.8 220 4.4 300 5.6 340 3.8 380 3.6 398 4.8'/></svg>") center / 100% 100% no-repeat; transform-origin: left center; }
+.prep-list li:nth-child(3n + 1)::after { left: 8px; right: 16px; transform: rotate(-.35deg); }
+.prep-list li:nth-child(3n + 2)::after { left: 13px; right: 6px; transform: rotate(.3deg) scaleY(.85); }
+.prep-list li:nth-child(3n)::after { left: 6px; right: 11px; transform: rotate(-.1deg) scaleX(-1) scaleY(1.1); transform-origin: center; }
 
 .prep-check { display: flex; flex: 1; align-items: center; gap: 10px; min-width: 0; min-height: $prep-line; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; font-size: 19px; font-weight: 600; text-align: left; cursor: pointer; }
 .prep-text { position: relative; min-width: 0; line-height: 1.3; transition: color .25s ease; }

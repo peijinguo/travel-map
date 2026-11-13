@@ -1,7 +1,9 @@
-// The 7-day forecast for a resort page, in Open-Meteo's shape
-// ({ current: {...}, daily: {...} }). Open-Meteo is tried first; when it does
-// not answer in time, MET Norway's free forecast is used instead and turned
-// into the same shape.
+import { snowForecasts } from "../data/snowForecasts";
+
+// The forecast for a resort page, in Open-Meteo's shape
+// ({ current: {...}, daily: {...} }). Snow-Forecast's mountain forecast, synced
+// into the site by scripts/sync-snow-forecasts.mjs, comes first; a resort
+// without one asks Open-Meteo, and MET Norway when Open-Meteo does not answer.
 
 const OPEN_METEO_TIMEOUT = 8000;
 const MET_NO_TIMEOUT = 12000;
@@ -119,7 +121,79 @@ async function fetchMetNo(latitude, longitude, signal) {
   };
 }
 
-export async function fetchResortForecast(latitude, longitude, signal) {
+// Snow-Forecast's Japanese phrases → WMO weather codes.
+const phraseToCode = (phrase = "") => {
+  if (/雷/u.test(phrase)) return 95;
+  if (/大雪|豪雪|吹雪/u.test(phrase)) return 75;
+  if (/にわか雪/u.test(phrase)) return 85;
+  if (/小雪|弱い雪/u.test(phrase)) return 71;
+  if (/雪|みぞれ/u.test(phrase)) return 73;
+  if (/大雨|豪雨/u.test(phrase)) return 65;
+  if (/にわか雨/u.test(phrase)) return 80;
+  if (/小雨|霧雨/u.test(phrase)) return 61;
+  if (/雨/u.test(phrase)) return 63;
+  if (/霧/u.test(phrase)) return 45;
+  if (/一部曇り|晴れ時々曇り/u.test(phrase)) return 2;
+  if (/曇/u.test(phrase)) return 3;
+  return phrase ? 0 : 1;
+};
+
+// Snow-Forecast words some phrases plainly; these read better in Chinese.
+const PHRASE_LABELS = { 晴れる: "晴朗", 晴れ: "晴朗", 一部曇り: "局部多雲", 曇り: "陰天", 小雪: "小雪", 小雨: "小雨", にわか雨: "陣雨", にわか雪: "陣雪", 大雪: "大雪", 大雨: "大雨", 霧: "有霧" };
+
+// The date and forecast slot (0 morning, 1 afternoon, 2 night) in Japan now.
+const japanNow = () => {
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Tokyo", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", hourCycle: "h23" })
+      .formatToParts(new Date())
+      .map(({ type, value }) => [type, value]),
+  );
+  const hour = Number(parts.hour);
+  return { date: `${parts.year}-${parts.month}-${parts.day}`, part: hour < 12 ? 0 : hour < 18 ? 1 : 2 };
+};
+
+export function snowForecastFor(resortKey) {
+  const slug = snowForecasts.resorts[resortKey];
+  const data = slug && snowForecasts.forecasts[slug];
+  if (!data?.days?.length) return null;
+  const now = japanNow();
+  // Days already over are dropped; the current weather is the slot for now.
+  const days = data.days.filter((day) => day.date >= now.date);
+  if (!days.length) return null;
+  const period =
+    data.periods?.find((item) => item.date === now.date && item.part === now.part) ??
+    data.periods?.find((item) => item.date > now.date || (item.date === now.date && item.part > now.part));
+  const current = period
+    ? { weather: period.weather, temperature: period.temperature, wind: period.wind, snowfall: period.snowfall }
+    : data.current;
+  const windKmh = current.wind ?? 0;
+  return {
+    source: "snow-forecast",
+    sourceUrl: data.sourceUrl,
+    elevation: data.elevation,
+    issuedAt: data.issuedAt,
+    current: {
+      temperature_2m: current.temperature,
+      apparent_temperature: feelsLike(current.temperature, windKmh),
+      weather_code: phraseToCode(current.weather),
+      label: PHRASE_LABELS[current.weather] ?? current.weather,
+      wind_speed_10m: windKmh,
+      snowfall: current.snowfall ?? 0,
+    },
+    daily: {
+      time: days.map((day) => day.date),
+      weather_code: days.map((day) => phraseToCode(day.weather)),
+      temperature_2m_max: days.map((day) => day.max),
+      temperature_2m_min: days.map((day) => day.min),
+      snowfall_sum: days.map((day) => day.snowfall ?? 0),
+      wind_speed_10m_max: days.map((day) => day.wind ?? 0),
+    },
+  };
+}
+
+export async function fetchResortForecast(latitude, longitude, signal, resortKey) {
+  const synced = resortKey && snowForecastFor(resortKey);
+  if (synced) return synced;
   try {
     return await fetchOpenMeteo(latitude, longitude, signal);
   } catch (error) {
