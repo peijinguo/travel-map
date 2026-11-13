@@ -357,7 +357,7 @@ function RouteMap({ stops, paths = [], label = "行程路線地圖", focus = nul
           "line-color": "#4a2f1e",
           "line-width": 2,
           "line-opacity": 0.55,
-          "line-dasharray": [1, 3],
+          "line-dasharray": [1, 4.5],
         },
       });
       map.addImage("footprint-left", makeFootprintImage(false).image, { pixelRatio: 2 });

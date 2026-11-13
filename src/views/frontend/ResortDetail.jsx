@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { fetchResortForecast } from "../../services/weatherForecast";
 import { Link, useParams } from "react-router-dom";
 import HandDrawnMotif from "../../component/HandDrawnMotif";
 import CartoonTrailMap from "../../component/CartoonTrailMap";
@@ -1078,35 +1079,17 @@ function ResortDetail() {
   useEffect(() => {
     if (!town || !resort) return undefined;
     const controller = new AbortController();
-    const query = new URLSearchParams({
-      latitude: String(town.latitude),
-      longitude: String(town.longitude),
-      current: "temperature_2m,apparent_temperature,weather_code,wind_speed_10m,snowfall",
-      daily: "weather_code,temperature_2m_max,temperature_2m_min,snowfall_sum,wind_speed_10m_max",
-      timezone: "Asia/Tokyo",
-      forecast_days: "7",
-    });
-    // A connection that never answers would leave the cards loading forever.
-    const timer = setTimeout(() => controller.abort(new Error("Weather request timed out")), 15000);
-
-    fetch(`https://api.open-meteo.com/v1/forecast?${query}`, { signal: controller.signal })
-      .then((response) => {
-        if (!response.ok) throw new Error("Weather request failed");
-        return response.json();
-      })
+    // Open-Meteo first, MET Norway when it does not answer (see the service).
+    fetchResortForecast(town.latitude, town.longitude, controller.signal)
       .then((data) => {
         setForecast(data);
         setWeatherState("ready");
       })
-      .catch((error) => {
-        if (error.name !== "AbortError") setWeatherState("error");
-      })
-      .finally(() => clearTimeout(timer));
+      .catch(() => {
+        if (!controller.signal.aborted) setWeatherState("error");
+      });
 
-    return () => {
-      clearTimeout(timer);
-      controller.abort();
-    };
+    return () => controller.abort();
   }, [town, resort, isOfficialMoiwa]);
 
   useEffect(() => {
