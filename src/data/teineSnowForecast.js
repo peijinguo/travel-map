@@ -2,24 +2,24 @@
 export const teineSnowForecast = {
   "sourceUrl": "https://ja.snow-forecast.com/resorts/TeineHighland/6day/mid",
   "elevation": 682,
-  "issuedAt": "8 am 15 Nov 2026",
+  "issuedAt": "2 pm 15 Nov 2026",
   "current": {
     "weather": "小雨",
-    "temperature": 4,
+    "temperature": 3,
     "minTemperature": 3,
-    "wind": 10,
+    "wind": 5,
     "snowfall": 0
   },
   "days": [
     {
       "date": "2026-11-15",
-      "snowfall": 2,
+      "snowfall": 3,
       "min": 1,
-      "max": 4
+      "max": 3
     },
     {
       "date": "2026-11-16",
-      "snowfall": 4,
+      "snowfall": 3,
       "min": -3,
       "max": 0
     },
@@ -27,25 +27,25 @@ export const teineSnowForecast = {
       "date": "2026-11-17",
       "snowfall": 0,
       "min": -3,
-      "max": 1
+      "max": 2
     },
     {
       "date": "2026-11-18",
       "snowfall": 0,
-      "min": 1,
-      "max": 5
+      "min": 2,
+      "max": 4
     },
     {
       "date": "2026-11-19",
-      "snowfall": 10,
+      "snowfall": 9,
       "min": -6,
-      "max": 0
+      "max": 3
     },
     {
       "date": "2026-11-20",
-      "snowfall": 11,
+      "snowfall": 13,
       "min": -6,
-      "max": -4
+      "max": -3
     },
     {
       "date": "2026-11-21",
