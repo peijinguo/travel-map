@@ -1,6 +1,6 @@
 // 此檔案由 scripts/sync-teine-lift-status.mjs 自動產生，請勿手動修改。
 export const teineLiftStatus = {
-  "updatedAt": "2026.10.17 10:01",
+  "updatedAt": "2026.11.16 8:20",
   "sourceUrl": "https://sapporo-teine.com/snow/gelande-report",
   "lifts": [
     {
@@ -9,7 +9,7 @@ export const teineLiftStatus = {
       "name": "Panorama No. 1",
       "officialName": "パノラマ1号",
       "status": "停止運行",
-      "detail": "今季の営業終了〜 運休中"
+      "detail": "9:00〜15:30 運休中"
     },
     {
       "id": 2,
@@ -17,7 +17,7 @@ export const teineLiftStatus = {
       "name": "Panorama No. 2",
       "officialName": "パノラマ2号",
       "status": "停止運行",
-      "detail": "今季の営業終了〜 運休中"
+      "detail": "9:00〜15:30 運休中"
     },
     {
       "id": 3,
@@ -25,7 +25,7 @@ export const teineLiftStatus = {
       "name": "Summit Express",
       "officialName": "サミットエクスプレス",
       "status": "停止運行",
-      "detail": "今季の営業終了〜 運休中"
+      "detail": "9:00〜15:30 運休中"
     },
     {
       "id": 4,
@@ -33,7 +33,7 @@ export const teineLiftStatus = {
       "name": "Paradise Lift",
       "officialName": "パラダイスリフト",
       "status": "停止運行",
-      "detail": "今季の営業終了〜 運休中 OLYMPIA ZONE"
+      "detail": "9:00〜16:00 運休中 OLYMPIA ZONE"
     },
     {
       "id": 5,
@@ -41,7 +41,7 @@ export const teineLiftStatus = {
       "name": "Eight Gondola",
       "officialName": "エイトゴンドラ",
       "status": "停止運行",
-      "detail": "今季の営業終了〜 運休中"
+      "detail": "Closed〜 運休中"
     },
     {
       "id": 6,
@@ -49,7 +49,7 @@ export const teineLiftStatus = {
       "name": "Shirakaba No. 1 Lift",
       "officialName": "白樺第1リフト",
       "status": "停止運行",
-      "detail": "今季の営業終了〜 運休中"
+      "detail": "Closed〜 運休中"
     },
     {
       "id": 7,
@@ -57,7 +57,7 @@ export const teineLiftStatus = {
       "name": "Shirakaba No. 2 Lift",
       "officialName": "白樺第2リフト",
       "status": "停止運行",
-      "detail": "今季の営業終了〜 運休中"
+      "detail": "Closed〜 運休中"
     },
     {
       "id": 8,
@@ -65,7 +65,7 @@ export const teineLiftStatus = {
       "name": "Shirakaba No. 3 Lift",
       "officialName": "白樺第3リフト",
       "status": "停止運行",
-      "detail": "今季の営業終了〜 運休中"
+      "detail": "Closed〜 運休中"
     },
     {
       "id": 9,
@@ -73,7 +73,7 @@ export const teineLiftStatus = {
       "name": "Olympic Cauldron No. 1 Lift",
       "officialName": "聖火台第1リフト",
       "status": "停止運行",
-      "detail": "今季の営業終了〜 運休中"
+      "detail": "Closed〜 運休中"
     },
     {
       "id": 10,
@@ -81,7 +81,7 @@ export const teineLiftStatus = {
       "name": "Snow Escalator",
       "officialName": "スノーエスカレーター",
       "status": "停止運行",
-      "detail": "今季の営業終了〜 運休中"
+      "detail": "Closed〜 運休中"
     }
   ],
   "courses": [
