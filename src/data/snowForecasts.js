@@ -1,6 +1,6 @@
 // 此檔案由 scripts/sync-snow-forecasts.mjs 自動產生，請勿手動修改。
 export const snowForecasts = {
-  "fetchedAt": "2026-11-19T16:55:53.574Z",
+  "fetchedAt": "2026-11-19T23:21:17.986Z",
   "resorts": {
     "nanae/0": "HakodateNanae",
     "mori/0": "Greenpia-Onuma",
@@ -73,16 +73,8 @@ export const snowForecasts = {
     "HakodateNanae": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/HakodateNanae/6day/mid",
       "elevation": 602,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "小雪",
-          "temperature": -5,
-          "wind": 50,
-          "snowfall": 1
-        },
         {
           "date": "2026-11-20",
           "part": 0,
@@ -103,7 +95,7 @@ export const snowForecasts = {
           "date": "2026-11-20",
           "part": 2,
           "weather": "小雪",
-          "temperature": -3,
+          "temperature": -4,
           "wind": 40,
           "snowfall": 4
         },
@@ -112,16 +104,16 @@ export const snowForecasts = {
           "part": 0,
           "weather": "にわか雪",
           "temperature": -2,
-          "wind": 20,
-          "snowfall": 4
+          "wind": 15,
+          "snowfall": 3
         },
         {
           "date": "2026-11-21",
           "part": 1,
           "weather": "にわか雪",
-          "temperature": -3,
-          "wind": 20,
-          "snowfall": 3
+          "temperature": -2,
+          "wind": 15,
+          "snowfall": 2
         },
         {
           "date": "2026-11-21",
@@ -142,7 +134,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "晴れる",
+          "weather": "にわか雪",
           "temperature": -2,
           "wind": 20,
           "snowfall": 0
@@ -151,14 +143,14 @@ export const snowForecasts = {
           "date": "2026-11-22",
           "part": 2,
           "weather": "一部曇り",
-          "temperature": -1,
+          "temperature": -2,
           "wind": 20,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "曇り",
+          "weather": "一部曇り",
           "temperature": 3,
           "wind": 20,
           "snowfall": 0
@@ -166,9 +158,9 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 1,
-          "weather": "並雨",
-          "temperature": 4,
-          "wind": 25,
+          "weather": "小雨",
+          "temperature": 3,
+          "wind": 20,
           "snowfall": 0
         },
         {
@@ -176,15 +168,15 @@ export const snowForecasts = {
           "part": 2,
           "weather": "豪雨",
           "temperature": 5,
-          "wind": 30,
+          "wind": 35,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 0,
           "weather": "小雪",
-          "temperature": 3,
-          "wind": 35,
+          "temperature": 2,
+          "wind": 25,
           "snowfall": 0
         },
         {
@@ -192,7 +184,7 @@ export const snowForecasts = {
           "part": 1,
           "weather": "小雪",
           "temperature": -3,
-          "wind": 40,
+          "wind": 30,
           "snowfall": 1
         },
         {
@@ -200,47 +192,63 @@ export const snowForecasts = {
           "part": 2,
           "weather": "小雪",
           "temperature": -5,
+          "wind": 40,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -6,
           "wind": 45,
-          "snowfall": 2
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -5,
+          "wind": 40,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "にわか雨",
+          "temperature": 2,
+          "wind": 40,
+          "snowfall": 0
         }
       ],
       "current": {
         "weather": "小雪",
         "temperature": -5,
         "minTemperature": -6,
-        "wind": 50,
-        "snowfall": 1
+        "wind": 45,
+        "snowfall": 0
       },
       "days": [
-        {
-          "date": "2026-11-19",
-          "snowfall": 1,
-          "min": -6,
-          "max": -5,
-          "wind": 50,
-          "weather": "小雪"
-        },
         {
           "date": "2026-11-20",
           "snowfall": 5,
           "min": -6,
-          "max": -3,
+          "max": -4,
           "wind": 45,
           "weather": "小雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 7,
-          "min": -6,
+          "snowfall": 5,
+          "min": -5,
           "max": -2,
-          "wind": 20,
+          "wind": 15,
           "weather": "にわか雪"
         },
         {
           "date": "2026-11-22",
           "snowfall": 0,
           "min": -5,
-          "max": -1,
+          "max": -2,
           "wind": 20,
           "weather": "にわか雪"
         },
@@ -249,14 +257,22 @@ export const snowForecasts = {
           "snowfall": 0,
           "min": 1,
           "max": 5,
-          "wind": 30,
-          "weather": "並雨"
+          "wind": 35,
+          "weather": "小雨"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 3,
+          "snowfall": 4,
           "min": -7,
-          "max": 3,
+          "max": 2,
+          "wind": 40,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 1,
+          "min": -7,
+          "max": 2,
           "wind": 45,
           "weather": "小雪"
         }
@@ -265,21 +281,13 @@ export const snowForecasts = {
     "Greenpia-Onuma": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Greenpia-Onuma/6day/mid",
       "elevation": 312,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "小雪",
-          "temperature": -3,
-          "wind": 40,
-          "snowfall": 1
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "小雪",
-          "temperature": -2,
+          "temperature": -3,
           "wind": 35,
           "snowfall": 0
         },
@@ -289,15 +297,15 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": -3,
           "wind": 35,
-          "snowfall": 0
+          "snowfall": 1
         },
         {
           "date": "2026-11-20",
           "part": 2,
           "weather": "小雪",
-          "temperature": -1,
+          "temperature": -2,
           "wind": 30,
-          "snowfall": 3
+          "snowfall": 2
         },
         {
           "date": "2026-11-21",
@@ -312,14 +320,14 @@ export const snowForecasts = {
           "part": 1,
           "weather": "にわか雪",
           "temperature": 0,
-          "wind": 15,
-          "snowfall": 2
+          "wind": 10,
+          "snowfall": 1
         },
         {
           "date": "2026-11-21",
           "part": 2,
-          "weather": "晴れる",
-          "temperature": -5,
+          "weather": "一部曇り",
+          "temperature": -4,
           "wind": 5,
           "snowfall": 0
         },
@@ -334,7 +342,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "晴れる",
+          "weather": "一部曇り",
           "temperature": 0,
           "wind": 15,
           "snowfall": 0
@@ -343,15 +351,15 @@ export const snowForecasts = {
           "date": "2026-11-22",
           "part": 2,
           "weather": "一部曇り",
-          "temperature": 2,
+          "temperature": 1,
           "wind": 10,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "小雨",
-          "temperature": 6,
+          "weather": "曇り",
+          "temperature": 5,
           "wind": 15,
           "snowfall": 0
         },
@@ -359,8 +367,8 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 1,
           "weather": "小雨",
-          "temperature": 6,
-          "wind": 15,
+          "temperature": 5,
+          "wind": 10,
           "snowfall": 0
         },
         {
@@ -368,112 +376,128 @@ export const snowForecasts = {
           "part": 2,
           "weather": "豪雨",
           "temperature": 7,
-          "wind": 20,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-24",
-          "part": 0,
-          "weather": "にわか雪",
-          "temperature": 5,
           "wind": 25,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
-          "part": 1,
+          "part": 0,
           "weather": "小雪",
+          "temperature": 4,
+          "wind": 15,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-24",
+          "part": 1,
+          "weather": "にわか雪",
           "temperature": -1,
-          "wind": 30,
+          "wind": 20,
           "snowfall": 1
         },
         {
           "date": "2026-11-24",
           "part": 2,
           "weather": "小雪",
-          "temperature": -3,
+          "temperature": -2,
+          "wind": 25,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -4,
           "wind": 35,
-          "snowfall": 2
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -2,
+          "wind": 25,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "にわか雨",
+          "temperature": 5,
+          "wind": 30,
+          "snowfall": 0
         }
       ],
       "current": {
         "weather": "小雪",
         "temperature": -3,
         "minTemperature": -3,
-        "wind": 40,
-        "snowfall": 1
+        "wind": 35,
+        "snowfall": 0
       },
       "days": [
-        {
-          "date": "2026-11-19",
-          "snowfall": 1,
-          "min": -3,
-          "max": -3,
-          "wind": 40,
-          "weather": "小雪"
-        },
         {
           "date": "2026-11-20",
           "snowfall": 3,
           "min": -4,
-          "max": -1,
+          "max": -2,
           "wind": 35,
           "weather": "小雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 5,
-          "min": -5,
+          "snowfall": 4,
+          "min": -4,
           "max": 0,
-          "wind": 15,
+          "wind": 10,
           "weather": "小雪"
         },
         {
           "date": "2026-11-22",
           "snowfall": 0,
-          "min": -4,
-          "max": 2,
+          "min": -3,
+          "max": 1,
           "wind": 15,
           "weather": "小雪"
         },
         {
           "date": "2026-11-23",
           "snowfall": 0,
-          "min": 4,
+          "min": 3,
           "max": 7,
-          "wind": 20,
+          "wind": 25,
           "weather": "小雨"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 3,
+          "snowfall": 4,
+          "min": -5,
+          "max": 4,
+          "wind": 25,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 1,
           "min": -5,
           "max": 5,
           "wind": 35,
-          "weather": "にわか雪"
+          "weather": "小雪"
         }
       ]
     },
     "Niseko": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Niseko/6day/mid",
       "elevation": 706,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -7,
-          "wind": 45,
-          "snowfall": 9
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "小雪",
           "temperature": -7,
-          "wind": 35,
-          "snowfall": 2
+          "wind": 40,
+          "snowfall": 3
         },
         {
           "date": "2026-11-20",
@@ -489,14 +513,14 @@ export const snowForecasts = {
           "weather": "豪雪",
           "temperature": -4,
           "wind": 40,
-          "snowfall": 14
+          "snowfall": 15
         },
         {
           "date": "2026-11-21",
           "part": 0,
-          "weather": "にわか雪",
-          "temperature": -3,
-          "wind": 25,
+          "weather": "小雪",
+          "temperature": -4,
+          "wind": 20,
           "snowfall": 2
         },
         {
@@ -504,16 +528,16 @@ export const snowForecasts = {
           "part": 1,
           "weather": "にわか雪",
           "temperature": -3,
-          "wind": 15,
+          "wind": 10,
           "snowfall": 3
         },
         {
           "date": "2026-11-21",
           "part": 2,
-          "weather": "小雪",
-          "temperature": -6,
+          "weather": "にわか雪",
+          "temperature": -5,
           "wind": 10,
-          "snowfall": 3
+          "snowfall": 4
         },
         {
           "date": "2026-11-22",
@@ -526,7 +550,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": -4,
           "wind": 20,
           "snowfall": 0
@@ -534,7 +558,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-22",
           "part": 2,
-          "weather": "曇り",
+          "weather": "一部曇り",
           "temperature": -4,
           "wind": 15,
           "snowfall": 0
@@ -544,7 +568,7 @@ export const snowForecasts = {
           "part": 0,
           "weather": "小雪",
           "temperature": 0,
-          "wind": 20,
+          "wind": 15,
           "snowfall": 0
         },
         {
@@ -558,25 +582,25 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "豪雨",
+          "weather": "小雪",
           "temperature": 3,
-          "wind": 30,
-          "snowfall": 0
+          "wind": 35,
+          "snowfall": 3
         },
         {
           "date": "2026-11-24",
           "part": 0,
           "weather": "小雪",
-          "temperature": 0,
+          "temperature": -2,
           "wind": 20,
-          "snowfall": 4
+          "snowfall": 2
         },
         {
           "date": "2026-11-24",
           "part": 1,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": -5,
-          "wind": 40,
+          "wind": 30,
           "snowfall": 3
         },
         {
@@ -584,29 +608,45 @@ export const snowForecasts = {
           "part": 2,
           "weather": "少量の雪",
           "temperature": -7,
-          "wind": 45,
-          "snowfall": 9
+          "wind": 40,
+          "snowfall": 8
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -8,
+          "wind": 40,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -7,
+          "wind": 40,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "小雪",
+          "temperature": -1,
+          "wind": 35,
+          "snowfall": 3
         }
       ],
       "current": {
-        "weather": "少量の雪",
+        "weather": "小雪",
         "temperature": -7,
         "minTemperature": -8,
-        "wind": 45,
-        "snowfall": 9
+        "wind": 40,
+        "snowfall": 3
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 9,
-          "min": -8,
-          "max": -7,
-          "wind": 45,
-          "weather": "少量の雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 20,
+          "snowfall": 22,
           "min": -8,
           "max": -4,
           "wind": 40,
@@ -614,11 +654,11 @@ export const snowForecasts = {
         },
         {
           "date": "2026-11-21",
-          "snowfall": 8,
+          "snowfall": 9,
           "min": -6,
           "max": -3,
-          "wind": 25,
-          "weather": "にわか雪"
+          "wind": 20,
+          "weather": "小雪"
         },
         {
           "date": "2026-11-22",
@@ -630,18 +670,26 @@ export const snowForecasts = {
         },
         {
           "date": "2026-11-23",
-          "snowfall": 1,
+          "snowfall": 4,
           "min": -1,
           "max": 3,
-          "wind": 30,
+          "wind": 35,
           "weather": "小雪"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 16,
+          "snowfall": 13,
           "min": -9,
-          "max": 0,
-          "wind": 45,
+          "max": -2,
+          "wind": 40,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 7,
+          "min": -9,
+          "max": -1,
+          "wind": 40,
           "weather": "小雪"
         }
       ]
@@ -649,29 +697,21 @@ export const snowForecasts = {
     "NisekoHigashiyama": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/NisekoHigashiyama/6day/mid",
       "elevation": 725,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -7,
-          "wind": 45,
-          "snowfall": 9
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "小雪",
           "temperature": -7,
           "wind": 40,
-          "snowfall": 2
+          "snowfall": 3
         },
         {
           "date": "2026-11-20",
           "part": 1,
           "weather": "小雪",
-          "temperature": -7,
+          "temperature": -8,
           "wind": 40,
           "snowfall": 4
         },
@@ -680,15 +720,15 @@ export const snowForecasts = {
           "part": 2,
           "weather": "豪雪",
           "temperature": -4,
-          "wind": 40,
-          "snowfall": 13
+          "wind": 45,
+          "snowfall": 15
         },
         {
           "date": "2026-11-21",
           "part": 0,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": -4,
-          "wind": 25,
+          "wind": 20,
           "snowfall": 2
         },
         {
@@ -702,10 +742,10 @@ export const snowForecasts = {
         {
           "date": "2026-11-21",
           "part": 2,
-          "weather": "小雪",
-          "temperature": -6,
+          "weather": "にわか雪",
+          "temperature": -5,
           "wind": 10,
-          "snowfall": 3
+          "snowfall": 4
         },
         {
           "date": "2026-11-22",
@@ -718,16 +758,16 @@ export const snowForecasts = {
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": -4,
-          "wind": 20,
+          "wind": 25,
           "snowfall": 0
         },
         {
           "date": "2026-11-22",
           "part": 2,
-          "weather": "曇り",
-          "temperature": -3,
+          "weather": "一部曇り",
+          "temperature": -4,
           "wind": 15,
           "snowfall": 0
         },
@@ -736,7 +776,7 @@ export const snowForecasts = {
           "part": 0,
           "weather": "小雪",
           "temperature": 0,
-          "wind": 20,
+          "wind": 15,
           "snowfall": 0
         },
         {
@@ -744,96 +784,120 @@ export const snowForecasts = {
           "part": 1,
           "weather": "小雪",
           "temperature": 1,
-          "wind": 25,
+          "wind": 20,
           "snowfall": 1
         },
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "豪雨",
+          "weather": "小雪",
           "temperature": 3,
-          "wind": 30,
-          "snowfall": 0
+          "wind": 35,
+          "snowfall": 3
         },
         {
           "date": "2026-11-24",
           "part": 0,
           "weather": "小雪",
-          "temperature": 0,
-          "wind": 25,
-          "snowfall": 4
+          "temperature": -2,
+          "wind": 20,
+          "snowfall": 2
         },
         {
           "date": "2026-11-24",
           "part": 1,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": -5,
-          "wind": 40,
-          "snowfall": 2
+          "wind": 30,
+          "snowfall": 3
         },
         {
           "date": "2026-11-24",
           "part": 2,
           "weather": "少量の雪",
           "temperature": -7,
-          "wind": 45,
+          "wind": 40,
           "snowfall": 8
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -8,
+          "wind": 40,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -7,
+          "wind": 40,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "小雪",
+          "temperature": -1,
+          "wind": 35,
+          "snowfall": 2
         }
       ],
       "current": {
-        "weather": "少量の雪",
+        "weather": "小雪",
         "temperature": -7,
         "minTemperature": -8,
-        "wind": 45,
-        "snowfall": 9
+        "wind": 40,
+        "snowfall": 3
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 9,
-          "min": -8,
-          "max": -7,
-          "wind": 45,
-          "weather": "少量の雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 19,
+          "snowfall": 22,
           "min": -8,
           "max": -4,
-          "wind": 40,
+          "wind": 45,
           "weather": "小雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 8,
+          "snowfall": 9,
           "min": -6,
           "max": -4,
-          "wind": 25,
-          "weather": "にわか雪"
+          "wind": 20,
+          "weather": "小雪"
         },
         {
           "date": "2026-11-22",
           "snowfall": 0,
           "min": -7,
-          "max": -3,
-          "wind": 20,
+          "max": -4,
+          "wind": 25,
           "weather": "にわか雪"
         },
         {
           "date": "2026-11-23",
-          "snowfall": 1,
-          "min": -1,
+          "snowfall": 4,
+          "min": -2,
           "max": 3,
-          "wind": 30,
+          "wind": 35,
           "weather": "小雪"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 14,
+          "snowfall": 13,
           "min": -9,
-          "max": 0,
-          "wind": 45,
+          "max": -2,
+          "wind": 40,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 6,
+          "min": -9,
+          "max": -1,
+          "wind": 40,
           "weather": "小雪"
         }
       ]
@@ -841,23 +905,15 @@ export const snowForecasts = {
     "NisekoAnnpuriKokusai": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/NisekoAnnpuriKokusai/6day/mid",
       "elevation": 778,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -7,
-          "wind": 50,
-          "snowfall": 9
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "小雪",
-          "temperature": -7,
-          "wind": 40,
-          "snowfall": 2
+          "temperature": -8,
+          "wind": 45,
+          "snowfall": 3
         },
         {
           "date": "2026-11-20",
@@ -872,15 +928,15 @@ export const snowForecasts = {
           "part": 2,
           "weather": "豪雪",
           "temperature": -4,
-          "wind": 40,
-          "snowfall": 14
+          "wind": 45,
+          "snowfall": 15
         },
         {
           "date": "2026-11-21",
           "part": 0,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": -4,
-          "wind": 25,
+          "wind": 20,
           "snowfall": 2
         },
         {
@@ -888,16 +944,16 @@ export const snowForecasts = {
           "part": 1,
           "weather": "にわか雪",
           "temperature": -4,
-          "wind": 20,
-          "snowfall": 3
+          "wind": 15,
+          "snowfall": 4
         },
         {
           "date": "2026-11-21",
           "part": 2,
-          "weather": "小雪",
-          "temperature": -6,
+          "weather": "にわか雪",
+          "temperature": -5,
           "wind": 10,
-          "snowfall": 3
+          "snowfall": 4
         },
         {
           "date": "2026-11-22",
@@ -910,17 +966,17 @@ export const snowForecasts = {
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "にわか雪",
-          "temperature": -4,
+          "weather": "小雪",
+          "temperature": -5,
           "wind": 25,
           "snowfall": 0
         },
         {
           "date": "2026-11-22",
           "part": 2,
-          "weather": "曇り",
-          "temperature": -3,
-          "wind": 15,
+          "weather": "一部曇り",
+          "temperature": -4,
+          "wind": 20,
           "snowfall": 0
         },
         {
@@ -935,97 +991,121 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 1,
           "weather": "小雪",
-          "temperature": 1,
+          "temperature": 0,
           "wind": 25,
           "snowfall": 1
         },
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "少量の雪",
+          "weather": "小雪",
           "temperature": 3,
-          "wind": 35,
-          "snowfall": 9
-        },
-        {
-          "date": "2026-11-24",
-          "part": 0,
-          "weather": "小雪",
-          "temperature": -1,
-          "wind": 25,
-          "snowfall": 4
-        },
-        {
-          "date": "2026-11-24",
-          "part": 1,
-          "weather": "小雪",
-          "temperature": -5,
           "wind": 40,
           "snowfall": 2
         },
         {
           "date": "2026-11-24",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -2,
+          "wind": 20,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-24",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -6,
+          "wind": 30,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-24",
           "part": 2,
           "weather": "少量の雪",
+          "temperature": -7,
+          "wind": 45,
+          "snowfall": 7
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
           "temperature": -8,
-          "wind": 50,
-          "snowfall": 8
+          "wind": 45,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -7,
+          "wind": 45,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "小雪",
+          "temperature": -2,
+          "wind": 35,
+          "snowfall": 2
         }
       ],
       "current": {
-        "weather": "少量の雪",
-        "temperature": -7,
+        "weather": "小雪",
+        "temperature": -8,
         "minTemperature": -8,
-        "wind": 50,
-        "snowfall": 9
+        "wind": 45,
+        "snowfall": 3
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 9,
-          "min": -8,
-          "max": -7,
-          "wind": 50,
-          "weather": "少量の雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 20,
+          "snowfall": 22,
           "min": -8,
           "max": -4,
-          "wind": 40,
+          "wind": 45,
           "weather": "小雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 8,
+          "snowfall": 10,
           "min": -6,
           "max": -4,
-          "wind": 25,
-          "weather": "にわか雪"
+          "wind": 20,
+          "weather": "小雪"
         },
         {
           "date": "2026-11-22",
           "snowfall": 0,
           "min": -7,
-          "max": -3,
+          "max": -4,
           "wind": 25,
           "weather": "にわか雪"
         },
         {
           "date": "2026-11-23",
-          "snowfall": 10,
-          "min": -1,
+          "snowfall": 3,
+          "min": -2,
           "max": 3,
-          "wind": 35,
+          "wind": 40,
           "weather": "小雪"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 14,
+          "snowfall": 12,
+          "min": -10,
+          "max": -2,
+          "wind": 45,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 6,
           "min": -9,
-          "max": -1,
-          "wind": 50,
+          "max": -2,
+          "wind": 45,
           "weather": "小雪"
         }
       ]
@@ -1033,46 +1113,38 @@ export const snowForecasts = {
     "Niseko-Hanazono-Resort": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Niseko-Hanazono-Resort/6day/mid",
       "elevation": 674,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -7,
-          "wind": 45,
-          "snowfall": 8
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "小雪",
           "temperature": -7,
-          "wind": 35,
-          "snowfall": 2
+          "wind": 40,
+          "snowfall": 4
         },
         {
           "date": "2026-11-20",
           "part": 1,
           "weather": "小雪",
           "temperature": -7,
-          "wind": 35,
+          "wind": 40,
           "snowfall": 4
         },
         {
           "date": "2026-11-20",
           "part": 2,
           "weather": "豪雪",
-          "temperature": -4,
-          "wind": 35,
-          "snowfall": 14
+          "temperature": -3,
+          "wind": 40,
+          "snowfall": 15
         },
         {
           "date": "2026-11-21",
           "part": 0,
           "weather": "小雪",
           "temperature": -3,
-          "wind": 25,
+          "wind": 20,
           "snowfall": 2
         },
         {
@@ -1080,16 +1152,16 @@ export const snowForecasts = {
           "part": 1,
           "weather": "小雪",
           "temperature": -3,
-          "wind": 15,
+          "wind": 10,
           "snowfall": 3
         },
         {
           "date": "2026-11-21",
           "part": 2,
           "weather": "小雪",
-          "temperature": -5,
+          "temperature": -4,
           "wind": 10,
-          "snowfall": 3
+          "snowfall": 4
         },
         {
           "date": "2026-11-22",
@@ -1111,7 +1183,7 @@ export const snowForecasts = {
           "date": "2026-11-22",
           "part": 2,
           "weather": "曇り",
-          "temperature": -3,
+          "temperature": -4,
           "wind": 15,
           "snowfall": 0
         },
@@ -1119,14 +1191,14 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 0,
           "weather": "小雪",
-          "temperature": 1,
+          "temperature": 0,
           "wind": 15,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 1,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": 1,
           "wind": 20,
           "snowfall": 1
@@ -1134,66 +1206,82 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "豪雨",
+          "weather": "小雪",
           "temperature": 3,
-          "wind": 30,
-          "snowfall": 0
+          "wind": 35,
+          "snowfall": 3
         },
         {
           "date": "2026-11-24",
           "part": 0,
           "weather": "小雪",
-          "temperature": 0,
+          "temperature": -2,
           "wind": 20,
-          "snowfall": 5
+          "snowfall": 2
         },
         {
           "date": "2026-11-24",
           "part": 1,
           "weather": "小雪",
           "temperature": -5,
-          "wind": 35,
+          "wind": 30,
           "snowfall": 3
         },
         {
           "date": "2026-11-24",
           "part": 2,
           "weather": "少量の雪",
-          "temperature": -7,
-          "wind": 45,
+          "temperature": -6,
+          "wind": 40,
           "snowfall": 8
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -8,
+          "wind": 40,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -7,
+          "wind": 40,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "小雪",
+          "temperature": -1,
+          "wind": 30,
+          "snowfall": 3
         }
       ],
       "current": {
-        "weather": "少量の雪",
+        "weather": "小雪",
         "temperature": -7,
-        "minTemperature": -8,
-        "wind": 45,
-        "snowfall": 8
+        "minTemperature": -7,
+        "wind": 40,
+        "snowfall": 4
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 8,
-          "min": -8,
-          "max": -7,
-          "wind": 45,
-          "weather": "少量の雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 20,
+          "snowfall": 23,
           "min": -7,
-          "max": -4,
-          "wind": 35,
+          "max": -3,
+          "wind": 40,
           "weather": "小雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 8,
-          "min": -6,
+          "snowfall": 9,
+          "min": -5,
           "max": -3,
-          "wind": 25,
+          "wind": 20,
           "weather": "小雪"
         },
         {
@@ -1206,18 +1294,26 @@ export const snowForecasts = {
         },
         {
           "date": "2026-11-23",
-          "snowfall": 1,
+          "snowfall": 4,
           "min": -1,
           "max": 3,
-          "wind": 30,
+          "wind": 35,
           "weather": "小雪"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 16,
+          "snowfall": 13,
           "min": -9,
-          "max": 0,
-          "wind": 45,
+          "max": -2,
+          "wind": 40,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 7,
+          "min": -8,
+          "max": -1,
+          "wind": 40,
           "weather": "小雪"
         }
       ]
@@ -1225,23 +1321,15 @@ export const snowForecasts = {
     "Niseko-Moiwa": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Niseko-Moiwa/6day/mid",
       "elevation": 565,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -6,
-          "wind": 45,
-          "snowfall": 7
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "小雪",
           "temperature": -6,
           "wind": 35,
-          "snowfall": 2
+          "snowfall": 3
         },
         {
           "date": "2026-11-20",
@@ -1249,22 +1337,22 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": -6,
           "wind": 35,
-          "snowfall": 3
+          "snowfall": 4
         },
         {
           "date": "2026-11-20",
           "part": 2,
           "weather": "豪雪",
           "temperature": -3,
-          "wind": 35,
-          "snowfall": 11
+          "wind": 40,
+          "snowfall": 12
         },
         {
           "date": "2026-11-21",
           "part": 0,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": -2,
-          "wind": 20,
+          "wind": 15,
           "snowfall": 2
         },
         {
@@ -1272,29 +1360,29 @@ export const snowForecasts = {
           "part": 1,
           "weather": "にわか雪",
           "temperature": -2,
-          "wind": 15,
+          "wind": 10,
           "snowfall": 3
         },
         {
           "date": "2026-11-21",
           "part": 2,
-          "weather": "小雪",
-          "temperature": -5,
+          "weather": "にわか雪",
+          "temperature": -4,
           "wind": 10,
-          "snowfall": 2
+          "snowfall": 4
         },
         {
           "date": "2026-11-22",
           "part": 0,
           "weather": "にわか雪",
           "temperature": -2,
-          "wind": 20,
+          "wind": 15,
           "snowfall": 0
         },
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": -3,
           "wind": 20,
           "snowfall": 0
@@ -1302,8 +1390,8 @@ export const snowForecasts = {
         {
           "date": "2026-11-22",
           "part": 2,
-          "weather": "曇り",
-          "temperature": -2,
+          "weather": "一部曇り",
+          "temperature": -3,
           "wind": 10,
           "snowfall": 0
         },
@@ -1320,73 +1408,89 @@ export const snowForecasts = {
           "part": 1,
           "weather": "小雪",
           "temperature": 2,
-          "wind": 20,
+          "wind": 15,
           "snowfall": 1
         },
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "豪雨",
+          "weather": "並雨",
           "temperature": 4,
-          "wind": 25,
+          "wind": 30,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 0,
           "weather": "小雪",
-          "temperature": 1,
+          "temperature": -1,
           "wind": 20,
-          "snowfall": 4
+          "snowfall": 1
         },
         {
           "date": "2026-11-24",
           "part": 1,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": -4,
-          "wind": 35,
+          "wind": 25,
           "snowfall": 2
         },
         {
           "date": "2026-11-24",
           "part": 2,
           "weather": "少量の雪",
+          "temperature": -5,
+          "wind": 35,
+          "snowfall": 6
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -7,
+          "wind": 35,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "小雪",
           "temperature": -6,
-          "wind": 40,
-          "snowfall": 7
+          "wind": 35,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "小雪",
+          "temperature": 0,
+          "wind": 30,
+          "snowfall": 2
         }
       ],
       "current": {
-        "weather": "少量の雪",
+        "weather": "小雪",
         "temperature": -6,
-        "minTemperature": -7,
-        "wind": 45,
-        "snowfall": 7
+        "minTemperature": -6,
+        "wind": 35,
+        "snowfall": 3
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 7,
-          "min": -7,
-          "max": -6,
-          "wind": 45,
-          "weather": "少量の雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 16,
-          "min": -6,
+          "snowfall": 19,
+          "min": -7,
           "max": -3,
-          "wind": 35,
+          "wind": 40,
           "weather": "小雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 7,
+          "snowfall": 9,
           "min": -5,
           "max": -2,
-          "wind": 20,
-          "weather": "にわか雪"
+          "wind": 15,
+          "weather": "小雪"
         },
         {
           "date": "2026-11-22",
@@ -1401,15 +1505,23 @@ export const snowForecasts = {
           "snowfall": 1,
           "min": 0,
           "max": 4,
-          "wind": 25,
+          "wind": 30,
           "weather": "小雪"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 13,
+          "snowfall": 9,
           "min": -8,
-          "max": 1,
-          "wind": 40,
+          "max": -1,
+          "wind": 35,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 5,
+          "min": -7,
+          "max": 0,
+          "wind": 35,
           "weather": "小雪"
         }
       ]
@@ -1417,23 +1529,15 @@ export const snowForecasts = {
     "OtaruTenguyama": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/OtaruTenguyama/6day/mid",
       "elevation": 344,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -3,
-          "wind": 45,
-          "snowfall": 6
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "小雪",
           "temperature": -4,
           "wind": 40,
-          "snowfall": 2
+          "snowfall": 4
         },
         {
           "date": "2026-11-20",
@@ -1441,14 +1545,14 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": -4,
           "wind": 40,
-          "snowfall": 3
+          "snowfall": 4
         },
         {
           "date": "2026-11-20",
           "part": 2,
           "weather": "少量の雪",
           "temperature": 0,
-          "wind": 40,
+          "wind": 45,
           "snowfall": 7
         },
         {
@@ -1456,13 +1560,13 @@ export const snowForecasts = {
           "part": 0,
           "weather": "小雪",
           "temperature": 0,
-          "wind": 30,
-          "snowfall": 2
+          "wind": 25,
+          "snowfall": 1
         },
         {
           "date": "2026-11-21",
           "part": 1,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": -1,
           "wind": 15,
           "snowfall": 2
@@ -1481,12 +1585,12 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": 0,
           "wind": 20,
-          "snowfall": 1
+          "snowfall": 0
         },
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": -1,
           "wind": 25,
           "snowfall": 0
@@ -1511,7 +1615,7 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 1,
           "weather": "小雨",
-          "temperature": 4,
+          "temperature": 3,
           "wind": 15,
           "snowfall": 0
         },
@@ -1527,7 +1631,7 @@ export const snowForecasts = {
           "date": "2026-11-24",
           "part": 0,
           "weather": "小雪",
-          "temperature": 3,
+          "temperature": 1,
           "wind": 25,
           "snowfall": 1
         },
@@ -1536,53 +1640,69 @@ export const snowForecasts = {
           "part": 1,
           "weather": "小雪",
           "temperature": -2,
-          "wind": 40,
+          "wind": 35,
           "snowfall": 2
         },
         {
           "date": "2026-11-24",
           "part": 2,
           "weather": "少量の雪",
+          "temperature": -3,
+          "wind": 40,
+          "snowfall": 8
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -5,
+          "wind": 45,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "小雪",
           "temperature": -4,
           "wind": 45,
-          "snowfall": 7
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "小雪",
+          "temperature": 1,
+          "wind": 35,
+          "snowfall": 3
         }
       ],
       "current": {
-        "weather": "少量の雪",
-        "temperature": -3,
+        "weather": "小雪",
+        "temperature": -4,
         "minTemperature": -4,
-        "wind": 45,
-        "snowfall": 6
+        "wind": 40,
+        "snowfall": 4
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 6,
-          "min": -4,
-          "max": -3,
-          "wind": 45,
-          "weather": "少量の雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 12,
+          "snowfall": 15,
           "min": -4,
           "max": 0,
-          "wind": 40,
+          "wind": 45,
           "weather": "小雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 6,
-          "min": -3,
+          "snowfall": 5,
+          "min": -2,
           "max": 0,
-          "wind": 30,
+          "wind": 25,
           "weather": "小雪"
         },
         {
           "date": "2026-11-22",
-          "snowfall": 1,
+          "snowfall": 0,
           "min": -2,
           "max": 0,
           "wind": 25,
@@ -1591,16 +1711,24 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "snowfall": 0,
-          "min": 2,
+          "min": 1,
           "max": 5,
           "wind": 20,
           "weather": "小雪"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 10,
+          "snowfall": 11,
           "min": -6,
-          "max": 3,
+          "max": 1,
+          "wind": 40,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 8,
+          "min": -5,
+          "max": 1,
           "wind": 45,
           "weather": "小雪"
         }
@@ -1609,29 +1737,21 @@ export const snowForecasts = {
     "AsarigawaOnsen": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/AsarigawaOnsen/6day/mid",
       "elevation": 285,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -3,
-          "wind": 45,
-          "snowfall": 6
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "小雪",
           "temperature": -3,
           "wind": 35,
-          "snowfall": 2
+          "snowfall": 4
         },
         {
           "date": "2026-11-20",
           "part": 1,
           "weather": "小雪",
-          "temperature": -3,
+          "temperature": -4,
           "wind": 35,
           "snowfall": 4
         },
@@ -1640,7 +1760,7 @@ export const snowForecasts = {
           "part": 2,
           "weather": "少量の雪",
           "temperature": 0,
-          "wind": 35,
+          "wind": 40,
           "snowfall": 7
         },
         {
@@ -1648,16 +1768,16 @@ export const snowForecasts = {
           "part": 0,
           "weather": "小雪",
           "temperature": 0,
-          "wind": 30,
-          "snowfall": 2
+          "wind": 25,
+          "snowfall": 1
         },
         {
           "date": "2026-11-21",
           "part": 1,
-          "weather": "にわか雪",
-          "temperature": -1,
-          "wind": 15,
-          "snowfall": 2
+          "weather": "小雪",
+          "temperature": 0,
+          "wind": 10,
+          "snowfall": 1
         },
         {
           "date": "2026-11-21",
@@ -1673,14 +1793,14 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": 0,
           "wind": 15,
-          "snowfall": 1
+          "snowfall": 0
         },
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": 0,
-          "wind": 20,
+          "wind": 25,
           "snowfall": 0
         },
         {
@@ -1694,9 +1814,9 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "小雨",
-          "temperature": 4,
-          "wind": 10,
+          "weather": "小雪",
+          "temperature": 3,
+          "wind": 15,
           "snowfall": 0
         },
         {
@@ -1704,7 +1824,7 @@ export const snowForecasts = {
           "part": 1,
           "weather": "小雨",
           "temperature": 4,
-          "wind": 10,
+          "wind": 15,
           "snowfall": 0
         },
         {
@@ -1712,22 +1832,22 @@ export const snowForecasts = {
           "part": 2,
           "weather": "豪雨",
           "temperature": 5,
-          "wind": 15,
+          "wind": 20,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 0,
           "weather": "小雪",
-          "temperature": 3,
-          "wind": 25,
+          "temperature": 2,
+          "wind": 20,
           "snowfall": 1
         },
         {
           "date": "2026-11-24",
           "part": 1,
           "weather": "小雪",
-          "temperature": -1,
+          "temperature": -2,
           "wind": 35,
           "snowfall": 2
         },
@@ -1736,48 +1856,64 @@ export const snowForecasts = {
           "part": 2,
           "weather": "少量の雪",
           "temperature": -3,
+          "wind": 35,
+          "snowfall": 9
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -4,
+          "wind": 40,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -3,
           "wind": 45,
-          "snowfall": 8
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "小雪",
+          "temperature": 1,
+          "wind": 30,
+          "snowfall": 3
         }
       ],
       "current": {
-        "weather": "少量の雪",
+        "weather": "小雪",
         "temperature": -3,
         "minTemperature": -4,
-        "wind": 45,
-        "snowfall": 6
+        "wind": 35,
+        "snowfall": 4
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 6,
-          "min": -4,
-          "max": -3,
-          "wind": 45,
-          "weather": "少量の雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 13,
+          "snowfall": 15,
           "min": -4,
           "max": 0,
-          "wind": 35,
+          "wind": 40,
           "weather": "小雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 6,
+          "snowfall": 4,
           "min": -2,
           "max": 0,
-          "wind": 30,
+          "wind": 25,
           "weather": "小雪"
         },
         {
           "date": "2026-11-22",
-          "snowfall": 1,
+          "snowfall": 0,
           "min": -2,
           "max": 0,
-          "wind": 20,
+          "wind": 25,
           "weather": "小雪"
         },
         {
@@ -1785,14 +1921,22 @@ export const snowForecasts = {
           "snowfall": 0,
           "min": 2,
           "max": 5,
-          "wind": 15,
-          "weather": "小雨"
+          "wind": 20,
+          "weather": "小雪"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 11,
+          "snowfall": 12,
           "min": -5,
-          "max": 3,
+          "max": 2,
+          "wind": 35,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 8,
+          "min": -5,
+          "max": 1,
           "wind": 45,
           "weather": "小雪"
         }
@@ -1801,21 +1945,13 @@ export const snowForecasts = {
     "Snow-CluesOnze": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Snow-CluesOnze/6day/mid",
       "elevation": 200,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "小雪",
-          "temperature": -2,
-          "wind": 40,
-          "snowfall": 5
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "小雪",
-          "temperature": -2,
+          "temperature": -3,
           "wind": 30,
           "snowfall": 2
         },
@@ -1832,23 +1968,23 @@ export const snowForecasts = {
           "part": 2,
           "weather": "少量の雪",
           "temperature": 1,
-          "wind": 35,
-          "snowfall": 5
+          "wind": 40,
+          "snowfall": 6
         },
         {
           "date": "2026-11-21",
           "part": 0,
           "weather": "小雪",
           "temperature": 1,
-          "wind": 30,
-          "snowfall": 2
+          "wind": 25,
+          "snowfall": 1
         },
         {
           "date": "2026-11-21",
           "part": 1,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": 0,
-          "wind": 15,
+          "wind": 10,
           "snowfall": 1
         },
         {
@@ -1886,7 +2022,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "小雨",
+          "weather": "曇り",
           "temperature": 4,
           "wind": 10,
           "snowfall": 0
@@ -1895,8 +2031,8 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 1,
           "weather": "小雨",
-          "temperature": 4,
-          "wind": 15,
+          "temperature": 5,
+          "wind": 10,
           "snowfall": 0
         },
         {
@@ -1904,23 +2040,23 @@ export const snowForecasts = {
           "part": 2,
           "weather": "豪雨",
           "temperature": 6,
-          "wind": 15,
+          "wind": 20,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 0,
           "weather": "小雪",
-          "temperature": 4,
-          "wind": 25,
-          "snowfall": 1
+          "temperature": 3,
+          "wind": 20,
+          "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 1,
           "weather": "小雪",
-          "temperature": 0,
-          "wind": 35,
+          "temperature": -1,
+          "wind": 30,
           "snowfall": 1
         },
         {
@@ -1928,40 +2064,56 @@ export const snowForecasts = {
           "part": 2,
           "weather": "少量の雪",
           "temperature": -2,
+          "wind": 35,
+          "snowfall": 7
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -3,
           "wind": 40,
-          "snowfall": 6
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -3,
+          "wind": 40,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "小雪",
+          "temperature": 1,
+          "wind": 25,
+          "snowfall": 2
         }
       ],
       "current": {
         "weather": "小雪",
-        "temperature": -2,
+        "temperature": -3,
         "minTemperature": -3,
-        "wind": 40,
-        "snowfall": 5
+        "wind": 30,
+        "snowfall": 2
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 5,
+          "date": "2026-11-20",
+          "snowfall": 10,
           "min": -3,
-          "max": -2,
+          "max": 1,
           "wind": 40,
           "weather": "小雪"
         },
         {
-          "date": "2026-11-20",
-          "snowfall": 9,
-          "min": -3,
-          "max": 1,
-          "wind": 35,
-          "weather": "小雪"
-        },
-        {
           "date": "2026-11-21",
-          "snowfall": 4,
+          "snowfall": 3,
           "min": -2,
           "max": 1,
-          "wind": 30,
+          "wind": 25,
           "weather": "小雪"
         },
         {
@@ -1977,14 +2129,22 @@ export const snowForecasts = {
           "snowfall": 0,
           "min": 2,
           "max": 6,
-          "wind": 15,
+          "wind": 20,
           "weather": "小雨"
         },
         {
           "date": "2026-11-24",
           "snowfall": 8,
+          "min": -5,
+          "max": 3,
+          "wind": 35,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 5,
           "min": -4,
-          "max": 4,
+          "max": 1,
           "wind": 40,
           "weather": "小雪"
         }
@@ -1993,23 +2153,15 @@ export const snowForecasts = {
     "Kamoidake-Kokusai": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Kamoidake-Kokusai/6day/mid",
       "elevation": 342,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "小雪",
-          "temperature": -4,
-          "wind": 40,
-          "snowfall": 4
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "小雪",
           "temperature": -4,
           "wind": 35,
-          "snowfall": 2
+          "snowfall": 4
         },
         {
           "date": "2026-11-20",
@@ -2017,44 +2169,44 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": -4,
           "wind": 35,
-          "snowfall": 2
+          "snowfall": 1
         },
         {
           "date": "2026-11-20",
           "part": 2,
           "weather": "少量の雪",
           "temperature": -3,
-          "wind": 30,
-          "snowfall": 9
+          "wind": 35,
+          "snowfall": 8
         },
         {
           "date": "2026-11-21",
           "part": 0,
           "weather": "小雪",
           "temperature": -2,
-          "wind": 15,
-          "snowfall": 0
+          "wind": 5,
+          "snowfall": 3
         },
         {
           "date": "2026-11-21",
           "part": 1,
-          "weather": "小雪",
-          "temperature": -2,
+          "weather": "にわか雪",
+          "temperature": -1,
           "wind": 5,
           "snowfall": 0
         },
         {
           "date": "2026-11-21",
           "part": 2,
-          "weather": "小雪",
-          "temperature": -3,
+          "weather": "にわか雪",
+          "temperature": -2,
           "wind": 10,
-          "snowfall": 3
+          "snowfall": 2
         },
         {
           "date": "2026-11-22",
           "part": 0,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": -1,
           "wind": 15,
           "snowfall": 0
@@ -2070,7 +2222,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-22",
           "part": 2,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": -3,
           "wind": 10,
           "snowfall": 0
@@ -2079,7 +2231,7 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 0,
           "weather": "一部曇り",
-          "temperature": 2,
+          "temperature": 1,
           "wind": 10,
           "snowfall": 0
         },
@@ -2087,59 +2239,75 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 1,
           "weather": "小雪",
-          "temperature": 2,
+          "temperature": 1,
           "wind": 10,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "豪雨",
-          "temperature": 4,
-          "wind": 30,
+          "weather": "小雪",
+          "temperature": 5,
+          "wind": 15,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 0,
-          "weather": "小雪",
-          "temperature": 4,
-          "wind": 20,
-          "snowfall": 1
+          "weather": "にわか雪",
+          "temperature": 2,
+          "wind": 15,
+          "snowfall": 3
         },
         {
           "date": "2026-11-24",
           "part": 1,
           "weather": "小雪",
-          "temperature": -1,
-          "wind": 30,
+          "temperature": -3,
+          "wind": 25,
           "snowfall": 1
         },
         {
           "date": "2026-11-24",
           "part": 2,
-          "weather": "小雪",
+          "weather": "少量の雪",
           "temperature": -4,
-          "wind": 35,
-          "snowfall": 4
+          "wind": 20,
+          "snowfall": 6
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "にわか雪",
+          "temperature": -5,
+          "wind": 30,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -5,
+          "wind": 30,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "少量の雪",
+          "temperature": -1,
+          "wind": 20,
+          "snowfall": 6
         }
       ],
       "current": {
         "weather": "小雪",
         "temperature": -4,
         "minTemperature": -5,
-        "wind": 40,
+        "wind": 35,
         "snowfall": 4
       },
       "days": [
-        {
-          "date": "2026-11-19",
-          "snowfall": 4,
-          "min": -5,
-          "max": -4,
-          "wind": 40,
-          "weather": "小雪"
-        },
         {
           "date": "2026-11-20",
           "snowfall": 13,
@@ -2150,10 +2318,10 @@ export const snowForecasts = {
         },
         {
           "date": "2026-11-21",
-          "snowfall": 3,
-          "min": -6,
-          "max": -2,
-          "wind": 15,
+          "snowfall": 5,
+          "min": -5,
+          "max": -1,
+          "wind": 10,
           "weather": "小雪"
         },
         {
@@ -2162,53 +2330,53 @@ export const snowForecasts = {
           "min": -5,
           "max": -1,
           "wind": 15,
-          "weather": "にわか雪"
+          "weather": "小雪"
         },
         {
           "date": "2026-11-23",
           "snowfall": 0,
           "min": 0,
-          "max": 4,
-          "wind": 30,
+          "max": 5,
+          "wind": 15,
           "weather": "小雪"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 6,
+          "snowfall": 10,
           "min": -6,
-          "max": 4,
-          "wind": 35,
-          "weather": "小雪"
+          "max": 2,
+          "wind": 25,
+          "weather": "にわか雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 9,
+          "min": -6,
+          "max": -1,
+          "wind": 30,
+          "weather": "にわか雪"
         }
       ]
     },
     "TeineHighland": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/TeineHighland/6day/mid",
       "elevation": 682,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "にわか雪",
-          "temperature": -6,
-          "wind": 45,
-          "snowfall": 7
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "にわか雪",
-          "temperature": -6,
+          "temperature": -7,
           "wind": 40,
-          "snowfall": 2
+          "snowfall": 3
         },
         {
           "date": "2026-11-20",
           "part": 1,
           "weather": "にわか雪",
           "temperature": -7,
-          "wind": 35,
+          "wind": 40,
           "snowfall": 3
         },
         {
@@ -2216,24 +2384,24 @@ export const snowForecasts = {
           "part": 2,
           "weather": "にわか雪",
           "temperature": -3,
-          "wind": 45,
-          "snowfall": 7
+          "wind": 50,
+          "snowfall": 8
         },
         {
           "date": "2026-11-21",
           "part": 0,
           "weather": "小雪",
           "temperature": -3,
-          "wind": 35,
-          "snowfall": 4
+          "wind": 30,
+          "snowfall": 2
         },
         {
           "date": "2026-11-21",
           "part": 1,
           "weather": "にわか雪",
           "temperature": -3,
-          "wind": 15,
-          "snowfall": 2
+          "wind": 10,
+          "snowfall": 1
         },
         {
           "date": "2026-11-21",
@@ -2241,7 +2409,7 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -4,
           "wind": 15,
-          "snowfall": 1
+          "snowfall": 2
         },
         {
           "date": "2026-11-22",
@@ -2255,14 +2423,14 @@ export const snowForecasts = {
           "date": "2026-11-22",
           "part": 1,
           "weather": "にわか雪",
-          "temperature": -3,
+          "temperature": -4,
           "wind": 20,
           "snowfall": 0
         },
         {
           "date": "2026-11-22",
           "part": 2,
-          "weather": "一部曇り",
+          "weather": "にわか雪",
           "temperature": -3,
           "wind": 20,
           "snowfall": 0
@@ -2270,16 +2438,16 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "一部曇り",
+          "weather": "曇り",
           "temperature": 1,
-          "wind": 20,
+          "wind": 15,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 1,
           "weather": "小雪",
-          "temperature": 2,
+          "temperature": 1,
           "wind": 25,
           "snowfall": 1
         },
@@ -2288,64 +2456,80 @@ export const snowForecasts = {
           "part": 2,
           "weather": "豪雨",
           "temperature": 3,
-          "wind": 35,
+          "wind": 30,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 0,
           "weather": "にわか雪",
-          "temperature": 1,
+          "temperature": 0,
           "wind": 20,
-          "snowfall": 3
+          "snowfall": 1
         },
         {
           "date": "2026-11-24",
           "part": 1,
           "weather": "にわか雪",
-          "temperature": -4,
-          "wind": 40,
-          "snowfall": 2
+          "temperature": -5,
+          "wind": 35,
+          "snowfall": 1
         },
         {
           "date": "2026-11-24",
           "part": 2,
           "weather": "少量の雪",
           "temperature": -6,
+          "wind": 40,
+          "snowfall": 10
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "にわか雪",
+          "temperature": -8,
           "wind": 45,
-          "snowfall": 9
+          "snowfall": 4
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -7,
+          "wind": 50,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "にわか雪",
+          "temperature": -2,
+          "wind": 30,
+          "snowfall": 2
         }
       ],
       "current": {
         "weather": "にわか雪",
-        "temperature": -6,
+        "temperature": -7,
         "minTemperature": -7,
-        "wind": 45,
-        "snowfall": 7
+        "wind": 40,
+        "snowfall": 3
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 7,
-          "min": -7,
-          "max": -6,
-          "wind": 45,
-          "weather": "にわか雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 12,
+          "snowfall": 14,
           "min": -7,
           "max": -3,
-          "wind": 45,
+          "wind": 50,
           "weather": "にわか雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 7,
+          "snowfall": 5,
           "min": -5,
           "max": -3,
-          "wind": 35,
+          "wind": 30,
           "weather": "小雪"
         },
         {
@@ -2361,15 +2545,23 @@ export const snowForecasts = {
           "snowfall": 1,
           "min": -1,
           "max": 3,
-          "wind": 35,
+          "wind": 30,
           "weather": "小雪"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 14,
+          "snowfall": 12,
           "min": -9,
-          "max": 1,
-          "wind": 45,
+          "max": 0,
+          "wind": 40,
+          "weather": "にわか雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 8,
+          "min": -8,
+          "max": -2,
+          "wind": 50,
           "weather": "にわか雪"
         }
       ]
@@ -2377,23 +2569,15 @@ export const snowForecasts = {
     "SapporoKokusai": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/SapporoKokusai/6day/mid",
       "elevation": 785,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -7,
-          "wind": 50,
-          "snowfall": 11
-        },
         {
           "date": "2026-11-20",
           "part": 0,
-          "weather": "小雪",
-          "temperature": -7,
-          "wind": 40,
-          "snowfall": 3
+          "weather": "少量の雪",
+          "temperature": -8,
+          "wind": 45,
+          "snowfall": 5
         },
         {
           "date": "2026-11-20",
@@ -2408,16 +2592,16 @@ export const snowForecasts = {
           "part": 2,
           "weather": "豪雪",
           "temperature": -4,
-          "wind": 45,
-          "snowfall": 12
+          "wind": 50,
+          "snowfall": 14
         },
         {
           "date": "2026-11-21",
           "part": 0,
           "weather": "小雪",
           "temperature": -4,
-          "wind": 30,
-          "snowfall": 5
+          "wind": 25,
+          "snowfall": 2
         },
         {
           "date": "2026-11-21",
@@ -2433,7 +2617,7 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": -5,
           "wind": 15,
-          "snowfall": 2
+          "snowfall": 3
         },
         {
           "date": "2026-11-22",
@@ -2455,7 +2639,7 @@ export const snowForecasts = {
           "date": "2026-11-22",
           "part": 2,
           "weather": "小雪",
-          "temperature": -3,
+          "temperature": -4,
           "wind": 20,
           "snowfall": 0
         },
@@ -2464,7 +2648,7 @@ export const snowForecasts = {
           "part": 0,
           "weather": "小雪",
           "temperature": 0,
-          "wind": 25,
+          "wind": 20,
           "snowfall": 0
         },
         {
@@ -2472,95 +2656,119 @@ export const snowForecasts = {
           "part": 1,
           "weather": "小雪",
           "temperature": 1,
-          "wind": 30,
+          "wind": 25,
           "snowfall": 1
         },
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "少量の雪",
-          "temperature": 2,
-          "wind": 40,
-          "snowfall": 6
+          "weather": "小雪",
+          "temperature": 3,
+          "wind": 35,
+          "snowfall": 4
         },
         {
           "date": "2026-11-24",
           "part": 0,
           "weather": "小雪",
-          "temperature": 0,
+          "temperature": -1,
           "wind": 25,
-          "snowfall": 4
+          "snowfall": 2
         },
         {
           "date": "2026-11-24",
           "part": 1,
           "weather": "小雪",
-          "temperature": -5,
-          "wind": 45,
-          "snowfall": 4
+          "temperature": -6,
+          "wind": 40,
+          "snowfall": 3
         },
         {
           "date": "2026-11-24",
           "part": 2,
           "weather": "豪雪",
           "temperature": -7,
+          "wind": 40,
+          "snowfall": 14
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -9,
+          "wind": 45,
+          "snowfall": 5
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -8,
           "wind": 50,
-          "snowfall": 13
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "小雪",
+          "temperature": -2,
+          "wind": 35,
+          "snowfall": 4
         }
       ],
       "current": {
-        "weather": "豪雪",
-        "temperature": -7,
+        "weather": "少量の雪",
+        "temperature": -8,
         "minTemperature": -8,
-        "wind": 50,
-        "snowfall": 11
+        "wind": 45,
+        "snowfall": 5
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 11,
-          "min": -8,
-          "max": -7,
-          "wind": 50,
-          "weather": "豪雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 20,
+          "snowfall": 24,
           "min": -8,
           "max": -4,
-          "wind": 45,
-          "weather": "小雪"
+          "wind": 50,
+          "weather": "少量の雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 9,
+          "snowfall": 7,
           "min": -6,
           "max": -4,
-          "wind": 30,
+          "wind": 25,
           "weather": "小雪"
         },
         {
           "date": "2026-11-22",
           "snowfall": 1,
           "min": -6,
-          "max": -3,
+          "max": -4,
           "wind": 25,
           "weather": "小雪"
         },
         {
           "date": "2026-11-23",
-          "snowfall": 7,
-          "min": -1,
-          "max": 2,
-          "wind": 40,
+          "snowfall": 5,
+          "min": -2,
+          "max": 3,
+          "wind": 35,
           "weather": "小雪"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 21,
+          "snowfall": 19,
           "min": -10,
-          "max": 0,
+          "max": -1,
+          "wind": 40,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 12,
+          "min": -9,
+          "max": -2,
           "wind": 50,
           "weather": "小雪"
         }
@@ -2569,23 +2777,15 @@ export const snowForecasts = {
     "SapporoBankei": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/SapporoBankei/6day/mid",
       "elevation": 383,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "にわか雪",
-          "temperature": -4,
-          "wind": 30,
-          "snowfall": 5
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "にわか雪",
           "temperature": -4,
-          "wind": 25,
-          "snowfall": 1
+          "wind": 30,
+          "snowfall": 2
         },
         {
           "date": "2026-11-20",
@@ -2600,32 +2800,32 @@ export const snowForecasts = {
           "part": 2,
           "weather": "にわか雪",
           "temperature": -1,
-          "wind": 30,
-          "snowfall": 4
+          "wind": 40,
+          "snowfall": 5
         },
         {
           "date": "2026-11-21",
           "part": 0,
           "weather": "小雪",
           "temperature": 0,
-          "wind": 25,
-          "snowfall": 2
+          "wind": 20,
+          "snowfall": 1
         },
         {
           "date": "2026-11-21",
           "part": 1,
           "weather": "にわか雪",
           "temperature": -1,
-          "wind": 10,
+          "wind": 5,
           "snowfall": 1
         },
         {
           "date": "2026-11-21",
           "part": 2,
           "weather": "にわか雪",
-          "temperature": -3,
-          "wind": 10,
-          "snowfall": 0
+          "temperature": -2,
+          "wind": 5,
+          "snowfall": 1
         },
         {
           "date": "2026-11-22",
@@ -2638,7 +2838,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "一部曇り",
+          "weather": "にわか雪",
           "temperature": -1,
           "wind": 10,
           "snowfall": 0
@@ -2654,7 +2854,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "一部曇り",
+          "weather": "曇り",
           "temperature": 3,
           "wind": 10,
           "snowfall": 0
@@ -2672,15 +2872,15 @@ export const snowForecasts = {
           "part": 2,
           "weather": "豪雨",
           "temperature": 5,
-          "wind": 25,
+          "wind": 20,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 0,
           "weather": "にわか雪",
-          "temperature": 4,
-          "wind": 15,
+          "temperature": 2,
+          "wind": 10,
           "snowfall": 0
         },
         {
@@ -2696,8 +2896,32 @@ export const snowForecasts = {
           "part": 2,
           "weather": "少量の雪",
           "temperature": -4,
-          "wind": 30,
+          "wind": 20,
           "snowfall": 7
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "にわか雪",
+          "temperature": -5,
+          "wind": 30,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -5,
+          "wind": 35,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "にわか雪",
+          "temperature": -1,
+          "wind": 15,
+          "snowfall": 1
         }
       ],
       "current": {
@@ -2705,23 +2929,15 @@ export const snowForecasts = {
         "temperature": -4,
         "minTemperature": -5,
         "wind": 30,
-        "snowfall": 5
+        "snowfall": 2
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 5,
-          "min": -5,
-          "max": -4,
-          "wind": 30,
-          "weather": "にわか雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 7,
+          "snowfall": 9,
           "min": -5,
           "max": -1,
-          "wind": 30,
+          "wind": 40,
           "weather": "にわか雪"
         },
         {
@@ -2729,7 +2945,7 @@ export const snowForecasts = {
           "snowfall": 3,
           "min": -4,
           "max": 0,
-          "wind": 25,
+          "wind": 20,
           "weather": "小雪"
         },
         {
@@ -2745,15 +2961,23 @@ export const snowForecasts = {
           "snowfall": 0,
           "min": 1,
           "max": 5,
-          "wind": 25,
+          "wind": 20,
           "weather": "小雨"
         },
         {
           "date": "2026-11-24",
           "snowfall": 8,
           "min": -6,
-          "max": 4,
-          "wind": 30,
+          "max": 2,
+          "wind": 25,
+          "weather": "にわか雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 5,
+          "min": -6,
+          "max": -1,
+          "wind": 35,
           "weather": "にわか雪"
         }
       ]
@@ -2761,22 +2985,14 @@ export const snowForecasts = {
     "SapporoMoiwayama": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/SapporoMoiwayama/6day/mid",
       "elevation": 351,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "にわか雪",
-          "temperature": -4,
-          "wind": 30,
-          "snowfall": 5
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "にわか雪",
           "temperature": -3,
-          "wind": 25,
+          "wind": 30,
           "snowfall": 1
         },
         {
@@ -2785,44 +3001,44 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -4,
           "wind": 25,
-          "snowfall": 1
+          "snowfall": 2
         },
         {
           "date": "2026-11-20",
           "part": 2,
           "weather": "にわか雪",
           "temperature": -1,
-          "wind": 30,
-          "snowfall": 4
+          "wind": 35,
+          "snowfall": 5
         },
         {
           "date": "2026-11-21",
           "part": 0,
           "weather": "小雪",
           "temperature": 0,
-          "wind": 25,
-          "snowfall": 2
+          "wind": 20,
+          "snowfall": 1
         },
         {
           "date": "2026-11-21",
           "part": 1,
           "weather": "にわか雪",
           "temperature": 0,
-          "wind": 10,
-          "snowfall": 1
+          "wind": 5,
+          "snowfall": 0
         },
         {
           "date": "2026-11-21",
           "part": 2,
           "weather": "にわか雪",
           "temperature": -2,
-          "wind": 10,
-          "snowfall": 0
+          "wind": 5,
+          "snowfall": 1
         },
         {
           "date": "2026-11-22",
           "part": 0,
-          "weather": "にわか雪",
+          "weather": "一部曇り",
           "temperature": 0,
           "wind": 10,
           "snowfall": 0
@@ -2830,8 +3046,8 @@ export const snowForecasts = {
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "一部曇り",
-          "temperature": -1,
+          "weather": "にわか雪",
+          "temperature": 0,
           "wind": 10,
           "snowfall": 0
         },
@@ -2846,7 +3062,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "一部曇り",
+          "weather": "曇り",
           "temperature": 4,
           "wind": 10,
           "snowfall": 0
@@ -2855,7 +3071,7 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 1,
           "weather": "小雨",
-          "temperature": 4,
+          "temperature": 3,
           "wind": 15,
           "snowfall": 0
         },
@@ -2864,15 +3080,15 @@ export const snowForecasts = {
           "part": 2,
           "weather": "豪雨",
           "temperature": 5,
-          "wind": 25,
+          "wind": 20,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 0,
           "weather": "にわか雪",
-          "temperature": 4,
-          "wind": 15,
+          "temperature": 2,
+          "wind": 10,
           "snowfall": 0
         },
         {
@@ -2881,47 +3097,63 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -1,
           "wind": 25,
-          "snowfall": 1
+          "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 2,
           "weather": "少量の雪",
           "temperature": -4,
-          "wind": 30,
+          "wind": 20,
           "snowfall": 6
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "にわか雪",
+          "temperature": -5,
+          "wind": 30,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -4,
+          "wind": 35,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "にわか雪",
+          "temperature": -1,
+          "wind": 15,
+          "snowfall": 1
         }
       ],
       "current": {
         "weather": "にわか雪",
-        "temperature": -4,
-        "minTemperature": -5,
+        "temperature": -3,
+        "minTemperature": -4,
         "wind": 30,
-        "snowfall": 5
+        "snowfall": 1
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 5,
-          "min": -5,
-          "max": -4,
-          "wind": 30,
-          "weather": "にわか雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 6,
+          "snowfall": 8,
           "min": -5,
           "max": -1,
-          "wind": 30,
+          "wind": 35,
           "weather": "にわか雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 3,
+          "snowfall": 2,
           "min": -4,
           "max": 0,
-          "wind": 25,
+          "wind": 20,
           "weather": "小雪"
         },
         {
@@ -2937,15 +3169,23 @@ export const snowForecasts = {
           "snowfall": 0,
           "min": 1,
           "max": 5,
-          "wind": 25,
+          "wind": 20,
           "weather": "小雨"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 7,
+          "snowfall": 6,
           "min": -6,
-          "max": 4,
-          "wind": 30,
+          "max": 2,
+          "wind": 25,
+          "weather": "にわか雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 4,
+          "min": -6,
+          "max": -1,
+          "wind": 35,
           "weather": "にわか雪"
         }
       ]
@@ -2953,16 +3193,8 @@ export const snowForecasts = {
     "Mashike-Choei-Syokanbetsudake": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Mashike-Choei-Syokanbetsudake/6day/mid",
       "elevation": 218,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "小雪",
-          "temperature": -3,
-          "wind": 45,
-          "snowfall": 3
-        },
         {
           "date": "2026-11-20",
           "part": 0,
@@ -2975,7 +3207,7 @@ export const snowForecasts = {
           "date": "2026-11-20",
           "part": 1,
           "weather": "小雪",
-          "temperature": -3,
+          "temperature": -4,
           "wind": 40,
           "snowfall": 2
         },
@@ -2983,17 +3215,17 @@ export const snowForecasts = {
           "date": "2026-11-20",
           "part": 2,
           "weather": "少量の雪",
-          "temperature": -1,
-          "wind": 35,
-          "snowfall": 7
+          "temperature": 0,
+          "wind": 30,
+          "snowfall": 8
         },
         {
           "date": "2026-11-21",
           "part": 0,
-          "weather": "少量の雪",
+          "weather": "小雪",
           "temperature": 0,
-          "wind": 10,
-          "snowfall": 7
+          "wind": 20,
+          "snowfall": 4
         },
         {
           "date": "2026-11-21",
@@ -3015,7 +3247,7 @@ export const snowForecasts = {
           "date": "2026-11-22",
           "part": 0,
           "weather": "小雪",
-          "temperature": 1,
+          "temperature": 0,
           "wind": 15,
           "snowfall": 1
         },
@@ -3024,14 +3256,14 @@ export const snowForecasts = {
           "part": 1,
           "weather": "にわか雪",
           "temperature": 0,
-          "wind": 15,
+          "wind": 20,
           "snowfall": 0
         },
         {
           "date": "2026-11-22",
           "part": 2,
           "weather": "にわか雪",
-          "temperature": 2,
+          "temperature": 1,
           "wind": 15,
           "snowfall": 0
         },
@@ -3040,14 +3272,14 @@ export const snowForecasts = {
           "part": 0,
           "weather": "小雨",
           "temperature": 3,
-          "wind": 15,
+          "wind": 20,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 1,
-          "weather": "にわか雨",
-          "temperature": 4,
+          "weather": "小雨",
+          "temperature": 3,
           "wind": 15,
           "snowfall": 0
         },
@@ -3063,201 +3295,9 @@ export const snowForecasts = {
           "date": "2026-11-24",
           "part": 0,
           "weather": "小雪",
-          "temperature": 3,
-          "wind": 15,
-          "snowfall": 1
-        },
-        {
-          "date": "2026-11-24",
-          "part": 1,
-          "weather": "小雪",
-          "temperature": -1,
-          "wind": 35,
-          "snowfall": 1
-        },
-        {
-          "date": "2026-11-24",
-          "part": 2,
-          "weather": "小雪",
-          "temperature": -3,
-          "wind": 40,
-          "snowfall": 5
-        }
-      ],
-      "current": {
-        "weather": "小雪",
-        "temperature": -3,
-        "minTemperature": -4,
-        "wind": 45,
-        "snowfall": 3
-      },
-      "days": [
-        {
-          "date": "2026-11-19",
-          "snowfall": 3,
-          "min": -4,
-          "max": -3,
-          "wind": 45,
-          "weather": "小雪"
-        },
-        {
-          "date": "2026-11-20",
-          "snowfall": 11,
-          "min": -3,
-          "max": -1,
-          "wind": 40,
-          "weather": "小雪"
-        },
-        {
-          "date": "2026-11-21",
-          "snowfall": 11,
-          "min": -2,
-          "max": 0,
-          "wind": 10,
-          "weather": "少量の雪"
-        },
-        {
-          "date": "2026-11-22",
-          "snowfall": 1,
-          "min": -1,
-          "max": 2,
-          "wind": 15,
-          "weather": "小雪"
-        },
-        {
-          "date": "2026-11-23",
-          "snowfall": 0,
-          "min": 3,
-          "max": 5,
-          "wind": 20,
-          "weather": "小雨"
-        },
-        {
-          "date": "2026-11-24",
-          "snowfall": 7,
-          "min": -5,
-          "max": 3,
-          "wind": 40,
-          "weather": "小雪"
-        }
-      ]
-    },
-    "Horotachi": {
-      "sourceUrl": "https://ja.snow-forecast.com/resorts/Horotachi/6day/mid",
-      "elevation": 258,
-      "issuedAt": "8 pm 19 Nov 2026",
-      "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "小雪",
-          "temperature": -3,
-          "wind": 40,
-          "snowfall": 3
-        },
-        {
-          "date": "2026-11-20",
-          "part": 0,
-          "weather": "小雪",
-          "temperature": -3,
-          "wind": 35,
-          "snowfall": 2
-        },
-        {
-          "date": "2026-11-20",
-          "part": 1,
-          "weather": "小雪",
-          "temperature": -4,
-          "wind": 35,
-          "snowfall": 1
-        },
-        {
-          "date": "2026-11-20",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -3,
-          "wind": 25,
-          "snowfall": 7
-        },
-        {
-          "date": "2026-11-21",
-          "part": 0,
-          "weather": "小雪",
-          "temperature": -1,
-          "wind": 10,
-          "snowfall": 1
-        },
-        {
-          "date": "2026-11-21",
-          "part": 1,
-          "weather": "小雪",
-          "temperature": -1,
-          "wind": 5,
-          "snowfall": 2
-        },
-        {
-          "date": "2026-11-21",
-          "part": 2,
-          "weather": "小雪",
-          "temperature": -2,
-          "wind": 5,
-          "snowfall": 4
-        },
-        {
-          "date": "2026-11-22",
-          "part": 0,
-          "weather": "小雪",
-          "temperature": 0,
-          "wind": 10,
-          "snowfall": 2
-        },
-        {
-          "date": "2026-11-22",
-          "part": 1,
-          "weather": "小雪",
-          "temperature": 0,
-          "wind": 15,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-22",
-          "part": 2,
-          "weather": "曇り",
-          "temperature": -4,
-          "wind": 5,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-23",
-          "part": 0,
-          "weather": "曇り",
-          "temperature": 1,
-          "wind": 10,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-23",
-          "part": 1,
-          "weather": "小雪",
-          "temperature": 1,
-          "wind": 10,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-23",
-          "part": 2,
-          "weather": "豪雨",
-          "temperature": 4,
-          "wind": 20,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-24",
-          "part": 0,
-          "weather": "小雪",
           "temperature": 2,
           "wind": 15,
-          "snowfall": 2
+          "snowfall": 1
         },
         {
           "date": "2026-11-24",
@@ -3265,15 +3305,39 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": -2,
           "wind": 30,
-          "snowfall": 2
+          "snowfall": 1
         },
         {
           "date": "2026-11-24",
           "part": 2,
-          "weather": "少量の雪",
+          "weather": "小雪",
+          "temperature": -3,
+          "wind": 35,
+          "snowfall": 4
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
           "temperature": -4,
           "wind": 35,
-          "snowfall": 5
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -3,
+          "wind": 35,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "小雪",
+          "temperature": 3,
+          "wind": 30,
+          "snowfall": 1
         }
       ],
       "current": {
@@ -3281,31 +3345,231 @@ export const snowForecasts = {
         "temperature": -3,
         "minTemperature": -4,
         "wind": 40,
-        "snowfall": 3
+        "snowfall": 2
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 3,
+          "date": "2026-11-20",
+          "snowfall": 12,
           "min": -4,
-          "max": -3,
+          "max": 0,
           "wind": 40,
           "weather": "小雪"
         },
         {
+          "date": "2026-11-21",
+          "snowfall": 8,
+          "min": -1,
+          "max": 0,
+          "wind": 20,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-22",
+          "snowfall": 1,
+          "min": -1,
+          "max": 1,
+          "wind": 20,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-23",
+          "snowfall": 0,
+          "min": 2,
+          "max": 5,
+          "wind": 20,
+          "weather": "小雨"
+        },
+        {
+          "date": "2026-11-24",
+          "snowfall": 6,
+          "min": -5,
+          "max": 2,
+          "wind": 35,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 4,
+          "min": -5,
+          "max": 3,
+          "wind": 35,
+          "weather": "小雪"
+        }
+      ]
+    },
+    "Horotachi": {
+      "sourceUrl": "https://ja.snow-forecast.com/resorts/Horotachi/6day/mid",
+      "elevation": 258,
+      "issuedAt": "2 am 20 Nov 2026",
+      "periods": [
+        {
           "date": "2026-11-20",
-          "snowfall": 10,
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -4,
+          "wind": 35,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-20",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -4,
+          "wind": 35,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-20",
+          "part": 2,
+          "weather": "少量の雪",
+          "temperature": -2,
+          "wind": 25,
+          "snowfall": 5
+        },
+        {
+          "date": "2026-11-21",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -1,
+          "wind": 5,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-21",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -1,
+          "wind": 5,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-21",
+          "part": 2,
+          "weather": "小雪",
+          "temperature": -2,
+          "wind": 5,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-22",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": 0,
+          "wind": 10,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-22",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": 0,
+          "wind": 15,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-22",
+          "part": 2,
+          "weather": "にわか雪",
+          "temperature": -4,
+          "wind": 5,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-23",
+          "part": 0,
+          "weather": "曇り",
+          "temperature": 1,
+          "wind": 10,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-23",
+          "part": 1,
+          "weather": "曇り",
+          "temperature": 1,
+          "wind": 10,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-23",
+          "part": 2,
+          "weather": "小雪",
+          "temperature": 4,
+          "wind": 15,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-24",
+          "part": 0,
+          "weather": "にわか雪",
+          "temperature": 1,
+          "wind": 25,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-24",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -3,
+          "wind": 25,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-24",
+          "part": 2,
+          "weather": "小雪",
+          "temperature": -4,
+          "wind": 25,
+          "snowfall": 5
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -4,
+          "wind": 30,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -4,
+          "wind": 30,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "小雪",
+          "temperature": -1,
+          "wind": 25,
+          "snowfall": 4
+        }
+      ],
+      "current": {
+        "weather": "小雪",
+        "temperature": -4,
+        "minTemperature": -4,
+        "wind": 35,
+        "snowfall": 2
+      },
+      "days": [
+        {
+          "date": "2026-11-20",
+          "snowfall": 9,
           "min": -6,
-          "max": -3,
+          "max": -2,
           "wind": 35,
           "weather": "小雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 7,
+          "snowfall": 6,
           "min": -3,
           "max": -1,
-          "wind": 10,
+          "wind": 5,
           "weather": "小雪"
         },
         {
@@ -3321,15 +3585,23 @@ export const snowForecasts = {
           "snowfall": 0,
           "min": -1,
           "max": 4,
-          "wind": 20,
+          "wind": 15,
           "weather": "小雪"
         },
         {
           "date": "2026-11-24",
           "snowfall": 9,
           "min": -6,
-          "max": 2,
-          "wind": 35,
+          "max": 1,
+          "wind": 25,
+          "weather": "にわか雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 6,
+          "min": -5,
+          "max": -1,
+          "wind": 30,
           "weather": "小雪"
         }
       ]
@@ -3337,22 +3609,14 @@ export const snowForecasts = {
     "KamuiSkiLinks": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/KamuiSkiLinks/6day/mid",
       "elevation": 450,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -5,
-          "wind": 35,
-          "snowfall": 5
-        },
         {
           "date": "2026-11-20",
           "part": 0,
-          "weather": "小雪",
+          "weather": "少量の雪",
           "temperature": -5,
-          "wind": 35,
+          "wind": 30,
           "snowfall": 5
         },
         {
@@ -3367,25 +3631,25 @@ export const snowForecasts = {
           "date": "2026-11-20",
           "part": 2,
           "weather": "少量の雪",
-          "temperature": -3,
-          "wind": 30,
-          "snowfall": 8
+          "temperature": -4,
+          "wind": 35,
+          "snowfall": 6
         },
         {
           "date": "2026-11-21",
           "part": 0,
           "weather": "小雪",
-          "temperature": -3,
+          "temperature": -2,
           "wind": 10,
-          "snowfall": 1
+          "snowfall": 2
         },
         {
           "date": "2026-11-21",
           "part": 1,
-          "weather": "小雪",
-          "temperature": -3,
-          "wind": 10,
-          "snowfall": 1
+          "weather": "にわか雪",
+          "temperature": -2,
+          "wind": 5,
+          "snowfall": 0
         },
         {
           "date": "2026-11-21",
@@ -3393,7 +3657,7 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": -4,
           "wind": 5,
-          "snowfall": 3
+          "snowfall": 2
         },
         {
           "date": "2026-11-22",
@@ -3406,7 +3670,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": -2,
           "wind": 15,
           "snowfall": 1
@@ -3415,48 +3679,48 @@ export const snowForecasts = {
           "date": "2026-11-22",
           "part": 2,
           "weather": "にわか雪",
-          "temperature": -5,
+          "temperature": -4,
           "wind": 10,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "一部曇り",
-          "temperature": 1,
+          "weather": "曇り",
+          "temperature": 0,
           "wind": 15,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 1,
-          "weather": "小雪",
-          "temperature": 1,
+          "weather": "曇り",
+          "temperature": 0,
           "wind": 15,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "少量の雪",
-          "temperature": 2,
-          "wind": 30,
-          "snowfall": 6
+          "weather": "小雪",
+          "temperature": 3,
+          "wind": 20,
+          "snowfall": 1
         },
         {
           "date": "2026-11-24",
           "part": 0,
           "weather": "小雪",
-          "temperature": 2,
-          "wind": 20,
-          "snowfall": 3
+          "temperature": 1,
+          "wind": 10,
+          "snowfall": 4
         },
         {
           "date": "2026-11-24",
           "part": 1,
           "weather": "小雪",
-          "temperature": -3,
-          "wind": 30,
+          "temperature": -4,
+          "wind": 25,
           "snowfall": 1
         },
         {
@@ -3464,7 +3728,31 @@ export const snowForecasts = {
           "part": 2,
           "weather": "小雪",
           "temperature": -5,
-          "wind": 40,
+          "wind": 25,
+          "snowfall": 5
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -6,
+          "wind": 35,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -5,
+          "wind": 35,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "小雪",
+          "temperature": -2,
+          "wind": 20,
           "snowfall": 5
         }
       ],
@@ -3472,31 +3760,23 @@ export const snowForecasts = {
         "weather": "少量の雪",
         "temperature": -5,
         "minTemperature": -6,
-        "wind": 35,
+        "wind": 30,
         "snowfall": 5
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 5,
+          "date": "2026-11-20",
+          "snowfall": 13,
           "min": -6,
-          "max": -5,
+          "max": -4,
           "wind": 35,
           "weather": "少量の雪"
         },
         {
-          "date": "2026-11-20",
-          "snowfall": 15,
-          "min": -6,
-          "max": -3,
-          "wind": 35,
-          "weather": "小雪"
-        },
-        {
           "date": "2026-11-21",
-          "snowfall": 5,
-          "min": -5,
-          "max": -3,
+          "snowfall": 4,
+          "min": -6,
+          "max": -2,
           "wind": 10,
           "weather": "小雪"
         },
@@ -3510,18 +3790,26 @@ export const snowForecasts = {
         },
         {
           "date": "2026-11-23",
-          "snowfall": 6,
-          "min": -1,
-          "max": 2,
-          "wind": 30,
+          "snowfall": 1,
+          "min": -2,
+          "max": 3,
+          "wind": 20,
           "weather": "小雪"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 9,
+          "snowfall": 10,
           "min": -7,
-          "max": 2,
-          "wind": 40,
+          "max": 1,
+          "wind": 25,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 8,
+          "min": -7,
+          "max": -2,
+          "wind": 35,
           "weather": "小雪"
         }
       ]
@@ -3529,23 +3817,15 @@ export const snowForecasts = {
     "Pippu": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Pippu/6day/mid",
       "elevation": 415,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -5,
-          "wind": 35,
-          "snowfall": 5
-        },
         {
           "date": "2026-11-20",
           "part": 0,
-          "weather": "少量の雪",
+          "weather": "小雪",
           "temperature": -5,
           "wind": 35,
-          "snowfall": 5
+          "snowfall": 4
         },
         {
           "date": "2026-11-20",
@@ -3569,15 +3849,15 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": -3,
           "wind": 10,
-          "snowfall": 0
+          "snowfall": 1
         },
         {
           "date": "2026-11-21",
           "part": 1,
           "weather": "小雪",
           "temperature": -2,
-          "wind": 10,
-          "snowfall": 2
+          "wind": 5,
+          "snowfall": 1
         },
         {
           "date": "2026-11-21",
@@ -3598,7 +3878,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": -2,
           "wind": 15,
           "snowfall": 1
@@ -3606,7 +3886,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-22",
           "part": 2,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": -3,
           "wind": 10,
           "snowfall": 0
@@ -3622,9 +3902,9 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 1,
-          "weather": "小雪",
+          "weather": "曇り",
           "temperature": 1,
-          "wind": 15,
+          "wind": 20,
           "snowfall": 0
         },
         {
@@ -3638,56 +3918,72 @@ export const snowForecasts = {
         {
           "date": "2026-11-24",
           "part": 0,
-          "weather": "小雪",
-          "temperature": 2,
-          "wind": 30,
-          "snowfall": 3
+          "weather": "少量の雪",
+          "temperature": 1,
+          "wind": 15,
+          "snowfall": 7
         },
         {
           "date": "2026-11-24",
           "part": 1,
           "weather": "小雪",
-          "temperature": -3,
-          "wind": 35,
-          "snowfall": 3
+          "temperature": -4,
+          "wind": 30,
+          "snowfall": 2
         },
         {
           "date": "2026-11-24",
           "part": 2,
           "weather": "少量の雪",
           "temperature": -5,
-          "wind": 40,
+          "wind": 25,
           "snowfall": 8
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -6,
+          "wind": 30,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -6,
+          "wind": 30,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "少量の雪",
+          "temperature": -2,
+          "wind": 25,
+          "snowfall": 6
         }
       ],
       "current": {
-        "weather": "少量の雪",
+        "weather": "小雪",
         "temperature": -5,
         "minTemperature": -6,
         "wind": 35,
-        "snowfall": 5
+        "snowfall": 4
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 5,
+          "date": "2026-11-20",
+          "snowfall": 13,
           "min": -6,
           "max": -5,
           "wind": 35,
-          "weather": "少量の雪"
-        },
-        {
-          "date": "2026-11-20",
-          "snowfall": 14,
-          "min": -8,
-          "max": -5,
-          "wind": 35,
-          "weather": "少量の雪"
+          "weather": "小雪"
         },
         {
           "date": "2026-11-21",
           "snowfall": 5,
-          "min": -5,
+          "min": -6,
           "max": -2,
           "wind": 10,
           "weather": "小雪"
@@ -3695,7 +3991,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-22",
           "snowfall": 2,
-          "min": -5,
+          "min": -4,
           "max": -2,
           "wind": 15,
           "weather": "小雪"
@@ -3703,17 +3999,25 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "snowfall": 0,
-          "min": 0,
+          "min": -1,
           "max": 4,
           "wind": 30,
-          "weather": "小雪"
+          "weather": "並雨"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 14,
+          "snowfall": 17,
+          "min": -8,
+          "max": 1,
+          "wind": 30,
+          "weather": "少量の雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 10,
           "min": -7,
-          "max": 2,
-          "wind": 40,
+          "max": -2,
+          "wind": 30,
           "weather": "小雪"
         }
       ]
@@ -3721,23 +4025,15 @@ export const snowForecasts = {
     "Canmoa-Ski-Village": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Canmoa-Ski-Village/6day/mid",
       "elevation": 333,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -4,
-          "wind": 30,
-          "snowfall": 6
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "少量の雪",
           "temperature": -4,
-          "wind": 30,
-          "snowfall": 5
+          "wind": 25,
+          "snowfall": 6
         },
         {
           "date": "2026-11-20",
@@ -3752,8 +4048,8 @@ export const snowForecasts = {
           "part": 2,
           "weather": "少量の雪",
           "temperature": -3,
-          "wind": 25,
-          "snowfall": 8
+          "wind": 30,
+          "snowfall": 6
         },
         {
           "date": "2026-11-21",
@@ -3761,15 +4057,15 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": -2,
           "wind": 5,
-          "snowfall": 0
+          "snowfall": 1
         },
         {
           "date": "2026-11-21",
           "part": 1,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": -2,
           "wind": 5,
-          "snowfall": 1
+          "snowfall": 0
         },
         {
           "date": "2026-11-21",
@@ -3777,7 +4073,7 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": -3,
           "wind": 5,
-          "snowfall": 3
+          "snowfall": 2
         },
         {
           "date": "2026-11-22",
@@ -3790,7 +4086,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": -1,
           "wind": 10,
           "snowfall": 1
@@ -3806,7 +4102,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "一部曇り",
+          "weather": "曇り",
           "temperature": 1,
           "wind": 10,
           "snowfall": 0
@@ -3814,7 +4110,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 1,
-          "weather": "小雪",
+          "weather": "曇り",
           "temperature": 1,
           "wind": 10,
           "snowfall": 0
@@ -3830,56 +4126,72 @@ export const snowForecasts = {
         {
           "date": "2026-11-24",
           "part": 0,
-          "weather": "小雪",
+          "weather": "少量の雪",
           "temperature": 2,
-          "wind": 20,
-          "snowfall": 3
+          "wind": 10,
+          "snowfall": 6
         },
         {
           "date": "2026-11-24",
           "part": 1,
           "weather": "小雪",
-          "temperature": -2,
-          "wind": 25,
-          "snowfall": 1
+          "temperature": -3,
+          "wind": 20,
+          "snowfall": 2
         },
         {
           "date": "2026-11-24",
           "part": 2,
-          "weather": "少量の雪",
+          "weather": "小雪",
           "temperature": -4,
-          "wind": 35,
+          "wind": 20,
           "snowfall": 5
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -5,
+          "wind": 30,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -5,
+          "wind": 30,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "小雪",
+          "temperature": -1,
+          "wind": 15,
+          "snowfall": 4
         }
       ],
       "current": {
         "weather": "少量の雪",
         "temperature": -4,
         "minTemperature": -5,
-        "wind": 30,
+        "wind": 25,
         "snowfall": 6
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 6,
-          "min": -5,
-          "max": -4,
-          "wind": 30,
-          "weather": "少量の雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 15,
-          "min": -6,
+          "snowfall": 14,
+          "min": -5,
           "max": -3,
           "wind": 30,
           "weather": "少量の雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 4,
-          "min": -5,
+          "snowfall": 3,
+          "min": -6,
           "max": -2,
           "wind": 5,
           "weather": "小雪"
@@ -3887,7 +4199,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-22",
           "snowfall": 2,
-          "min": -5,
+          "min": -4,
           "max": -1,
           "wind": 10,
           "weather": "にわか雪"
@@ -3895,17 +4207,25 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "snowfall": 0,
-          "min": 0,
+          "min": -1,
           "max": 3,
           "wind": 20,
           "weather": "小雪"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 9,
+          "snowfall": 13,
           "min": -6,
           "max": 2,
-          "wind": 35,
+          "wind": 20,
+          "weather": "少量の雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 7,
+          "min": -6,
+          "max": -1,
+          "wind": 30,
           "weather": "小雪"
         }
       ]
@@ -3913,23 +4233,15 @@ export const snowForecasts = {
     "Asahidake": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Asahidake/6day/mid",
       "elevation": 1350,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -12,
-          "wind": 55,
-          "snowfall": 22
-        },
         {
           "date": "2026-11-20",
           "part": 0,
-          "weather": "小雪",
+          "weather": "少量の雪",
           "temperature": -12,
           "wind": 55,
-          "snowfall": 3
+          "snowfall": 6
         },
         {
           "date": "2026-11-20",
@@ -3937,13 +4249,13 @@ export const snowForecasts = {
           "weather": "少量の雪",
           "temperature": -12,
           "wind": 50,
-          "snowfall": 7
+          "snowfall": 8
         },
         {
           "date": "2026-11-20",
           "part": 2,
           "weather": "豪雪",
-          "temperature": -11,
+          "temperature": -10,
           "wind": 50,
           "snowfall": 13
         },
@@ -3951,32 +4263,32 @@ export const snowForecasts = {
           "date": "2026-11-21",
           "part": 0,
           "weather": "小雪",
-          "temperature": -10,
-          "wind": 20,
-          "snowfall": 1
+          "temperature": -9,
+          "wind": 15,
+          "snowfall": 2
         },
         {
           "date": "2026-11-21",
           "part": 1,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": -9,
-          "wind": 20,
+          "wind": 15,
           "snowfall": 2
         },
         {
           "date": "2026-11-21",
           "part": 2,
-          "weather": "少量の雪",
-          "temperature": -9,
-          "wind": 25,
-          "snowfall": 6
+          "weather": "小雪",
+          "temperature": -8,
+          "wind": 20,
+          "snowfall": 5
         },
         {
           "date": "2026-11-22",
           "part": 0,
           "weather": "小雪",
-          "temperature": -9,
-          "wind": 30,
+          "temperature": -8,
+          "wind": 25,
           "snowfall": 2
         },
         {
@@ -3984,7 +4296,7 @@ export const snowForecasts = {
           "part": 1,
           "weather": "小雪",
           "temperature": -9,
-          "wind": 20,
+          "wind": 25,
           "snowfall": 3
         },
         {
@@ -3993,12 +4305,12 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": -8,
           "wind": 25,
-          "snowfall": 1
+          "snowfall": 2
         },
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": -5,
           "wind": 25,
           "snowfall": 0
@@ -4006,122 +4318,138 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 1,
-          "weather": "にわか雪",
-          "temperature": -2,
+          "weather": "一部曇り",
+          "temperature": -3,
           "wind": 35,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "小雪",
+          "weather": "少量の雪",
           "temperature": -1,
-          "wind": 40,
-          "snowfall": 5
+          "wind": 45,
+          "snowfall": 7
         },
         {
           "date": "2026-11-24",
           "part": 0,
           "weather": "豪雪",
           "temperature": -2,
-          "wind": 50,
+          "wind": 30,
           "snowfall": 12
         },
         {
           "date": "2026-11-24",
           "part": 1,
-          "weather": "豪雪",
+          "weather": "少量の雪",
           "temperature": -9,
-          "wind": 45,
+          "wind": 30,
           "snowfall": 10
         },
         {
           "date": "2026-11-24",
           "part": 2,
           "weather": "豪雪",
-          "temperature": -11,
-          "wind": 65,
-          "snowfall": 21
+          "temperature": -12,
+          "wind": 40,
+          "snowfall": 18
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "少量の雪",
+          "temperature": -14,
+          "wind": 50,
+          "snowfall": 6
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "少量の雪",
+          "temperature": -13,
+          "wind": 60,
+          "snowfall": 7
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "少量の雪",
+          "temperature": -6,
+          "wind": 50,
+          "snowfall": 8
         }
       ],
       "current": {
-        "weather": "豪雪",
+        "weather": "少量の雪",
         "temperature": -12,
         "minTemperature": -13,
         "wind": 55,
-        "snowfall": 22
+        "snowfall": 6
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 22,
-          "min": -13,
-          "max": -12,
-          "wind": 55,
-          "weather": "豪雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 23,
+          "snowfall": 27,
           "min": -13,
-          "max": -11,
+          "max": -10,
           "wind": 55,
-          "weather": "小雪"
+          "weather": "少量の雪"
         },
         {
           "date": "2026-11-21",
           "snowfall": 9,
-          "min": -11,
-          "max": -9,
-          "wind": 25,
+          "min": -10,
+          "max": -8,
+          "wind": 20,
           "weather": "小雪"
         },
         {
           "date": "2026-11-22",
-          "snowfall": 6,
+          "snowfall": 7,
           "min": -9,
           "max": -8,
-          "wind": 30,
+          "wind": 25,
           "weather": "小雪"
         },
         {
           "date": "2026-11-23",
-          "snowfall": 5,
+          "snowfall": 7,
           "min": -6,
           "max": -1,
-          "wind": 40,
-          "weather": "にわか雪"
+          "wind": 45,
+          "weather": "小雪"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 43,
+          "snowfall": 40,
           "min": -14,
           "max": -2,
-          "wind": 65,
+          "wind": 40,
           "weather": "豪雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 21,
+          "min": -14,
+          "max": -6,
+          "wind": 60,
+          "weather": "少量の雪"
         }
       ]
     },
     "DaisetsuzanKurodake": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/DaisetsuzanKurodake/6day/mid",
       "elevation": 1110,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -10,
-          "wind": 50,
-          "snowfall": 20
-        },
         {
           "date": "2026-11-20",
           "part": 0,
-          "weather": "にわか雪",
+          "weather": "少量の雪",
           "temperature": -10,
-          "wind": 45,
-          "snowfall": 3
+          "wind": 50,
+          "snowfall": 6
         },
         {
           "date": "2026-11-20",
@@ -4129,30 +4457,30 @@ export const snowForecasts = {
           "weather": "少量の雪",
           "temperature": -10,
           "wind": 45,
-          "snowfall": 6
+          "snowfall": 7
         },
         {
           "date": "2026-11-20",
           "part": 2,
           "weather": "豪雪",
           "temperature": -9,
-          "wind": 40,
+          "wind": 45,
           "snowfall": 10
         },
         {
           "date": "2026-11-21",
           "part": 0,
           "weather": "小雪",
-          "temperature": -8,
-          "wind": 15,
+          "temperature": -7,
+          "wind": 10,
           "snowfall": 1
         },
         {
           "date": "2026-11-21",
           "part": 1,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": -8,
-          "wind": 15,
+          "wind": 10,
           "snowfall": 2
         },
         {
@@ -4174,7 +4502,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": -7,
           "wind": 15,
           "snowfall": 2
@@ -4198,72 +4526,88 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 1,
-          "weather": "にわか雪",
-          "temperature": -1,
+          "weather": "一部曇り",
+          "temperature": -2,
           "wind": 25,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "小雪",
-          "temperature": 1,
-          "wind": 25,
-          "snowfall": 3
+          "weather": "少量の雪",
+          "temperature": 0,
+          "wind": 30,
+          "snowfall": 5
         },
         {
           "date": "2026-11-24",
           "part": 0,
           "weather": "少量の雪",
-          "temperature": 0,
-          "wind": 35,
-          "snowfall": 9
+          "temperature": -1,
+          "wind": 25,
+          "snowfall": 8
         },
         {
           "date": "2026-11-24",
           "part": 1,
           "weather": "少量の雪",
           "temperature": -7,
-          "wind": 35,
+          "wind": 25,
           "snowfall": 8
         },
         {
           "date": "2026-11-24",
           "part": 2,
           "weather": "豪雪",
-          "temperature": -9,
+          "temperature": -10,
+          "wind": 35,
+          "snowfall": 15
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "少量の雪",
+          "temperature": -12,
+          "wind": 45,
+          "snowfall": 6
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "少量の雪",
+          "temperature": -11,
           "wind": 55,
-          "snowfall": 19
+          "snowfall": 7
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "少量の雪",
+          "temperature": -5,
+          "wind": 50,
+          "snowfall": 6
         }
       ],
       "current": {
-        "weather": "豪雪",
+        "weather": "少量の雪",
         "temperature": -10,
         "minTemperature": -11,
         "wind": 50,
-        "snowfall": 20
+        "snowfall": 6
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 20,
-          "min": -11,
-          "max": -10,
-          "wind": 50,
-          "weather": "豪雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 19,
+          "snowfall": 23,
           "min": -11,
           "max": -9,
-          "wind": 45,
-          "weather": "にわか雪"
+          "wind": 50,
+          "weather": "少量の雪"
         },
         {
           "date": "2026-11-21",
           "snowfall": 7,
-          "min": -9,
+          "min": -8,
           "max": -7,
           "wind": 15,
           "weather": "小雪"
@@ -4278,17 +4622,25 @@ export const snowForecasts = {
         },
         {
           "date": "2026-11-23",
-          "snowfall": 3,
-          "min": -4,
-          "max": 1,
-          "wind": 25,
+          "snowfall": 5,
+          "min": -5,
+          "max": 0,
+          "wind": 30,
           "weather": "小雪"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 36,
+          "snowfall": 31,
           "min": -12,
-          "max": 0,
+          "max": -1,
+          "wind": 35,
+          "weather": "少量の雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 19,
+          "min": -13,
+          "max": -5,
           "wind": 55,
           "weather": "少量の雪"
         }
@@ -4297,23 +4649,15 @@ export const snowForecasts = {
     "Furano": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Furano/6day/mid",
       "elevation": 727,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -7,
-          "wind": 35,
-          "snowfall": 8
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "小雪",
           "temperature": -7,
-          "wind": 35,
-          "snowfall": 1
+          "wind": 40,
+          "snowfall": 2
         },
         {
           "date": "2026-11-20",
@@ -4321,28 +4665,28 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": -7,
           "wind": 35,
-          "snowfall": 2
+          "snowfall": 3
         },
         {
           "date": "2026-11-20",
           "part": 2,
           "weather": "少量の雪",
           "temperature": -6,
-          "wind": 35,
-          "snowfall": 8
+          "wind": 40,
+          "snowfall": 7
         },
         {
           "date": "2026-11-21",
           "part": 0,
-          "weather": "にわか雪",
-          "temperature": -5,
-          "wind": 20,
-          "snowfall": 0
+          "weather": "小雪",
+          "temperature": -4,
+          "wind": 10,
+          "snowfall": 2
         },
         {
           "date": "2026-11-21",
           "part": 1,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": -4,
           "wind": 10,
           "snowfall": 1
@@ -4351,7 +4695,7 @@ export const snowForecasts = {
           "date": "2026-11-21",
           "part": 2,
           "weather": "にわか雪",
-          "temperature": -5,
+          "temperature": -6,
           "wind": 15,
           "snowfall": 1
         },
@@ -4359,14 +4703,14 @@ export const snowForecasts = {
           "date": "2026-11-22",
           "part": 0,
           "weather": "にわか雪",
-          "temperature": -3,
+          "temperature": -4,
           "wind": 15,
           "snowfall": 0
         },
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": -4,
           "wind": 15,
           "snowfall": 1
@@ -4382,15 +4726,15 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "曇り",
-          "temperature": 0,
+          "weather": "一部曇り",
+          "temperature": -1,
           "wind": 15,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 1,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": 0,
           "wind": 20,
           "snowfall": 0
@@ -4398,90 +4742,114 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "豪雪",
+          "weather": "少量の雪",
           "temperature": 2,
-          "wind": 40,
-          "snowfall": 12
+          "wind": 30,
+          "snowfall": 5
         },
         {
           "date": "2026-11-24",
           "part": 0,
           "weather": "少量の雪",
           "temperature": 1,
-          "wind": 35,
-          "snowfall": 9
+          "wind": 15,
+          "snowfall": 8
         },
         {
           "date": "2026-11-24",
           "part": 1,
           "weather": "小雪",
           "temperature": -5,
-          "wind": 30,
-          "snowfall": 4
+          "wind": 25,
+          "snowfall": 3
         },
         {
           "date": "2026-11-24",
           "part": 2,
           "weather": "豪雪",
           "temperature": -7,
-          "wind": 50,
-          "snowfall": 10
+          "wind": 30,
+          "snowfall": 14
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "少量の雪",
+          "temperature": -9,
+          "wind": 40,
+          "snowfall": 8
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -8,
+          "wind": 45,
+          "snowfall": 5
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "少量の雪",
+          "temperature": -3,
+          "wind": 30,
+          "snowfall": 6
         }
       ],
       "current": {
-        "weather": "少量の雪",
+        "weather": "小雪",
         "temperature": -7,
-        "minTemperature": -9,
-        "wind": 35,
-        "snowfall": 8
+        "minTemperature": -8,
+        "wind": 40,
+        "snowfall": 2
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 8,
-          "min": -9,
-          "max": -7,
-          "wind": 35,
-          "weather": "少量の雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 11,
+          "snowfall": 12,
           "min": -8,
           "max": -6,
-          "wind": 35,
+          "wind": 40,
           "weather": "小雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 2,
+          "snowfall": 4,
           "min": -7,
           "max": -4,
-          "wind": 20,
-          "weather": "にわか雪"
+          "wind": 15,
+          "weather": "小雪"
         },
         {
           "date": "2026-11-22",
           "snowfall": 1,
           "min": -7,
-          "max": -3,
+          "max": -4,
           "wind": 15,
           "weather": "にわか雪"
         },
         {
           "date": "2026-11-23",
-          "snowfall": 12,
+          "snowfall": 5,
           "min": -2,
           "max": 2,
-          "wind": 40,
-          "weather": "小雪"
+          "wind": 30,
+          "weather": "にわか雪"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 23,
+          "snowfall": 25,
           "min": -9,
           "max": 1,
-          "wind": 50,
+          "wind": 30,
+          "weather": "少量の雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 19,
+          "min": -9,
+          "max": -3,
+          "wind": 45,
           "weather": "少量の雪"
         }
       ]
@@ -4489,31 +4857,23 @@ export const snowForecasts = {
     "Appi-Kogen": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Appi-Kogen/6day/mid",
       "elevation": 1023,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -6,
-          "wind": 30,
-          "snowfall": 16
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "少量の雪",
-          "temperature": -5,
+          "temperature": -6,
           "wind": 5,
-          "snowfall": 6
+          "snowfall": 9
         },
         {
           "date": "2026-11-20",
           "part": 1,
-          "weather": "少量の雪",
+          "weather": "豪雪",
           "temperature": -6,
           "wind": 15,
-          "snowfall": 10
+          "snowfall": 11
         },
         {
           "date": "2026-11-20",
@@ -4526,40 +4886,40 @@ export const snowForecasts = {
         {
           "date": "2026-11-21",
           "part": 0,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": -5,
-          "wind": 40,
-          "snowfall": 2
+          "wind": 30,
+          "snowfall": 3
         },
         {
           "date": "2026-11-21",
           "part": 1,
           "weather": "小雪",
           "temperature": -5,
-          "wind": 25,
-          "snowfall": 1
+          "wind": 20,
+          "snowfall": 3
         },
         {
           "date": "2026-11-21",
           "part": 2,
           "weather": "少量の雪",
-          "temperature": -5,
-          "wind": 15,
-          "snowfall": 6
+          "temperature": -4,
+          "wind": 10,
+          "snowfall": 7
         },
         {
           "date": "2026-11-22",
           "part": 0,
           "weather": "にわか雪",
-          "temperature": -3,
+          "temperature": -4,
           "wind": 15,
           "snowfall": 0
         },
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "にわか雪",
-          "temperature": -4,
+          "weather": "小雪",
+          "temperature": -3,
           "wind": 20,
           "snowfall": 1
         },
@@ -4569,12 +4929,12 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -4,
           "wind": 35,
-          "snowfall": 0
+          "snowfall": 1
         },
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "一部曇り",
+          "weather": "にわか雪",
           "temperature": -1,
           "wind": 25,
           "snowfall": 0
@@ -4582,7 +4942,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 1,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": 0,
           "wind": 25,
           "snowfall": 0
@@ -4590,9 +4950,217 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "一部曇り",
-          "temperature": 4,
+          "weather": "にわか雪",
+          "temperature": 3,
+          "wind": 40,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-24",
+          "part": 0,
+          "weather": "少量の雪",
+          "temperature": 2,
+          "wind": 40,
+          "snowfall": 7
+        },
+        {
+          "date": "2026-11-24",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -3,
+          "wind": 25,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-24",
+          "part": 2,
+          "weather": "豪雪",
+          "temperature": -4,
+          "wind": 40,
+          "snowfall": 11
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "少量の雪",
+          "temperature": -7,
+          "wind": 50,
+          "snowfall": 6
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -6,
+          "wind": 55,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "にわか雪",
+          "temperature": 0,
+          "wind": 40,
+          "snowfall": 5
+        }
+      ],
+      "current": {
+        "weather": "少量の雪",
+        "temperature": -6,
+        "minTemperature": -6,
+        "wind": 5,
+        "snowfall": 9
+      },
+      "days": [
+        {
+          "date": "2026-11-20",
+          "snowfall": 34,
+          "min": -7,
+          "max": -6,
+          "wind": 40,
+          "weather": "少量の雪"
+        },
+        {
+          "date": "2026-11-21",
+          "snowfall": 13,
+          "min": -6,
+          "max": -4,
+          "wind": 30,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-22",
+          "snowfall": 2,
+          "min": -5,
+          "max": -3,
           "wind": 35,
+          "weather": "にわか雪"
+        },
+        {
+          "date": "2026-11-23",
+          "snowfall": 0,
+          "min": -1,
+          "max": 3,
+          "wind": 40,
+          "weather": "にわか雪"
+        },
+        {
+          "date": "2026-11-24",
+          "snowfall": 20,
+          "min": -7,
+          "max": 2,
+          "wind": 40,
+          "weather": "少量の雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 14,
+          "min": -7,
+          "max": 0,
+          "wind": 55,
+          "weather": "少量の雪"
+        }
+      ]
+    },
+    "HachimantaiResort": {
+      "sourceUrl": "https://ja.snow-forecast.com/resorts/HachimantaiResort/6day/mid",
+      "elevation": 770,
+      "issuedAt": "2 am 20 Nov 2026",
+      "periods": [
+        {
+          "date": "2026-11-20",
+          "part": 0,
+          "weather": "少量の雪",
+          "temperature": -4,
+          "wind": 5,
+          "snowfall": 6
+        },
+        {
+          "date": "2026-11-20",
+          "part": 1,
+          "weather": "少量の雪",
+          "temperature": -4,
+          "wind": 10,
+          "snowfall": 7
+        },
+        {
+          "date": "2026-11-20",
+          "part": 2,
+          "weather": "少量の雪",
+          "temperature": -4,
+          "wind": 35,
+          "snowfall": 9
+        },
+        {
+          "date": "2026-11-21",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -3,
+          "wind": 25,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-21",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -3,
+          "wind": 15,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-21",
+          "part": 2,
+          "weather": "少量の雪",
+          "temperature": -3,
+          "wind": 5,
+          "snowfall": 6
+        },
+        {
+          "date": "2026-11-22",
+          "part": 0,
+          "weather": "にわか雪",
+          "temperature": -2,
+          "wind": 15,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-22",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -2,
+          "wind": 20,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-22",
+          "part": 2,
+          "weather": "にわか雪",
+          "temperature": -3,
+          "wind": 25,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-23",
+          "part": 0,
+          "weather": "にわか雪",
+          "temperature": 0,
+          "wind": 15,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-23",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": 1,
+          "wind": 20,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-23",
+          "part": 2,
+          "weather": "にわか雨",
+          "temperature": 2,
+          "wind": 30,
           "snowfall": 0
         },
         {
@@ -4600,599 +5168,47 @@ export const snowForecasts = {
           "part": 0,
           "weather": "小雪",
           "temperature": 2,
-          "wind": 45,
+          "wind": 30,
           "snowfall": 4
         },
         {
           "date": "2026-11-24",
           "part": 1,
           "weather": "小雪",
-          "temperature": -3,
-          "wind": 35,
-          "snowfall": 3
+          "temperature": -1,
+          "wind": 20,
+          "snowfall": 1
         },
         {
           "date": "2026-11-24",
           "part": 2,
-          "weather": "豪雪",
+          "weather": "少量の雪",
+          "temperature": -3,
+          "wind": 25,
+          "snowfall": 7
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
           "temperature": -5,
-          "wind": 35,
-          "snowfall": 10
-        }
-      ],
-      "current": {
-        "weather": "豪雪",
-        "temperature": -6,
-        "minTemperature": -6,
-        "wind": 30,
-        "snowfall": 16
-      },
-      "days": [
-        {
-          "date": "2026-11-19",
-          "snowfall": 16,
-          "min": -6,
-          "max": -6,
-          "wind": 30,
-          "weather": "豪雪"
-        },
-        {
-          "date": "2026-11-20",
-          "snowfall": 30,
-          "min": -7,
-          "max": -5,
-          "wind": 40,
-          "weather": "少量の雪"
-        },
-        {
-          "date": "2026-11-21",
-          "snowfall": 9,
-          "min": -6,
-          "max": -5,
-          "wind": 40,
-          "weather": "にわか雪"
-        },
-        {
-          "date": "2026-11-22",
-          "snowfall": 1,
-          "min": -5,
-          "max": -3,
-          "wind": 35,
-          "weather": "にわか雪"
-        },
-        {
-          "date": "2026-11-23",
-          "snowfall": 0,
-          "min": -1,
-          "max": 4,
-          "wind": 35,
-          "weather": "にわか雪"
-        },
-        {
-          "date": "2026-11-24",
-          "snowfall": 17,
-          "min": -6,
-          "max": 2,
           "wind": 45,
-          "weather": "小雪"
-        }
-      ]
-    },
-    "HachimantaiResort": {
-      "sourceUrl": "https://ja.snow-forecast.com/resorts/HachimantaiResort/6day/mid",
-      "elevation": 770,
-      "issuedAt": "8 pm 19 Nov 2026",
-      "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -4,
-          "wind": 25,
-          "snowfall": 10
-        },
-        {
-          "date": "2026-11-20",
-          "part": 0,
-          "weather": "小雪",
-          "temperature": -3,
-          "wind": 5,
-          "snowfall": 5
-        },
-        {
-          "date": "2026-11-20",
-          "part": 1,
-          "weather": "少量の雪",
-          "temperature": -4,
-          "wind": 15,
-          "snowfall": 6
-        },
-        {
-          "date": "2026-11-20",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -4,
-          "wind": 40,
-          "snowfall": 10
-        },
-        {
-          "date": "2026-11-21",
-          "part": 0,
-          "weather": "にわか雪",
-          "temperature": -3,
-          "wind": 30,
-          "snowfall": 1
-        },
-        {
-          "date": "2026-11-21",
-          "part": 1,
-          "weather": "小雪",
-          "temperature": -3,
-          "wind": 20,
-          "snowfall": 1
-        },
-        {
-          "date": "2026-11-21",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -3,
-          "wind": 10,
-          "snowfall": 5
-        },
-        {
-          "date": "2026-11-22",
-          "part": 0,
-          "weather": "にわか雪",
-          "temperature": -1,
-          "wind": 10,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-22",
-          "part": 1,
-          "weather": "にわか雪",
-          "temperature": -1,
-          "wind": 15,
-          "snowfall": 1
-        },
-        {
-          "date": "2026-11-22",
-          "part": 2,
-          "weather": "にわか雪",
-          "temperature": -4,
-          "wind": 25,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-23",
-          "part": 0,
-          "weather": "一部曇り",
-          "temperature": 0,
-          "wind": 15,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-23",
-          "part": 1,
-          "weather": "にわか雪",
-          "temperature": 1,
-          "wind": 20,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-23",
-          "part": 2,
-          "weather": "一部曇り",
-          "temperature": 4,
-          "wind": 25,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-24",
-          "part": 0,
-          "weather": "小雪",
-          "temperature": 3,
-          "wind": 40,
-          "snowfall": 2
-        },
-        {
-          "date": "2026-11-24",
-          "part": 1,
-          "weather": "小雪",
-          "temperature": -1,
-          "wind": 25,
-          "snowfall": 2
-        },
-        {
-          "date": "2026-11-24",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -3,
-          "wind": 30,
-          "snowfall": 6
-        }
-      ],
-      "current": {
-        "weather": "豪雪",
-        "temperature": -4,
-        "minTemperature": -4,
-        "wind": 25,
-        "snowfall": 10
-      },
-      "days": [
-        {
-          "date": "2026-11-19",
-          "snowfall": 10,
-          "min": -4,
-          "max": -4,
-          "wind": 25,
-          "weather": "豪雪"
-        },
-        {
-          "date": "2026-11-20",
-          "snowfall": 21,
-          "min": -5,
-          "max": -3,
-          "wind": 40,
-          "weather": "小雪"
-        },
-        {
-          "date": "2026-11-21",
-          "snowfall": 7,
-          "min": -5,
-          "max": -3,
-          "wind": 30,
-          "weather": "にわか雪"
-        },
-        {
-          "date": "2026-11-22",
-          "snowfall": 1,
-          "min": -4,
-          "max": -1,
-          "wind": 25,
-          "weather": "にわか雪"
-        },
-        {
-          "date": "2026-11-23",
-          "snowfall": 0,
-          "min": 0,
-          "max": 4,
-          "wind": 25,
-          "weather": "にわか雪"
-        },
-        {
-          "date": "2026-11-24",
-          "snowfall": 10,
-          "min": -4,
-          "max": 3,
-          "wind": 40,
-          "weather": "小雪"
-        }
-      ]
-    },
-    "Shimokura": {
-      "sourceUrl": "https://ja.snow-forecast.com/resorts/Shimokura/6day/mid",
-      "elevation": 855,
-      "issuedAt": "8 pm 19 Nov 2026",
-      "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -4,
-          "wind": 25,
-          "snowfall": 12
-        },
-        {
-          "date": "2026-11-20",
-          "part": 0,
-          "weather": "少量の雪",
-          "temperature": -4,
-          "wind": 5,
-          "snowfall": 5
-        },
-        {
-          "date": "2026-11-20",
-          "part": 1,
-          "weather": "少量の雪",
-          "temperature": -4,
-          "wind": 15,
-          "snowfall": 7
-        },
-        {
-          "date": "2026-11-20",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -5,
-          "wind": 40,
-          "snowfall": 11
-        },
-        {
-          "date": "2026-11-21",
-          "part": 0,
-          "weather": "にわか雪",
-          "temperature": -4,
-          "wind": 30,
-          "snowfall": 2
-        },
-        {
-          "date": "2026-11-21",
-          "part": 1,
-          "weather": "小雪",
-          "temperature": -3,
-          "wind": 20,
-          "snowfall": 1
-        },
-        {
-          "date": "2026-11-21",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -4,
-          "wind": 10,
-          "snowfall": 6
-        },
-        {
-          "date": "2026-11-22",
-          "part": 0,
-          "weather": "にわか雪",
-          "temperature": -2,
-          "wind": 15,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-22",
-          "part": 1,
-          "weather": "にわか雪",
-          "temperature": -2,
-          "wind": 20,
-          "snowfall": 1
-        },
-        {
-          "date": "2026-11-22",
-          "part": 2,
-          "weather": "にわか雪",
-          "temperature": -4,
-          "wind": 25,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-23",
-          "part": 0,
-          "weather": "一部曇り",
-          "temperature": 0,
-          "wind": 20,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-23",
-          "part": 1,
-          "weather": "にわか雪",
-          "temperature": 1,
-          "wind": 20,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-23",
-          "part": 2,
-          "weather": "一部曇り",
-          "temperature": 4,
-          "wind": 30,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-24",
-          "part": 0,
-          "weather": "小雪",
-          "temperature": 3,
-          "wind": 40,
-          "snowfall": 2
-        },
-        {
-          "date": "2026-11-24",
-          "part": 1,
-          "weather": "小雪",
-          "temperature": -2,
-          "wind": 30,
-          "snowfall": 2
-        },
-        {
-          "date": "2026-11-24",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -4,
-          "wind": 30,
-          "snowfall": 7
-        }
-      ],
-      "current": {
-        "weather": "豪雪",
-        "temperature": -4,
-        "minTemperature": -4,
-        "wind": 25,
-        "snowfall": 12
-      },
-      "days": [
-        {
-          "date": "2026-11-19",
-          "snowfall": 12,
-          "min": -4,
-          "max": -4,
-          "wind": 25,
-          "weather": "豪雪"
-        },
-        {
-          "date": "2026-11-20",
-          "snowfall": 23,
-          "min": -5,
-          "max": -4,
-          "wind": 40,
-          "weather": "少量の雪"
-        },
-        {
-          "date": "2026-11-21",
-          "snowfall": 9,
-          "min": -5,
-          "max": -3,
-          "wind": 30,
-          "weather": "にわか雪"
-        },
-        {
-          "date": "2026-11-22",
-          "snowfall": 1,
-          "min": -5,
-          "max": -2,
-          "wind": 25,
-          "weather": "にわか雪"
-        },
-        {
-          "date": "2026-11-23",
-          "snowfall": 0,
-          "min": -1,
-          "max": 4,
-          "wind": 30,
-          "weather": "にわか雪"
-        },
-        {
-          "date": "2026-11-24",
-          "snowfall": 11,
-          "min": -5,
-          "max": 3,
-          "wind": 40,
-          "weather": "小雪"
-        }
-      ]
-    },
-    "Shizukuishi": {
-      "sourceUrl": "https://ja.snow-forecast.com/resorts/Shizukuishi/6day/mid",
-      "elevation": 851,
-      "issuedAt": "8 pm 19 Nov 2026",
-      "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -4,
-          "wind": 30,
-          "snowfall": 9
-        },
-        {
-          "date": "2026-11-20",
-          "part": 0,
-          "weather": "小雪",
-          "temperature": -4,
-          "wind": 10,
           "snowfall": 4
         },
         {
-          "date": "2026-11-20",
+          "date": "2026-11-25",
           "part": 1,
-          "weather": "少量の雪",
-          "temperature": -4,
-          "wind": 15,
-          "snowfall": 6
-        },
-        {
-          "date": "2026-11-20",
-          "part": 2,
-          "weather": "にわか雪",
-          "temperature": -5,
-          "wind": 45,
-          "snowfall": 8
-        },
-        {
-          "date": "2026-11-21",
-          "part": 0,
           "weather": "にわか雪",
           "temperature": -4,
-          "wind": 30,
+          "wind": 50,
           "snowfall": 2
         },
         {
-          "date": "2026-11-21",
-          "part": 1,
-          "weather": "小雪",
-          "temperature": -3,
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "にわか雪",
+          "temperature": 1,
           "wind": 25,
-          "snowfall": 2
-        },
-        {
-          "date": "2026-11-21",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -3,
-          "wind": 10,
-          "snowfall": 6
-        },
-        {
-          "date": "2026-11-22",
-          "part": 0,
-          "weather": "にわか雪",
-          "temperature": -2,
-          "wind": 15,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-22",
-          "part": 1,
-          "weather": "にわか雪",
-          "temperature": -2,
-          "wind": 20,
-          "snowfall": 1
-        },
-        {
-          "date": "2026-11-22",
-          "part": 2,
-          "weather": "にわか雪",
-          "temperature": -4,
-          "wind": 25,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-23",
-          "part": 0,
-          "weather": "曇り",
-          "temperature": 0,
-          "wind": 20,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-23",
-          "part": 1,
-          "weather": "小雪",
-          "temperature": 0,
-          "wind": 20,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-23",
-          "part": 2,
-          "weather": "曇り",
-          "temperature": 3,
-          "wind": 30,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-24",
-          "part": 0,
-          "weather": "小雪",
-          "temperature": 3,
-          "wind": 45,
-          "snowfall": 2
-        },
-        {
-          "date": "2026-11-24",
-          "part": 1,
-          "weather": "にわか雪",
-          "temperature": -1,
-          "wind": 30,
-          "snowfall": 2
-        },
-        {
-          "date": "2026-11-24",
-          "part": 2,
-          "weather": "にわか雪",
-          "temperature": -4,
-          "wind": 35,
           "snowfall": 5
         }
       ],
@@ -5200,38 +5216,30 @@ export const snowForecasts = {
         "weather": "少量の雪",
         "temperature": -4,
         "minTemperature": -4,
-        "wind": 30,
-        "snowfall": 9
+        "wind": 5,
+        "snowfall": 6
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 9,
-          "min": -4,
-          "max": -4,
-          "wind": 30,
-          "weather": "少量の雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 18,
+          "snowfall": 22,
           "min": -5,
           "max": -4,
-          "wind": 45,
-          "weather": "小雪"
+          "wind": 35,
+          "weather": "少量の雪"
         },
         {
           "date": "2026-11-21",
           "snowfall": 10,
           "min": -4,
           "max": -3,
-          "wind": 30,
-          "weather": "にわか雪"
+          "wind": 25,
+          "weather": "小雪"
         },
         {
           "date": "2026-11-22",
-          "snowfall": 1,
-          "min": -5,
+          "snowfall": 2,
+          "min": -4,
           "max": -2,
           "wind": 25,
           "weather": "にわか雪"
@@ -5239,69 +5247,61 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "snowfall": 0,
-          "min": -1,
-          "max": 3,
+          "min": 0,
+          "max": 2,
+          "wind": 30,
+          "weather": "にわか雪"
+        },
+        {
+          "date": "2026-11-24",
+          "snowfall": 12,
+          "min": -5,
+          "max": 2,
           "wind": 30,
           "weather": "小雪"
         },
         {
-          "date": "2026-11-24",
-          "snowfall": 9,
+          "date": "2026-11-25",
+          "snowfall": 11,
           "min": -5,
-          "max": 3,
-          "wind": 45,
+          "max": 1,
+          "wind": 50,
           "weather": "小雪"
         }
       ]
     },
-    "Amihari": {
-      "sourceUrl": "https://ja.snow-forecast.com/resorts/Amihari/6day/mid",
-      "elevation": 995,
-      "issuedAt": "8 pm 19 Nov 2026",
+    "Shimokura": {
+      "sourceUrl": "https://ja.snow-forecast.com/resorts/Shimokura/6day/mid",
+      "elevation": 855,
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -5,
-          "wind": 35,
-          "snowfall": 11
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "少量の雪",
-          "temperature": -5,
-          "wind": 10,
-          "snowfall": 5
+          "temperature": -4,
+          "wind": 5,
+          "snowfall": 6
         },
         {
           "date": "2026-11-20",
           "part": 1,
           "weather": "少量の雪",
-          "temperature": -5,
-          "wind": 20,
-          "snowfall": 7
+          "temperature": -4,
+          "wind": 15,
+          "snowfall": 8
         },
         {
           "date": "2026-11-20",
           "part": 2,
-          "weather": "にわか雪",
-          "temperature": -6,
-          "wind": 50,
+          "weather": "豪雪",
+          "temperature": -5,
+          "wind": 35,
           "snowfall": 10
         },
         {
           "date": "2026-11-21",
           "part": 0,
-          "weather": "にわか雪",
-          "temperature": -5,
-          "wind": 35,
-          "snowfall": 2
-        },
-        {
-          "date": "2026-11-21",
-          "part": 1,
           "weather": "小雪",
           "temperature": -4,
           "wind": 25,
@@ -5309,6 +5309,430 @@ export const snowForecasts = {
         },
         {
           "date": "2026-11-21",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -3,
+          "wind": 20,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-21",
+          "part": 2,
+          "weather": "少量の雪",
+          "temperature": -3,
+          "wind": 10,
+          "snowfall": 6
+        },
+        {
+          "date": "2026-11-22",
+          "part": 0,
+          "weather": "にわか雪",
+          "temperature": -2,
+          "wind": 15,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-22",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -2,
+          "wind": 20,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-22",
+          "part": 2,
+          "weather": "にわか雪",
+          "temperature": -3,
+          "wind": 30,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-23",
+          "part": 0,
+          "weather": "にわか雪",
+          "temperature": 0,
+          "wind": 20,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-23",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": 1,
+          "wind": 20,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-23",
+          "part": 2,
+          "weather": "にわか雨",
+          "temperature": 2,
+          "wind": 30,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-24",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": 2,
+          "wind": 35,
+          "snowfall": 4
+        },
+        {
+          "date": "2026-11-24",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -1,
+          "wind": 25,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-24",
+          "part": 2,
+          "weather": "少量の雪",
+          "temperature": -3,
+          "wind": 30,
+          "snowfall": 8
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -5,
+          "wind": 45,
+          "snowfall": 4
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -5,
+          "wind": 50,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "にわか雪",
+          "temperature": 1,
+          "wind": 30,
+          "snowfall": 6
+        }
+      ],
+      "current": {
+        "weather": "少量の雪",
+        "temperature": -4,
+        "minTemperature": -5,
+        "wind": 5,
+        "snowfall": 6
+      },
+      "days": [
+        {
+          "date": "2026-11-20",
+          "snowfall": 24,
+          "min": -5,
+          "max": -4,
+          "wind": 35,
+          "weather": "少量の雪"
+        },
+        {
+          "date": "2026-11-21",
+          "snowfall": 11,
+          "min": -5,
+          "max": -3,
+          "wind": 25,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-22",
+          "snowfall": 2,
+          "min": -5,
+          "max": -2,
+          "wind": 30,
+          "weather": "にわか雪"
+        },
+        {
+          "date": "2026-11-23",
+          "snowfall": 0,
+          "min": -1,
+          "max": 2,
+          "wind": 30,
+          "weather": "にわか雪"
+        },
+        {
+          "date": "2026-11-24",
+          "snowfall": 13,
+          "min": -6,
+          "max": 2,
+          "wind": 35,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 12,
+          "min": -6,
+          "max": 1,
+          "wind": 50,
+          "weather": "小雪"
+        }
+      ]
+    },
+    "Shizukuishi": {
+      "sourceUrl": "https://ja.snow-forecast.com/resorts/Shizukuishi/6day/mid",
+      "elevation": 851,
+      "issuedAt": "2 am 20 Nov 2026",
+      "periods": [
+        {
+          "date": "2026-11-20",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -4,
+          "wind": 10,
+          "snowfall": 5
+        },
+        {
+          "date": "2026-11-20",
+          "part": 1,
+          "weather": "少量の雪",
+          "temperature": -4,
+          "wind": 15,
+          "snowfall": 6
+        },
+        {
+          "date": "2026-11-20",
+          "part": 2,
+          "weather": "少量の雪",
+          "temperature": -5,
+          "wind": 40,
+          "snowfall": 8
+        },
+        {
+          "date": "2026-11-21",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -3,
+          "wind": 25,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-21",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -3,
+          "wind": 20,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-21",
+          "part": 2,
+          "weather": "少量の雪",
+          "temperature": -3,
+          "wind": 5,
+          "snowfall": 6
+        },
+        {
+          "date": "2026-11-22",
+          "part": 0,
+          "weather": "にわか雪",
+          "temperature": -2,
+          "wind": 20,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-22",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -2,
+          "wind": 25,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-22",
+          "part": 2,
+          "weather": "にわか雪",
+          "temperature": -3,
+          "wind": 25,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-23",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -1,
+          "wind": 20,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-23",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": 0,
+          "wind": 20,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-23",
+          "part": 2,
+          "weather": "曇り",
+          "temperature": 2,
+          "wind": 30,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-24",
+          "part": 0,
+          "weather": "少量の雪",
+          "temperature": 2,
+          "wind": 35,
+          "snowfall": 5
+        },
+        {
+          "date": "2026-11-24",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -1,
+          "wind": 25,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-24",
+          "part": 2,
+          "weather": "にわか雪",
+          "temperature": -3,
+          "wind": 25,
+          "snowfall": 5
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "にわか雪",
+          "temperature": -5,
+          "wind": 50,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -5,
+          "wind": 50,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "にわか雪",
+          "temperature": 0,
+          "wind": 30,
+          "snowfall": 7
+        }
+      ],
+      "current": {
+        "weather": "小雪",
+        "temperature": -4,
+        "minTemperature": -5,
+        "wind": 10,
+        "snowfall": 5
+      },
+      "days": [
+        {
+          "date": "2026-11-20",
+          "snowfall": 19,
+          "min": -5,
+          "max": -4,
+          "wind": 40,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-21",
+          "snowfall": 11,
+          "min": -4,
+          "max": -3,
+          "wind": 25,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-22",
+          "snowfall": 2,
+          "min": -5,
+          "max": -2,
+          "wind": 25,
+          "weather": "にわか雪"
+        },
+        {
+          "date": "2026-11-23",
+          "snowfall": 1,
+          "min": -1,
+          "max": 2,
+          "wind": 30,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-24",
+          "snowfall": 11,
+          "min": -6,
+          "max": 2,
+          "wind": 35,
+          "weather": "少量の雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 10,
+          "min": -5,
+          "max": 0,
+          "wind": 50,
+          "weather": "にわか雪"
+        }
+      ]
+    },
+    "Amihari": {
+      "sourceUrl": "https://ja.snow-forecast.com/resorts/Amihari/6day/mid",
+      "elevation": 995,
+      "issuedAt": "2 am 20 Nov 2026",
+      "periods": [
+        {
+          "date": "2026-11-20",
+          "part": 0,
+          "weather": "少量の雪",
+          "temperature": -5,
+          "wind": 10,
+          "snowfall": 6
+        },
+        {
+          "date": "2026-11-20",
+          "part": 1,
+          "weather": "少量の雪",
+          "temperature": -5,
+          "wind": 15,
+          "snowfall": 7
+        },
+        {
+          "date": "2026-11-20",
+          "part": 2,
+          "weather": "少量の雪",
+          "temperature": -6,
+          "wind": 45,
+          "snowfall": 10
+        },
+        {
+          "date": "2026-11-21",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -5,
+          "wind": 30,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-21",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -4,
+          "wind": 20,
+          "snowfall": 4
+        },
+        {
+          "date": "2026-11-21",
           "part": 2,
           "weather": "少量の雪",
           "temperature": -4,
@@ -5320,7 +5744,7 @@ export const snowForecasts = {
           "part": 0,
           "weather": "にわか雪",
           "temperature": -3,
-          "wind": 15,
+          "wind": 20,
           "snowfall": 0
         },
         {
@@ -5328,7 +5752,7 @@ export const snowForecasts = {
           "part": 1,
           "weather": "にわか雪",
           "temperature": -3,
-          "wind": 20,
+          "wind": 25,
           "snowfall": 1
         },
         {
@@ -5337,7 +5761,7 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -4,
           "wind": 30,
-          "snowfall": 0
+          "snowfall": 1
         },
         {
           "date": "2026-11-23",
@@ -5353,76 +5777,92 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": 0,
           "wind": 25,
-          "snowfall": 0
+          "snowfall": 1
         },
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "曇り",
-          "temperature": 3,
+          "weather": "小雪",
+          "temperature": 2,
           "wind": 35,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 0,
-          "weather": "小雪",
-          "temperature": 2,
-          "wind": 50,
-          "snowfall": 2
+          "weather": "少量の雪",
+          "temperature": 1,
+          "wind": 40,
+          "snowfall": 6
         },
         {
           "date": "2026-11-24",
           "part": 1,
           "weather": "にわか雪",
-          "temperature": -3,
+          "temperature": -2,
           "wind": 30,
-          "snowfall": 2
+          "snowfall": 1
         },
         {
           "date": "2026-11-24",
           "part": 2,
           "weather": "にわか雪",
-          "temperature": -5,
+          "temperature": -4,
+          "wind": 30,
+          "snowfall": 7
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "にわか雪",
+          "temperature": -6,
+          "wind": 55,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -6,
+          "wind": 55,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "にわか雪",
+          "temperature": 0,
           "wind": 35,
           "snowfall": 6
         }
       ],
       "current": {
-        "weather": "豪雪",
+        "weather": "少量の雪",
         "temperature": -5,
-        "minTemperature": -5,
-        "wind": 35,
-        "snowfall": 11
+        "minTemperature": -6,
+        "wind": 10,
+        "snowfall": 6
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 11,
-          "min": -5,
-          "max": -5,
-          "wind": 35,
-          "weather": "豪雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 22,
+          "snowfall": 23,
           "min": -6,
           "max": -5,
-          "wind": 50,
+          "wind": 45,
           "weather": "少量の雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 11,
-          "min": -6,
+          "snowfall": 13,
+          "min": -5,
           "max": -4,
-          "wind": 35,
-          "weather": "にわか雪"
+          "wind": 30,
+          "weather": "小雪"
         },
         {
           "date": "2026-11-22",
-          "snowfall": 1,
+          "snowfall": 2,
           "min": -5,
           "max": -3,
           "wind": 30,
@@ -5430,82 +5870,82 @@ export const snowForecasts = {
         },
         {
           "date": "2026-11-23",
-          "snowfall": 0,
+          "snowfall": 1,
           "min": -2,
-          "max": 3,
+          "max": 2,
           "wind": 35,
           "weather": "小雪"
         },
         {
           "date": "2026-11-24",
+          "snowfall": 14,
+          "min": -7,
+          "max": 1,
+          "wind": 40,
+          "weather": "少量の雪"
+        },
+        {
+          "date": "2026-11-25",
           "snowfall": 10,
-          "min": -6,
-          "max": 2,
-          "wind": 50,
-          "weather": "小雪"
+          "min": -7,
+          "max": 0,
+          "wind": 55,
+          "weather": "にわか雪"
         }
       ]
     },
     "GetouKogen": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/GetouKogen/6day/mid",
       "elevation": 855,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -3,
-          "wind": 35,
-          "snowfall": 21
-        },
         {
           "date": "2026-11-20",
           "part": 0,
-          "weather": "少量の雪",
+          "weather": "豪雪",
           "temperature": -4,
-          "wind": 10,
-          "snowfall": 10
+          "wind": 15,
+          "snowfall": 11
         },
         {
           "date": "2026-11-20",
           "part": 1,
-          "weather": "少量の雪",
+          "weather": "豪雪",
           "temperature": -4,
           "wind": 20,
-          "snowfall": 9
+          "snowfall": 10
         },
         {
           "date": "2026-11-20",
           "part": 2,
           "weather": "豪雪",
           "temperature": -4,
-          "wind": 50,
-          "snowfall": 18
+          "wind": 45,
+          "snowfall": 19
         },
         {
           "date": "2026-11-21",
           "part": 0,
           "weather": "豪雪",
+          "temperature": -3,
+          "wind": 20,
+          "snowfall": 10
+        },
+        {
+          "date": "2026-11-21",
+          "part": 1,
+          "weather": "少量の雪",
           "temperature": -3,
           "wind": 25,
           "snowfall": 10
         },
         {
           "date": "2026-11-21",
-          "part": 1,
-          "weather": "少量の雪",
-          "temperature": -3,
-          "wind": 20,
-          "snowfall": 9
-        },
-        {
-          "date": "2026-11-21",
           "part": 2,
           "weather": "少量の雪",
           "temperature": -3,
           "wind": 10,
-          "snowfall": 10
+          "snowfall": 9
         },
         {
           "date": "2026-11-22",
@@ -5520,7 +5960,7 @@ export const snowForecasts = {
           "part": 1,
           "weather": "にわか雪",
           "temperature": -2,
-          "wind": 25,
+          "wind": 30,
           "snowfall": 1
         },
         {
@@ -5534,7 +5974,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "曇り",
+          "weather": "一部曇り",
           "temperature": 0,
           "wind": 15,
           "snowfall": 0
@@ -5544,7 +5984,7 @@ export const snowForecasts = {
           "part": 1,
           "weather": "一部曇り",
           "temperature": 1,
-          "wind": 15,
+          "wind": 20,
           "snowfall": 0
         },
         {
@@ -5560,8 +6000,8 @@ export const snowForecasts = {
           "part": 0,
           "weather": "小雪",
           "temperature": 3,
-          "wind": 40,
-          "snowfall": 3
+          "wind": 50,
+          "snowfall": 1
         },
         {
           "date": "2026-11-24",
@@ -5577,32 +6017,48 @@ export const snowForecasts = {
           "weather": "豪雪",
           "temperature": -2,
           "wind": 35,
-          "snowfall": 14
+          "snowfall": 16
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "少量の雪",
+          "temperature": -4,
+          "wind": 60,
+          "snowfall": 6
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -4,
+          "wind": 55,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "にわか雪",
+          "temperature": 1,
+          "wind": 30,
+          "snowfall": 1
         }
       ],
       "current": {
         "weather": "豪雪",
-        "temperature": -3,
+        "temperature": -4,
         "minTemperature": -4,
-        "wind": 35,
-        "snowfall": 21
+        "wind": 15,
+        "snowfall": 11
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 21,
-          "min": -4,
-          "max": -3,
-          "wind": 35,
-          "weather": "豪雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 37,
+          "snowfall": 40,
           "min": -4,
           "max": -4,
-          "wind": 50,
-          "weather": "少量の雪"
+          "wind": 45,
+          "weather": "豪雪"
         },
         {
           "date": "2026-11-21",
@@ -5617,108 +6073,108 @@ export const snowForecasts = {
           "snowfall": 2,
           "min": -4,
           "max": -2,
-          "wind": 25,
+          "wind": 30,
           "weather": "小雪"
         },
         {
           "date": "2026-11-23",
           "snowfall": 0,
-          "min": -1,
+          "min": -2,
           "max": 4,
           "wind": 25,
-          "weather": "曇り"
+          "weather": "一部曇り"
         },
         {
           "date": "2026-11-24",
           "snowfall": 21,
-          "min": -4,
+          "min": -5,
           "max": 3,
-          "wind": 40,
+          "wind": 50,
           "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 9,
+          "min": -4,
+          "max": 1,
+          "wind": 60,
+          "weather": "少量の雪"
         }
       ]
     },
     "Yamagata-Zao-Onsen": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Yamagata-Zao-Onsen/6day/mid",
       "elevation": 1220,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -3,
-          "wind": 50,
-          "snowfall": 13
-        },
         {
           "date": "2026-11-20",
           "part": 0,
-          "weather": "少量の雪",
-          "temperature": -3,
-          "wind": 65,
+          "weather": "にわか雪",
+          "temperature": -4,
+          "wind": 70,
           "snowfall": 8
         },
         {
           "date": "2026-11-20",
           "part": 1,
-          "weather": "少量の雪",
+          "weather": "豪雪",
           "temperature": -4,
-          "wind": 75,
-          "snowfall": 8
+          "wind": 65,
+          "snowfall": 13
         },
         {
           "date": "2026-11-20",
           "part": 2,
           "weather": "豪雪",
           "temperature": -5,
-          "wind": 45,
-          "snowfall": 12
+          "wind": 40,
+          "snowfall": 14
         },
         {
           "date": "2026-11-21",
           "part": 0,
-          "weather": "少量の雪",
+          "weather": "小雪",
           "temperature": -4,
-          "wind": 25,
-          "snowfall": 6
+          "wind": 20,
+          "snowfall": 4
         },
         {
           "date": "2026-11-21",
           "part": 1,
           "weather": "小雪",
           "temperature": -4,
-          "wind": 20,
+          "wind": 25,
           "snowfall": 3
         },
         {
           "date": "2026-11-21",
           "part": 2,
           "weather": "小雪",
-          "temperature": -4,
-          "wind": 15,
+          "temperature": -3,
+          "wind": 25,
           "snowfall": 2
         },
         {
           "date": "2026-11-22",
           "part": 0,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": -4,
           "wind": 25,
-          "snowfall": 0
+          "snowfall": 2
         },
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": -4,
           "wind": 40,
-          "snowfall": 0
+          "snowfall": 1
         },
         {
           "date": "2026-11-22",
           "part": 2,
-          "weather": "一部曇り",
+          "weather": "にわか雪",
           "temperature": -4,
           "wind": 35,
           "snowfall": 0
@@ -5727,105 +6183,129 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 0,
           "weather": "一部曇り",
-          "temperature": 0,
+          "temperature": -1,
           "wind": 20,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 1,
-          "weather": "晴れる",
+          "weather": "一部曇り",
           "temperature": 1,
-          "wind": 15,
+          "wind": 20,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 2,
           "weather": "曇り",
-          "temperature": 6,
-          "wind": 25,
+          "temperature": 5,
+          "wind": 20,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 0,
           "weather": "小雪",
-          "temperature": 4,
+          "temperature": 3,
           "wind": 55,
-          "snowfall": 1
+          "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 1,
           "weather": "小雪",
           "temperature": 0,
-          "wind": 55,
-          "snowfall": 2
+          "wind": 60,
+          "snowfall": 1
         },
         {
           "date": "2026-11-24",
           "part": 2,
           "weather": "少量の雪",
           "temperature": -2,
-          "wind": 55,
+          "wind": 65,
           "snowfall": 6
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -5,
+          "wind": 55,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -5,
+          "wind": 65,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "一部曇り",
+          "temperature": -1,
+          "wind": 40,
+          "snowfall": 0
         }
       ],
       "current": {
-        "weather": "豪雪",
-        "temperature": -3,
+        "weather": "にわか雪",
+        "temperature": -4,
         "minTemperature": -4,
-        "wind": 50,
-        "snowfall": 13
+        "wind": 70,
+        "snowfall": 8
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 13,
-          "min": -4,
-          "max": -3,
-          "wind": 50,
-          "weather": "豪雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 28,
+          "snowfall": 35,
           "min": -5,
-          "max": -3,
-          "wind": 75,
-          "weather": "少量の雪"
+          "max": -4,
+          "wind": 70,
+          "weather": "にわか雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 11,
+          "snowfall": 9,
           "min": -5,
-          "max": -4,
+          "max": -3,
           "wind": 25,
-          "weather": "少量の雪"
+          "weather": "小雪"
         },
         {
           "date": "2026-11-22",
-          "snowfall": 0,
+          "snowfall": 3,
           "min": -5,
           "max": -4,
           "wind": 40,
-          "weather": "にわか雪"
+          "weather": "小雪"
         },
         {
           "date": "2026-11-23",
           "snowfall": 0,
           "min": -2,
-          "max": 6,
-          "wind": 25,
+          "max": 5,
+          "wind": 20,
           "weather": "一部曇り"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 9,
-          "min": -3,
-          "max": 4,
-          "wind": 55,
+          "snowfall": 7,
+          "min": -5,
+          "max": 3,
+          "wind": 65,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 3,
+          "min": -6,
+          "max": -1,
+          "wind": 65,
           "weather": "小雪"
         }
       ]
@@ -5833,22 +6313,14 @@ export const snowForecasts = {
     "Zao-Sarukura": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Zao-Sarukura/6day/mid",
       "elevation": 795,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -1,
-          "wind": 35,
-          "snowfall": 9
-        },
         {
           "date": "2026-11-20",
           "part": 0,
-          "weather": "少量の雪",
+          "weather": "にわか雪",
           "temperature": 0,
-          "wind": 45,
+          "wind": 55,
           "snowfall": 5
         },
         {
@@ -5856,61 +6328,61 @@ export const snowForecasts = {
           "part": 1,
           "weather": "少量の雪",
           "temperature": -1,
-          "wind": 55,
-          "snowfall": 6
+          "wind": 50,
+          "snowfall": 8
         },
         {
           "date": "2026-11-20",
           "part": 2,
-          "weather": "少量の雪",
+          "weather": "豪雪",
           "temperature": -2,
-          "wind": 35,
-          "snowfall": 9
+          "wind": 25,
+          "snowfall": 10
         },
         {
           "date": "2026-11-21",
           "part": 0,
-          "weather": "小雪",
-          "temperature": -1,
-          "wind": 15,
-          "snowfall": 4
-        },
-        {
-          "date": "2026-11-21",
-          "part": 1,
-          "weather": "小雪",
-          "temperature": -1,
-          "wind": 15,
-          "snowfall": 2
-        },
-        {
-          "date": "2026-11-21",
-          "part": 2,
           "weather": "小雪",
           "temperature": -1,
           "wind": 10,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-21",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -1,
+          "wind": 15,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-21",
+          "part": 2,
+          "weather": "小雪",
+          "temperature": -1,
+          "wind": 15,
           "snowfall": 2
         },
         {
           "date": "2026-11-22",
           "part": 0,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": -1,
           "wind": 15,
-          "snowfall": 0
+          "snowfall": 1
         },
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": -1,
           "wind": 25,
-          "snowfall": 0
+          "snowfall": 1
         },
         {
           "date": "2026-11-22",
           "part": 2,
-          "weather": "一部曇り",
+          "weather": "にわか雪",
           "temperature": -2,
           "wind": 20,
           "snowfall": 0
@@ -5919,16 +6391,16 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 0,
           "weather": "一部曇り",
-          "temperature": 2,
+          "temperature": 1,
           "wind": 10,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 1,
-          "weather": "晴れる",
+          "weather": "一部曇り",
           "temperature": 2,
-          "wind": 10,
+          "wind": 15,
           "snowfall": 0
         },
         {
@@ -5943,7 +6415,7 @@ export const snowForecasts = {
           "date": "2026-11-24",
           "part": 0,
           "weather": "小雨",
-          "temperature": 5,
+          "temperature": 4,
           "wind": 35,
           "snowfall": 0
         },
@@ -5951,46 +6423,62 @@ export const snowForecasts = {
           "date": "2026-11-24",
           "part": 1,
           "weather": "小雪",
-          "temperature": 2,
+          "temperature": 3,
           "wind": 40,
-          "snowfall": 1
+          "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 2,
           "weather": "小雪",
+          "temperature": 1,
+          "wind": 50,
+          "snowfall": 4
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -2,
+          "wind": 40,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -2,
+          "wind": 45,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "一部曇り",
           "temperature": 0,
-          "wind": 35,
-          "snowfall": 5
+          "wind": 25,
+          "snowfall": 0
         }
       ],
       "current": {
-        "weather": "少量の雪",
-        "temperature": -1,
+        "weather": "にわか雪",
+        "temperature": 0,
         "minTemperature": -1,
-        "wind": 35,
-        "snowfall": 9
+        "wind": 55,
+        "snowfall": 5
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 9,
-          "min": -1,
-          "max": -1,
-          "wind": 35,
-          "weather": "少量の雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 20,
+          "snowfall": 23,
           "min": -2,
           "max": 0,
           "wind": 55,
-          "weather": "少量の雪"
+          "weather": "にわか雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 8,
+          "snowfall": 7,
           "min": -2,
           "max": -1,
           "wind": 15,
@@ -5998,11 +6486,11 @@ export const snowForecasts = {
         },
         {
           "date": "2026-11-22",
-          "snowfall": 0,
+          "snowfall": 2,
           "min": -3,
           "max": -1,
           "wind": 25,
-          "weather": "にわか雪"
+          "weather": "小雪"
         },
         {
           "date": "2026-11-23",
@@ -6014,10 +6502,18 @@ export const snowForecasts = {
         },
         {
           "date": "2026-11-24",
-          "snowfall": 6,
-          "min": 0,
-          "max": 5,
-          "wind": 40,
+          "snowfall": 4,
+          "min": -2,
+          "max": 4,
+          "wind": 50,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 2,
+          "min": -2,
+          "max": 0,
+          "wind": 45,
           "weather": "小雪"
         }
       ]
@@ -6025,55 +6521,47 @@ export const snowForecasts = {
     "Gala-Yuzawa": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Gala-Yuzawa/6day/mid",
       "elevation": 990,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": 0,
-          "wind": 10,
-          "snowfall": 8
-        },
         {
           "date": "2026-11-20",
           "part": 0,
-          "weather": "小雪",
-          "temperature": 0,
-          "wind": 20,
-          "snowfall": 2
+          "weather": "にわか雪",
+          "temperature": -1,
+          "wind": 30,
+          "snowfall": 1
         },
         {
           "date": "2026-11-20",
           "part": 1,
           "weather": "小雪",
           "temperature": -2,
-          "wind": 30,
-          "snowfall": 4
+          "wind": 45,
+          "snowfall": 3
         },
         {
           "date": "2026-11-20",
           "part": 2,
           "weather": "豪雪",
           "temperature": -2,
-          "wind": 15,
-          "snowfall": 16
+          "wind": 20,
+          "snowfall": 14
         },
         {
           "date": "2026-11-21",
           "part": 0,
-          "weather": "小雪",
-          "temperature": -1,
-          "wind": 25,
-          "snowfall": 5
+          "weather": "にわか雪",
+          "temperature": 0,
+          "wind": 30,
+          "snowfall": 3
         },
         {
           "date": "2026-11-21",
           "part": 1,
           "weather": "小雪",
           "temperature": -1,
-          "wind": 15,
-          "snowfall": 5
+          "wind": 20,
+          "snowfall": 2
         },
         {
           "date": "2026-11-21",
@@ -6081,23 +6569,23 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": -1,
           "wind": 5,
-          "snowfall": 3
+          "snowfall": 4
         },
         {
           "date": "2026-11-22",
           "part": 0,
           "weather": "少量の雪",
-          "temperature": -1,
-          "wind": 10,
+          "temperature": -2,
+          "wind": 15,
           "snowfall": 9
         },
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "少量の雪",
+          "weather": "小雪",
           "temperature": -1,
-          "wind": 20,
-          "snowfall": 6
+          "wind": 15,
+          "snowfall": 4
         },
         {
           "date": "2026-11-22",
@@ -6110,7 +6598,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "一部曇り",
+          "weather": "晴れる",
           "temperature": 2,
           "wind": 10,
           "snowfall": 0
@@ -6127,89 +6615,113 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 2,
           "weather": "曇り",
+          "temperature": 5,
+          "wind": 15,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-24",
+          "part": 0,
+          "weather": "小雨",
           "temperature": 6,
           "wind": 20,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
-          "part": 0,
-          "weather": "並雨",
-          "temperature": 4,
-          "wind": 15,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-24",
           "part": 1,
           "weather": "小雪",
-          "temperature": 1,
-          "wind": 20,
-          "snowfall": 1
+          "temperature": 2,
+          "wind": 10,
+          "snowfall": 2
         },
         {
           "date": "2026-11-24",
           "part": 2,
-          "weather": "小雪",
+          "weather": "少量の雪",
           "temperature": 0,
+          "wind": 15,
+          "snowfall": 7
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -1,
+          "wind": 35,
+          "snowfall": 4
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -1,
+          "wind": 20,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": 1,
           "wind": 5,
           "snowfall": 0
         }
       ],
       "current": {
-        "weather": "少量の雪",
-        "temperature": 0,
+        "weather": "にわか雪",
+        "temperature": -1,
         "minTemperature": -1,
-        "wind": 10,
-        "snowfall": 8
+        "wind": 30,
+        "snowfall": 1
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 8,
-          "min": -1,
-          "max": 0,
-          "wind": 10,
-          "weather": "少量の雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 22,
+          "snowfall": 18,
           "min": -2,
-          "max": 0,
-          "wind": 30,
-          "weather": "小雪"
+          "max": -1,
+          "wind": 45,
+          "weather": "にわか雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 13,
+          "snowfall": 9,
           "min": -2,
-          "max": -1,
-          "wind": 25,
-          "weather": "小雪"
+          "max": 0,
+          "wind": 30,
+          "weather": "にわか雪"
         },
         {
           "date": "2026-11-22",
-          "snowfall": 16,
+          "snowfall": 14,
           "min": -2,
           "max": -1,
-          "wind": 20,
+          "wind": 15,
           "weather": "少量の雪"
         },
         {
           "date": "2026-11-23",
           "snowfall": 0,
           "min": 1,
-          "max": 6,
-          "wind": 20,
-          "weather": "一部曇り"
+          "max": 5,
+          "wind": 15,
+          "weather": "曇り"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 1,
+          "snowfall": 9,
           "min": -1,
-          "max": 4,
+          "max": 6,
           "wind": 20,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 7,
+          "min": -1,
+          "max": 1,
+          "wind": 35,
           "weather": "小雪"
         }
       ]
@@ -6217,30 +6729,22 @@ export const snowForecasts = {
     "Naeba": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Naeba/6day/mid",
       "elevation": 1344,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "にわか雪",
-          "temperature": -2,
-          "wind": 10,
-          "snowfall": 4
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "にわか雪",
-          "temperature": -2,
-          "wind": 25,
+          "temperature": -3,
+          "wind": 35,
           "snowfall": 1
         },
         {
           "date": "2026-11-20",
           "part": 1,
           "weather": "にわか雪",
-          "temperature": -3,
-          "wind": 50,
+          "temperature": -4,
+          "wind": 40,
           "snowfall": 2
         },
         {
@@ -6248,15 +6752,15 @@ export const snowForecasts = {
           "part": 2,
           "weather": "にわか雪",
           "temperature": -3,
-          "wind": 15,
-          "snowfall": 5
+          "wind": 30,
+          "snowfall": 4
         },
         {
           "date": "2026-11-21",
           "part": 0,
           "weather": "にわか雪",
           "temperature": -2,
-          "wind": 35,
+          "wind": 40,
           "snowfall": 1
         },
         {
@@ -6273,14 +6777,14 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -2,
           "wind": 5,
-          "snowfall": 1
+          "snowfall": 2
         },
         {
           "date": "2026-11-22",
           "part": 0,
           "weather": "にわか雪",
           "temperature": -3,
-          "wind": 10,
+          "wind": 15,
           "snowfall": 6
         },
         {
@@ -6289,12 +6793,12 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -3,
           "wind": 15,
-          "snowfall": 1
+          "snowfall": 2
         },
         {
           "date": "2026-11-22",
           "part": 2,
-          "weather": "晴れる",
+          "weather": "にわか雪",
           "temperature": -3,
           "wind": 5,
           "snowfall": 0
@@ -6302,7 +6806,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "一部曇り",
+          "weather": "晴れる",
           "temperature": 0,
           "wind": 10,
           "snowfall": 0
@@ -6310,8 +6814,8 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 1,
-          "weather": "一部曇り",
-          "temperature": 0,
+          "weather": "曇り",
+          "temperature": 1,
           "wind": 15,
           "snowfall": 0
         },
@@ -6326,10 +6830,10 @@ export const snowForecasts = {
         {
           "date": "2026-11-24",
           "part": 0,
-          "weather": "小雪",
-          "temperature": 3,
-          "wind": 15,
-          "snowfall": 2
+          "weather": "小雨",
+          "temperature": 4,
+          "wind": 20,
+          "snowfall": 0
         },
         {
           "date": "2026-11-24",
@@ -6345,44 +6849,60 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -2,
           "wind": 10,
+          "snowfall": 5
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "にわか雪",
+          "temperature": -2,
+          "wind": 25,
+          "snowfall": 4
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -3,
+          "wind": 20,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": 1,
+          "wind": 5,
           "snowfall": 0
         }
       ],
       "current": {
         "weather": "にわか雪",
-        "temperature": -2,
+        "temperature": -3,
         "minTemperature": -3,
-        "wind": 10,
-        "snowfall": 4
+        "wind": 35,
+        "snowfall": 1
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 4,
-          "min": -3,
-          "max": -2,
-          "wind": 10,
-          "weather": "にわか雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 8,
+          "snowfall": 7,
           "min": -4,
-          "max": -2,
-          "wind": 50,
+          "max": -3,
+          "wind": 40,
           "weather": "にわか雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 3,
+          "snowfall": 4,
           "min": -3,
           "max": -2,
-          "wind": 35,
+          "wind": 40,
           "weather": "にわか雪"
         },
         {
           "date": "2026-11-22",
-          "snowfall": 7,
+          "snowfall": 8,
           "min": -3,
           "max": -3,
           "wind": 15,
@@ -6394,45 +6914,45 @@ export const snowForecasts = {
           "min": -2,
           "max": 3,
           "wind": 15,
-          "weather": "一部曇り"
+          "weather": "曇り"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 3,
-          "min": -2,
-          "max": 3,
-          "wind": 15,
+          "snowfall": 6,
+          "min": -3,
+          "max": 4,
+          "wind": 20,
           "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 6,
+          "min": -3,
+          "max": 1,
+          "wind": 25,
+          "weather": "にわか雪"
         }
       ]
     },
     "TashiroKaguraMitsumata": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/TashiroKaguraMitsumata/6day/mid",
       "elevation": 1416,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -3,
-          "wind": 15,
-          "snowfall": 9
-        },
         {
           "date": "2026-11-20",
           "part": 0,
-          "weather": "小雪",
-          "temperature": -3,
-          "wind": 30,
-          "snowfall": 3
+          "weather": "にわか雪",
+          "temperature": -4,
+          "wind": 35,
+          "snowfall": 2
         },
         {
           "date": "2026-11-20",
           "part": 1,
           "weather": "小雪",
-          "temperature": -4,
-          "wind": 45,
+          "temperature": -5,
+          "wind": 50,
           "snowfall": 4
         },
         {
@@ -6440,24 +6960,24 @@ export const snowForecasts = {
           "part": 2,
           "weather": "豪雪",
           "temperature": -4,
-          "wind": 15,
-          "snowfall": 14
+          "wind": 30,
+          "snowfall": 13
         },
         {
           "date": "2026-11-21",
           "part": 0,
-          "weather": "小雪",
-          "temperature": -3,
-          "wind": 35,
-          "snowfall": 5
+          "weather": "にわか雪",
+          "temperature": -2,
+          "wind": 40,
+          "snowfall": 3
         },
         {
           "date": "2026-11-21",
           "part": 1,
           "weather": "小雪",
           "temperature": -3,
-          "wind": 20,
-          "snowfall": 4
+          "wind": 30,
+          "snowfall": 2
         },
         {
           "date": "2026-11-21",
@@ -6465,7 +6985,7 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": -3,
           "wind": 5,
-          "snowfall": 3
+          "snowfall": 4
         },
         {
           "date": "2026-11-22",
@@ -6478,10 +6998,10 @@ export const snowForecasts = {
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "少量の雪",
+          "weather": "小雪",
           "temperature": -4,
-          "wind": 25,
-          "snowfall": 5
+          "wind": 20,
+          "snowfall": 4
         },
         {
           "date": "2026-11-22",
@@ -6489,13 +7009,13 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -3,
           "wind": 5,
-          "snowfall": 0
+          "snowfall": 1
         },
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "一部曇り",
-          "temperature": 0,
+          "weather": "晴れる",
+          "temperature": -1,
           "wind": 10,
           "snowfall": 0
         },
@@ -6512,72 +7032,88 @@ export const snowForecasts = {
           "part": 2,
           "weather": "曇り",
           "temperature": 4,
-          "wind": 25,
+          "wind": 15,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 0,
           "weather": "小雪",
-          "temperature": 3,
+          "temperature": 4,
           "wind": 20,
-          "snowfall": 2
+          "snowfall": 1
         },
         {
           "date": "2026-11-24",
           "part": 1,
           "weather": "小雪",
           "temperature": -1,
-          "wind": 25,
-          "snowfall": 1
+          "wind": 15,
+          "snowfall": 2
         },
         {
           "date": "2026-11-24",
           "part": 2,
+          "weather": "少量の雪",
+          "temperature": -3,
+          "wind": 15,
+          "snowfall": 8
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "少量の雪",
+          "temperature": -3,
+          "wind": 40,
+          "snowfall": 5
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
           "weather": "小雪",
-          "temperature": -2,
-          "wind": 10,
+          "temperature": -3,
+          "wind": 25,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": 0,
+          "wind": 5,
           "snowfall": 0
         }
       ],
       "current": {
-        "weather": "少量の雪",
-        "temperature": -3,
+        "weather": "にわか雪",
+        "temperature": -4,
         "minTemperature": -4,
-        "wind": 15,
-        "snowfall": 9
+        "wind": 35,
+        "snowfall": 2
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 9,
-          "min": -4,
-          "max": -3,
-          "wind": 15,
-          "weather": "少量の雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 21,
+          "snowfall": 19,
           "min": -5,
-          "max": -3,
-          "wind": 45,
-          "weather": "小雪"
+          "max": -4,
+          "wind": 50,
+          "weather": "にわか雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 12,
+          "snowfall": 9,
           "min": -4,
-          "max": -3,
-          "wind": 35,
-          "weather": "小雪"
+          "max": -2,
+          "wind": 40,
+          "weather": "にわか雪"
         },
         {
           "date": "2026-11-22",
           "snowfall": 15,
           "min": -4,
           "max": -3,
-          "wind": 25,
+          "wind": 20,
           "weather": "少量の雪"
         },
         {
@@ -6585,71 +7121,71 @@ export const snowForecasts = {
           "snowfall": 0,
           "min": -2,
           "max": 4,
-          "wind": 25,
-          "weather": "一部曇り"
+          "wind": 15,
+          "weather": "曇り"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 3,
-          "min": -3,
-          "max": 3,
-          "wind": 25,
+          "snowfall": 11,
+          "min": -4,
+          "max": 4,
+          "wind": 20,
           "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 8,
+          "min": -4,
+          "max": 0,
+          "wind": 40,
+          "weather": "少量の雪"
         }
       ]
     },
     "Iwappara": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Iwappara/6day/mid",
       "elevation": 692,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": 2,
-          "wind": 5,
-          "snowfall": 7
-        },
         {
           "date": "2026-11-20",
           "part": 0,
-          "weather": "小雪",
-          "temperature": 2,
-          "wind": 15,
-          "snowfall": 2
+          "weather": "にわか雪",
+          "temperature": 1,
+          "wind": 20,
+          "snowfall": 1
         },
         {
           "date": "2026-11-20",
           "part": 1,
           "weather": "小雪",
-          "temperature": 1,
-          "wind": 25,
-          "snowfall": 3
+          "temperature": 0,
+          "wind": 35,
+          "snowfall": 2
         },
         {
           "date": "2026-11-20",
           "part": 2,
           "weather": "豪雪",
           "temperature": 0,
-          "wind": 10,
-          "snowfall": 12
+          "wind": 15,
+          "snowfall": 10
         },
         {
           "date": "2026-11-21",
           "part": 0,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": 2,
           "wind": 20,
-          "snowfall": 4
+          "snowfall": 1
         },
         {
           "date": "2026-11-21",
           "part": 1,
           "weather": "小雪",
           "temperature": 1,
-          "wind": 10,
-          "snowfall": 4
+          "wind": 15,
+          "snowfall": 2
         },
         {
           "date": "2026-11-21",
@@ -6673,7 +7209,7 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": 1,
           "wind": 10,
-          "snowfall": 5
+          "snowfall": 3
         },
         {
           "date": "2026-11-22",
@@ -6686,7 +7222,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "一部曇り",
+          "weather": "晴れる",
           "temperature": 4,
           "wind": 5,
           "snowfall": 0
@@ -6703,14 +7239,14 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 2,
           "weather": "曇り",
-          "temperature": 6,
-          "wind": 15,
+          "temperature": 5,
+          "wind": 10,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 0,
-          "weather": "並雨",
+          "weather": "小雨",
           "temperature": 6,
           "wind": 10,
           "snowfall": 0
@@ -6720,53 +7256,69 @@ export const snowForecasts = {
           "part": 1,
           "weather": "小雨",
           "temperature": 3,
-          "wind": 15,
+          "wind": 5,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 2,
+          "weather": "少量の雪",
+          "temperature": 1,
+          "wind": 10,
+          "snowfall": 6
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
           "weather": "小雪",
+          "temperature": 1,
+          "wind": 25,
+          "snowfall": 4
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": 1,
+          "wind": 15,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
           "temperature": 1,
           "wind": 5,
           "snowfall": 0
         }
       ],
       "current": {
-        "weather": "少量の雪",
-        "temperature": 2,
-        "minTemperature": 0,
-        "wind": 5,
-        "snowfall": 7
+        "weather": "にわか雪",
+        "temperature": 1,
+        "minTemperature": 1,
+        "wind": 20,
+        "snowfall": 1
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 7,
-          "min": 0,
-          "max": 2,
-          "wind": 5,
-          "weather": "少量の雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 17,
+          "snowfall": 13,
           "min": -1,
-          "max": 2,
-          "wind": 25,
-          "weather": "小雪"
+          "max": 1,
+          "wind": 35,
+          "weather": "にわか雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 10,
+          "snowfall": 5,
           "min": -1,
           "max": 2,
           "wind": 20,
-          "weather": "小雪"
+          "weather": "にわか雪"
         },
         {
           "date": "2026-11-22",
-          "snowfall": 12,
+          "snowfall": 10,
           "min": -2,
           "max": 1,
           "wind": 10,
@@ -6776,16 +7328,24 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "snowfall": 0,
           "min": 2,
-          "max": 6,
-          "wind": 15,
-          "weather": "一部曇り"
+          "max": 5,
+          "wind": 10,
+          "weather": "曇り"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 0,
+          "snowfall": 6,
           "min": 0,
           "max": 6,
-          "wind": 15,
+          "wind": 10,
+          "weather": "少量の雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 6,
+          "min": -1,
+          "max": 1,
+          "wind": 25,
           "weather": "小雪"
         }
       ]
@@ -6793,55 +7353,47 @@ export const snowForecasts = {
     "YuzawaKogen-Nunoba": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/YuzawaKogen-Nunoba/6day/mid",
       "elevation": 750,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": 1,
-          "wind": 10,
-          "snowfall": 7
-        },
         {
           "date": "2026-11-20",
           "part": 0,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": 1,
-          "wind": 20,
-          "snowfall": 2
+          "wind": 25,
+          "snowfall": 1
         },
         {
           "date": "2026-11-20",
           "part": 1,
           "weather": "小雪",
           "temperature": 0,
-          "wind": 25,
-          "snowfall": 3
+          "wind": 35,
+          "snowfall": 2
         },
         {
           "date": "2026-11-20",
           "part": 2,
           "weather": "豪雪",
           "temperature": 0,
-          "wind": 10,
-          "snowfall": 12
+          "wind": 15,
+          "snowfall": 11
         },
         {
           "date": "2026-11-21",
           "part": 0,
-          "weather": "小雪",
-          "temperature": 1,
-          "wind": 20,
-          "snowfall": 4
+          "weather": "にわか雪",
+          "temperature": 2,
+          "wind": 25,
+          "snowfall": 2
         },
         {
           "date": "2026-11-21",
           "part": 1,
           "weather": "小雪",
           "temperature": 1,
-          "wind": 10,
-          "snowfall": 4
+          "wind": 15,
+          "snowfall": 2
         },
         {
           "date": "2026-11-21",
@@ -6865,7 +7417,7 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": 0,
           "wind": 15,
-          "snowfall": 4
+          "snowfall": 3
         },
         {
           "date": "2026-11-22",
@@ -6873,12 +7425,12 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -1,
           "wind": 5,
-          "snowfall": 0
+          "snowfall": 1
         },
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "一部曇り",
+          "weather": "晴れる",
           "temperature": 3,
           "wind": 5,
           "snowfall": 0
@@ -6895,16 +7447,16 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 2,
           "weather": "曇り",
-          "temperature": 6,
-          "wind": 15,
+          "temperature": 5,
+          "wind": 10,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 0,
-          "weather": "並雨",
-          "temperature": 5,
-          "wind": 10,
+          "weather": "小雨",
+          "temperature": 6,
+          "wind": 15,
           "snowfall": 0
         },
         {
@@ -6912,49 +7464,65 @@ export const snowForecasts = {
           "part": 1,
           "weather": "小雨",
           "temperature": 3,
-          "wind": 15,
+          "wind": 5,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 2,
+          "weather": "少量の雪",
+          "temperature": 1,
+          "wind": 10,
+          "snowfall": 6
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
           "weather": "小雪",
+          "temperature": 1,
+          "wind": 30,
+          "snowfall": 4
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": 0,
+          "wind": 15,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
           "temperature": 1,
           "wind": 5,
           "snowfall": 0
         }
       ],
       "current": {
-        "weather": "少量の雪",
+        "weather": "にわか雪",
         "temperature": 1,
-        "minTemperature": 0,
-        "wind": 10,
-        "snowfall": 7
+        "minTemperature": 1,
+        "wind": 25,
+        "snowfall": 1
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 7,
-          "min": 0,
-          "max": 1,
-          "wind": 10,
-          "weather": "少量の雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 17,
+          "snowfall": 14,
           "min": -1,
           "max": 1,
-          "wind": 25,
-          "weather": "小雪"
+          "wind": 35,
+          "weather": "にわか雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 11,
+          "snowfall": 7,
           "min": -1,
-          "max": 1,
-          "wind": 20,
-          "weather": "小雪"
+          "max": 2,
+          "wind": 25,
+          "weather": "にわか雪"
         },
         {
           "date": "2026-11-22",
@@ -6968,16 +7536,24 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "snowfall": 0,
           "min": 2,
-          "max": 6,
-          "wind": 15,
-          "weather": "一部曇り"
+          "max": 5,
+          "wind": 10,
+          "weather": "曇り"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 0,
+          "snowfall": 6,
           "min": 0,
-          "max": 5,
+          "max": 6,
           "wind": 15,
+          "weather": "少量の雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 6,
+          "min": -1,
+          "max": 1,
+          "wind": 30,
           "weather": "小雪"
         }
       ]
@@ -6985,55 +7561,47 @@ export const snowForecasts = {
     "PineRidgeResortsKandatsu": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/PineRidgeResortsKandatsu/6day/mid",
       "elevation": 730,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": 2,
-          "wind": 10,
-          "snowfall": 6
-        },
         {
           "date": "2026-11-20",
           "part": 0,
-          "weather": "小雪",
-          "temperature": 2,
+          "weather": "にわか雪",
+          "temperature": 1,
           "wind": 20,
-          "snowfall": 2
+          "snowfall": 1
         },
         {
           "date": "2026-11-20",
           "part": 1,
           "weather": "小雪",
           "temperature": 0,
-          "wind": 30,
+          "wind": 35,
           "snowfall": 2
         },
         {
           "date": "2026-11-20",
           "part": 2,
-          "weather": "豪雪",
+          "weather": "少量の雪",
           "temperature": 0,
-          "wind": 10,
-          "snowfall": 10
+          "wind": 15,
+          "snowfall": 9
         },
         {
           "date": "2026-11-21",
           "part": 0,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": 2,
-          "wind": 20,
-          "snowfall": 3
+          "wind": 25,
+          "snowfall": 2
         },
         {
           "date": "2026-11-21",
           "part": 1,
           "weather": "小雪",
           "temperature": 1,
-          "wind": 10,
-          "snowfall": 3
+          "wind": 15,
+          "snowfall": 2
         },
         {
           "date": "2026-11-21",
@@ -7047,7 +7615,7 @@ export const snowForecasts = {
           "date": "2026-11-22",
           "part": 0,
           "weather": "少量の雪",
-          "temperature": 1,
+          "temperature": 0,
           "wind": 10,
           "snowfall": 6
         },
@@ -7055,9 +7623,9 @@ export const snowForecasts = {
           "date": "2026-11-22",
           "part": 1,
           "weather": "小雪",
-          "temperature": 1,
+          "temperature": 0,
           "wind": 10,
-          "snowfall": 4
+          "snowfall": 3
         },
         {
           "date": "2026-11-22",
@@ -7065,12 +7633,12 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -1,
           "wind": 5,
-          "snowfall": 0
+          "snowfall": 1
         },
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "一部曇り",
+          "weather": "晴れる",
           "temperature": 4,
           "wind": 5,
           "snowfall": 0
@@ -7087,16 +7655,16 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 2,
           "weather": "曇り",
-          "temperature": 6,
-          "wind": 15,
+          "temperature": 5,
+          "wind": 10,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 0,
-          "weather": "並雨",
+          "weather": "小雨",
           "temperature": 6,
-          "wind": 10,
+          "wind": 15,
           "snowfall": 0
         },
         {
@@ -7104,55 +7672,71 @@ export const snowForecasts = {
           "part": 1,
           "weather": "小雨",
           "temperature": 3,
-          "wind": 15,
+          "wind": 10,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 2,
+          "weather": "少量の雪",
+          "temperature": 1,
+          "wind": 10,
+          "snowfall": 5
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
           "weather": "小雪",
+          "temperature": 1,
+          "wind": 25,
+          "snowfall": 4
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": 1,
+          "wind": 15,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
           "temperature": 1,
           "wind": 5,
           "snowfall": 0
         }
       ],
       "current": {
-        "weather": "少量の雪",
-        "temperature": 2,
-        "minTemperature": 0,
-        "wind": 10,
-        "snowfall": 6
+        "weather": "にわか雪",
+        "temperature": 1,
+        "minTemperature": 1,
+        "wind": 20,
+        "snowfall": 1
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 6,
-          "min": 0,
-          "max": 2,
-          "wind": 10,
-          "weather": "少量の雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 14,
+          "snowfall": 12,
           "min": -1,
-          "max": 2,
-          "wind": 30,
-          "weather": "小雪"
+          "max": 1,
+          "wind": 35,
+          "weather": "にわか雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 8,
+          "snowfall": 6,
           "min": -1,
           "max": 2,
-          "wind": 20,
-          "weather": "小雪"
+          "wind": 25,
+          "weather": "にわか雪"
         },
         {
           "date": "2026-11-22",
           "snowfall": 10,
           "min": -2,
-          "max": 1,
+          "max": 0,
           "wind": 10,
           "weather": "少量の雪"
         },
@@ -7160,16 +7744,24 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "snowfall": 0,
           "min": 2,
-          "max": 6,
-          "wind": 15,
-          "weather": "一部曇り"
+          "max": 5,
+          "wind": 10,
+          "weather": "曇り"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 0,
+          "snowfall": 5,
           "min": 0,
           "max": 6,
           "wind": 15,
+          "weather": "少量の雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 6,
+          "min": -1,
+          "max": 1,
+          "wind": 25,
           "weather": "小雪"
         }
       ]
@@ -7177,30 +7769,22 @@ export const snowForecasts = {
     "YuzawaNakazato": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/YuzawaNakazato/6day/mid",
       "elevation": 580,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "小雪",
-          "temperature": 3,
-          "wind": 5,
-          "snowfall": 4
-        },
         {
           "date": "2026-11-20",
           "part": 0,
-          "weather": "小雨",
+          "weather": "にわか雨",
           "temperature": 3,
-          "wind": 15,
+          "wind": 20,
           "snowfall": 0
         },
         {
           "date": "2026-11-20",
           "part": 1,
           "weather": "小雪",
-          "temperature": 2,
-          "wind": 25,
+          "temperature": 1,
+          "wind": 30,
           "snowfall": 2
         },
         {
@@ -7208,15 +7792,15 @@ export const snowForecasts = {
           "part": 2,
           "weather": "少量の雪",
           "temperature": 1,
-          "wind": 10,
-          "snowfall": 9
+          "wind": 15,
+          "snowfall": 8
         },
         {
           "date": "2026-11-21",
           "part": 0,
-          "weather": "並雨",
+          "weather": "にわか雨",
           "temperature": 3,
-          "wind": 15,
+          "wind": 20,
           "snowfall": 0
         },
         {
@@ -7224,32 +7808,32 @@ export const snowForecasts = {
           "part": 1,
           "weather": "小雪",
           "temperature": 2,
-          "wind": 10,
-          "snowfall": 2
+          "wind": 15,
+          "snowfall": 1
         },
         {
           "date": "2026-11-21",
           "part": 2,
           "weather": "小雪",
-          "temperature": 0,
-          "wind": 0,
+          "temperature": 1,
+          "wind": 5,
           "snowfall": 2
         },
         {
           "date": "2026-11-22",
           "part": 0,
           "weather": "少量の雪",
-          "temperature": 2,
+          "temperature": 1,
           "wind": 10,
-          "snowfall": 5
+          "snowfall": 6
         },
         {
           "date": "2026-11-22",
           "part": 1,
           "weather": "小雪",
-          "temperature": 2,
+          "temperature": 1,
           "wind": 10,
-          "snowfall": 4
+          "snowfall": 3
         },
         {
           "date": "2026-11-22",
@@ -7257,12 +7841,12 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": 0,
           "wind": 0,
-          "snowfall": 0
+          "snowfall": 1
         },
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "一部曇り",
+          "weather": "晴れる",
           "temperature": 5,
           "wind": 5,
           "snowfall": 0
@@ -7279,15 +7863,15 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 2,
           "weather": "曇り",
-          "temperature": 7,
+          "temperature": 6,
           "wind": 10,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 0,
-          "weather": "並雨",
-          "temperature": 6,
+          "weather": "小雨",
+          "temperature": 7,
           "wind": 10,
           "snowfall": 0
         },
@@ -7296,55 +7880,71 @@ export const snowForecasts = {
           "part": 1,
           "weather": "小雨",
           "temperature": 4,
-          "wind": 10,
+          "wind": 5,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 2,
+          "weather": "少量の雪",
+          "temperature": 2,
+          "wind": 10,
+          "snowfall": 5
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
           "weather": "小雪",
           "temperature": 2,
+          "wind": 20,
+          "snowfall": 4
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": 2,
+          "wind": 10,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": 1,
           "wind": 5,
           "snowfall": 0
         }
       ],
       "current": {
-        "weather": "小雪",
+        "weather": "にわか雨",
         "temperature": 3,
-        "minTemperature": 1,
-        "wind": 5,
-        "snowfall": 4
+        "minTemperature": 2,
+        "wind": 20,
+        "snowfall": 0
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 4,
-          "min": 1,
-          "max": 3,
-          "wind": 5,
-          "weather": "小雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 11,
+          "snowfall": 10,
           "min": 0,
           "max": 3,
-          "wind": 25,
+          "wind": 30,
           "weather": "小雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 4,
+          "snowfall": 3,
           "min": 0,
           "max": 3,
-          "wind": 15,
+          "wind": 20,
           "weather": "小雪"
         },
         {
           "date": "2026-11-22",
-          "snowfall": 9,
+          "snowfall": 10,
           "min": -1,
-          "max": 2,
+          "max": 1,
           "wind": 10,
           "weather": "少量の雪"
         },
@@ -7352,16 +7952,24 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "snowfall": 0,
           "min": 3,
-          "max": 7,
+          "max": 6,
           "wind": 10,
-          "weather": "一部曇り"
+          "weather": "曇り"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 0,
+          "snowfall": 5,
           "min": 1,
-          "max": 6,
+          "max": 7,
           "wind": 10,
+          "weather": "少量の雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 6,
+          "min": 0,
+          "max": 2,
+          "wind": 20,
           "weather": "小雪"
         }
       ]
@@ -7369,47 +7977,39 @@ export const snowForecasts = {
     "ARAIMountainandSpa": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/ARAIMountainandSpa/6day/mid",
       "elevation": 804,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": 1,
-          "wind": 10,
-          "snowfall": 18
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "少量の雪",
-          "temperature": 0,
+          "temperature": -1,
           "wind": 20,
-          "snowfall": 7
+          "snowfall": 8
         },
         {
           "date": "2026-11-20",
           "part": 1,
           "weather": "少量の雪",
-          "temperature": -1,
-          "wind": 45,
-          "snowfall": 6
+          "temperature": 0,
+          "wind": 55,
+          "snowfall": 5
         },
         {
           "date": "2026-11-20",
           "part": 2,
           "weather": "豪雪",
           "temperature": -1,
-          "wind": 30,
-          "snowfall": 21
+          "wind": 25,
+          "snowfall": 19
         },
         {
           "date": "2026-11-21",
           "part": 0,
           "weather": "少量の雪",
           "temperature": 0,
-          "wind": 10,
-          "snowfall": 8
+          "wind": 15,
+          "snowfall": 7
         },
         {
           "date": "2026-11-21",
@@ -7417,36 +8017,36 @@ export const snowForecasts = {
           "weather": "少量の雪",
           "temperature": 0,
           "wind": 15,
-          "snowfall": 8
+          "snowfall": 6
         },
         {
           "date": "2026-11-21",
           "part": 2,
           "weather": "少量の雪",
-          "temperature": -1,
-          "wind": 5,
-          "snowfall": 9
+          "temperature": 0,
+          "wind": 10,
+          "snowfall": 10
         },
         {
           "date": "2026-11-22",
           "part": 0,
           "weather": "少量の雪",
-          "temperature": 0,
+          "temperature": -1,
           "wind": 10,
           "snowfall": 6
         },
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": 0,
           "wind": 10,
-          "snowfall": 2
+          "snowfall": 3
         },
         {
           "date": "2026-11-22",
           "part": 2,
-          "weather": "晴れる",
+          "weather": "にわか雪",
           "temperature": -2,
           "wind": 5,
           "snowfall": 0
@@ -7463,7 +8063,7 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 1,
           "weather": "曇り",
-          "temperature": 4,
+          "temperature": 3,
           "wind": 10,
           "snowfall": 0
         },
@@ -7471,16 +8071,16 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 2,
           "weather": "にわか雨",
-          "temperature": 6,
-          "wind": 20,
+          "temperature": 5,
+          "wind": 15,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 0,
           "weather": "豪雨",
-          "temperature": 4,
-          "wind": 10,
+          "temperature": 5,
+          "wind": 15,
           "snowfall": 0
         },
         {
@@ -7494,39 +8094,55 @@ export const snowForecasts = {
         {
           "date": "2026-11-24",
           "part": 2,
+          "weather": "少量の雪",
+          "temperature": 1,
+          "wind": 20,
+          "snowfall": 6
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": 1,
+          "wind": 25,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
           "weather": "にわか雪",
-          "temperature": 0,
+          "temperature": 1,
           "wind": 15,
-          "snowfall": 2
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": 1,
+          "wind": 10,
+          "snowfall": 0
         }
       ],
       "current": {
-        "weather": "豪雪",
-        "temperature": 1,
-        "minTemperature": 0,
-        "wind": 10,
-        "snowfall": 18
+        "weather": "少量の雪",
+        "temperature": -1,
+        "minTemperature": -1,
+        "wind": 20,
+        "snowfall": 8
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 18,
-          "min": 0,
-          "max": 1,
-          "wind": 10,
-          "weather": "豪雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 34,
+          "snowfall": 32,
           "min": -1,
           "max": 0,
-          "wind": 45,
+          "wind": 55,
           "weather": "少量の雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 25,
+          "snowfall": 23,
           "min": -1,
           "max": 0,
           "wind": 15,
@@ -7534,7 +8150,7 @@ export const snowForecasts = {
         },
         {
           "date": "2026-11-22",
-          "snowfall": 8,
+          "snowfall": 9,
           "min": -2,
           "max": 0,
           "wind": 10,
@@ -7544,80 +8160,80 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "snowfall": 0,
           "min": 1,
-          "max": 6,
-          "wind": 20,
+          "max": 5,
+          "wind": 15,
           "weather": "にわか雨"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 2,
+          "snowfall": 6,
           "min": 0,
-          "max": 4,
-          "wind": 15,
+          "max": 5,
+          "wind": 20,
           "weather": "にわか雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 4,
+          "min": -1,
+          "max": 1,
+          "wind": 25,
+          "weather": "小雪"
         }
       ]
     },
     "Akakura-Shin-Akakura": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Akakura-Shin-Akakura/6day/mid",
       "elevation": 1086,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
         {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -1,
-          "wind": 10,
-          "snowfall": 17
-        },
-        {
           "date": "2026-11-20",
           "part": 0,
           "weather": "少量の雪",
           "temperature": -2,
           "wind": 25,
-          "snowfall": 8
+          "snowfall": 7
         },
         {
           "date": "2026-11-20",
           "part": 1,
           "weather": "少量の雪",
           "temperature": -2,
-          "wind": 45,
-          "snowfall": 7
-        },
-        {
-          "date": "2026-11-20",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -2,
-          "wind": 25,
-          "snowfall": 18
-        },
-        {
-          "date": "2026-11-21",
-          "part": 0,
-          "weather": "少量の雪",
-          "temperature": -1,
-          "wind": 15,
-          "snowfall": 7
-        },
-        {
-          "date": "2026-11-21",
-          "part": 1,
-          "weather": "少量の雪",
-          "temperature": -1,
-          "wind": 15,
+          "wind": 55,
           "snowfall": 6
         },
         {
+          "date": "2026-11-20",
+          "part": 2,
+          "weather": "豪雪",
+          "temperature": -3,
+          "wind": 25,
+          "snowfall": 17
+        },
+        {
+          "date": "2026-11-21",
+          "part": 0,
+          "weather": "少量の雪",
+          "temperature": -1,
+          "wind": 20,
+          "snowfall": 5
+        },
+        {
+          "date": "2026-11-21",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -1,
+          "wind": 15,
+          "snowfall": 5
+        },
+        {
           "date": "2026-11-21",
           "part": 2,
-          "weather": "少量の雪",
+          "weather": "豪雪",
           "temperature": -2,
           "wind": 10,
-          "snowfall": 9
+          "snowfall": 10
         },
         {
           "date": "2026-11-22",
@@ -7625,21 +8241,21 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": -2,
           "wind": 10,
-          "snowfall": 5
+          "snowfall": 4
         },
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": -2,
           "wind": 10,
-          "snowfall": 1
+          "snowfall": 2
         },
         {
           "date": "2026-11-22",
           "part": 2,
-          "weather": "晴れる",
-          "temperature": -2,
+          "weather": "にわか雪",
+          "temperature": -3,
           "wind": 5,
           "snowfall": 0
         },
@@ -7647,7 +8263,7 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 0,
           "weather": "晴れる",
-          "temperature": 2,
+          "temperature": 1,
           "wind": 10,
           "snowfall": 0
         },
@@ -7664,64 +8280,80 @@ export const snowForecasts = {
           "part": 2,
           "weather": "にわか雨",
           "temperature": 4,
-          "wind": 25,
+          "wind": 20,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 0,
-          "weather": "小雪",
-          "temperature": 2,
-          "wind": 10,
-          "snowfall": 3
+          "weather": "豪雨",
+          "temperature": 3,
+          "wind": 20,
+          "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 1,
           "weather": "にわか雪",
           "temperature": 1,
-          "wind": 15,
-          "snowfall": 0
+          "wind": 10,
+          "snowfall": 1
         },
         {
           "date": "2026-11-24",
           "part": 2,
-          "weather": "にわか雪",
+          "weather": "少量の雪",
           "temperature": -1,
           "wind": 15,
-          "snowfall": 2
+          "snowfall": 6
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -1,
+          "wind": 20,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -1,
+          "wind": 10,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": 1,
+          "wind": 10,
+          "snowfall": 0
         }
       ],
       "current": {
-        "weather": "豪雪",
-        "temperature": -1,
+        "weather": "少量の雪",
+        "temperature": -2,
         "minTemperature": -2,
-        "wind": 10,
-        "snowfall": 17
+        "wind": 25,
+        "snowfall": 7
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 17,
-          "min": -2,
-          "max": -1,
-          "wind": 10,
-          "weather": "豪雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 33,
+          "snowfall": 30,
           "min": -3,
           "max": -2,
-          "wind": 45,
+          "wind": 55,
           "weather": "少量の雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 22,
+          "snowfall": 20,
           "min": -3,
           "max": -1,
-          "wind": 15,
+          "wind": 20,
           "weather": "少量の雪"
         },
         {
@@ -7737,15 +8369,23 @@ export const snowForecasts = {
           "snowfall": 0,
           "min": 0,
           "max": 4,
-          "wind": 25,
+          "wind": 20,
           "weather": "にわか雨"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 5,
+          "snowfall": 7,
           "min": -1,
-          "max": 2,
-          "wind": 15,
+          "max": 3,
+          "wind": 20,
+          "weather": "にわか雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 4,
+          "min": -2,
+          "max": 1,
+          "wind": 20,
           "weather": "小雪"
         }
       ]
@@ -7753,16 +8393,8 @@ export const snowForecasts = {
     "Akakura-Kumado": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Akakura-Kumado/6day/mid",
       "elevation": 850,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": 1,
-          "wind": 10,
-          "snowfall": 14
-        },
         {
           "date": "2026-11-20",
           "part": 0,
@@ -7774,9 +8406,9 @@ export const snowForecasts = {
         {
           "date": "2026-11-20",
           "part": 1,
-          "weather": "少量の雪",
+          "weather": "小雪",
           "temperature": -1,
-          "wind": 40,
+          "wind": 50,
           "snowfall": 5
         },
         {
@@ -7785,30 +8417,30 @@ export const snowForecasts = {
           "weather": "豪雪",
           "temperature": -1,
           "wind": 20,
-          "snowfall": 16
+          "snowfall": 15
         },
         {
           "date": "2026-11-21",
           "part": 0,
-          "weather": "少量の雪",
+          "weather": "小雪",
           "temperature": 0,
           "wind": 15,
-          "snowfall": 6
+          "snowfall": 4
         },
         {
           "date": "2026-11-21",
           "part": 1,
-          "weather": "少量の雪",
+          "weather": "小雪",
           "temperature": 1,
           "wind": 15,
-          "snowfall": 6
+          "snowfall": 4
         },
         {
           "date": "2026-11-21",
           "part": 2,
           "weather": "少量の雪",
-          "temperature": -1,
-          "wind": 5,
+          "temperature": 0,
+          "wind": 10,
           "snowfall": 8
         },
         {
@@ -7816,21 +8448,21 @@ export const snowForecasts = {
           "part": 0,
           "weather": "小雪",
           "temperature": 0,
-          "wind": 10,
+          "wind": 5,
           "snowfall": 4
         },
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": 0,
           "wind": 10,
-          "snowfall": 1
+          "snowfall": 2
         },
         {
           "date": "2026-11-22",
           "part": 2,
-          "weather": "晴れる",
+          "weather": "にわか雪",
           "temperature": -2,
           "wind": 5,
           "snowfall": 0
@@ -7855,8 +8487,8 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 2,
           "weather": "にわか雨",
-          "temperature": 5,
-          "wind": 20,
+          "temperature": 4,
+          "wind": 15,
           "snowfall": 0
         },
         {
@@ -7864,7 +8496,7 @@ export const snowForecasts = {
           "part": 0,
           "weather": "豪雨",
           "temperature": 4,
-          "wind": 10,
+          "wind": 15,
           "snowfall": 0
         },
         {
@@ -7878,47 +8510,63 @@ export const snowForecasts = {
         {
           "date": "2026-11-24",
           "part": 2,
+          "weather": "小雪",
+          "temperature": 0,
+          "wind": 15,
+          "snowfall": 5
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": 1,
+          "wind": 15,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
           "weather": "にわか雪",
           "temperature": 0,
           "wind": 10,
-          "snowfall": 1
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": 1,
+          "wind": 10,
+          "snowfall": 0
         }
       ],
       "current": {
-        "weather": "豪雪",
-        "temperature": 1,
+        "weather": "少量の雪",
+        "temperature": 0,
         "minTemperature": -1,
-        "wind": 10,
-        "snowfall": 14
+        "wind": 20,
+        "snowfall": 6
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 14,
-          "min": -1,
-          "max": 1,
-          "wind": 10,
-          "weather": "豪雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 27,
+          "snowfall": 26,
           "min": -1,
           "max": 0,
-          "wind": 40,
+          "wind": 50,
           "weather": "少量の雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 20,
-          "min": -2,
+          "snowfall": 16,
+          "min": -1,
           "max": 1,
           "wind": 15,
-          "weather": "少量の雪"
+          "weather": "小雪"
         },
         {
           "date": "2026-11-22",
-          "snowfall": 5,
+          "snowfall": 6,
           "min": -2,
           "max": 0,
           "wind": 10,
@@ -7928,80 +8576,80 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "snowfall": 0,
           "min": 1,
-          "max": 5,
-          "wind": 20,
+          "max": 4,
+          "wind": 15,
           "weather": "にわか雨"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 1,
+          "snowfall": 5,
           "min": 0,
           "max": 4,
-          "wind": 10,
+          "wind": 15,
           "weather": "にわか雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 2,
+          "min": -1,
+          "max": 1,
+          "wind": 15,
+          "weather": "小雪"
         }
       ]
     },
     "MyokoIkenotaira": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/MyokoIkenotaira/6day/mid",
       "elevation": 1150,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -1,
-          "wind": 10,
-          "snowfall": 17
-        },
         {
           "date": "2026-11-20",
           "part": 0,
-          "weather": "少量の雪",
-          "temperature": -2,
-          "wind": 25,
-          "snowfall": 8
-        },
-        {
-          "date": "2026-11-20",
-          "part": 1,
           "weather": "にわか雪",
           "temperature": -3,
-          "wind": 45,
+          "wind": 30,
           "snowfall": 7
         },
         {
           "date": "2026-11-20",
-          "part": 2,
+          "part": 1,
           "weather": "にわか雪",
           "temperature": -3,
+          "wind": 55,
+          "snowfall": 6
+        },
+        {
+          "date": "2026-11-20",
+          "part": 2,
+          "weather": "豪雪",
+          "temperature": -3,
           "wind": 25,
-          "snowfall": 18
+          "snowfall": 16
         },
         {
           "date": "2026-11-21",
           "part": 0,
           "weather": "にわか雪",
           "temperature": -2,
-          "wind": 15,
-          "snowfall": 6
+          "wind": 20,
+          "snowfall": 5
         },
         {
           "date": "2026-11-21",
           "part": 1,
-          "weather": "少量の雪",
+          "weather": "小雪",
           "temperature": -1,
           "wind": 15,
-          "snowfall": 6
+          "snowfall": 5
         },
         {
           "date": "2026-11-21",
           "part": 2,
-          "weather": "少量の雪",
+          "weather": "豪雪",
           "temperature": -2,
           "wind": 10,
-          "snowfall": 9
+          "snowfall": 10
         },
         {
           "date": "2026-11-22",
@@ -8017,12 +8665,12 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -2,
           "wind": 10,
-          "snowfall": 1
+          "snowfall": 2
         },
         {
           "date": "2026-11-22",
           "part": 2,
-          "weather": "晴れる",
+          "weather": "にわか雪",
           "temperature": -3,
           "wind": 5,
           "snowfall": 0
@@ -8030,7 +8678,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "一部曇り",
+          "weather": "晴れる",
           "temperature": 1,
           "wind": 10,
           "snowfall": 0
@@ -8039,7 +8687,7 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 1,
           "weather": "曇り",
-          "temperature": 3,
+          "temperature": 2,
           "wind": 15,
           "snowfall": 0
         },
@@ -8047,25 +8695,25 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 2,
           "weather": "にわか雨",
-          "temperature": 4,
-          "wind": 25,
+          "temperature": 3,
+          "wind": 20,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 0,
-          "weather": "少量の雪",
-          "temperature": 2,
-          "wind": 10,
-          "snowfall": 8
+          "weather": "小雪",
+          "temperature": 3,
+          "wind": 20,
+          "snowfall": 4
         },
         {
           "date": "2026-11-24",
           "part": 1,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": 1,
           "wind": 10,
-          "snowfall": 0
+          "snowfall": 1
         },
         {
           "date": "2026-11-24",
@@ -8073,44 +8721,60 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -1,
           "wind": 15,
-          "snowfall": 2
+          "snowfall": 5
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "にわか雪",
+          "temperature": -2,
+          "wind": 20,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -2,
+          "wind": 10,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": 1,
+          "wind": 10,
+          "snowfall": 0
         }
       ],
       "current": {
-        "weather": "豪雪",
-        "temperature": -1,
+        "weather": "にわか雪",
+        "temperature": -3,
         "minTemperature": -3,
-        "wind": 10,
-        "snowfall": 17
+        "wind": 30,
+        "snowfall": 7
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 17,
-          "min": -3,
-          "max": -1,
-          "wind": 10,
-          "weather": "豪雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 33,
+          "snowfall": 29,
           "min": -3,
-          "max": -2,
-          "wind": 45,
-          "weather": "少量の雪"
+          "max": -3,
+          "wind": 55,
+          "weather": "にわか雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 21,
+          "snowfall": 20,
           "min": -3,
           "max": -1,
-          "wind": 15,
+          "wind": 20,
           "weather": "にわか雪"
         },
         {
           "date": "2026-11-22",
-          "snowfall": 5,
+          "snowfall": 6,
           "min": -3,
           "max": -2,
           "wind": 10,
@@ -8120,80 +8784,80 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "snowfall": 0,
           "min": -1,
-          "max": 4,
-          "wind": 25,
+          "max": 3,
+          "wind": 20,
           "weather": "にわか雨"
         },
         {
           "date": "2026-11-24",
           "snowfall": 10,
           "min": -2,
-          "max": 2,
-          "wind": 15,
-          "weather": "少量の雪"
+          "max": 3,
+          "wind": 20,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 4,
+          "min": -2,
+          "max": 1,
+          "wind": 20,
+          "weather": "にわか雪"
         }
       ]
     },
     "MyokoSuginohara": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/MyokoSuginohara/6day/mid",
       "elevation": 1293,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -2,
-          "wind": 10,
-          "snowfall": 19
-        },
         {
           "date": "2026-11-20",
           "part": 0,
-          "weather": "少量の雪",
-          "temperature": -3,
-          "wind": 25,
-          "snowfall": 9
-        },
-        {
-          "date": "2026-11-20",
-          "part": 1,
           "weather": "にわか雪",
           "temperature": -4,
-          "wind": 45,
+          "wind": 30,
           "snowfall": 8
         },
         {
           "date": "2026-11-20",
-          "part": 2,
+          "part": 1,
           "weather": "にわか雪",
           "temperature": -4,
+          "wind": 60,
+          "snowfall": 7
+        },
+        {
+          "date": "2026-11-20",
+          "part": 2,
+          "weather": "豪雪",
+          "temperature": -4,
           "wind": 25,
-          "snowfall": 19
+          "snowfall": 18
         },
         {
           "date": "2026-11-21",
           "part": 0,
           "weather": "にわか雪",
           "temperature": -3,
-          "wind": 20,
-          "snowfall": 7
+          "wind": 25,
+          "snowfall": 6
         },
         {
           "date": "2026-11-21",
           "part": 1,
           "weather": "少量の雪",
           "temperature": -2,
-          "wind": 20,
-          "snowfall": 7
+          "wind": 15,
+          "snowfall": 5
         },
         {
           "date": "2026-11-21",
           "part": 2,
-          "weather": "少量の雪",
+          "weather": "豪雪",
           "temperature": -3,
           "wind": 10,
-          "snowfall": 10
+          "snowfall": 11
         },
         {
           "date": "2026-11-22",
@@ -8201,7 +8865,7 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -3,
           "wind": 10,
-          "snowfall": 5
+          "snowfall": 4
         },
         {
           "date": "2026-11-22",
@@ -8209,12 +8873,12 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -3,
           "wind": 15,
-          "snowfall": 1
+          "snowfall": 2
         },
         {
           "date": "2026-11-22",
           "part": 2,
-          "weather": "晴れる",
+          "weather": "にわか雪",
           "temperature": -3,
           "wind": 5,
           "snowfall": 0
@@ -8222,8 +8886,8 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "一部曇り",
-          "temperature": 1,
+          "weather": "晴れる",
+          "temperature": 0,
           "wind": 10,
           "snowfall": 0
         },
@@ -8239,25 +8903,25 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 2,
           "weather": "にわか雨",
-          "temperature": 4,
-          "wind": 25,
+          "temperature": 3,
+          "wind": 20,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 0,
-          "weather": "少量の雪",
-          "temperature": 1,
-          "wind": 10,
-          "snowfall": 8
+          "weather": "小雪",
+          "temperature": 2,
+          "wind": 20,
+          "snowfall": 4
         },
         {
           "date": "2026-11-24",
           "part": 1,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": 0,
-          "wind": 15,
-          "snowfall": 0
+          "wind": 10,
+          "snowfall": 1
         },
         {
           "date": "2026-11-24",
@@ -8265,39 +8929,55 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -2,
           "wind": 15,
-          "snowfall": 2
+          "snowfall": 6
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "にわか雪",
+          "temperature": -3,
+          "wind": 20,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -3,
+          "wind": 10,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": 1,
+          "wind": 10,
+          "snowfall": 0
         }
       ],
       "current": {
-        "weather": "豪雪",
-        "temperature": -2,
+        "weather": "にわか雪",
+        "temperature": -4,
         "minTemperature": -4,
-        "wind": 10,
-        "snowfall": 19
+        "wind": 30,
+        "snowfall": 8
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 19,
-          "min": -4,
-          "max": -2,
-          "wind": 10,
-          "weather": "豪雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 36,
+          "snowfall": 33,
           "min": -4,
-          "max": -3,
-          "wind": 45,
-          "weather": "少量の雪"
+          "max": -4,
+          "wind": 60,
+          "weather": "にわか雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 24,
+          "snowfall": 22,
           "min": -4,
           "max": -2,
-          "wind": 20,
+          "wind": 25,
           "weather": "にわか雪"
         },
         {
@@ -8311,34 +8991,34 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "snowfall": 0,
-          "min": -1,
-          "max": 4,
-          "wind": 25,
+          "min": -2,
+          "max": 3,
+          "wind": 20,
           "weather": "にわか雨"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 10,
-          "min": -2,
+          "snowfall": 11,
+          "min": -3,
+          "max": 2,
+          "wind": 20,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 4,
+          "min": -3,
           "max": 1,
-          "wind": 15,
-          "weather": "少量の雪"
+          "wind": 20,
+          "weather": "にわか雪"
         }
       ]
     },
     "MyokokogenSekiOnsen": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/MyokokogenSekiOnsen/6day/mid",
       "elevation": 1055,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -1,
-          "wind": 10,
-          "snowfall": 17
-        },
         {
           "date": "2026-11-20",
           "part": 0,
@@ -8352,8 +9032,8 @@ export const snowForecasts = {
           "part": 1,
           "weather": "少量の雪",
           "temperature": -2,
-          "wind": 45,
-          "snowfall": 7
+          "wind": 55,
+          "snowfall": 6
         },
         {
           "date": "2026-11-20",
@@ -8361,15 +9041,15 @@ export const snowForecasts = {
           "weather": "豪雪",
           "temperature": -2,
           "wind": 25,
-          "snowfall": 19
+          "snowfall": 18
         },
         {
           "date": "2026-11-21",
           "part": 0,
           "weather": "少量の雪",
           "temperature": -1,
-          "wind": 15,
-          "snowfall": 7
+          "wind": 20,
+          "snowfall": 6
         },
         {
           "date": "2026-11-21",
@@ -8377,20 +9057,20 @@ export const snowForecasts = {
           "weather": "少量の雪",
           "temperature": -1,
           "wind": 15,
-          "snowfall": 7
+          "snowfall": 5
         },
         {
           "date": "2026-11-21",
           "part": 2,
-          "weather": "少量の雪",
+          "weather": "豪雪",
           "temperature": -2,
           "wind": 10,
-          "snowfall": 9
+          "snowfall": 10
         },
         {
           "date": "2026-11-22",
           "part": 0,
-          "weather": "少量の雪",
+          "weather": "小雪",
           "temperature": -2,
           "wind": 10,
           "snowfall": 5
@@ -8398,15 +9078,15 @@ export const snowForecasts = {
         {
           "date": "2026-11-22",
           "part": 1,
-          "weather": "小雪",
-          "temperature": -1,
+          "weather": "にわか雪",
+          "temperature": -2,
           "wind": 10,
-          "snowfall": 1
+          "snowfall": 2
         },
         {
           "date": "2026-11-22",
           "part": 2,
-          "weather": "晴れる",
+          "weather": "にわか雪",
           "temperature": -2,
           "wind": 5,
           "snowfall": 0
@@ -8431,89 +9111,113 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 2,
           "weather": "にわか雨",
-          "temperature": 5,
-          "wind": 20,
+          "temperature": 4,
+          "wind": 15,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 0,
-          "weather": "小雪",
-          "temperature": 2,
-          "wind": 10,
-          "snowfall": 3
+          "weather": "豪雨",
+          "temperature": 3,
+          "wind": 20,
+          "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 1,
           "weather": "にわか雪",
-          "temperature": 1,
-          "wind": 15,
-          "snowfall": 0
+          "temperature": 2,
+          "wind": 10,
+          "snowfall": 1
         },
         {
           "date": "2026-11-24",
           "part": 2,
+          "weather": "少量の雪",
+          "temperature": -1,
+          "wind": 20,
+          "snowfall": 6
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -1,
+          "wind": 20,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
           "weather": "にわか雪",
           "temperature": -1,
-          "wind": 15,
-          "snowfall": 2
+          "wind": 10,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": 1,
+          "wind": 10,
+          "snowfall": 0
         }
       ],
       "current": {
-        "weather": "豪雪",
-        "temperature": -1,
+        "weather": "少量の雪",
+        "temperature": -2,
         "minTemperature": -2,
-        "wind": 10,
-        "snowfall": 17
+        "wind": 25,
+        "snowfall": 8
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 17,
-          "min": -2,
-          "max": -1,
-          "wind": 10,
-          "weather": "豪雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 34,
+          "snowfall": 32,
           "min": -3,
           "max": -2,
-          "wind": 45,
+          "wind": 55,
           "weather": "少量の雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 23,
-          "min": -3,
+          "snowfall": 21,
+          "min": -2,
           "max": -1,
-          "wind": 15,
+          "wind": 20,
           "weather": "少量の雪"
         },
         {
           "date": "2026-11-22",
-          "snowfall": 6,
+          "snowfall": 7,
           "min": -3,
-          "max": -1,
+          "max": -2,
           "wind": 10,
-          "weather": "少量の雪"
+          "weather": "小雪"
         },
         {
           "date": "2026-11-23",
           "snowfall": 0,
           "min": 0,
-          "max": 5,
-          "wind": 20,
+          "max": 4,
+          "wind": 15,
           "weather": "にわか雨"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 5,
+          "snowfall": 7,
           "min": -1,
-          "max": 2,
-          "wind": 15,
+          "max": 3,
+          "wind": 20,
+          "weather": "にわか雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 4,
+          "min": -2,
+          "max": 1,
+          "wind": 20,
           "weather": "小雪"
         }
       ]
@@ -8521,415 +9225,23 @@ export const snowForecasts = {
     "Happo-One": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Happo-One/6day/mid",
       "elevation": 1296,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
         {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -2,
-          "wind": 5,
-          "snowfall": 27
-        },
-        {
           "date": "2026-11-20",
-          "part": 0,
-          "weather": "豪雪",
-          "temperature": -3,
-          "wind": 15,
-          "snowfall": 14
-        },
-        {
-          "date": "2026-11-20",
-          "part": 1,
-          "weather": "豪雪",
-          "temperature": -4,
-          "wind": 25,
-          "snowfall": 12
-        },
-        {
-          "date": "2026-11-20",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -4,
-          "wind": 10,
-          "snowfall": 25
-        },
-        {
-          "date": "2026-11-21",
           "part": 0,
           "weather": "少量の雪",
-          "temperature": -3,
-          "wind": 10,
-          "snowfall": 9
-        },
-        {
-          "date": "2026-11-21",
-          "part": 1,
-          "weather": "少量の雪",
-          "temperature": -3,
-          "wind": 5,
-          "snowfall": 8
-        },
-        {
-          "date": "2026-11-21",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -3,
-          "wind": 5,
-          "snowfall": 17
-        },
-        {
-          "date": "2026-11-22",
-          "part": 0,
-          "weather": "小雪",
-          "temperature": -3,
-          "wind": 5,
-          "snowfall": 2
-        },
-        {
-          "date": "2026-11-22",
-          "part": 1,
-          "weather": "にわか雪",
-          "temperature": -3,
-          "wind": 5,
-          "snowfall": 1
-        },
-        {
-          "date": "2026-11-22",
-          "part": 2,
-          "weather": "晴れる",
           "temperature": -4,
-          "wind": 5,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-23",
-          "part": 0,
-          "weather": "一部曇り",
-          "temperature": 1,
-          "wind": 5,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-23",
-          "part": 1,
-          "weather": "曇り",
-          "temperature": 2,
-          "wind": 10,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-23",
-          "part": 2,
-          "weather": "小雨",
-          "temperature": 3,
           "wind": 15,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-24",
-          "part": 0,
-          "weather": "豪雪",
-          "temperature": 1,
-          "wind": 5,
           "snowfall": 10
         },
         {
-          "date": "2026-11-24",
-          "part": 1,
-          "weather": "にわか雪",
-          "temperature": 0,
-          "wind": 10,
-          "snowfall": 1
-        },
-        {
-          "date": "2026-11-24",
-          "part": 2,
-          "weather": "小雪",
-          "temperature": -1,
-          "wind": 10,
-          "snowfall": 5
-        }
-      ],
-      "current": {
-        "weather": "豪雪",
-        "temperature": -2,
-        "minTemperature": -4,
-        "wind": 5,
-        "snowfall": 27
-      },
-      "days": [
-        {
-          "date": "2026-11-19",
-          "snowfall": 27,
-          "min": -4,
-          "max": -2,
-          "wind": 5,
-          "weather": "豪雪"
-        },
-        {
-          "date": "2026-11-20",
-          "snowfall": 51,
-          "min": -4,
-          "max": -3,
-          "wind": 25,
-          "weather": "豪雪"
-        },
-        {
-          "date": "2026-11-21",
-          "snowfall": 34,
-          "min": -4,
-          "max": -3,
-          "wind": 10,
-          "weather": "少量の雪"
-        },
-        {
-          "date": "2026-11-22",
-          "snowfall": 3,
-          "min": -4,
-          "max": -3,
-          "wind": 5,
-          "weather": "小雪"
-        },
-        {
-          "date": "2026-11-23",
-          "snowfall": 0,
-          "min": -1,
-          "max": 3,
-          "wind": 15,
-          "weather": "小雨"
-        },
-        {
-          "date": "2026-11-24",
-          "snowfall": 16,
-          "min": -4,
-          "max": 1,
-          "wind": 10,
-          "weather": "豪雪"
-        }
-      ]
-    },
-    "HakubaGoryu": {
-      "sourceUrl": "https://ja.snow-forecast.com/resorts/HakubaGoryu/6day/mid",
-      "elevation": 1313,
-      "issuedAt": "8 pm 19 Nov 2026",
-      "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -3,
-          "wind": 5,
-          "snowfall": 25
-        },
-        {
-          "date": "2026-11-20",
-          "part": 0,
-          "weather": "豪雪",
-          "temperature": -3,
-          "wind": 15,
-          "snowfall": 13
-        },
-        {
           "date": "2026-11-20",
           "part": 1,
           "weather": "豪雪",
           "temperature": -4,
-          "wind": 25,
-          "snowfall": 11
-        },
-        {
-          "date": "2026-11-20",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -4,
-          "wind": 10,
-          "snowfall": 23
-        },
-        {
-          "date": "2026-11-21",
-          "part": 0,
-          "weather": "少量の雪",
-          "temperature": -3,
-          "wind": 10,
-          "snowfall": 8
-        },
-        {
-          "date": "2026-11-21",
-          "part": 1,
-          "weather": "少量の雪",
-          "temperature": -3,
-          "wind": 5,
-          "snowfall": 8
-        },
-        {
-          "date": "2026-11-21",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -3,
-          "wind": 5,
-          "snowfall": 16
-        },
-        {
-          "date": "2026-11-22",
-          "part": 0,
-          "weather": "小雪",
-          "temperature": -3,
-          "wind": 5,
-          "snowfall": 2
-        },
-        {
-          "date": "2026-11-22",
-          "part": 1,
-          "weather": "にわか雪",
-          "temperature": -3,
-          "wind": 5,
-          "snowfall": 1
-        },
-        {
-          "date": "2026-11-22",
-          "part": 2,
-          "weather": "晴れる",
-          "temperature": -4,
-          "wind": 5,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-23",
-          "part": 0,
-          "weather": "一部曇り",
-          "temperature": 1,
-          "wind": 5,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-23",
-          "part": 1,
-          "weather": "曇り",
-          "temperature": 2,
-          "wind": 10,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-23",
-          "part": 2,
-          "weather": "並雨",
-          "temperature": 2,
-          "wind": 15,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-24",
-          "part": 0,
-          "weather": "豪雪",
-          "temperature": 1,
-          "wind": 5,
+          "wind": 35,
           "snowfall": 10
-        },
-        {
-          "date": "2026-11-24",
-          "part": 1,
-          "weather": "にわか雪",
-          "temperature": 0,
-          "wind": 10,
-          "snowfall": 1
-        },
-        {
-          "date": "2026-11-24",
-          "part": 2,
-          "weather": "小雪",
-          "temperature": -2,
-          "wind": 10,
-          "snowfall": 5
-        }
-      ],
-      "current": {
-        "weather": "豪雪",
-        "temperature": -3,
-        "minTemperature": -4,
-        "wind": 5,
-        "snowfall": 25
-      },
-      "days": [
-        {
-          "date": "2026-11-19",
-          "snowfall": 25,
-          "min": -4,
-          "max": -3,
-          "wind": 5,
-          "weather": "豪雪"
-        },
-        {
-          "date": "2026-11-20",
-          "snowfall": 47,
-          "min": -4,
-          "max": -3,
-          "wind": 25,
-          "weather": "豪雪"
-        },
-        {
-          "date": "2026-11-21",
-          "snowfall": 32,
-          "min": -4,
-          "max": -3,
-          "wind": 10,
-          "weather": "少量の雪"
-        },
-        {
-          "date": "2026-11-22",
-          "snowfall": 3,
-          "min": -5,
-          "max": -3,
-          "wind": 5,
-          "weather": "小雪"
-        },
-        {
-          "date": "2026-11-23",
-          "snowfall": 0,
-          "min": -1,
-          "max": 2,
-          "wind": 15,
-          "weather": "並雨"
-        },
-        {
-          "date": "2026-11-24",
-          "snowfall": 16,
-          "min": -3,
-          "max": 1,
-          "wind": 10,
-          "weather": "豪雪"
-        }
-      ]
-    },
-    "Hakuba47": {
-      "sourceUrl": "https://ja.snow-forecast.com/resorts/Hakuba47/6day/mid",
-      "elevation": 1276,
-      "issuedAt": "8 pm 19 Nov 2026",
-      "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -2,
-          "wind": 5,
-          "snowfall": 26
-        },
-        {
-          "date": "2026-11-20",
-          "part": 0,
-          "weather": "豪雪",
-          "temperature": -3,
-          "wind": 15,
-          "snowfall": 13
-        },
-        {
-          "date": "2026-11-20",
-          "part": 1,
-          "weather": "豪雪",
-          "temperature": -4,
-          "wind": 25,
-          "snowfall": 11
         },
         {
           "date": "2026-11-20",
@@ -8951,9 +9263,9 @@ export const snowForecasts = {
           "date": "2026-11-21",
           "part": 1,
           "weather": "少量の雪",
-          "temperature": -3,
+          "temperature": -2,
           "wind": 5,
-          "snowfall": 8
+          "snowfall": 9
         },
         {
           "date": "2026-11-21",
@@ -8961,7 +9273,7 @@ export const snowForecasts = {
           "weather": "豪雪",
           "temperature": -3,
           "wind": 5,
-          "snowfall": 17
+          "snowfall": 20
         },
         {
           "date": "2026-11-22",
@@ -8969,13 +9281,13 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": -2,
           "wind": 5,
-          "snowfall": 2
+          "snowfall": 1
         },
         {
           "date": "2026-11-22",
           "part": 1,
           "weather": "にわか雪",
-          "temperature": -2,
+          "temperature": -3,
           "wind": 5,
           "snowfall": 1
         },
@@ -9006,23 +9318,23 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "小雨",
-          "temperature": 3,
+          "weather": "小雪",
+          "temperature": 2,
           "wind": 15,
-          "snowfall": 0
+          "snowfall": 1
         },
         {
           "date": "2026-11-24",
           "part": 0,
-          "weather": "豪雪",
-          "temperature": 1,
-          "wind": 5,
-          "snowfall": 10
+          "weather": "少量の雪",
+          "temperature": 2,
+          "wind": 10,
+          "snowfall": 7
         },
         {
           "date": "2026-11-24",
           "part": 1,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": 0,
           "wind": 10,
           "snowfall": 1
@@ -9030,98 +9342,530 @@ export const snowForecasts = {
         {
           "date": "2026-11-24",
           "part": 2,
+          "weather": "少量の雪",
+          "temperature": -2,
+          "wind": 10,
+          "snowfall": 9
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
           "weather": "小雪",
-          "temperature": -1,
+          "temperature": -2,
           "wind": 10,
           "snowfall": 5
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -2,
+          "wind": 5,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": -1,
+          "wind": 5,
+          "snowfall": 0
         }
       ],
       "current": {
-        "weather": "豪雪",
-        "temperature": -2,
+        "weather": "少量の雪",
+        "temperature": -4,
         "minTemperature": -4,
-        "wind": 5,
-        "snowfall": 26
+        "wind": 15,
+        "snowfall": 10
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 26,
-          "min": -4,
-          "max": -2,
-          "wind": 5,
-          "weather": "豪雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 48,
+          "snowfall": 44,
           "min": -4,
-          "max": -3,
-          "wind": 25,
-          "weather": "豪雪"
+          "max": -4,
+          "wind": 35,
+          "weather": "少量の雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 33,
+          "snowfall": 37,
           "min": -4,
-          "max": -3,
+          "max": -2,
           "wind": 10,
           "weather": "少量の雪"
         },
         {
           "date": "2026-11-22",
-          "snowfall": 3,
-          "min": -4,
+          "snowfall": 2,
+          "min": -5,
           "max": -2,
           "wind": 5,
           "weather": "小雪"
         },
         {
           "date": "2026-11-23",
-          "snowfall": 0,
+          "snowfall": 1,
           "min": -1,
-          "max": 3,
+          "max": 2,
           "wind": 15,
-          "weather": "小雨"
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-24",
+          "snowfall": 17,
+          "min": -3,
+          "max": 2,
+          "wind": 10,
+          "weather": "少量の雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 5,
+          "min": -5,
+          "max": -1,
+          "wind": 10,
+          "weather": "小雪"
+        }
+      ]
+    },
+    "HakubaGoryu": {
+      "sourceUrl": "https://ja.snow-forecast.com/resorts/HakubaGoryu/6day/mid",
+      "elevation": 1313,
+      "issuedAt": "2 am 20 Nov 2026",
+      "periods": [
+        {
+          "date": "2026-11-20",
+          "part": 0,
+          "weather": "少量の雪",
+          "temperature": -4,
+          "wind": 15,
+          "snowfall": 9
+        },
+        {
+          "date": "2026-11-20",
+          "part": 1,
+          "weather": "少量の雪",
+          "temperature": -4,
+          "wind": 35,
+          "snowfall": 10
+        },
+        {
+          "date": "2026-11-20",
+          "part": 2,
+          "weather": "豪雪",
+          "temperature": -4,
+          "wind": 10,
+          "snowfall": 22
+        },
+        {
+          "date": "2026-11-21",
+          "part": 0,
+          "weather": "少量の雪",
+          "temperature": -3,
+          "wind": 10,
+          "snowfall": 7
+        },
+        {
+          "date": "2026-11-21",
+          "part": 1,
+          "weather": "少量の雪",
+          "temperature": -2,
+          "wind": 5,
+          "snowfall": 8
+        },
+        {
+          "date": "2026-11-21",
+          "part": 2,
+          "weather": "豪雪",
+          "temperature": -3,
+          "wind": 5,
+          "snowfall": 18
+        },
+        {
+          "date": "2026-11-22",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -2,
+          "wind": 5,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-22",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -3,
+          "wind": 5,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-22",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": -4,
+          "wind": 5,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-23",
+          "part": 0,
+          "weather": "一部曇り",
+          "temperature": 1,
+          "wind": 5,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-23",
+          "part": 1,
+          "weather": "曇り",
+          "temperature": 2,
+          "wind": 10,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-23",
+          "part": 2,
+          "weather": "小雪",
+          "temperature": 2,
+          "wind": 15,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-24",
+          "part": 0,
+          "weather": "少量の雪",
+          "temperature": 2,
+          "wind": 10,
+          "snowfall": 7
+        },
+        {
+          "date": "2026-11-24",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": 0,
+          "wind": 10,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-24",
+          "part": 2,
+          "weather": "少量の雪",
+          "temperature": -2,
+          "wind": 10,
+          "snowfall": 8
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -2,
+          "wind": 10,
+          "snowfall": 4
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -2,
+          "wind": 5,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": -1,
+          "wind": 5,
+          "snowfall": 0
+        }
+      ],
+      "current": {
+        "weather": "少量の雪",
+        "temperature": -4,
+        "minTemperature": -4,
+        "wind": 15,
+        "snowfall": 9
+      },
+      "days": [
+        {
+          "date": "2026-11-20",
+          "snowfall": 41,
+          "min": -4,
+          "max": -4,
+          "wind": 35,
+          "weather": "少量の雪"
+        },
+        {
+          "date": "2026-11-21",
+          "snowfall": 33,
+          "min": -4,
+          "max": -2,
+          "wind": 10,
+          "weather": "少量の雪"
+        },
+        {
+          "date": "2026-11-22",
+          "snowfall": 1,
+          "min": -5,
+          "max": -2,
+          "wind": 5,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-23",
+          "snowfall": 1,
+          "min": -1,
+          "max": 2,
+          "wind": 15,
+          "weather": "小雪"
         },
         {
           "date": "2026-11-24",
           "snowfall": 16,
-          "min": -4,
-          "max": 1,
+          "min": -3,
+          "max": 2,
           "wind": 10,
-          "weather": "豪雪"
+          "weather": "少量の雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 4,
+          "min": -5,
+          "max": -1,
+          "wind": 10,
+          "weather": "小雪"
         }
       ]
     },
-    "HakubaIwatake": {
-      "sourceUrl": "https://ja.snow-forecast.com/resorts/HakubaIwatake/6day/mid",
-      "elevation": 1020,
-      "issuedAt": "8 pm 19 Nov 2026",
+    "Hakuba47": {
+      "sourceUrl": "https://ja.snow-forecast.com/resorts/Hakuba47/6day/mid",
+      "elevation": 1276,
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -1,
-          "wind": 5,
-          "snowfall": 20
-        },
         {
           "date": "2026-11-20",
           "part": 0,
-          "weather": "豪雪",
-          "temperature": -1,
+          "weather": "少量の雪",
+          "temperature": -4,
           "wind": 15,
           "snowfall": 10
         },
         {
           "date": "2026-11-20",
           "part": 1,
+          "weather": "豪雪",
+          "temperature": -4,
+          "wind": 35,
+          "snowfall": 10
+        },
+        {
+          "date": "2026-11-20",
+          "part": 2,
+          "weather": "豪雪",
+          "temperature": -4,
+          "wind": 10,
+          "snowfall": 23
+        },
+        {
+          "date": "2026-11-21",
+          "part": 0,
+          "weather": "少量の雪",
+          "temperature": -3,
+          "wind": 10,
+          "snowfall": 8
+        },
+        {
+          "date": "2026-11-21",
+          "part": 1,
           "weather": "少量の雪",
           "temperature": -2,
-          "wind": 20,
-          "snowfall": 9
+          "wind": 5,
+          "snowfall": 8
+        },
+        {
+          "date": "2026-11-21",
+          "part": 2,
+          "weather": "豪雪",
+          "temperature": -3,
+          "wind": 5,
+          "snowfall": 20
+        },
+        {
+          "date": "2026-11-22",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -2,
+          "wind": 5,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-22",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -2,
+          "wind": 5,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-22",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": -4,
+          "wind": 5,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-23",
+          "part": 0,
+          "weather": "一部曇り",
+          "temperature": 1,
+          "wind": 5,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-23",
+          "part": 1,
+          "weather": "曇り",
+          "temperature": 2,
+          "wind": 10,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-23",
+          "part": 2,
+          "weather": "小雪",
+          "temperature": 2,
+          "wind": 15,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-24",
+          "part": 0,
+          "weather": "少量の雪",
+          "temperature": 2,
+          "wind": 10,
+          "snowfall": 7
+        },
+        {
+          "date": "2026-11-24",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": 0,
+          "wind": 10,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-24",
+          "part": 2,
+          "weather": "少量の雪",
+          "temperature": -2,
+          "wind": 10,
+          "snowfall": 8
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -1,
+          "wind": 10,
+          "snowfall": 4
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -2,
+          "wind": 5,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": -1,
+          "wind": 5,
+          "snowfall": 0
+        }
+      ],
+      "current": {
+        "weather": "少量の雪",
+        "temperature": -4,
+        "minTemperature": -4,
+        "wind": 15,
+        "snowfall": 10
+      },
+      "days": [
+        {
+          "date": "2026-11-20",
+          "snowfall": 43,
+          "min": -4,
+          "max": -4,
+          "wind": 35,
+          "weather": "少量の雪"
+        },
+        {
+          "date": "2026-11-21",
+          "snowfall": 36,
+          "min": -4,
+          "max": -2,
+          "wind": 10,
+          "weather": "少量の雪"
+        },
+        {
+          "date": "2026-11-22",
+          "snowfall": 1,
+          "min": -5,
+          "max": -2,
+          "wind": 5,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-23",
+          "snowfall": 1,
+          "min": -1,
+          "max": 2,
+          "wind": 15,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-24",
+          "snowfall": 16,
+          "min": -3,
+          "max": 2,
+          "wind": 10,
+          "weather": "少量の雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 4,
+          "min": -4,
+          "max": -1,
+          "wind": 10,
+          "weather": "小雪"
+        }
+      ]
+    },
+    "HakubaIwatake": {
+      "sourceUrl": "https://ja.snow-forecast.com/resorts/HakubaIwatake/6day/mid",
+      "elevation": 1020,
+      "issuedAt": "2 am 20 Nov 2026",
+      "periods": [
+        {
+          "date": "2026-11-20",
+          "part": 0,
+          "weather": "少量の雪",
+          "temperature": -2,
+          "wind": 15,
+          "snowfall": 8
+        },
+        {
+          "date": "2026-11-20",
+          "part": 1,
+          "weather": "少量の雪",
+          "temperature": -2,
+          "wind": 35,
+          "snowfall": 8
         },
         {
           "date": "2026-11-20",
@@ -9129,7 +9873,7 @@ export const snowForecasts = {
           "weather": "豪雪",
           "temperature": -2,
           "wind": 10,
-          "snowfall": 20
+          "snowfall": 19
         },
         {
           "date": "2026-11-21",
@@ -9143,7 +9887,7 @@ export const snowForecasts = {
           "date": "2026-11-21",
           "part": 1,
           "weather": "少量の雪",
-          "temperature": -1,
+          "temperature": 0,
           "wind": 5,
           "snowfall": 6
         },
@@ -9153,7 +9897,7 @@ export const snowForecasts = {
           "weather": "豪雪",
           "temperature": -2,
           "wind": 5,
-          "snowfall": 13
+          "snowfall": 16
         },
         {
           "date": "2026-11-22",
@@ -9169,13 +9913,13 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -1,
           "wind": 5,
-          "snowfall": 1
+          "snowfall": 0
         },
         {
           "date": "2026-11-22",
           "part": 2,
           "weather": "晴れる",
-          "temperature": -3,
+          "temperature": -4,
           "wind": 5,
           "snowfall": 0
         },
@@ -9183,7 +9927,7 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 0,
           "weather": "一部曇り",
-          "temperature": 3,
+          "temperature": 2,
           "wind": 5,
           "snowfall": 0
         },
@@ -9198,8 +9942,8 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "並雨",
-          "temperature": 4,
+          "weather": "小雨",
+          "temperature": 3,
           "wind": 10,
           "snowfall": 0
         },
@@ -9208,13 +9952,13 @@ export const snowForecasts = {
           "part": 0,
           "weather": "豪雨",
           "temperature": 3,
-          "wind": 5,
+          "wind": 10,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 1,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": 2,
           "wind": 10,
           "snowfall": 1
@@ -9222,47 +9966,63 @@ export const snowForecasts = {
         {
           "date": "2026-11-24",
           "part": 2,
+          "weather": "少量の雪",
+          "temperature": -1,
+          "wind": 10,
+          "snowfall": 7
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
           "weather": "小雪",
           "temperature": 0,
           "wind": 10,
           "snowfall": 4
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": 0,
+          "wind": 5,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": 0,
+          "wind": 5,
+          "snowfall": 0
         }
       ],
       "current": {
-        "weather": "豪雪",
-        "temperature": -1,
+        "weather": "少量の雪",
+        "temperature": -2,
         "minTemperature": -2,
-        "wind": 5,
-        "snowfall": 20
+        "wind": 15,
+        "snowfall": 8
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 20,
-          "min": -2,
-          "max": -1,
-          "wind": 5,
-          "weather": "豪雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 39,
+          "snowfall": 35,
           "min": -3,
-          "max": -1,
-          "wind": 20,
-          "weather": "豪雪"
+          "max": -2,
+          "wind": 35,
+          "weather": "少量の雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 25,
+          "snowfall": 28,
           "min": -2,
-          "max": -1,
+          "max": 0,
           "wind": 10,
           "weather": "少量の雪"
         },
         {
           "date": "2026-11-22",
-          "snowfall": 2,
+          "snowfall": 1,
           "min": -4,
           "max": -1,
           "wind": 5,
@@ -9272,48 +10032,48 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "snowfall": 0,
           "min": 0,
-          "max": 4,
+          "max": 3,
           "wind": 10,
-          "weather": "並雨"
+          "weather": "小雨"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 5,
+          "snowfall": 8,
           "min": -2,
           "max": 3,
           "wind": 10,
-          "weather": "にわか雪"
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 4,
+          "min": -3,
+          "max": 0,
+          "wind": 10,
+          "weather": "小雪"
         }
       ]
     },
     "SunAlpinaHakubaSanosaka": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/SunAlpinaHakubaSanosaka/6day/mid",
       "elevation": 970,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": 0,
-          "wind": 5,
-          "snowfall": 17
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "少量の雪",
-          "temperature": -1,
-          "wind": 15,
-          "snowfall": 9
+          "temperature": -2,
+          "wind": 10,
+          "snowfall": 6
         },
         {
           "date": "2026-11-20",
           "part": 1,
           "weather": "少量の雪",
           "temperature": -1,
-          "wind": 20,
-          "snowfall": 8
+          "wind": 25,
+          "snowfall": 7
         },
         {
           "date": "2026-11-20",
@@ -9321,7 +10081,7 @@ export const snowForecasts = {
           "weather": "豪雪",
           "temperature": -2,
           "wind": 10,
-          "snowfall": 16
+          "snowfall": 15
         },
         {
           "date": "2026-11-21",
@@ -9329,7 +10089,7 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": 0,
           "wind": 10,
-          "snowfall": 5
+          "snowfall": 4
         },
         {
           "date": "2026-11-21",
@@ -9337,7 +10097,7 @@ export const snowForecasts = {
           "weather": "少量の雪",
           "temperature": 0,
           "wind": 5,
-          "snowfall": 6
+          "snowfall": 5
         },
         {
           "date": "2026-11-21",
@@ -9345,7 +10105,7 @@ export const snowForecasts = {
           "weather": "豪雪",
           "temperature": -1,
           "wind": 5,
-          "snowfall": 11
+          "snowfall": 12
         },
         {
           "date": "2026-11-22",
@@ -9390,7 +10150,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "並雨",
+          "weather": "小雨",
           "temperature": 4,
           "wind": 10,
           "snowfall": 0
@@ -9399,8 +10159,8 @@ export const snowForecasts = {
           "date": "2026-11-24",
           "part": 0,
           "weather": "豪雨",
-          "temperature": 3,
-          "wind": 5,
+          "temperature": 4,
+          "wind": 10,
           "snowfall": 0
         },
         {
@@ -9416,37 +10176,53 @@ export const snowForecasts = {
           "part": 2,
           "weather": "にわか雪",
           "temperature": 0,
-          "wind": 10,
-          "snowfall": 3
+          "wind": 5,
+          "snowfall": 5
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "にわか雪",
+          "temperature": 1,
+          "wind": 5,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": 1,
+          "wind": 5,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": 0,
+          "wind": 5,
+          "snowfall": 0
         }
       ],
       "current": {
-        "weather": "豪雪",
-        "temperature": 0,
-        "minTemperature": -1,
-        "wind": 5,
-        "snowfall": 17
+        "weather": "少量の雪",
+        "temperature": -2,
+        "minTemperature": -2,
+        "wind": 10,
+        "snowfall": 6
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 17,
-          "min": -1,
-          "max": 0,
-          "wind": 5,
-          "weather": "豪雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 33,
+          "snowfall": 28,
           "min": -2,
           "max": -1,
-          "wind": 20,
+          "wind": 25,
           "weather": "少量の雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 22,
+          "snowfall": 21,
           "min": -2,
           "max": 0,
           "wind": 10,
@@ -9466,14 +10242,22 @@ export const snowForecasts = {
           "min": 1,
           "max": 4,
           "wind": 10,
-          "weather": "並雨"
+          "weather": "小雨"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 3,
-          "min": -2,
-          "max": 3,
+          "snowfall": 5,
+          "min": -1,
+          "max": 4,
           "wind": 10,
+          "weather": "にわか雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 2,
+          "min": -3,
+          "max": 1,
+          "wind": 5,
           "weather": "にわか雪"
         }
       ]
@@ -9481,31 +10265,23 @@ export const snowForecasts = {
     "Nozawa-Onsen": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Nozawa-Onsen/6day/mid",
       "elevation": 1108,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "豪雪",
-          "temperature": -1,
-          "wind": 10,
-          "snowfall": 12
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "小雪",
           "temperature": -2,
           "wind": 25,
-          "snowfall": 5
+          "snowfall": 4
         },
         {
           "date": "2026-11-20",
           "part": 1,
           "weather": "小雪",
           "temperature": -3,
-          "wind": 40,
-          "snowfall": 5
+          "wind": 50,
+          "snowfall": 4
         },
         {
           "date": "2026-11-20",
@@ -9513,39 +10289,39 @@ export const snowForecasts = {
           "weather": "豪雪",
           "temperature": -3,
           "wind": 20,
-          "snowfall": 17
+          "snowfall": 15
         },
         {
           "date": "2026-11-21",
           "part": 0,
-          "weather": "少量の雪",
+          "weather": "小雪",
           "temperature": -1,
-          "wind": 20,
-          "snowfall": 5
+          "wind": 25,
+          "snowfall": 4
         },
         {
           "date": "2026-11-21",
           "part": 1,
-          "weather": "少量の雪",
-          "temperature": -2,
-          "wind": 10,
-          "snowfall": 6
+          "weather": "小雪",
+          "temperature": -1,
+          "wind": 20,
+          "snowfall": 3
         },
         {
           "date": "2026-11-21",
           "part": 2,
           "weather": "少量の雪",
-          "temperature": -2,
+          "temperature": -3,
           "wind": 10,
-          "snowfall": 5
+          "snowfall": 7
         },
         {
           "date": "2026-11-22",
           "part": 0,
           "weather": "少量の雪",
           "temperature": -2,
-          "wind": 15,
-          "snowfall": 9
+          "wind": 10,
+          "snowfall": 8
         },
         {
           "date": "2026-11-22",
@@ -9559,15 +10335,15 @@ export const snowForecasts = {
           "date": "2026-11-22",
           "part": 2,
           "weather": "にわか雪",
-          "temperature": -2,
+          "temperature": -3,
           "wind": 5,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "一部曇り",
-          "temperature": 2,
+          "weather": "晴れる",
+          "temperature": 1,
           "wind": 10,
           "snowfall": 0
         },
@@ -9575,78 +10351,94 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "part": 1,
           "weather": "曇り",
-          "temperature": 3,
+          "temperature": 2,
           "wind": 15,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "小雨",
-          "temperature": 5,
+          "weather": "曇り",
+          "temperature": 4,
           "wind": 25,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 0,
-          "weather": "小雪",
-          "temperature": 3,
-          "wind": 20,
-          "snowfall": 2
+          "weather": "並雨",
+          "temperature": 4,
+          "wind": 25,
+          "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 1,
           "weather": "小雪",
           "temperature": 1,
-          "wind": 15,
-          "snowfall": 0
+          "wind": 10,
+          "snowfall": 1
         },
         {
           "date": "2026-11-24",
           "part": 2,
-          "weather": "にわか雪",
+          "weather": "少量の雪",
           "temperature": -1,
+          "wind": 15,
+          "snowfall": 6
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -2,
+          "wind": 25,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -2,
+          "wind": 15,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": 1,
           "wind": 10,
           "snowfall": 0
         }
       ],
       "current": {
-        "weather": "豪雪",
-        "temperature": -1,
+        "weather": "小雪",
+        "temperature": -2,
         "minTemperature": -3,
-        "wind": 10,
-        "snowfall": 12
+        "wind": 25,
+        "snowfall": 4
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 12,
-          "min": -3,
-          "max": -1,
-          "wind": 10,
-          "weather": "豪雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 27,
+          "snowfall": 23,
           "min": -3,
           "max": -2,
-          "wind": 40,
+          "wind": 50,
           "weather": "小雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 16,
+          "snowfall": 14,
           "min": -3,
           "max": -1,
-          "wind": 20,
-          "weather": "少量の雪"
+          "wind": 25,
+          "weather": "小雪"
         },
         {
           "date": "2026-11-22",
-          "snowfall": 11,
+          "snowfall": 10,
           "min": -3,
           "max": -2,
           "wind": 15,
@@ -9656,16 +10448,24 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "snowfall": 0,
           "min": 0,
-          "max": 5,
+          "max": 4,
           "wind": 25,
-          "weather": "小雨"
+          "weather": "曇り"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 2,
+          "snowfall": 7,
           "min": -2,
-          "max": 3,
-          "wind": 20,
+          "max": 4,
+          "wind": 25,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 4,
+          "min": -2,
+          "max": 1,
+          "wind": 25,
           "weather": "小雪"
         }
       ]
@@ -9673,244 +10473,44 @@ export const snowForecasts = {
     "OkushigaKogen": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/OkushigaKogen/6day/mid",
       "elevation": 1750,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
         {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -5,
-          "wind": 20,
-          "snowfall": 8
-        },
-        {
           "date": "2026-11-20",
           "part": 0,
           "weather": "小雪",
           "temperature": -6,
-          "wind": 30,
-          "snowfall": 4
-        },
-        {
-          "date": "2026-11-20",
-          "part": 1,
-          "weather": "小雪",
-          "temperature": -7,
-          "wind": 45,
-          "snowfall": 5
-        },
-        {
-          "date": "2026-11-20",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -7,
-          "wind": 25,
-          "snowfall": 6
-        },
-        {
-          "date": "2026-11-21",
-          "part": 0,
-          "weather": "にわか雪",
-          "temperature": -5,
-          "wind": 30,
-          "snowfall": 2
-        },
-        {
-          "date": "2026-11-21",
-          "part": 1,
-          "weather": "小雪",
-          "temperature": -5,
-          "wind": 20,
-          "snowfall": 2
-        },
-        {
-          "date": "2026-11-21",
-          "part": 2,
-          "weather": "小雪",
-          "temperature": -7,
-          "wind": 10,
-          "snowfall": 3
-        },
-        {
-          "date": "2026-11-22",
-          "part": 0,
-          "weather": "にわか雪",
-          "temperature": -6,
-          "wind": 15,
-          "snowfall": 7
-        },
-        {
-          "date": "2026-11-22",
-          "part": 1,
-          "weather": "にわか雪",
-          "temperature": -6,
-          "wind": 15,
-          "snowfall": 1
-        },
-        {
-          "date": "2026-11-22",
-          "part": 2,
-          "weather": "にわか雪",
-          "temperature": -4,
-          "wind": 10,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-23",
-          "part": 0,
-          "weather": "一部曇り",
-          "temperature": -2,
-          "wind": 10,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-23",
-          "part": 1,
-          "weather": "曇り",
-          "temperature": 0,
-          "wind": 15,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-23",
-          "part": 2,
-          "weather": "小雪",
-          "temperature": 1,
-          "wind": 25,
-          "snowfall": 0
-        },
-        {
-          "date": "2026-11-24",
-          "part": 0,
-          "weather": "小雪",
-          "temperature": 0,
-          "wind": 20,
-          "snowfall": 4
-        },
-        {
-          "date": "2026-11-24",
-          "part": 1,
-          "weather": "にわか雪",
-          "temperature": -2,
-          "wind": 20,
-          "snowfall": 1
-        },
-        {
-          "date": "2026-11-24",
-          "part": 2,
-          "weather": "にわか雪",
-          "temperature": -4,
-          "wind": 20,
-          "snowfall": 0
-        }
-      ],
-      "current": {
-        "weather": "少量の雪",
-        "temperature": -5,
-        "minTemperature": -7,
-        "wind": 20,
-        "snowfall": 8
-      },
-      "days": [
-        {
-          "date": "2026-11-19",
-          "snowfall": 8,
-          "min": -7,
-          "max": -5,
-          "wind": 20,
-          "weather": "少量の雪"
-        },
-        {
-          "date": "2026-11-20",
-          "snowfall": 15,
-          "min": -8,
-          "max": -6,
-          "wind": 45,
-          "weather": "小雪"
-        },
-        {
-          "date": "2026-11-21",
-          "snowfall": 7,
-          "min": -8,
-          "max": -5,
-          "wind": 30,
-          "weather": "にわか雪"
-        },
-        {
-          "date": "2026-11-22",
-          "snowfall": 8,
-          "min": -6,
-          "max": -4,
-          "wind": 15,
-          "weather": "にわか雪"
-        },
-        {
-          "date": "2026-11-23",
-          "snowfall": 0,
-          "min": -3,
-          "max": 1,
-          "wind": 25,
-          "weather": "小雪"
-        },
-        {
-          "date": "2026-11-24",
-          "snowfall": 5,
-          "min": -6,
-          "max": 0,
-          "wind": 20,
-          "weather": "小雪"
-        }
-      ]
-    },
-    "Shiga-Kogen-Yakebitaiyama": {
-      "sourceUrl": "https://ja.snow-forecast.com/resorts/Shiga-Kogen-Yakebitaiyama/6day/mid",
-      "elevation": 1778,
-      "issuedAt": "8 pm 19 Nov 2026",
-      "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -6,
-          "wind": 20,
-          "snowfall": 6
-        },
-        {
-          "date": "2026-11-20",
-          "part": 0,
-          "weather": "小雪",
-          "temperature": -6,
-          "wind": 30,
-          "snowfall": 3
-        },
-        {
-          "date": "2026-11-20",
-          "part": 1,
-          "weather": "小雪",
-          "temperature": -7,
           "wind": 40,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-20",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -7,
+          "wind": 45,
           "snowfall": 4
         },
         {
           "date": "2026-11-20",
           "part": 2,
-          "weather": "小雪",
-          "temperature": -8,
-          "wind": 25,
-          "snowfall": 2
+          "weather": "少量の雪",
+          "temperature": -7,
+          "wind": 30,
+          "snowfall": 6
         },
         {
           "date": "2026-11-21",
           "part": 0,
           "weather": "にわか雪",
           "temperature": -5,
-          "wind": 25,
+          "wind": 30,
           "snowfall": 1
         },
         {
           "date": "2026-11-21",
           "part": 1,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": -5,
           "wind": 20,
           "snowfall": 1
@@ -9921,7 +10521,7 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": -7,
           "wind": 10,
-          "snowfall": 2
+          "snowfall": 4
         },
         {
           "date": "2026-11-22",
@@ -9937,20 +10537,20 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -6,
           "wind": 15,
-          "snowfall": 0
+          "snowfall": 3
         },
         {
           "date": "2026-11-22",
           "part": 2,
-          "weather": "にわか雪",
+          "weather": "晴れる",
           "temperature": -4,
-          "wind": 10,
+          "wind": 5,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "一部曇り",
+          "weather": "晴れる",
           "temperature": -2,
           "wind": 10,
           "snowfall": 0
@@ -9966,8 +10566,8 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "小雪",
-          "temperature": 1,
+          "weather": "一部曇り",
+          "temperature": 0,
           "wind": 25,
           "snowfall": 0
         },
@@ -9975,57 +10575,281 @@ export const snowForecasts = {
           "date": "2026-11-24",
           "part": 0,
           "weather": "小雪",
-          "temperature": 0,
-          "wind": 20,
-          "snowfall": 4
-        },
-        {
-          "date": "2026-11-24",
-          "part": 1,
-          "weather": "にわか雪",
-          "temperature": -2,
-          "wind": 20,
+          "temperature": 1,
+          "wind": 25,
           "snowfall": 1
         },
         {
           "date": "2026-11-24",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -1,
+          "wind": 15,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-24",
           "part": 2,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": -4,
+          "wind": 20,
+          "snowfall": 4
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -5,
+          "wind": 25,
+          "snowfall": 4
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -5,
+          "wind": 15,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": -1,
           "wind": 15,
           "snowfall": 0
         }
       ],
       "current": {
-        "weather": "少量の雪",
+        "weather": "小雪",
         "temperature": -6,
         "minTemperature": -7,
-        "wind": 20,
-        "snowfall": 6
+        "wind": 40,
+        "snowfall": 3
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 6,
-          "min": -7,
-          "max": -6,
-          "wind": 20,
-          "weather": "少量の雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 9,
+          "snowfall": 13,
           "min": -8,
           "max": -6,
-          "wind": 40,
+          "wind": 45,
           "weather": "小雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 4,
+          "snowfall": 6,
           "min": -8,
           "max": -5,
+          "wind": 30,
+          "weather": "にわか雪"
+        },
+        {
+          "date": "2026-11-22",
+          "snowfall": 9,
+          "min": -6,
+          "max": -4,
+          "wind": 15,
+          "weather": "にわか雪"
+        },
+        {
+          "date": "2026-11-23",
+          "snowfall": 0,
+          "min": -3,
+          "max": 0,
           "wind": 25,
+          "weather": "曇り"
+        },
+        {
+          "date": "2026-11-24",
+          "snowfall": 7,
+          "min": -6,
+          "max": 1,
+          "wind": 25,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 5,
+          "min": -6,
+          "max": -1,
+          "wind": 25,
+          "weather": "小雪"
+        }
+      ]
+    },
+    "Shiga-Kogen-Yakebitaiyama": {
+      "sourceUrl": "https://ja.snow-forecast.com/resorts/Shiga-Kogen-Yakebitaiyama/6day/mid",
+      "elevation": 1778,
+      "issuedAt": "2 am 20 Nov 2026",
+      "periods": [
+        {
+          "date": "2026-11-20",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -7,
+          "wind": 35,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-20",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -8,
+          "wind": 45,
+          "snowfall": 4
+        },
+        {
+          "date": "2026-11-20",
+          "part": 2,
+          "weather": "小雪",
+          "temperature": -7,
+          "wind": 30,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-21",
+          "part": 0,
+          "weather": "にわか雪",
+          "temperature": -5,
+          "wind": 30,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-21",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -5,
+          "wind": 20,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-21",
+          "part": 2,
+          "weather": "小雪",
+          "temperature": -8,
+          "wind": 10,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-22",
+          "part": 0,
+          "weather": "にわか雪",
+          "temperature": -6,
+          "wind": 15,
+          "snowfall": 4
+        },
+        {
+          "date": "2026-11-22",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -6,
+          "wind": 15,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-22",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": -4,
+          "wind": 5,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-23",
+          "part": 0,
+          "weather": "晴れる",
+          "temperature": -2,
+          "wind": 10,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-23",
+          "part": 1,
+          "weather": "曇り",
+          "temperature": -1,
+          "wind": 15,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-23",
+          "part": 2,
+          "weather": "一部曇り",
+          "temperature": 0,
+          "wind": 20,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-24",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": 1,
+          "wind": 25,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-24",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -1,
+          "wind": 15,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-24",
+          "part": 2,
+          "weather": "小雪",
+          "temperature": -4,
+          "wind": 20,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -5,
+          "wind": 20,
+          "snowfall": 4
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -5,
+          "wind": 15,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": -1,
+          "wind": 15,
+          "snowfall": 0
+        }
+      ],
+      "current": {
+        "weather": "小雪",
+        "temperature": -7,
+        "minTemperature": -7,
+        "wind": 35,
+        "snowfall": 2
+      },
+      "days": [
+        {
+          "date": "2026-11-20",
+          "snowfall": 8,
+          "min": -8,
+          "max": -7,
+          "wind": 45,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-21",
+          "snowfall": 5,
+          "min": -8,
+          "max": -5,
+          "wind": 30,
           "weather": "にわか雪"
         },
         {
@@ -10039,16 +10863,24 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "snowfall": 0,
-          "min": -3,
+          "min": -4,
+          "max": 0,
+          "wind": 20,
+          "weather": "曇り"
+        },
+        {
+          "date": "2026-11-24",
+          "snowfall": 6,
+          "min": -7,
           "max": 1,
           "wind": 25,
           "weather": "小雪"
         },
         {
-          "date": "2026-11-24",
+          "date": "2026-11-25",
           "snowfall": 5,
-          "min": -7,
-          "max": 0,
+          "min": -6,
+          "max": -1,
           "wind": 20,
           "weather": "小雪"
         }
@@ -10057,29 +10889,21 @@ export const snowForecasts = {
     "ShigaKogen-IchinoseDiamond": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/ShigaKogen-IchinoseDiamond/6day/mid",
       "elevation": 1656,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -5,
-          "wind": 15,
-          "snowfall": 6
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "小雪",
-          "temperature": -5,
+          "temperature": -6,
           "wind": 30,
-          "snowfall": 3
+          "snowfall": 2
         },
         {
           "date": "2026-11-20",
           "part": 1,
           "weather": "小雪",
-          "temperature": -6,
+          "temperature": -7,
           "wind": 40,
           "snowfall": 4
         },
@@ -10087,8 +10911,8 @@ export const snowForecasts = {
           "date": "2026-11-20",
           "part": 2,
           "weather": "小雪",
-          "temperature": -7,
-          "wind": 20,
+          "temperature": -6,
+          "wind": 25,
           "snowfall": 2
         },
         {
@@ -10102,7 +10926,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-21",
           "part": 1,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": -4,
           "wind": 15,
           "snowfall": 1
@@ -10111,9 +10935,9 @@ export const snowForecasts = {
           "date": "2026-11-21",
           "part": 2,
           "weather": "小雪",
-          "temperature": -6,
+          "temperature": -7,
           "wind": 5,
-          "snowfall": 2
+          "snowfall": 3
         },
         {
           "date": "2026-11-22",
@@ -10121,7 +10945,7 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -5,
           "wind": 10,
-          "snowfall": 5
+          "snowfall": 4
         },
         {
           "date": "2026-11-22",
@@ -10129,20 +10953,20 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -5,
           "wind": 10,
-          "snowfall": 0
+          "snowfall": 2
         },
         {
           "date": "2026-11-22",
           "part": 2,
-          "weather": "にわか雪",
-          "temperature": -3,
+          "weather": "晴れる",
+          "temperature": -4,
           "wind": 5,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "一部曇り",
+          "weather": "晴れる",
           "temperature": -1,
           "wind": 10,
           "snowfall": 0
@@ -10152,14 +10976,14 @@ export const snowForecasts = {
           "part": 1,
           "weather": "曇り",
           "temperature": 0,
-          "wind": 15,
+          "wind": 10,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "小雪",
-          "temperature": 2,
+          "weather": "一部曇り",
+          "temperature": 1,
           "wind": 20,
           "snowfall": 0
         },
@@ -10168,53 +10992,69 @@ export const snowForecasts = {
           "part": 0,
           "weather": "小雪",
           "temperature": 1,
-          "wind": 15,
-          "snowfall": 4
-        },
-        {
-          "date": "2026-11-24",
-          "part": 1,
-          "weather": "にわか雪",
-          "temperature": -1,
-          "wind": 15,
+          "wind": 20,
           "snowfall": 1
         },
         {
           "date": "2026-11-24",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -1,
+          "wind": 10,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-24",
           "part": 2,
+          "weather": "小雪",
+          "temperature": -3,
+          "wind": 15,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -4,
+          "wind": 20,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
           "weather": "にわか雪",
           "temperature": -4,
-          "wind": 15,
+          "wind": 10,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": 0,
+          "wind": 10,
           "snowfall": 0
         }
       ],
       "current": {
-        "weather": "少量の雪",
-        "temperature": -5,
+        "weather": "小雪",
+        "temperature": -6,
         "minTemperature": -6,
-        "wind": 15,
-        "snowfall": 6
+        "wind": 30,
+        "snowfall": 2
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 6,
-          "min": -6,
-          "max": -5,
-          "wind": 15,
-          "weather": "少量の雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 9,
+          "snowfall": 8,
           "min": -7,
-          "max": -5,
+          "max": -6,
           "wind": 40,
           "weather": "小雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 3,
+          "snowfall": 4,
           "min": -7,
           "max": -4,
           "wind": 25,
@@ -10222,9 +11062,9 @@ export const snowForecasts = {
         },
         {
           "date": "2026-11-22",
-          "snowfall": 5,
+          "snowfall": 6,
           "min": -6,
-          "max": -3,
+          "max": -4,
           "wind": 10,
           "weather": "にわか雪"
         },
@@ -10232,16 +11072,24 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "snowfall": 0,
           "min": -3,
-          "max": 2,
+          "max": 1,
           "wind": 20,
-          "weather": "小雪"
+          "weather": "曇り"
         },
         {
           "date": "2026-11-24",
           "snowfall": 5,
           "min": -6,
           "max": 1,
-          "wind": 15,
+          "wind": 20,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 4,
+          "min": -5,
+          "max": 0,
+          "wind": 20,
           "weather": "小雪"
         }
       ]
@@ -10249,23 +11097,15 @@ export const snowForecasts = {
     "TakamagaharaMammoth": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/TakamagaharaMammoth/6day/mid",
       "elevation": 1862,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -6,
-          "wind": 25,
-          "snowfall": 6
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "小雪",
           "temperature": -7,
-          "wind": 35,
-          "snowfall": 3
+          "wind": 40,
+          "snowfall": 2
         },
         {
           "date": "2026-11-20",
@@ -10280,7 +11120,7 @@ export const snowForecasts = {
           "part": 2,
           "weather": "小雪",
           "temperature": -8,
-          "wind": 25,
+          "wind": 30,
           "snowfall": 2
         },
         {
@@ -10288,13 +11128,13 @@ export const snowForecasts = {
           "part": 0,
           "weather": "にわか雪",
           "temperature": -6,
-          "wind": 30,
-          "snowfall": 1
+          "wind": 35,
+          "snowfall": 0
         },
         {
           "date": "2026-11-21",
           "part": 1,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": -6,
           "wind": 20,
           "snowfall": 1
@@ -10303,17 +11143,17 @@ export const snowForecasts = {
           "date": "2026-11-21",
           "part": 2,
           "weather": "小雪",
-          "temperature": -7,
+          "temperature": -8,
           "wind": 10,
-          "snowfall": 2
+          "snowfall": 3
         },
         {
           "date": "2026-11-22",
           "part": 0,
           "weather": "にわか雪",
           "temperature": -7,
-          "wind": 15,
-          "snowfall": 5
+          "wind": 20,
+          "snowfall": 4
         },
         {
           "date": "2026-11-22",
@@ -10321,12 +11161,12 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -7,
           "wind": 15,
-          "snowfall": 0
+          "snowfall": 2
         },
         {
           "date": "2026-11-22",
           "part": 2,
-          "weather": "にわか雪",
+          "weather": "晴れる",
           "temperature": -4,
           "wind": 10,
           "snowfall": 0
@@ -10334,7 +11174,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "一部曇り",
+          "weather": "晴れる",
           "temperature": -2,
           "wind": 10,
           "snowfall": 0
@@ -10350,9 +11190,9 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "小雪",
-          "temperature": 1,
-          "wind": 30,
+          "weather": "一部曇り",
+          "temperature": 0,
+          "wind": 25,
           "snowfall": 0
         },
         {
@@ -10360,45 +11200,61 @@ export const snowForecasts = {
           "part": 0,
           "weather": "小雪",
           "temperature": 0,
-          "wind": 25,
-          "snowfall": 4
-        },
-        {
-          "date": "2026-11-24",
-          "part": 1,
-          "weather": "にわか雪",
-          "temperature": -2,
-          "wind": 20,
+          "wind": 30,
           "snowfall": 1
         },
         {
           "date": "2026-11-24",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -2,
+          "wind": 15,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-24",
           "part": 2,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": -5,
+          "wind": 25,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -6,
+          "wind": 25,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -6,
           "wind": 20,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": -1,
+          "wind": 15,
           "snowfall": 0
         }
       ],
       "current": {
-        "weather": "少量の雪",
-        "temperature": -6,
+        "weather": "小雪",
+        "temperature": -7,
         "minTemperature": -8,
-        "wind": 25,
-        "snowfall": 6
+        "wind": 40,
+        "snowfall": 2
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 6,
-          "min": -8,
-          "max": -6,
-          "wind": 25,
-          "weather": "少量の雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 9,
+          "snowfall": 8,
           "min": -9,
           "max": -7,
           "wind": 45,
@@ -10409,30 +11265,38 @@ export const snowForecasts = {
           "snowfall": 4,
           "min": -8,
           "max": -6,
-          "wind": 30,
+          "wind": 35,
           "weather": "にわか雪"
         },
         {
           "date": "2026-11-22",
-          "snowfall": 5,
+          "snowfall": 6,
           "min": -7,
           "max": -4,
-          "wind": 15,
+          "wind": 20,
           "weather": "にわか雪"
         },
         {
           "date": "2026-11-23",
           "snowfall": 0,
           "min": -4,
-          "max": 1,
-          "wind": 30,
-          "weather": "小雪"
+          "max": 0,
+          "wind": 25,
+          "weather": "曇り"
         },
         {
           "date": "2026-11-24",
           "snowfall": 5,
           "min": -7,
           "max": 0,
+          "wind": 30,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 4,
+          "min": -6,
+          "max": -1,
           "wind": 25,
           "weather": "小雪"
         }
@@ -10441,23 +11305,15 @@ export const snowForecasts = {
     "Terakoya": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Terakoya/6day/mid",
       "elevation": 1862,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -6,
-          "wind": 25,
-          "snowfall": 6
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "小雪",
           "temperature": -7,
-          "wind": 35,
-          "snowfall": 3
+          "wind": 40,
+          "snowfall": 2
         },
         {
           "date": "2026-11-20",
@@ -10472,7 +11328,7 @@ export const snowForecasts = {
           "part": 2,
           "weather": "小雪",
           "temperature": -8,
-          "wind": 25,
+          "wind": 30,
           "snowfall": 2
         },
         {
@@ -10480,13 +11336,13 @@ export const snowForecasts = {
           "part": 0,
           "weather": "にわか雪",
           "temperature": -6,
-          "wind": 30,
-          "snowfall": 1
+          "wind": 35,
+          "snowfall": 0
         },
         {
           "date": "2026-11-21",
           "part": 1,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": -6,
           "wind": 20,
           "snowfall": 1
@@ -10495,17 +11351,17 @@ export const snowForecasts = {
           "date": "2026-11-21",
           "part": 2,
           "weather": "小雪",
-          "temperature": -7,
+          "temperature": -8,
           "wind": 10,
-          "snowfall": 2
+          "snowfall": 3
         },
         {
           "date": "2026-11-22",
           "part": 0,
           "weather": "にわか雪",
           "temperature": -7,
-          "wind": 15,
-          "snowfall": 5
+          "wind": 20,
+          "snowfall": 4
         },
         {
           "date": "2026-11-22",
@@ -10513,12 +11369,12 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -7,
           "wind": 15,
-          "snowfall": 0
+          "snowfall": 2
         },
         {
           "date": "2026-11-22",
           "part": 2,
-          "weather": "にわか雪",
+          "weather": "晴れる",
           "temperature": -4,
           "wind": 10,
           "snowfall": 0
@@ -10526,7 +11382,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "一部曇り",
+          "weather": "晴れる",
           "temperature": -2,
           "wind": 10,
           "snowfall": 0
@@ -10542,9 +11398,9 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "小雪",
-          "temperature": 1,
-          "wind": 30,
+          "weather": "一部曇り",
+          "temperature": 0,
+          "wind": 25,
           "snowfall": 0
         },
         {
@@ -10552,45 +11408,61 @@ export const snowForecasts = {
           "part": 0,
           "weather": "小雪",
           "temperature": 0,
-          "wind": 25,
-          "snowfall": 4
-        },
-        {
-          "date": "2026-11-24",
-          "part": 1,
-          "weather": "にわか雪",
-          "temperature": -2,
-          "wind": 20,
+          "wind": 30,
           "snowfall": 1
         },
         {
           "date": "2026-11-24",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -2,
+          "wind": 15,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-24",
           "part": 2,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": -5,
+          "wind": 25,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -6,
+          "wind": 25,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -6,
           "wind": 20,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": -1,
+          "wind": 15,
           "snowfall": 0
         }
       ],
       "current": {
-        "weather": "少量の雪",
-        "temperature": -6,
+        "weather": "小雪",
+        "temperature": -7,
         "minTemperature": -8,
-        "wind": 25,
-        "snowfall": 6
+        "wind": 40,
+        "snowfall": 2
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 6,
-          "min": -8,
-          "max": -6,
-          "wind": 25,
-          "weather": "少量の雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 9,
+          "snowfall": 8,
           "min": -9,
           "max": -7,
           "wind": 45,
@@ -10601,30 +11473,38 @@ export const snowForecasts = {
           "snowfall": 4,
           "min": -8,
           "max": -6,
-          "wind": 30,
+          "wind": 35,
           "weather": "にわか雪"
         },
         {
           "date": "2026-11-22",
-          "snowfall": 5,
+          "snowfall": 6,
           "min": -7,
           "max": -4,
-          "wind": 15,
+          "wind": 20,
           "weather": "にわか雪"
         },
         {
           "date": "2026-11-23",
           "snowfall": 0,
           "min": -4,
-          "max": 1,
-          "wind": 30,
-          "weather": "小雪"
+          "max": 0,
+          "wind": 25,
+          "weather": "曇り"
         },
         {
           "date": "2026-11-24",
           "snowfall": 5,
           "min": -7,
           "max": 0,
+          "wind": 30,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 4,
+          "min": -6,
+          "max": -1,
           "wind": 25,
           "weather": "小雪"
         }
@@ -10633,23 +11513,15 @@ export const snowForecasts = {
     "Higashitateyama": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Higashitateyama/6day/mid",
       "elevation": 1678,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -5,
-          "wind": 15,
-          "snowfall": 6
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "小雪",
           "temperature": -6,
-          "wind": 30,
-          "snowfall": 3
+          "wind": 35,
+          "snowfall": 2
         },
         {
           "date": "2026-11-20",
@@ -10664,7 +11536,7 @@ export const snowForecasts = {
           "part": 2,
           "weather": "小雪",
           "temperature": -7,
-          "wind": 20,
+          "wind": 25,
           "snowfall": 2
         },
         {
@@ -10672,14 +11544,14 @@ export const snowForecasts = {
           "part": 0,
           "weather": "にわか雪",
           "temperature": -4,
-          "wind": 25,
+          "wind": 30,
           "snowfall": 0
         },
         {
           "date": "2026-11-21",
           "part": 1,
-          "weather": "小雪",
-          "temperature": -5,
+          "weather": "にわか雪",
+          "temperature": -4,
           "wind": 15,
           "snowfall": 1
         },
@@ -10687,30 +11559,30 @@ export const snowForecasts = {
           "date": "2026-11-21",
           "part": 2,
           "weather": "小雪",
-          "temperature": -6,
+          "temperature": -7,
           "wind": 5,
-          "snowfall": 2
+          "snowfall": 3
         },
         {
           "date": "2026-11-22",
           "part": 0,
           "weather": "にわか雪",
           "temperature": -5,
-          "wind": 10,
-          "snowfall": 5
+          "wind": 15,
+          "snowfall": 4
         },
         {
           "date": "2026-11-22",
           "part": 1,
           "weather": "にわか雪",
-          "temperature": -6,
-          "wind": 15,
-          "snowfall": 0
+          "temperature": -5,
+          "wind": 10,
+          "snowfall": 2
         },
         {
           "date": "2026-11-22",
           "part": 2,
-          "weather": "にわか雪",
+          "weather": "晴れる",
           "temperature": -4,
           "wind": 5,
           "snowfall": 0
@@ -10718,7 +11590,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "一部曇り",
+          "weather": "晴れる",
           "temperature": -1,
           "wind": 10,
           "snowfall": 0
@@ -10728,13 +11600,13 @@ export const snowForecasts = {
           "part": 1,
           "weather": "曇り",
           "temperature": 0,
-          "wind": 15,
+          "wind": 10,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "小雪",
+          "weather": "一部曇り",
           "temperature": 1,
           "wind": 20,
           "snowfall": 0
@@ -10744,45 +11616,61 @@ export const snowForecasts = {
           "part": 0,
           "weather": "小雪",
           "temperature": 1,
-          "wind": 15,
-          "snowfall": 4
-        },
-        {
-          "date": "2026-11-24",
-          "part": 1,
-          "weather": "にわか雪",
-          "temperature": -1,
-          "wind": 15,
+          "wind": 20,
           "snowfall": 1
         },
         {
           "date": "2026-11-24",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -1,
+          "wind": 10,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-24",
           "part": 2,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": -4,
           "wind": 15,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -5,
+          "wind": 20,
+          "snowfall": 3
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -5,
+          "wind": 10,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": -1,
+          "wind": 10,
           "snowfall": 0
         }
       ],
       "current": {
-        "weather": "少量の雪",
-        "temperature": -5,
+        "weather": "小雪",
+        "temperature": -6,
         "minTemperature": -6,
-        "wind": 15,
-        "snowfall": 6
+        "wind": 35,
+        "snowfall": 2
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 6,
-          "min": -6,
-          "max": -5,
-          "wind": 15,
-          "weather": "少量の雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 9,
+          "snowfall": 8,
           "min": -7,
           "max": -6,
           "wind": 40,
@@ -10790,15 +11678,15 @@ export const snowForecasts = {
         },
         {
           "date": "2026-11-21",
-          "snowfall": 3,
+          "snowfall": 4,
           "min": -7,
           "max": -4,
-          "wind": 25,
+          "wind": 30,
           "weather": "にわか雪"
         },
         {
           "date": "2026-11-22",
-          "snowfall": 5,
+          "snowfall": 6,
           "min": -6,
           "max": -4,
           "wind": 15,
@@ -10810,14 +11698,22 @@ export const snowForecasts = {
           "min": -3,
           "max": 1,
           "wind": 20,
-          "weather": "小雪"
+          "weather": "曇り"
         },
         {
           "date": "2026-11-24",
-          "snowfall": 5,
+          "snowfall": 6,
           "min": -6,
           "max": 1,
-          "wind": 15,
+          "wind": 20,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 4,
+          "min": -5,
+          "max": -1,
+          "wind": 20,
           "weather": "小雪"
         }
       ]
@@ -10825,23 +11721,15 @@ export const snowForecasts = {
     "Yokoteyama": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/Yokoteyama/6day/mid",
       "elevation": 2028,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -7,
-          "wind": 30,
-          "snowfall": 6
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "小雪",
-          "temperature": -8,
-          "wind": 40,
-          "snowfall": 4
+          "temperature": -9,
+          "wind": 45,
+          "snowfall": 2
         },
         {
           "date": "2026-11-20",
@@ -10864,22 +11752,22 @@ export const snowForecasts = {
           "part": 0,
           "weather": "にわか雪",
           "temperature": -7,
-          "wind": 35,
+          "wind": 40,
           "snowfall": 0
         },
         {
           "date": "2026-11-21",
           "part": 1,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": -7,
-          "wind": 25,
-          "snowfall": 1
+          "wind": 30,
+          "snowfall": 0
         },
         {
           "date": "2026-11-21",
           "part": 2,
           "weather": "小雪",
-          "temperature": -8,
+          "temperature": -9,
           "wind": 15,
           "snowfall": 2
         },
@@ -10889,15 +11777,15 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -8,
           "wind": 20,
-          "snowfall": 4
+          "snowfall": 3
         },
         {
           "date": "2026-11-22",
           "part": 1,
           "weather": "にわか雪",
           "temperature": -8,
-          "wind": 20,
-          "snowfall": 0
+          "wind": 15,
+          "snowfall": 2
         },
         {
           "date": "2026-11-22",
@@ -10910,7 +11798,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "一部曇り",
+          "weather": "晴れる",
           "temperature": -3,
           "wind": 15,
           "snowfall": 0
@@ -10920,15 +11808,15 @@ export const snowForecasts = {
           "part": 1,
           "weather": "曇り",
           "temperature": -2,
-          "wind": 20,
+          "wind": 15,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "小雪",
-          "temperature": 0,
-          "wind": 35,
+          "weather": "一部曇り",
+          "temperature": -1,
+          "wind": 30,
           "snowfall": 0
         },
         {
@@ -10936,61 +11824,77 @@ export const snowForecasts = {
           "part": 0,
           "weather": "小雪",
           "temperature": -1,
-          "wind": 30,
-          "snowfall": 4
-        },
-        {
-          "date": "2026-11-24",
-          "part": 1,
-          "weather": "にわか雪",
-          "temperature": -3,
-          "wind": 30,
+          "wind": 35,
           "snowfall": 1
         },
         {
           "date": "2026-11-24",
+          "part": 1,
+          "weather": "小雪",
+          "temperature": -3,
+          "wind": 25,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-24",
           "part": 2,
-          "weather": "一部曇り",
+          "weather": "小雪",
           "temperature": -5,
-          "wind": 30,
+          "wind": 35,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -7,
+          "wind": 35,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
+          "weather": "にわか雪",
+          "temperature": -6,
+          "wind": 25,
+          "snowfall": 0
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": -2,
+          "wind": 20,
           "snowfall": 0
         }
       ],
       "current": {
-        "weather": "少量の雪",
-        "temperature": -7,
+        "weather": "小雪",
+        "temperature": -9,
         "minTemperature": -9,
-        "wind": 30,
-        "snowfall": 6
+        "wind": 45,
+        "snowfall": 2
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 6,
-          "min": -9,
-          "max": -7,
-          "wind": 30,
-          "weather": "少量の雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 10,
+          "snowfall": 8,
           "min": -10,
-          "max": -8,
+          "max": -9,
           "wind": 55,
           "weather": "小雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 3,
+          "snowfall": 2,
           "min": -9,
           "max": -7,
-          "wind": 35,
+          "wind": 40,
           "weather": "にわか雪"
         },
         {
           "date": "2026-11-22",
-          "snowfall": 4,
+          "snowfall": 5,
           "min": -8,
           "max": -5,
           "wind": 20,
@@ -11000,16 +11904,24 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "snowfall": 0,
           "min": -4,
-          "max": 0,
-          "wind": 35,
-          "weather": "小雪"
+          "max": -1,
+          "wind": 30,
+          "weather": "曇り"
         },
         {
           "date": "2026-11-24",
           "snowfall": 5,
-          "min": -7,
+          "min": -8,
           "max": -1,
-          "wind": 30,
+          "wind": 35,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 2,
+          "min": -7,
+          "max": -2,
+          "wind": 35,
           "weather": "小雪"
         }
       ]
@@ -11017,37 +11929,21 @@ export const snowForecasts = {
     "ShigaKogenKumanoyu": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/ShigaKogenKumanoyu/6day/mid",
       "elevation": 1820,
-      "issuedAt": "2 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 1,
-          "weather": "小雪",
-          "temperature": -4,
-          "wind": 30,
-          "snowfall": 3
-        },
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "小雪",
-          "temperature": -7,
-          "wind": 20,
-          "snowfall": 4
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "小雪",
-          "temperature": -6,
-          "wind": 30,
-          "snowfall": 3
+          "temperature": -7,
+          "wind": 40,
+          "snowfall": 2
         },
         {
           "date": "2026-11-20",
           "part": 1,
           "weather": "小雪",
-          "temperature": -7,
+          "temperature": -8,
           "wind": 45,
           "snowfall": 4
         },
@@ -11056,24 +11952,24 @@ export const snowForecasts = {
           "part": 2,
           "weather": "小雪",
           "temperature": -8,
-          "wind": 35,
-          "snowfall": 1
+          "wind": 30,
+          "snowfall": 2
         },
         {
           "date": "2026-11-21",
           "part": 0,
           "weather": "にわか雪",
-          "temperature": -6,
+          "temperature": -5,
           "wind": 30,
-          "snowfall": 1
+          "snowfall": 0
         },
         {
           "date": "2026-11-21",
           "part": 1,
           "weather": "にわか雪",
           "temperature": -5,
-          "wind": 15,
-          "snowfall": 1
+          "wind": 20,
+          "snowfall": 0
         },
         {
           "date": "2026-11-21",
@@ -11081,15 +11977,15 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": -7,
           "wind": 10,
-          "snowfall": 4
+          "snowfall": 3
         },
         {
           "date": "2026-11-22",
           "part": 0,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": -6,
           "wind": 15,
-          "snowfall": 2
+          "snowfall": 3
         },
         {
           "date": "2026-11-22",
@@ -11097,7 +11993,7 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -6,
           "wind": 15,
-          "snowfall": 1
+          "snowfall": 2
         },
         {
           "date": "2026-11-22",
@@ -11110,34 +12006,34 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "曇り",
-          "temperature": -1,
+          "weather": "晴れる",
+          "temperature": -2,
           "wind": 10,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 1,
-          "weather": "一部曇り",
-          "temperature": 0,
+          "weather": "曇り",
+          "temperature": -1,
           "wind": 15,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "小雪",
-          "temperature": 1,
+          "weather": "一部曇り",
+          "temperature": 0,
           "wind": 25,
           "snowfall": 0
         },
         {
           "date": "2026-11-24",
           "part": 0,
-          "weather": "少量の雪",
-          "temperature": 1,
-          "wind": 35,
-          "snowfall": 6
+          "weather": "小雪",
+          "temperature": 0,
+          "wind": 25,
+          "snowfall": 1
         },
         {
           "date": "2026-11-24",
@@ -11145,44 +12041,60 @@ export const snowForecasts = {
           "weather": "小雪",
           "temperature": -2,
           "wind": 15,
-          "snowfall": 3
+          "snowfall": 2
         },
         {
           "date": "2026-11-24",
           "part": 2,
+          "weather": "小雪",
+          "temperature": -4,
+          "wind": 25,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -5,
+          "wind": 25,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
           "weather": "にわか雪",
           "temperature": -5,
-          "wind": 30,
+          "wind": 15,
           "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": -1,
+          "wind": 15,
+          "snowfall": 0
         }
       ],
       "current": {
         "weather": "小雪",
-        "temperature": -4,
-        "minTemperature": -5,
-        "wind": 30,
-        "snowfall": 3
+        "temperature": -7,
+        "minTemperature": -7,
+        "wind": 40,
+        "snowfall": 2
       },
       "days": [
-        {
-          "date": "2026-11-19",
-          "snowfall": 7,
-          "min": -7,
-          "max": -4,
-          "wind": 30,
-          "weather": "小雪"
-        },
         {
           "date": "2026-11-20",
           "snowfall": 8,
           "min": -8,
-          "max": -6,
+          "max": -7,
           "wind": 45,
           "weather": "小雪"
         },
         {
           "date": "2026-11-21",
-          "snowfall": 6,
+          "snowfall": 3,
           "min": -8,
           "max": -5,
           "wind": 30,
@@ -11190,57 +12102,57 @@ export const snowForecasts = {
         },
         {
           "date": "2026-11-22",
-          "snowfall": 3,
+          "snowfall": 5,
           "min": -7,
           "max": -4,
           "wind": 15,
-          "weather": "小雪"
+          "weather": "にわか雪"
         },
         {
           "date": "2026-11-23",
           "snowfall": 0,
-          "min": -3,
-          "max": 1,
+          "min": -4,
+          "max": 0,
+          "wind": 25,
+          "weather": "曇り"
+        },
+        {
+          "date": "2026-11-24",
+          "snowfall": 5,
+          "min": -6,
+          "max": 0,
           "wind": 25,
           "weather": "小雪"
         },
         {
-          "date": "2026-11-24",
-          "snowfall": 10,
-          "min": -7,
-          "max": 1,
-          "wind": 35,
-          "weather": "少量の雪"
+          "date": "2026-11-25",
+          "snowfall": 3,
+          "min": -6,
+          "max": -1,
+          "wind": 25,
+          "weather": "小雪"
         }
       ]
     },
     "ShigaKogenSunValley": {
       "sourceUrl": "https://ja.snow-forecast.com/resorts/ShigaKogenSunValley/6day/mid",
       "elevation": 1475,
-      "issuedAt": "8 pm 19 Nov 2026",
+      "issuedAt": "2 am 20 Nov 2026",
       "periods": [
-        {
-          "date": "2026-11-19",
-          "part": 2,
-          "weather": "少量の雪",
-          "temperature": -4,
-          "wind": 10,
-          "snowfall": 5
-        },
         {
           "date": "2026-11-20",
           "part": 0,
           "weather": "小雪",
           "temperature": -4,
-          "wind": 20,
-          "snowfall": 3
+          "wind": 25,
+          "snowfall": 2
         },
         {
           "date": "2026-11-20",
           "part": 1,
           "weather": "小雪",
           "temperature": -5,
-          "wind": 35,
+          "wind": 30,
           "snowfall": 4
         },
         {
@@ -11262,18 +12174,18 @@ export const snowForecasts = {
         {
           "date": "2026-11-21",
           "part": 1,
-          "weather": "小雪",
+          "weather": "にわか雪",
           "temperature": -3,
           "wind": 10,
-          "snowfall": 1
+          "snowfall": 0
         },
         {
           "date": "2026-11-21",
           "part": 2,
           "weather": "小雪",
-          "temperature": -5,
+          "temperature": -6,
           "wind": 5,
-          "snowfall": 2
+          "snowfall": 3
         },
         {
           "date": "2026-11-22",
@@ -11281,7 +12193,7 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -4,
           "wind": 10,
-          "snowfall": 4
+          "snowfall": 3
         },
         {
           "date": "2026-11-22",
@@ -11289,7 +12201,7 @@ export const snowForecasts = {
           "weather": "にわか雪",
           "temperature": -4,
           "wind": 10,
-          "snowfall": 0
+          "snowfall": 2
         },
         {
           "date": "2026-11-22",
@@ -11302,7 +12214,7 @@ export const snowForecasts = {
         {
           "date": "2026-11-23",
           "part": 0,
-          "weather": "一部曇り",
+          "weather": "晴れる",
           "temperature": 0,
           "wind": 10,
           "snowfall": 0
@@ -11312,15 +12224,15 @@ export const snowForecasts = {
           "part": 1,
           "weather": "曇り",
           "temperature": 1,
-          "wind": 15,
+          "wind": 10,
           "snowfall": 0
         },
         {
           "date": "2026-11-23",
           "part": 2,
-          "weather": "小雨",
-          "temperature": 2,
-          "wind": 15,
+          "weather": "一部曇り",
+          "temperature": 1,
+          "wind": 20,
           "snowfall": 0
         },
         {
@@ -11328,48 +12240,64 @@ export const snowForecasts = {
           "part": 0,
           "weather": "小雪",
           "temperature": 2,
-          "wind": 10,
-          "snowfall": 4
+          "wind": 15,
+          "snowfall": 1
         },
         {
           "date": "2026-11-24",
           "part": 1,
-          "weather": "にわか雪",
+          "weather": "小雪",
           "temperature": 0,
-          "wind": 10,
-          "snowfall": 0
+          "wind": 5,
+          "snowfall": 1
         },
         {
           "date": "2026-11-24",
           "part": 2,
+          "weather": "小雪",
+          "temperature": -2,
+          "wind": 10,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 0,
+          "weather": "小雪",
+          "temperature": -3,
+          "wind": 15,
+          "snowfall": 2
+        },
+        {
+          "date": "2026-11-25",
+          "part": 1,
           "weather": "にわか雪",
           "temperature": -3,
-          "wind": 5,
+          "wind": 10,
+          "snowfall": 1
+        },
+        {
+          "date": "2026-11-25",
+          "part": 2,
+          "weather": "晴れる",
+          "temperature": 0,
+          "wind": 10,
           "snowfall": 0
         }
       ],
       "current": {
-        "weather": "少量の雪",
+        "weather": "小雪",
         "temperature": -4,
         "minTemperature": -5,
-        "wind": 10,
-        "snowfall": 5
+        "wind": 25,
+        "snowfall": 2
       },
       "days": [
         {
-          "date": "2026-11-19",
-          "snowfall": 5,
-          "min": -5,
-          "max": -4,
-          "wind": 10,
-          "weather": "少量の雪"
-        },
-        {
           "date": "2026-11-20",
-          "snowfall": 9,
+          "snowfall": 8,
           "min": -6,
           "max": -4,
-          "wind": 35,
+          "wind": 30,
           "weather": "小雪"
         },
         {
@@ -11382,7 +12310,7 @@ export const snowForecasts = {
         },
         {
           "date": "2026-11-22",
-          "snowfall": 4,
+          "snowfall": 5,
           "min": -4,
           "max": -3,
           "wind": 10,
@@ -11392,16 +12320,24 @@ export const snowForecasts = {
           "date": "2026-11-23",
           "snowfall": 0,
           "min": -2,
-          "max": 2,
-          "wind": 15,
-          "weather": "小雨"
+          "max": 1,
+          "wind": 20,
+          "weather": "曇り"
         },
         {
           "date": "2026-11-24",
           "snowfall": 4,
-          "min": -5,
+          "min": -4,
           "max": 2,
-          "wind": 10,
+          "wind": 15,
+          "weather": "小雪"
+        },
+        {
+          "date": "2026-11-25",
+          "snowfall": 3,
+          "min": -4,
+          "max": 0,
+          "wind": 15,
           "weather": "小雪"
         }
       ]
