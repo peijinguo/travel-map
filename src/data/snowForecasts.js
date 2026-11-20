@@ -1,6 +1,6 @@
 // 此檔案由 scripts/sync-snow-forecasts.mjs 自動產生，請勿手動修改。
 export const snowForecasts = {
-  "fetchedAt": "2026-11-19T23:21:17.986Z",
+  "fetchedAt": "2026-11-20T04:06:54.879Z",
   "resorts": {
     "nanae/0": "HakodateNanae",
     "mori/0": "Greenpia-Onuma",
