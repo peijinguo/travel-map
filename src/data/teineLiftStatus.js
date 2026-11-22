@@ -1,6 +1,6 @@
 // 此檔案由 scripts/sync-teine-lift-status.mjs 自動產生，請勿手動修改。
 export const teineLiftStatus = {
-  "updatedAt": "2026.11.22 14:10",
+  "updatedAt": "2026.11.23 7:03",
   "sourceUrl": "https://sapporo-teine.com/snow/gelande-report",
   "lifts": [
     {
@@ -16,8 +16,8 @@ export const teineLiftStatus = {
       "zone": "Highland Zone",
       "name": "Panorama No. 2",
       "officialName": "パノラマ2号",
-      "status": "運行中",
-      "detail": "9:00〜15:30 運行中"
+      "status": "運行予定",
+      "detail": "9:00〜15:30 運行予定"
     },
     {
       "id": 3,
@@ -25,7 +25,7 @@ export const teineLiftStatus = {
       "name": "Summit Express",
       "officialName": "サミットエクスプレス",
       "status": "運行中",
-      "detail": "（最終乗車15:30） ・パノラマ２号リフト（最終乗車15:30） ＜ご注意とお願い＞ コース内は未圧雪の場所やブッシュ露出している箇所があります。またコースコンデションによっては 小石や地山などが露出してくる場合がありますので、 滑走には十分ご注意のうえお楽しみください。 なお、ブッシュ等による板の破損については補償いたしかねますので、予めご了承ください。 山頂付近のコースからの開放となりますが、積雪状況により開放コースを順次拡大して参ります。 ＜コース内立ち入りについてのご注意とお願い＞ スキー場管理地内は、早朝よりコース整備のため圧雪車などによるコース整備が行われています。 大変危険ですので、コース内のハイクアップおよび滑走は固くお断りいたします。 場合によっては、スタッフがお声がけさせていただく場合がありますのでご注意ください。 ================================================================== &lt;Notice of Scheduled Opening&gt; We will begin operations for the 2026–2027 season on Sunday, November 22. We will initially open the courses near the summit, but will gradually expand the open courses depending on snow conditions. Please note that the Highland Ski Center is now open, and we look forward to welcoming customers purchasing “KWP” and “Night Ski Season Passes” (Reception Hours: 9:00 AM – 4:00 PM). &lt;Important Notice Regarding Access to the Slopes&gt; Within the ski resort grounds, preparations for the season—including the operation of snow-grooming vehicles—are underway from early in the morning. For your own safety, hiking up the slopes or skiing/snowboarding on the courses is strictly prohibited. 運行・オープン情報 天候状況などにより営業内容が変更される場合には、随時更新いたします。 リフトの運行状況 コースオープン状況 運行中 運行予定 天候調査中 一時運休中 運休中 .st1 { fill: #1E3250; } .st2 { fill: #FFFFFF; } .st4 { font-size: 26px; } ① ② ③ ④ ⑤ ⑥ ⑦ ⑧ ⑨ ⑩ リフトのステータス --> HIGHLAND ZONE パノラマ1号 9:00〜15:30 運休中 パノラマ2号 9:00〜15:30 運行中 サミットエクスプレス 9:00〜15:30 運行中"
+      "detail": "（最終乗車15:30） ・パノラマ２号リフト（最終乗車15:30） ＜ご注意とお願い＞ コース内は未圧雪の場所やブッシュ露出している箇所があります。またコースコンデションによっては 小石や地山などが露出してくる場合がありますので、 滑走には十分ご注意のうえお楽しみください。 なお、ブッシュ等による板の破損については補償いたしかねますので、予めご了承ください。 山頂付近のコースからの開放となりますが、積雪状況により開放コースを順次拡大して参ります。 ＜コース内立ち入りについてのご注意とお願い＞ スキー場管理地内は、早朝よりコース整備のため圧雪車などによるコース整備が行われています。 大変危険ですので、コース内のハイクアップおよび滑走は固くお断りいたします。 場合によっては、スタッフがお声がけさせていただく場合がありますのでご注意ください。 ================================================================== &lt;Notice of Scheduled Opening&gt; We will begin operations for the 2026–2027 season on Sunday, November 22. We will initially open the courses near the summit, but will gradually expand the open courses depending on snow conditions. Please note that the Highland Ski Center is now open, and we look forward to welcoming customers purchasing “KWP” and “Night Ski Season Passes” (Reception Hours: 9:00 AM – 4:00 PM). &lt;Important Notice Regarding Access to the Slopes&gt; Within the ski resort grounds, preparations for the season—including the operation of snow-grooming vehicles—are underway from early in the morning. For your own safety, hiking up the slopes or skiing/snowboarding on the courses is strictly prohibited. 運行・オープン情報 天候状況などにより営業内容が変更される場合には、随時更新いたします。 リフトの運行状況 コースオープン状況 運行中 運行予定 天候調査中 一時運休中 運休中 .st1 { fill: #1E3250; } .st2 { fill: #FFFFFF; } .st4 { font-size: 26px; } ① ② ③ ④ ⑤ ⑥ ⑦ ⑧ ⑨ ⑩ リフトのステータス --> HIGHLAND ZONE パノラマ1号 9:00〜15:30 運休中 パノラマ2号 9:00〜15:30 運行予定 サミットエクスプレス 9:00〜15:30 運行予定"
     },
     {
       "id": 4,
