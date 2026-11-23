@@ -1,6 +1,6 @@
 // 此檔案由 scripts/sync-kokusai-lift-status.mjs 自動產生，請勿手動修改。
 export const kokusaiLiftStatus = {
-  "syncedAt": "2026/11/23 07:45",
+  "syncedAt": "2026/11/23 12:11",
   "sourceUrl": "https://www.sapporo-kokusai.jp/slopes/",
   "courses": [
     {
@@ -10,7 +10,7 @@ export const kokusaiLiftStatus = {
       "maxSlope": "12°",
       "averageSlope": "8°",
       "distance": "1.2 km",
-      "status": "未開放"
+      "status": "開放中"
     },
     {
       "id": 2,
@@ -19,7 +19,7 @@ export const kokusaiLiftStatus = {
       "maxSlope": "12°",
       "averageSlope": "8°",
       "distance": "2.4 km",
-      "status": "未開放"
+      "status": "開放中"
     },
     {
       "id": 3,
@@ -28,7 +28,7 @@ export const kokusaiLiftStatus = {
       "maxSlope": "16°",
       "averageSlope": "11°",
       "distance": "1.2 km",
-      "status": "未開放"
+      "status": "開放中"
     },
     {
       "id": 4,
@@ -55,7 +55,7 @@ export const kokusaiLiftStatus = {
       "maxSlope": "22°",
       "averageSlope": "12°",
       "distance": "1.0 km",
-      "status": "未開放"
+      "status": "開放中"
     },
     {
       "id": 7,
