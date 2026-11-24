@@ -1,6 +1,6 @@
 // 此檔案由 scripts/sync-teine-lift-status.mjs 自動產生，請勿手動修改。
 export const teineLiftStatus = {
-  "updatedAt": "2026.11.24 7:45",
+  "updatedAt": "2026.11.24 14:37",
   "sourceUrl": "https://sapporo-teine.com/snow/gelande-report",
   "lifts": [
     {
@@ -89,13 +89,13 @@ export const teineLiftStatus = {
       "id": "HZ-1",
       "zone": "Highland Zone",
       "officialName": "シティビュークルーズ",
-      "status": "部分開放"
+      "status": "關閉"
     },
     {
       "id": "HZ-2",
       "zone": "Highland Zone",
       "officialName": "シティビューパノラマ",
-      "status": "部分開放"
+      "status": "關閉"
     },
     {
       "id": "HZ-3",
@@ -113,7 +113,7 @@ export const teineLiftStatus = {
       "id": "HZ-5",
       "zone": "Highland Zone",
       "officialName": "ナチュラル",
-      "status": "開放"
+      "status": "關閉"
     },
     {
       "id": "HZ-6",
@@ -125,7 +125,7 @@ export const teineLiftStatus = {
       "id": "HZ-7",
       "zone": "Highland Zone",
       "officialName": "パラダイス",
-      "status": "部分開放"
+      "status": "關閉"
     },
     {
       "id": "OZ-1",

@@ -454,12 +454,12 @@ export const flightLive = {
   "BR132|2026-11-24": {
     "way": "D",
     "terminal": "2",
-    "gate": "C7",
+    "gate": "C6",
     "time": "08:30",
     "estimatedDate": "2026-11-24",
-    "estimatedTime": "08:20",
+    "estimatedTime": "08:47",
     "airport": "KIX",
-    "status": "準時",
+    "status": "出發",
     "belt": "",
     "counter": "21"
   }
