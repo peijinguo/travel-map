@@ -1,6 +1,6 @@
 // 此檔案由 scripts/sync-teine-lift-status.mjs 自動產生，請勿手動修改。
 export const teineLiftStatus = {
-  "updatedAt": "2026.11.24 14:37",
+  "updatedAt": "2026.11.25 7:21",
   "sourceUrl": "https://sapporo-teine.com/snow/gelande-report",
   "lifts": [
     {
